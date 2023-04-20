@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
-
 import { RecoilRoot } from 'recoil';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
+
+import useTheme from './hooks/useTheme';
 
 import Root from './pages/Root';
 
@@ -14,8 +14,7 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  const [colorScheme, setColorScheme] = useState('light');
-  const toggleColorScheme = value => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const [colorScheme, toggleColorScheme] = useTheme();
 
   return (
     <RecoilRoot>
