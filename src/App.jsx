@@ -4,12 +4,16 @@ import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { RecoilRoot } from 'recoil';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Root from './pages/Root';
+import { Root, MyPage } from './pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+  },
+  {
+    path: '/mypage',
+    element: <MyPage />,
   },
 ]);
 
