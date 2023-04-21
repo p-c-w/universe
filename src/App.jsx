@@ -4,7 +4,7 @@ import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 
 import useTheme from './hooks/useTheme';
 
-import { Root, SignIn, SignUp } from './pages/index';
+import { Root, SignIn } from './pages/index';
 
 const router = createBrowserRouter([
   {
@@ -15,10 +15,10 @@ const router = createBrowserRouter([
     path: '/signin',
     element: <SignIn />,
   },
-  {
-    path: '/signup',
-    element: <SignUp />,
-  },
+  // {
+  //   path: '/signup',
+  //   element: <SignUp />,
+  // },
 ]);
 
 const App = () => {
