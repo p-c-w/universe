@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Title } from '@mantine/core';
-import { ListButton } from '../components';
+import { ListButton, ThemeButton } from '../components';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -56,6 +56,7 @@ const MyPage = () => {
           <ListButton tooltip="내가 본 컨텐츠">History</ListButton>
         </ListButtons>
       </MyListContainer>
+      <ThemeButton />
     </Container>
   );
 };
