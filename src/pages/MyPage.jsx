@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Title } from '@mantine/core';
-import { ListButton, MyList, ThemeButton } from '../components';
+import { Title, Text } from '@mantine/core';
+import { ListButton, MyList, ThemeButton, Badges } from '../components';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -9,16 +9,39 @@ const Container = styled.div`
 
 const TopSection = styled.div`
   display: flex;
+  position: relative;
+  top: 1.5rem;
   gap: 1rem;
-  div {
-    width: 38.75rem;
-  }
 `;
 
+const SubscriptionInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 38.75rem;
+`;
+
+const PredictedSubscription = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const PredictedTitleSection = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const Statistics = styled.div`
+  width: 38.75rem;
+  text-align: center;
+`;
 const MyListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  position: relative;
+  top: 1.5rem;
 `;
 
 const ListButtons = styled.div`
@@ -34,11 +57,18 @@ const MyPage = () => {
   console.log();
   return (
     <Container>
-      <Title order={1}>000's Universe</Title>
+      <Title order={1}>OOO's Universe</Title>
       <TopSection>
-        <div className="subscribe">
-          <Title order={3}>예상 구독료</Title>
-          <div className="badges"></div>
+        <SubscriptionInfo>
+          <PredictedSubscription>
+            <PredictedTitleSection>
+              <Title order={3} align="left">
+                예상 구독료
+              </Title>
+              <Badges />
+            </PredictedTitleSection>
+            <Text fz="3.5rem">₩17,800</Text>
+          </PredictedSubscription>
           <div>
             <div>
               <Title order={4}>현재 나의 구독료</Title>
@@ -50,8 +80,8 @@ const MyPage = () => {
               <div className="no-badges"></div>
             </div>
           </div>
-        </div>
-        <div className="static">static graph</div>
+        </SubscriptionInfo>
+        <Statistics className="static">Statistics graph</Statistics>
       </TopSection>
       <MyListContainer>
         <ListButtons className="mylist">
