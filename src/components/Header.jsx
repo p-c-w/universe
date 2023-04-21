@@ -1,14 +1,19 @@
-import { useDisclosure } from '@mantine/hooks';
-import { Burger, Button, useMantineColorScheme } from '@mantine/core';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
+
+import { Burger, Button, useMantineColorScheme } from '@mantine/core';
+import isSideNavOpenState from '../recoil/atom/isSideNavOpenState';
+
 import SearchBar from './SearchBar';
 
 const Container = styled.div`
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 4.875rem;
-  margin: 0 auto;
+  width: 100%;
+  top: 0;
 `;
 
 const BugerButton = styled(Burger)`
@@ -27,14 +32,14 @@ const SignInButton = styled(Button)`
 `;
 
 const Header = () => {
-  const [opened, { toggle }] = useDisclosure(false);
+  const [isOpened, setIsOpend] = useRecoilState(isSideNavOpenState);
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-  const label = opened ? 'Close navigation' : 'Open navigation';
+  const label = isOpened ? 'Close navigation' : 'Open navigation';
 
   return (
     <Container>
-      <BugerButton opened={opened} onClick={toggle} aria-label={label} />
+      <BugerButton opened={isOpened} onClick={() => setIsOpend(!isOpened)} aria-label={label} />
       <Logo>
         <img src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`} alt="home button" />
       </Logo>

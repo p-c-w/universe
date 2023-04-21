@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import useTheme from './hooks/useTheme';
 
-import { Root, SignIn, SignUp } from './pages/index';
+import { Root, SignIn } from './pages/index';
 
 const queryClient = new QueryClient();
 
@@ -19,10 +19,10 @@ const router = createBrowserRouter([
     path: '/signin',
     element: <SignIn />,
   },
-  {
-    path: '/signup',
-    element: <SignUp />,
-  },
+  // {
+  //   path: '/signup',
+  //   element: <SignUp />,
+  // },
 ]);
 
 const App = () => {
