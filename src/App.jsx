@@ -4,12 +4,20 @@ import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { RecoilRoot } from 'recoil';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import Root from './pages/Root';
+import { Root, SignIn, SignUp } from './pages/index';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+  },
+  {
+    path: '/signin',
+    element: <SignIn />,
+  },
+  {
+    path: '/signup',
+    element: <SignUp />,
   },
 ]);
 
@@ -21,7 +29,7 @@ const App = () => {
     <RecoilRoot>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider
-          theme={{ fontFamily: 'Spoqa Han Sans Neo', colorScheme }}
+          theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme }}
           withCSSVariables
           withGlobalStyles
           withNormalizeCSS>
