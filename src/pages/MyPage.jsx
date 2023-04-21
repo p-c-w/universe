@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { Title } from '@mantine/core';
+import { ListButton } from '../components';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -12,6 +13,17 @@ const TopSection = styled.div`
   div {
     width: 38.75rem;
   }
+`;
+
+const MyListContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const ListButtons = styled.div`
+  display: flex;
+  gap: 0.5rem;
 `;
 
 const MyPage = () => {
@@ -37,6 +49,13 @@ const MyPage = () => {
         </div>
         <div className="static">static graph</div>
       </TopSection>
+      <MyListContainer>
+        <ListButtons className="mylist">
+          <ListButton tooltip="이번달에 보고있거나 볼 컨텐츠">Watch</ListButton>
+          <ListButton tooltip="좋아요한 컨텐츠">Like</ListButton>
+          <ListButton tooltip="내가 본 컨텐츠">History</ListButton>
+        </ListButtons>
+      </MyListContainer>
     </Container>
   );
 };
