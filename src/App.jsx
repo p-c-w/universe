@@ -20,7 +20,7 @@ const App = () => {
     <RecoilRoot>
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider
-          theme={{ fontFamily: 'Spoqa Han Sans Neo', colorScheme }}
+          theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme }}
           withCSSVariables
           withGlobalStyles
           withNormalizeCSS>
