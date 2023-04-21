@@ -26,6 +26,10 @@ const ListButtons = styled.div`
   gap: 0.5rem;
 `;
 
+const MyListSection = styled.div`
+  /* display: flex; */
+`;
+
 const MyPage = () => {
   console.log();
   return (
@@ -55,7 +59,10 @@ const MyPage = () => {
           <ListButton tooltip="좋아요한 컨텐츠">Like</ListButton>
           <ListButton tooltip="내가 본 컨텐츠">History</ListButton>
         </ListButtons>
-        <MyList />
+        <MyListSection>
+          <MyList />
+          <div>img</div>
+        </MyListSection>
       </MyListContainer>
       <ThemeButton />
     </Container>
