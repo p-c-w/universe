@@ -1,5 +1,14 @@
 import React from 'react';
+import { Header, ThemeButton } from '../components';
 
-const Root = () => <div>Root</div>;
+const Root = () => {
+  console.log('Root');
+  return (
+    <>
+      <Header />
+      <ThemeButton />
+    </>
+  );
+};
 
 export default Root;
