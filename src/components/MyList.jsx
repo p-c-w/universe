@@ -24,6 +24,8 @@ const mockData = [
   },
 ];
 
+const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
+
 const AccordionLabel = ({ title, image }) => (
   <Group noWrap>
     <Badge src={image} />
@@ -46,7 +48,7 @@ const MyList = () => {
         <AccordionLabel {...item} />
       </Accordion.Control>
       <Accordion.Panel>
-        <Text size="sm">{'2022.xx.xx'}에 추가함</Text>
+        <Text size="sm">{getAddedDate(item.modified_at)}에 추가함</Text>
         <Text href="#" c="dimmed" fz="xs">
           상세페이지로
         </Text>
