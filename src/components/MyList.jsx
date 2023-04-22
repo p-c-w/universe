@@ -1,6 +1,6 @@
-import { Group, Text, Accordion, Button } from '@mantine/core';
 import { useRef } from 'react';
-import { Badge } from './index';
+import { Group, Text, Accordion } from '@mantine/core';
+import { Badge, ListBadges } from './index';
 
 // mockdata
 const users = [
@@ -84,12 +84,7 @@ const AccordionLabel = ({ title, providerImg }) => (
     <Badge src={providerImg} />
     <div>
       <Text>{title}</Text>
-      <Button variant="subtle" size="xs" compact>
-        ♥︎
-      </Button>
-      <Button variant="subtle" size="xs" compact>
-        🕰️
-      </Button>
+      <ListBadges />
     </div>
   </Group>
 );
