@@ -54,31 +54,34 @@ const users = [
 const mockData = [
   {
     id: '507129',
-    image: 'assets/badges/appletvplus.svg',
+    providerImg: 'assets/badges/appletvplus.svg',
     title: '모범택시',
+    contentImg: 'https://image.tmdb.org/t/p/w300/xHB43aUOtIezsD0lUzA0Sqk7ALr.jpg',
     modified_at: '2021-05-18T12:59:32.746Z',
   },
 
   {
     id: '37692',
-    image: 'assets/badges/disneyplus.svg',
+    providerImg: 'assets/badges/disneyplus.svg',
     title: '기생충',
+    contentImg: 'https://image.tmdb.org/t/p/w300/jjHccoFjbqlfr4VGLVLT7yek0Xn.jpg',
     modified_at: '2021-05-18T12:59:32.746Z',
   },
 
   {
     id: '54823',
-    image: 'assets/badges/wavve.svg',
+    providerImg: 'assets/badges/wavve.svg',
     title: 'Avengers',
+    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
     modified_at: '2021-05-18T12:59:32.746Z',
   },
 ];
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
-const AccordionLabel = ({ title, image }) => (
+const AccordionLabel = ({ title, providerImg }) => (
   <Group noWrap>
-    <Badge src={image} />
+    <Badge src={providerImg} />
     <div>
       <Text>{title}</Text>
       <Button variant="subtle" size="xs" compact>
@@ -91,7 +94,7 @@ const AccordionLabel = ({ title, image }) => (
   </Group>
 );
 
-const MyList = ({ setSelected }) => {
+const MyList = ({ setSelected, setImgSrc }) => {
   const itemRef = useRef(null);
 
   const items = mockData.map(item => (
@@ -108,9 +111,10 @@ const MyList = ({ setSelected }) => {
     </Accordion.Item>
   ));
 
-  const handleChange = event => {
-    itemRef.current = event;
+  const handleChange = e => {
+    itemRef.current = e;
     setSelected(itemRef.current !== null);
+    setImgSrc(mockData.find(item => item.id === e)?.contentImg);
   };
 
   return (
