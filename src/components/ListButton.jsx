@@ -1,10 +1,14 @@
-import { Button, Tooltip } from '@mantine/core';
+import { Button, Tooltip, useMantineColorScheme } from '@mantine/core';
 
 const ListButton = ({ tooltip, children }) => {
-  console.log();
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
+
   return (
     <Tooltip label={tooltip}>
-      <Button radius="xl">{children}</Button>
+      <Button radius="xl" color={dark ? '' : 'gray'}>
+        {children}
+      </Button>
     </Tooltip>
   );
 };
