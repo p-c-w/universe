@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
-
 import { RecoilRoot } from 'recoil';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import { Root, MyPage } from './pages';
+import useTheme from './hooks/useTheme';
+
+import { Root, MyPage, SignIn } from './pages';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -15,23 +19,34 @@ const router = createBrowserRouter([
     path: '/mypage',
     element: <MyPage />,
   },
+  {
+    path: '/signin',
+    element: <SignIn />,
+  },
+  // {
+  //   path: '/signup',
+  //   element: <SignUp />,
+  // },
+
 ]);
 
 const App = () => {
-  const [colorScheme, setColorScheme] = useState('light');
-  const toggleColorScheme = value => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const [colorScheme, toggleColorScheme] = useTheme();
 
   return (
     <RecoilRoot>
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider
-          theme={{ fontFamily: 'Spoqa Han Sans Neo', colorScheme }}
-          withCSSVariables
-          withGlobalStyles
-          withNormalizeCSS>
-          <RouterProvider router={router} />
-        </MantineProvider>
-      </ColorSchemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+          <MantineProvider
+            theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme }}
+            withCSSVariables
+            withGlobalStyles
+            withNormalizeCSS>
+            <RouterProvider router={router} />
+          </MantineProvider>
+        </ColorSchemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </RecoilRoot>
   );
 };
