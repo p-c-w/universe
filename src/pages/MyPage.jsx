@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Title, Text, Accordion, Center, Paper, Badge, Flex, rem, Box } from '@mantine/core';
+import { Title, Text, Accordion, Paper, Badge, Flex, rem, Box } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { ListButton, MyList, ThemeButton, Badges } from '../components';
 
@@ -58,10 +59,17 @@ const ListButtons = styled.div`
 `;
 
 const MyListSection = styled.div`
-  /* display: flex; */
+  display: flex;
+  gap: 1rem;
+`;
+
+const ContentImage = styled.div`
+  display: ${props => (props.open ? 'block' : 'none')};
+  width: 30%;
 `;
 
 const MyPage = () => {
+  const [selected, setSelected] = useState(false);
   console.log();
   return (
     <Container>
@@ -157,8 +165,8 @@ const MyPage = () => {
           <ListButton tooltip="내가 본 컨텐츠">History</ListButton>
         </ListButtons>
         <MyListSection>
-          <MyList />
-          <div>img</div>
+          <MyList setSelected={setSelected} />
+          <ContentImage open={selected}>img</ContentImage>
         </MyListSection>
       </MyListContainer>
       <ThemeButton />

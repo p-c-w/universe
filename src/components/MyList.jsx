@@ -1,5 +1,5 @@
-import styled from '@emotion/styled';
 import { Group, Text, Accordion, Button } from '@mantine/core';
+import { useRef } from 'react';
 import { Badge } from './index';
 
 // mockdata
@@ -91,7 +91,9 @@ const AccordionLabel = ({ title, image }) => (
   </Group>
 );
 
-const MyList = () => {
+const MyList = ({ setSelected }) => {
+  const itemRef = useRef(null);
+
   const items = mockData.map(item => (
     <Accordion.Item value={item.id} key={item.id}>
       <Accordion.Control>
@@ -106,8 +108,13 @@ const MyList = () => {
     </Accordion.Item>
   ));
 
+  const handleChange = event => {
+    itemRef.current = event;
+    setSelected(itemRef.current !== null);
+  };
+
   return (
-    <Accordion chevronPosition="right" variant="separated">
+    <Accordion chevronPosition="right" variant="separated" sx={{ width: '100%' }} onChange={handleChange}>
       {items}
     </Accordion>
   );
