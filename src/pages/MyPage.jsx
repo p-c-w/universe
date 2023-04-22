@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
-import { Title, Text, Accordion, Paper, Box, Image, Badge, Flex } from '@mantine/core';
+import { Title, Text, Accordion, Center, Paper, Badge, Flex, rem, Box } from '@mantine/core';
+import { Carousel } from '@mantine/carousel';
 import { ListButton, MyList, ThemeButton, Badges } from '../components';
 
 const Container = styled.div`
@@ -41,7 +42,7 @@ const PresentSubscriptionFee = styled(Accordion)`
   }
 `;
 
-const Statistics = styled.div`
+const Statistics = styled(Carousel)`
   width: 38.75rem;
   text-align: center;
 `;
@@ -95,7 +96,59 @@ const MyPage = () => {
             </Flex>
           </PresentSubscription>
         </SubscriptionInfo>
-        <Statistics>Statistics graph</Statistics>
+        <Statistics
+          height="100%"
+          loop
+          withIndicators
+          styles={{
+            indicator: {
+              backgroundColor: 'gray',
+              width: rem(12),
+              height: rem(4),
+              transition: 'width 250ms ease',
+
+              '&[data-active]': {
+                width: rem(40),
+              },
+            },
+          }}>
+          <Carousel.Slide>
+            <Box
+              sx={{
+                backgroundColor: 'lightgray',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              1
+            </Box>
+          </Carousel.Slide>
+          <Carousel.Slide>
+            <Box
+              sx={{
+                backgroundColor: 'lightgray',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              2
+            </Box>
+          </Carousel.Slide>
+          <Carousel.Slide>
+            <Box
+              sx={{
+                backgroundColor: 'lightgray',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              3
+            </Box>
+          </Carousel.Slide>
+        </Statistics>
       </TopSection>
       <MyListContainer>
         <ListButtons className="mylist">
