@@ -1,24 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
-import { Link } from 'react-router-dom';
-import { Container, TextInput, PasswordInput, Button } from '@mantine/core';
-
-const Top = styled.div`
-  padding: 40px 80px;
-`;
-
-const Logo = styled.button`
-  width: 3.75rem;
-  height: 3.75rem;
-  border: none;
-  background-color: transparent;
-  float: left;
-`;
-
-const Callout = styled.div`
-  float: right;
-`;
+import { TextInput, PasswordInput, Button } from '@mantine/core';
 
 const EmailInput = styled(TextInput)`
   > label,
@@ -82,40 +65,29 @@ const InputButton = styled(Button)`
 
 const SignupForm = () => (
   <>
-    <Top className="conatiner top">
-      <Logo>
-        <img src={`./assets/logos/universeLogoWhite.svg`} alt="home button" />
-      </Logo>
-      <Callout>
-        <span>Already have an account?</span>
-        <Link to="/signin">Sign in→</Link>
-      </Callout>
-    </Top>
-    <Container style={{ width: '600px', padding: '20px', border: '1px solid #373a40', borderRadius: '6px' }}>
-      <FirstTypeOut>Welcome to Universe!</FirstTypeOut>
-      <SecondTypeOut>Let{`'`}s begin the adventure🚀👾</SecondTypeOut>
-      <InputWrapper>
-        <EmailInput style={{ width: '600px' }} label="Enter your email" withAsterisk />
-        <InputButton variant="outline" color="gray">
-          Continue
-        </InputButton>
-      </InputWrapper>
-      <InputWrapper>
-        <PasswordFormInput style={{ width: '100%' }} label="Create a password" withAsterisk />
-        <InputButton variant="outline" color="gray">
-          Continue
-        </InputButton>
-      </InputWrapper>
-      <InputWrapper>
-        <PasswordFormInput style={{ width: '100%' }} label="Please enter your password again" withAsterisk />
-        <InputButton variant="outline" color="gray">
-          Continue
-        </InputButton>
-      </InputWrapper>
-      <Button fullWidth style={{ float: 'right' }}>
-        Sign Up
-      </Button>
-    </Container>
+    <FirstTypeOut>Welcome to Universe!</FirstTypeOut>
+    <SecondTypeOut>Let{`'`}s begin the adventure🚀👾</SecondTypeOut>
+    <InputWrapper>
+      <EmailInput style={{ width: '600px' }} label="Enter your email" withAsterisk />
+      <InputButton variant="outline" color="gray">
+        Continue
+      </InputButton>
+    </InputWrapper>
+    <InputWrapper>
+      <PasswordFormInput style={{ width: '100%' }} label="Create a password" withAsterisk />
+      <InputButton variant="outline" color="gray">
+        Continue
+      </InputButton>
+    </InputWrapper>
+    <InputWrapper>
+      <PasswordFormInput style={{ width: '100%' }} label="Please enter your password again" withAsterisk />
+      <InputButton variant="outline" color="gray">
+        Continue
+      </InputButton>
+    </InputWrapper>
+    <Button fullWidth style={{ float: 'right' }}>
+      Sign Up
+    </Button>
   </>
 );
 
