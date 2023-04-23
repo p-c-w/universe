@@ -17,6 +17,7 @@ const Container = styled.nav`
 
 const ListContainer = styled.ul`
   padding: 0;
+  margin: 0;
 `;
 
 const List = styled.li`
@@ -27,6 +28,7 @@ const List = styled.li`
   height: 2.25rem;
   margin: 1.25rem 1.875rem;
   padding: 5px;
+  font-size: 0.875rem;
   cursor: pointer;
 `;
 
