@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, SideNavBar, Content, ThemeButton } from '../components';
+import { Header, SideNavBar, Content, ThemeButton, Banner } from '../components';
 
 const Root = () => {
   console.log('Root');
@@ -7,7 +7,9 @@ const Root = () => {
     <>
       <Header />
       <SideNavBar />
-      <Content>{/* 내부 컨텐츠 컴포넌트 넣어주세요 */}</Content>
+      <Content>
+        <Banner />
+      </Content>
       <ThemeButton />
     </>
   );
