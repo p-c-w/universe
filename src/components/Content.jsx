@@ -3,16 +3,18 @@ import { useRecoilValue } from 'recoil';
 import isSideNavOpenState from '../recoil/atom/isSideNavOpenState';
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  margin-top: ${({ isOpend }) => (isOpend ? '12.5rem' : '4.875rem')};
-  margin-left: 6.25rem;
+  width: calc(100vw - ${({ isOpened }) => (isOpened ? '12.5rem' : '4.875rem')});
+  height: calc(100vh - 6.25rem);
+  margin-top: 4.875rem;
+  margin-left: ${({ isOpened }) => (isOpened ? '12.5rem' : '4.875rem')};
+  margin-right: 4.875rem;
+  padding: 1.875rem;
 `;
 
 const Content = ({ children }) => {
-  const isOpend = useRecoilValue(isSideNavOpenState);
+  const isOpened = useRecoilValue(isSideNavOpenState);
 
-  return <Container isOpened={isOpend}>{children}</Container>;
+  return <Container isOpened={isOpened}>{children}</Container>;
 };
 
 export default Content;
