@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
-// import { SigninForm } from '../components';
+import { SigninForm } from '../components';
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const Form = styled.div`
 `;
 
 const Callout = styled.div`
-  border: ${({ darkmode }) => (darkmode ? '1px solid hsla(210,18%,87%,1)' : '1px solid #d0d7de')};
+  border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[1])};
   border-radius: 0.375rem;
   text-align: center;
   margin: 1rem 0 10px 0;
@@ -58,8 +58,8 @@ const SignIn = () => {
             </LogoImg>
           </AuthHeader>
           <Form>
-            {/* <SigninForm darkmode={dark} /> */}
-            <Callout darkmode={dark}>
+            <SigninForm />
+            <Callout>
               <p className="login-callout">
                 New to Universe? <CreateAccount to="/signup">Create an accout</CreateAccount>.
               </p>
