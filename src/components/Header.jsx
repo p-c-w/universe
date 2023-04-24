@@ -2,12 +2,11 @@ import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
 import { Burger, Button, useMantineColorScheme } from '@mantine/core';
-import isSideNavOpenState from '../recoil/atom/isSideNavOpenState';
+import sideNavOpenedState from '../recoil/atom/sideNavOpenedState';
 
 import SearchBar from './SearchBar';
 
 const Container = styled.div`
-  position: fixed;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,7 +19,7 @@ const BugerButton = styled(Burger)`
   margin: 0 1.875rem;
 `;
 
-const Logo = styled.button`
+const LogoContainer = styled.button`
   width: 3.75rem;
   height: 3.75rem;
   border: none;
@@ -32,19 +31,19 @@ const SignInButton = styled(Button)`
 `;
 
 const Header = () => {
-  const [isOpened, setIsOpend] = useRecoilState(isSideNavOpenState);
+  const [opened, setOpened] = useRecoilState(sideNavOpenedState);
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-  const label = isOpened ? 'Close navigation' : 'Open navigation';
+  const label = opened ? 'Close navigation' : 'Open navigation';
 
   return (
     <Container>
-      <BugerButton opened={isOpened} onClick={() => setIsOpend(!isOpened)} aria-label={label} />
-      <Logo>
+      <BugerButton opened={opened} onClick={opened => setOpened(!opened)} aria-label={label} />
+      <LogoContainer>
         <img src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`} alt="home button" />
-      </Logo>
+      </LogoContainer>
       <SearchBar />
-      <SignInButton variant="outline" color={dark ? 'gray' : 'dark'}>
+      <SignInButton variant="outline" color={dark ? 'gray' : 'dark'} height={20}>
         Sign in
       </SignInButton>
     </Container>

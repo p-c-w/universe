@@ -1,15 +1,23 @@
 import { RecoilRoot } from 'recoil';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import useTheme from './hooks/useTheme';
 
-import { Root, SignIn } from './pages/index';
+import { Root, MyPage, SignIn } from './pages';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+  },
+  {
+    path: '/mypage',
+    element: <MyPage />,
   },
   {
     path: '/signin',
@@ -26,15 +34,18 @@ const App = () => {
 
   return (
     <RecoilRoot>
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider
-          theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme }}
-          withCSSVariables
-          withGlobalStyles
-          withNormalizeCSS>
-          <RouterProvider router={router} />
-        </MantineProvider>
-      </ColorSchemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+          <MantineProvider
+            theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme, primaryColor: 'violet' }}
+            withCSSVariables
+            withGlobalStyles
+            withNormalizeCSS>
+            <RouterProvider router={router} />
+          </MantineProvider>
+        </ColorSchemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </RecoilRoot>
   );
 };
