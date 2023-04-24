@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-// import { keyframes } from '@emotion/react';
 import { TextInput, PasswordInput, Button } from '@mantine/core';
 
 import Typing from './Typing';
@@ -30,6 +29,7 @@ const InputWrapper = styled.div`
 const InputButton = styled(Button)`
   float: right;
   align-self: flex-end;
+  font-weight: 300;
 `;
 
 const SignupForm = ({ setActive }) => {
