@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion, Box, Container } from '@mantine/core';
-import { SubscribeBadges, SubscriptionServices } from './index';
+import { ProviderBadges, SubscriptionProviders, ProviderChips } from './index';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -17,7 +18,12 @@ const PresentSubscriptionFee = styled(Accordion)`
 `;
 
 const CurrentSubscriptionInfo = () => {
-  console.log();
+  const [editMode, setEditMode] = useState(false);
+
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+
   return (
     <StyledContainer>
       <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
@@ -27,7 +33,7 @@ const CurrentSubscriptionInfo = () => {
             <Text size="2rem">₩29,800</Text>
           </Accordion.Control>
           <Accordion.Panel>
-            <SubscriptionServices />
+            {editMode ? <ProviderChips onClick={toggleEditMode} /> : <SubscriptionProviders onClick={toggleEditMode} />}
           </Accordion.Panel>
         </Accordion.Item>
       </PresentSubscriptionFee>
@@ -35,7 +41,7 @@ const CurrentSubscriptionInfo = () => {
         <Title order={5} mb={10}>
           구독하고 있지만 보고 있지 않아요
         </Title>
-        <SubscribeBadges />
+        <ProviderBadges />
       </Box>
     </StyledContainer>
   );

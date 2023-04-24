@@ -3,7 +3,7 @@ import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconDiscountCheck } from '@tabler/icons-react';
 import PROVIDERS from '../../constants/provides';
 
-const ServiceChips = () => {
+const ProviderChips = ({ onClick }) => {
   const [value, setValue] = useState(['Watcha', 'Wavve']);
 
   return (
@@ -12,7 +12,7 @@ const ServiceChips = () => {
         <Title order={5} fw={400}>
           구독중인 서비스를 선택해주세요.
         </Title>
-        <ActionIcon variant="transparent" align="center">
+        <ActionIcon variant="transparent" align="center" onClick={onClick}>
           <IconDiscountCheck size="1rem" />
         </ActionIcon>
       </Flex>
@@ -29,4 +29,4 @@ const ServiceChips = () => {
   );
 };
 
-export default ServiceChips;
+export default ProviderChips;
