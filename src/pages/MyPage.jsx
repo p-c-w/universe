@@ -23,7 +23,7 @@ const MyPage = () => {
               <Text
                 fz="3.5rem"
                 color={dark ? theme.colors[theme.primaryColor][2] : theme.colors[theme.primaryColor][9]}
-                fw={600}>
+                fw={500}>
                 ₩17,800
               </Text>
             </Box>

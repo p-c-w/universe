@@ -26,7 +26,7 @@ const NameInput = styled(TextInput)`
 
 const MypageTitle = () => {
   const [editMode, setEditMode] = useState(false);
-  const [value, setValue] = useState('OOO');
+  const [value, setValue] = useState('세파피');
 
   const handleKeyUp = e => {
     const content = e.target.value.trim();
@@ -36,7 +36,7 @@ const MypageTitle = () => {
 
   return (
     <StyledContainer mb="1rem" spacing={5} align="start">
-      <PageTitle order={1} size={40} fw={900}>
+      <PageTitle order={1} size={40} fw={900} variant="gradient" gradient={{ from: 'violet', to: 'cyan', deg: 145 }}>
         {editMode ? (
           <NameInput
             variant="unstyled"
