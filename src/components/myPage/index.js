@@ -7,3 +7,4 @@ export { default as Statistics } from './Statistics';
 export { default as SubscriptionProviders } from './SubscriptionProviders';
 export { default as CurrentSubscriptionInfo } from './CurrentSubscriptionInfo';
 export { default as ProviderChips } from './ProviderChips';
+export { default as PredictedSubscription } from './PredictedSubscription';
