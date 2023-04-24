@@ -28,6 +28,12 @@ const MypageTitle = () => {
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState('OOO');
 
+  const handleKeyUp = e => {
+    const content = e.target.value.trim();
+    if (e.key !== 'Enter' || content === '') return;
+    setEditMode(false);
+  };
+
   return (
     <StyledContainer mb="1rem" spacing={5} align="start">
       <PageTitle order={1} size={40} fw={900}>
@@ -38,11 +44,12 @@ const MypageTitle = () => {
             onChange={e => {
               setValue(e.currentTarget.value);
             }}
+            onKeyUp={handleKeyUp}
             placeholder="Your Name"
             ref={node => node?.focus()}
           />
         ) : (
-          `OOO`
+          value
         )}
         &apos;s Universe
       </PageTitle>
