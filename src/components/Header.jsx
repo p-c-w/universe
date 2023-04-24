@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 
 import { Burger, Button, useMantineColorScheme } from '@mantine/core';
-import isSideNavOpenState from '../recoil/atom/sideNavOpenedState';
+import sideNavOpenedState from '../recoil/atom/sideNavOpenedState';
 
 import SearchBar from './SearchBar';
 
@@ -31,7 +31,7 @@ const SignInButton = styled(Button)`
 `;
 
 const Header = () => {
-  const [opened, setOpened] = useRecoilState(isSideNavOpenState);
+  const [opened, setOpened] = useRecoilState(sideNavOpenedState);
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
   const label = opened ? 'Close navigation' : 'Open navigation';

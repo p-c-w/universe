@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { Navbar, Transition } from '@mantine/core';
 import { IconUser, IconMovie, IconThumbUp, IconHistory, IconLogout } from '@tabler/icons-react';
-import isSideNavOpenState from '../recoil/atom/sideNavOpenedState';
+import sideNavOpenedState from '../recoil/atom/sideNavOpenedState';
 
 const Container = styled(Navbar)`
   justify-content: space-between;
@@ -54,7 +54,7 @@ const tabs = [
 ];
 
 const SideNavBar = () => {
-  const isOpened = useRecoilValue(isSideNavOpenState);
+  const isOpened = useRecoilValue(sideNavOpenedState);
 
   return (
     <Transition mounted={isOpened} transition="skew-up" duration={400} timingFunction="ease">
