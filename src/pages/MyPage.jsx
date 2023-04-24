@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Title, Text, Accordion, Flex, Box, Container } from '@mantine/core';
 import { ThemeButton, Badges, GlobalShell } from '../components';
-import { Collections, MypageTitle, SubscribeBadges, Statistics } from '../components/myPage';
+import { Collections, MypageTitle, SubscribeBadges, Statistics, SubscriptionInfo } from '../components/myPage';
 
 const PresentSubscription = styled(Box)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -39,7 +39,9 @@ const MyPage = () => (
                   <Title order={4}>현재 나의 구독료</Title>
                   <Text size="2rem">₩29,800</Text>
                 </Accordion.Control>
-                <Accordion.Panel>구독정보</Accordion.Panel>
+                <Accordion.Panel>
+                  <SubscriptionInfo />
+                </Accordion.Panel>
               </Accordion.Item>
             </PresentSubscriptionFee>
             <Box mt={16}>
