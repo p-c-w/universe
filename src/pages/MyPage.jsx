@@ -1,45 +1,32 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Title, Text, Accordion, Paper, Badge, Flex, rem, Box, Image, Button, Group, Transition } from '@mantine/core';
+import {
+  Title,
+  Text,
+  Accordion,
+  Badge,
+  Flex,
+  rem,
+  Box,
+  Image,
+  Button,
+  Group,
+  Transition,
+  ScrollArea,
+  Container,
+} from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import { IconPencil } from '@tabler/icons-react';
 import { ThemeButton, Badges, GlobalShell } from '../components';
 import { ListButton, MyList } from '../components/myPage';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: 77.5rem;
-  gap: 3rem;
+const PresentSubscription = styled(Box)`
+  /* background-color: var(--mantine-color-gray-1); */
 `;
-
-const TopSection = styled.div`
-  display: flex;
-  gap: 1rem;
-`;
-
-const SubscriptionInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 38.75rem;
-`;
-
-const PredictedSubscription = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
-const PredictedTitleSection = styled.div`
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-`;
-
-const PresentSubscription = styled(Paper)``;
 
 const PresentSubscriptionFee = styled(Accordion)`
+  border-bottom: none;
+
   button {
     padding-left: 0;
   }
@@ -53,6 +40,7 @@ const MyListContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin-top: 1.4rem;
 `;
 
 const ListButtons = styled.div`
@@ -76,26 +64,28 @@ const MyPage = () => {
 
   return (
     <GlobalShell>
-      <Container>
-        <Group spacing={5} align="start">
-          <Title order={1}>OOO's Universe</Title>
+      <Container mt="1rem" mx="auto" size={'100%'} w={1240}>
+        <Group mb="1rem" spacing={5} align="start">
+          <Title order={1} size={40}>
+            OOO's Universe
+          </Title>
           <Button variant="subtle" compact>
             <IconPencil size={15} />
           </Button>
         </Group>
-        <TopSection>
-          <SubscriptionInfo>
-            <PredictedSubscription>
-              <PredictedTitleSection>
-                <Title order={3} align="left">
+        <Flex gap={1}>
+          <Box w={620}>
+            <Box>
+              <Flex align="center" gap={20}>
+                <Title order={2} size={30} align="left">
                   예상 구독료
                 </Title>
                 <Badges />
-              </PredictedTitleSection>
+              </Flex>
               <Text fz="3.5rem">₩17,800</Text>
-            </PredictedSubscription>
+            </Box>
             <PresentSubscription>
-              <PresentSubscriptionFee>
+              <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' } }}>
                 <Accordion.Item value="₩29,800">
                   <Accordion.Control>
                     <Title order={4}>현재 나의 구독료</Title>
@@ -104,15 +94,15 @@ const MyPage = () => {
                   <Accordion.Panel>구독정보</Accordion.Panel>
                 </Accordion.Item>
               </PresentSubscriptionFee>
-              <Flex direction="column" gap={5}>
+              <Box>
                 <Title order={5}>구독하고 있지만 보고 있지 않아요</Title>
                 <Flex gap={3} wrap="wrap">
                   <Badge>Wavve</Badge>
                   <Badge>Netflix</Badge>
                 </Flex>
-              </Flex>
+              </Box>
             </PresentSubscription>
-          </SubscriptionInfo>
+          </Box>
           <Statistics
             height="100%"
             loop
@@ -166,7 +156,7 @@ const MyPage = () => {
               </Box>
             </Carousel.Slide>
           </Statistics>
-        </TopSection>
+        </Flex>
         <MyListContainer>
           <ListButtons className="mylist">
             <ListButton tooltip="이번달에 보고있거나 볼 컨텐츠">Watch</ListButton>
@@ -174,7 +164,9 @@ const MyPage = () => {
             <ListButton tooltip="내가 본 컨텐츠">History</ListButton>
           </ListButtons>
           <MyListSection>
-            <MyList setSelected={setSelected} setImgSrc={setImgSrc} />
+            <ScrollArea w="100%" h={400}>
+              <MyList setSelected={setSelected} setImgSrc={setImgSrc} />
+            </ScrollArea>
             <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
               {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
             </Transition>
