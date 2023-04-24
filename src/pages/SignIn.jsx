@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import { SigninForm } from '../components';
+import { SigninForm } from '../components/auth';
 
 const Container = styled.div`
   display: flex;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Container } from '@mantine/core';
 
-import { SignupHeader, SignupForm, SignupOption } from '../components';
+import { SignupHeader, SignupForm, SignupOption } from '../components/auth';
 
 const SignUp = () => {
   const [active, setActive] = useState(1);
