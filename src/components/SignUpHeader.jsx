@@ -21,7 +21,7 @@ const Callout = styled.div`
   float: right;
 `;
 
-const SignUpHeader = () => (
+const SignupHeader = () => (
   <>
     <Top className="conatiner top">
       <Logo>
@@ -35,4 +35,4 @@ const SignUpHeader = () => (
   </>
 );
 
-export default SignUpHeader;
+export default SignupHeader;

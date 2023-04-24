@@ -26,7 +26,7 @@ const SubmitLink = styled(Link)`
 
 const logos = ['appletvplus', 'disneyplus', 'netflix', 'primevideo', 'watcha', 'wavve'];
 
-const SignUpOption = () => (
+const SignupOption = () => (
   <>
     <Typing str="Congratulation!🥳🎉" isLast={0} />
     <Typing str="What OTT Services are you subscribing to?" isLast={1} />
@@ -53,4 +53,4 @@ const SignUpOption = () => (
   </>
 );
 
-export default SignUpOption;
+export default SignupOption;
