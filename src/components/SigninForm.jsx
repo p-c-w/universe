@@ -20,7 +20,7 @@ const Title = styled.h1`
 
 const FormBody = styled.form`
   padding: 1rem;
-  border: ${({ darkmode }) => (darkmode ? '1px solid hsla(210,18%,87%,1)' : '1px solid #d0d7de')};
+  border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[1])};
   border-radius: 0.375rem;
   height: 15.625rem;
   display: flex;
@@ -49,11 +49,10 @@ const SubmitBtn = styled(Button)`
   width: full;
 `;
 
-const SigninForm = darkmode => {
+const SigninForm = () => {
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userState);
-  // const user = useRecoilValue(userState);
-  // console.log(user);
+
   const {
     register,
     handleSubmit,
@@ -87,7 +86,7 @@ const SigninForm = darkmode => {
   return (
     <>
       <Title>Sign in to Universe</Title>
-      <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post" darkmode={darkmode}>
+      <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post">
         <InputWrapper label="Email address">
           <TextInput {...register('email')} error={errors?.email?.message} />
         </InputWrapper>
