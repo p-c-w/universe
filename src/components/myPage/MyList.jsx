@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Group, Text, Accordion } from '@mantine/core';
-import { Badge, ListBadges } from './index';
+import { Badge, ListBadges } from '../index';
 
 // mockdata
 const users = [
