@@ -27,6 +27,7 @@ const Banner = () => {
     <Carousel
       maw={'100%'}
       mx="auto"
+      mb={'md'}
       withIndicators
       height={rem(400)}
       plugins={[autoplay.current]}
@@ -44,8 +45,8 @@ const Banner = () => {
       }}
       onMouseEnter={autoplay.current.stop}
       onMouseLeave={autoplay.current.reset}>
-      {data.map(item => (
-        <Carousel.Slide key={item}>
+      {data.map((item, idx) => (
+        <Carousel.Slide key={item + idx}>
           <Card url={item} />
         </Carousel.Slide>
       ))}
