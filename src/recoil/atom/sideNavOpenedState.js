@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-const KEY = 'isSideNavOpen';
+const KEY = 'sideNavOpenState';
 
 const localStorageEffect = ({ onSet }) => {
   onSet(newState => {
@@ -8,10 +8,10 @@ const localStorageEffect = ({ onSet }) => {
   });
 };
 
-const isSideNavOpenState = atom({
-  key: 'isSideNavOpenState',
+const sideNavOpenState = atom({
+  key: 'sideNavOpenState',
   default: JSON.parse(localStorage.getItem(KEY)) ?? false,
   effects: [localStorageEffect],
 });
 
-export default isSideNavOpenState;
+export default sideNavOpenState;

@@ -27,7 +27,6 @@ const router = createBrowserRouter([
   //   path: '/signup',
   //   element: <SignUp />,
   // },
-
 ]);
 
 const App = () => {
@@ -38,7 +37,7 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider
-            theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme }}
+            theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme, primaryColor: 'violet' }}
             withCSSVariables
             withGlobalStyles
             withNormalizeCSS>
