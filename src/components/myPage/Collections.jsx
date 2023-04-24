@@ -6,8 +6,8 @@ import { CollectionButton, Collection } from './index';
 const MyListContainer = styled(Container)`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1.4rem;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
 `;
 
 const ContentImage = styled(Image)`
@@ -21,8 +21,8 @@ const Collections = () => {
   const [category, setCategory] = useState('watch');
 
   return (
-    <MyListContainer fluid>
-      <Flex gap="0.5rem">
+    <MyListContainer fluid p={0}>
+      <Flex gap="0.8rem">
         <CollectionButton
           onClick={() => {
             setCategory('watch');
