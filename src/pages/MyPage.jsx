@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
-import { Title, Text, Accordion, Flex, rem, Box, Button, Group, Container } from '@mantine/core';
+import { Title, Text, Accordion, Flex, rem, Box, Container } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import { IconPencil } from '@tabler/icons-react';
+
 import { ThemeButton, Badges, GlobalShell } from '../components';
-import { Collections, SubscribeBadges } from '../components/myPage';
+import { Collections, MypageTitle, SubscribeBadges } from '../components/myPage';
 
 const PresentSubscription = styled(Box)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -27,15 +27,8 @@ const Statistics = styled(Carousel)`
 const MyPage = () => (
   <GlobalShell>
     <Container mt="1rem" mx="auto" size={'100%'} w={1240}>
-      <Group mb="1rem" spacing={5} align="start">
-        <Title order={1} size={40}>
-          OOO's Universe
-        </Title>
-        <Button variant="subtle" compact>
-          <IconPencil size={15} />
-        </Button>
-      </Group>
-      <Flex gap={10}>
+      <MypageTitle />
+      <Flex gap={10} mt="2rem">
         <Box w={620}>
           <Box>
             <Flex align="center" gap={20}>
@@ -74,7 +67,6 @@ const MyPage = () => (
               width: rem(12),
               height: rem(4),
               transition: 'width 250ms ease',
-
               '&[data-active]': {
                 width: rem(40),
               },
