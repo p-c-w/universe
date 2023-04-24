@@ -18,17 +18,39 @@ const ContentImage = styled(Image)`
 const Collections = () => {
   const [selected, setSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
+  const [category, setCategory] = useState('watch');
 
   return (
     <MyListContainer fluid>
       <Flex gap="0.5rem">
-        <CollectionButton tooltip="이번달에 보고있거나 볼 컨텐츠">Watch</CollectionButton>
-        <CollectionButton tooltip="좋아요한 컨텐츠">Like</CollectionButton>
-        <CollectionButton tooltip="내가 본 컨텐츠">History</CollectionButton>
+        <CollectionButton
+          onClick={() => {
+            setCategory('watch');
+          }}
+          selected={category === 'watch'}
+          tooltip="이번달에 보고있거나 볼 컨텐츠">
+          Watch
+        </CollectionButton>
+        <CollectionButton
+          onClick={() => {
+            setCategory('like');
+          }}
+          selected={category === 'like'}
+          tooltip="좋아요한 컨텐츠">
+          Like
+        </CollectionButton>
+        <CollectionButton
+          onClick={() => {
+            setCategory('history');
+          }}
+          selected={category === 'history'}
+          tooltip="내가 본 컨텐츠">
+          History
+        </CollectionButton>
       </Flex>
       <Flex gap="1rem">
         <ScrollArea w="100%" h={400}>
-          <Collection setSelected={setSelected} setImgSrc={setImgSrc} />
+          <Collection setSelected={setSelected} setImgSrc={setImgSrc} category={category} />
         </ScrollArea>
         <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
