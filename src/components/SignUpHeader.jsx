@@ -4,6 +4,9 @@ import styled from '@emotion/styled';
 
 const Top = styled.div`
   padding: 40px 80px;
+  height: 100px;
+  justify-content: center;
+  align-content: center;
 `;
 
 const Logo = styled.button`
