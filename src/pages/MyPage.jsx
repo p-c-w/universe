@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Title, Text, Accordion, Paper, Badge, Flex, rem, Box, Image } from '@mantine/core';
+import { Title, Text, Accordion, Paper, Badge, Flex, rem, Box, Image, Button, Group, Transition } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+import { IconPencil } from '@tabler/icons-react';
 import { ThemeButton, Badges, GlobalShell } from '../components';
 import { ListButton, MyList } from '../components/myPage';
 
@@ -76,7 +77,12 @@ const MyPage = () => {
   return (
     <GlobalShell>
       <Container>
-        <Title order={1}>OOO's Universe</Title>
+        <Group spacing={5} align="start">
+          <Title order={1}>OOO's Universe</Title>
+          <Button variant="subtle" compact>
+            <IconPencil size={15} />
+          </Button>
+        </Group>
         <TopSection>
           <SubscriptionInfo>
             <PredictedSubscription>
@@ -169,7 +175,9 @@ const MyPage = () => {
           </ListButtons>
           <MyListSection>
             <MyList setSelected={setSelected} setImgSrc={setImgSrc} />
-            <ContentImage open={selected} width={300} src={imgSrc} alt="content image" />
+            <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
+              {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
+            </Transition>
           </MyListSection>
         </MyListContainer>
         <ThemeButton />
