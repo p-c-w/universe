@@ -75,6 +75,34 @@ const mockData = [
     contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
     modified_at: '2021-05-18T12:59:32.746Z',
   },
+  {
+    id: '1',
+    providerImg: 'assets/badges/wavve.svg',
+    title: 'Avengers',
+    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
+    modified_at: '2021-05-18T12:59:32.746Z',
+  },
+  {
+    id: '2',
+    providerImg: 'assets/badges/wavve.svg',
+    title: 'Avengers',
+    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
+    modified_at: '2021-05-18T12:59:32.746Z',
+  },
+  {
+    id: '3',
+    providerImg: 'assets/badges/wavve.svg',
+    title: 'Avengers',
+    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
+    modified_at: '2021-05-18T12:59:32.746Z',
+  },
+  {
+    id: '4',
+    providerImg: 'assets/badges/wavve.svg',
+    title: 'Avengers',
+    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
+    modified_at: '2021-05-18T12:59:32.746Z',
+  },
 ];
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
@@ -89,7 +117,7 @@ const AccordionLabel = ({ title, providerImg }) => (
   </Group>
 );
 
-const MyList = ({ setSelected, setImgSrc }) => {
+const Collection = ({ setSelected, setImgSrc }) => {
   const itemRef = useRef(null);
 
   const items = mockData.map(item => (
@@ -119,4 +147,4 @@ const MyList = ({ setSelected, setImgSrc }) => {
   );
 };
 
-export default MyList;
+export default Collection;
