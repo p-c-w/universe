@@ -18,7 +18,7 @@ import {
 import { Carousel } from '@mantine/carousel';
 import { IconPencil } from '@tabler/icons-react';
 import { ThemeButton, Badges, GlobalShell } from '../components';
-import { ListButton, MyList } from '../components/myPage';
+import { ListButton, MyList, SubscribeBadges } from '../components/myPage';
 
 const PresentSubscription = styled(Box)`
   /* background-color: var(--mantine-color-gray-1); */
@@ -95,11 +95,10 @@ const MyPage = () => {
                 </Accordion.Item>
               </PresentSubscriptionFee>
               <Box>
-                <Title order={5}>구독하고 있지만 보고 있지 않아요</Title>
-                <Flex gap={3} wrap="wrap">
-                  <Badge>Wavve</Badge>
-                  <Badge>Netflix</Badge>
-                </Flex>
+                <Title order={5} mb={10}>
+                  구독하고 있지만 보고 있지 않아요
+                </Title>
+                <SubscribeBadges />
               </Box>
             </PresentSubscription>
           </Box>
