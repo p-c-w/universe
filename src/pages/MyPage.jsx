@@ -6,8 +6,8 @@ import { ThemeButton, Badges, GlobalShell } from '../components';
 import { Collections, SubscribeBadges } from '../components/myPage';
 
 const PresentSubscription = styled(Box)`
-  background-color: var(--mantine-color-gray-1);
-  border-radius: 2px;
+  background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
+  border-radius: 0.5rem;
   padding: 1rem;
 `;
 
