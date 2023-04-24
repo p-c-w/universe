@@ -21,9 +21,14 @@ const MypageTitle = () => {
   return (
     <StyledContainer mb="1rem" spacing={5} align="start">
       <PageTitle order={1} size={40} fw={900}>
-        {editMode ? <TextInput placeholder="Your name" /> : `OOO`}&apos;s Universe
+        {editMode ? <TextInput placeholder="Your name" ref={node => node?.focus()} /> : `OOO`}&apos;s Universe
       </PageTitle>
-      <Button variant="subtle" compact onClick={() => setEditMode(!editMode)}>
+      <Button
+        variant="subtle"
+        compact
+        onClick={() => {
+          setEditMode(!editMode);
+        }}>
         <IconPencil size={15} />
       </Button>
     </StyledContainer>
