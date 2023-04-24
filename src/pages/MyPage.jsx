@@ -21,14 +21,16 @@ import { ThemeButton, Badges, GlobalShell } from '../components';
 import { ListButton, MyList, SubscribeBadges } from '../components/myPage';
 
 const PresentSubscription = styled(Box)`
-  /* background-color: var(--mantine-color-gray-1); */
+  background-color: var(--mantine-color-gray-1);
+  border-radius: 2px;
+  padding: 1rem;
 `;
 
 const PresentSubscriptionFee = styled(Accordion)`
-  border-bottom: none;
+  /* border-bottom: 1px solid white; */
 
   button {
-    padding-left: 0;
+    padding: 0;
   }
 `;
 
@@ -73,7 +75,7 @@ const MyPage = () => {
             <IconPencil size={15} />
           </Button>
         </Group>
-        <Flex gap={1}>
+        <Flex gap={10}>
           <Box w={620}>
             <Box>
               <Flex align="center" gap={20}>
@@ -85,7 +87,7 @@ const MyPage = () => {
               <Text fz="3.5rem">₩17,800</Text>
             </Box>
             <PresentSubscription>
-              <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' } }}>
+              <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
                 <Accordion.Item value="₩29,800">
                   <Accordion.Control>
                     <Title order={4}>현재 나의 구독료</Title>
@@ -94,7 +96,7 @@ const MyPage = () => {
                   <Accordion.Panel>구독정보</Accordion.Panel>
                 </Accordion.Item>
               </PresentSubscriptionFee>
-              <Box>
+              <Box mt={16}>
                 <Title order={5} mb={10}>
                   구독하고 있지만 보고 있지 않아요
                 </Title>
