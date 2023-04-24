@@ -27,13 +27,13 @@ const mockData = [
   },
 ];
 
-const SubscribeBadges = ({ providers = mockData }) => {
+const ProviderBadges = ({ providers = mockData, variant }) => {
   console.log();
   return (
     <>
       <Flex gap={3} wrap="wrap">
         {providers.map(provider => (
-          <Badge key={provider.id} size="lg">
+          <Badge key={provider.id} size="lg" variant={variant}>
             {provider.provider_name}
           </Badge>
         ))}
@@ -42,4 +42,4 @@ const SubscribeBadges = ({ providers = mockData }) => {
   );
 };
 
-export default SubscribeBadges;
+export default ProviderBadges;

@@ -6,7 +6,7 @@ const SubscriptionServices = () => (
     <Title order={5} mb={10} fw={400}>
       현재 구독하고 있어요
     </Title>
-    <ProviderBadges />
+    <ProviderBadges variant={'dot'} />
   </Container>
 );
 
