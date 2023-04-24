@@ -1,72 +1,80 @@
 import { useRecoilValue } from 'recoil';
-import { Transition } from '@mantine/core';
 import styled from '@emotion/styled';
 
+import { Navbar, Transition } from '@mantine/core';
 import { IconUser, IconMovie, IconThumbUp, IconHistory, IconLogout } from '@tabler/icons-react';
+import sideNavOpenedState from '../recoil/atom/sideNavOpenedState';
 
-import isSideNavOpenState from '../recoil/atom/isSideNavOpenState';
-
-const Container = styled.nav`
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const Container = styled(Navbar)`
   justify-content: space-between;
-  height: calc(100vh - 4.875rem - 1.875rem);
 `;
 
-const ListContainer = styled.ul`
+const TabList = styled.ul`
   padding: 0;
+  margin: 0;
 `;
 
-const List = styled.li`
+const Tab = styled.li`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   list-style: none;
   height: 2.25rem;
-  margin: 1.25rem 1.875rem;
-  padding: 5px;
+  margin: 0 0 0.9375rem 0;
+  padding: 0.3125rem;
   cursor: pointer;
+  transition: 0.2s ease-in;
+  border-radius: 0.3125rem;
+
+  &:hover {
+    background-color: ${({ theme }) =>
+      theme.colorScheme === 'dark' ? theme.colors[theme.primaryColor][7] : theme.colors.gray[0]};
+  }
+`;
+
+const LogoutTab = styled(Tab)`
+  margin: 0;
 `;
 
 const Title = styled.span`
   width: 116px;
   margin-left: 1.875rem;
+  font-size: var(--mantine-font-size-sm);
 `;
 
-const Menus = [
+const tabs = [
   {
-    title: 'MY PAGE',
+    link: '',
+    label: 'MY PAGE',
     icon: <IconUser />,
   },
-  { title: 'COMMING UP', icon: <IconMovie /> },
-  { title: 'LIKE', icon: <IconThumbUp /> },
-  { title: 'HISTORY', icon: <IconHistory /> },
+  { link: '', label: 'COMMING UP', icon: <IconMovie /> },
+  { link: '', label: 'LIKE', icon: <IconThumbUp /> },
+  { link: '', label: 'HISTORY', icon: <IconHistory /> },
 ];
 
 const SideNavBar = () => {
-  const isOpened = useRecoilValue(isSideNavOpenState);
+  const isOpened = useRecoilValue(sideNavOpenedState);
 
   return (
-    <Container>
-      <ListContainer isOpened={isOpened}>
-        {Menus.map(({ title, icon }) => (
-          <List key={title} role="button">
-            {icon}
-            <Transition mounted={isOpened} transition="fade" duration={400} timingFunction="ease">
-              {styles => <Title style={styles}>{title}</Title>}
-            </Transition>
-          </List>
-        ))}
-      </ListContainer>
-      <List>
-        <IconLogout />
-        <Transition mounted={isOpened} transition="fade" duration={400} timingFunction="ease">
-          {styles => <Title style={styles}>SIGN OUT</Title>}
-        </Transition>
-      </List>
-    </Container>
+    <Transition mounted={isOpened} transition="skew-up" duration={400} timingFunction="ease">
+      {styles => (
+        <Container style={styles} p="sm" width={{ base: 240 }}>
+          <TabList>
+            {tabs.map(({ label, icon }) => (
+              <Tab key={label} role="button">
+                {icon}
+                <Title>{label}</Title>
+              </Tab>
+            ))}
+          </TabList>
+          <LogoutTab>
+            <IconLogout />
+            <Title style={styles}>SIGN OUT</Title>
+          </LogoutTab>
+        </Container>
+      )}
+    </Transition>
   );
 };
 
