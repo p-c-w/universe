@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import { SigninForm } from '../components';
+// import { SigninForm } from '../components';
 
 const Container = styled.div`
   display: flex;
@@ -58,7 +58,7 @@ const SignIn = () => {
             </LogoImg>
           </AuthHeader>
           <Form>
-            <SigninForm darkmode={dark} />
+            {/* <SigninForm darkmode={dark} /> */}
             <Callout darkmode={dark}>
               <p className="login-callout">
                 New to Universe? <CreateAccount to="/signup">Create an accout</CreateAccount>.
