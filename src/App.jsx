@@ -4,8 +4,8 @@ import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import useColorScheme from './hooks/useColorScheme';
-
-import { Root, MyPage, SignIn } from './pages';
+import { Root, MyPage, SignIn, SignUp } from './pages';
+import AuthenticationGuard from './guard/AuthenticationGuard';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,20 +20,11 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <AuthenticationGuard redirectTo="/signin" element={<Root />} />,
   },
-  {
-    path: '/mypage',
-    element: <MyPage />,
-  },
-  {
-    path: '/signin',
-    element: <SignIn />,
-  },
-  {
-    path: '/signup',
-    element: <SignUp />,
-  },
+  { path: '/signin', element: <SignIn /> },
+  { path: '/signup', element: <SignUp /> },
+  { path: '/mypage', element: <MyPage /> },
 ]);
 
 const App = () => {
