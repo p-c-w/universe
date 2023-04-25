@@ -1,11 +1,11 @@
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { Group, Center, Flex, Box, SegmentedControl, MultiSelect, rem, CloseButton } from '@mantine/core';
 import { IconDeviceTv, IconMovie } from '@tabler/icons-react';
 
-const countriesData = [
+const providerData = [
   { label: 'Netflix', value: 'netflix' },
   { label: 'Disney Plus', value: 'disneyplus' },
-  { label: 'Prime Video', value: 'primevideo' },
+  { label: 'Amazon Prime Video', value: 'primevideo' },
   { label: 'Watcha', value: 'watcha' },
   { label: 'Wavve', value: 'wavve' },
   { label: 'Apple TV Plus', value: 'appletvplus' },
@@ -20,38 +20,37 @@ const badges = {
   wavve: '/assets/badges/wavve.svg',
 };
 
-const Value = ({ value, label, onRemove, ...others }) => {
+const Value = ({ value, label, onRemove }) => {
   const badgePath = badges[value];
 
   return (
-    <div {...others}>
-      <Box
-        sx={theme => ({
-          display: 'flex',
-          cursor: 'default',
-          alignItems: 'center',
-          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-          border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4]}`,
-          paddingLeft: theme.spacing.xs,
-          borderRadius: theme.radius.sm,
-        })}
-        h={30}>
-        <Box mr={10}>
-          {
-            <Box w={20}>
-              <img src={badgePath} alt="value" />
-            </Box>
-          }
-        </Box>
-        <Box sx={{ lineHeight: 1, fontSize: rem(12) }}>{label}</Box>
-        <CloseButton onMouseDown={onRemove} variant="transparent" size={22} iconSize={14} tabIndex={-1} />
+    <Box
+      sx={theme => ({
+        display: 'flex',
+        cursor: 'default',
+        alignItems: 'center',
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+        border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4]}`,
+        paddingLeft: theme.spacing.xs,
+        borderRadius: theme.radius.sm,
+      })}
+      h={30}>
+      <Box mr={10}>
+        {
+          <Box w={20}>
+            <img src={badgePath} alt="value" />
+          </Box>
+        }
       </Box>
-    </div>
+      <Box sx={{ lineHeight: 1, fontSize: rem(12) }}>{label}</Box>
+      <CloseButton onMouseDown={onRemove} variant="transparent" size={22} iconSize={14} tabIndex={-1} />
+    </Box>
   );
 };
 
 const Item = forwardRef(({ label, value, ...others }, ref) => {
   const badgePath = badges[value];
+
   return (
     <div ref={ref} {...others}>
       <Flex align="center">
@@ -66,15 +65,20 @@ const Item = forwardRef(({ label, value, ...others }, ref) => {
   );
 });
 
-const Category = ({ media, handleChange }) => {
-  console.log('media :', media);
+const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
+  const selectedCategory = useRef();
+
+  const handleMultiSelectChange = values => {
+    selectedCategory.current = values;
+    handleCategoryChange(selectedCategory.current);
+  };
 
   return (
     <Flex mih={'md'} gap="md" mb={'lg'} justify="flex-start" align="center" direction="row" wrap="nowrap">
       <Group position="center">
         <SegmentedControl
           value={media}
-          onChange={media => handleChange(media)}
+          onChange={handleMediaChange}
           data={[
             {
               value: 'movie',
@@ -98,7 +102,7 @@ const Category = ({ media, handleChange }) => {
         />
       </Group>
       <MultiSelect
-        data={countriesData}
+        data={providerData}
         miw={300}
         limit={6}
         valueComponent={Value}
@@ -106,6 +110,7 @@ const Category = ({ media, handleChange }) => {
         searchable
         defaultValue={[]}
         placeholder="Pick Stream Service"
+        onChange={handleMultiSelectChange}
       />
     </Flex>
   );
