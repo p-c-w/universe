@@ -29,7 +29,7 @@ const GlobalShell = ({ children }) => {
     <AppShell
       styles={{
         main: {
-          background: dark ? theme.colors.dark[7] : theme.colors.gray[0],
+          background: dark ? theme.colors.dark[8] : theme.colors.gray[0],
         },
       }}
       navbar={<SideNavBar />}
