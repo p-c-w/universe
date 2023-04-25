@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Button } from '@mantine/core';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
@@ -31,6 +31,7 @@ const SubmitLink = styled(Link)`
 const logos = ['appletvplus', 'disneyplus', 'netflix', 'primevideo', 'watcha', 'wavve'];
 
 const SignupOption = () => {
+  const [isLogo, setIsLogo] = useState(false);
   const subscribed = [];
   const user = useRecoilValue(userState);
 
@@ -47,22 +48,33 @@ const SignupOption = () => {
     <>
       <Typing str="Congratulation!🥳🎉" isLast={0} />
       <Typing str="What OTT Services are you subscribing to?" isLast={1} />
-      <Typing str="(Optional)" isLast={2} fontSize={'small'} />
-      <Grid columns={3} style={{ margin: '30px' }}>
-        {logos.map(logo => (
-          <Grid.Col span={1} key={logo} style={{ textAlign: 'center' }}>
-            <LogoImg src={`./assets/badges/${logo}.svg`} alt="button" />
-          </Grid.Col>
-        ))}
-      </Grid>
-      <SubmitBtnCotainer>
-        <SubmitBtn variant="filled">
-          <SubmitLink to="/signin">Skip</SubmitLink>
-        </SubmitBtn>
-        <SubmitBtn onClick={() => handleClick()} variant="filled">
-          <SubmitLink to="/signin">Submit</SubmitLink>
-        </SubmitBtn>
-      </SubmitBtnCotainer>
+      <Typing
+        str="(Optional)"
+        isLast={2}
+        fontSize={'small'}
+        onAnimationEnd={() => {
+          setIsLogo(true);
+        }}
+      />
+      {isLogo && (
+        <>
+          <Grid columns={3} style={{ margin: '30px' }}>
+            {logos.map(logo => (
+              <Grid.Col span={1} key={logo} style={{ textAlign: 'center' }}>
+                <LogoImg src={`./assets/badges/${logo}.svg`} alt="button" />
+              </Grid.Col>
+            ))}
+          </Grid>
+          <SubmitBtnCotainer>
+            <SubmitBtn variant="filled">
+              <SubmitLink to="/signin">Skip</SubmitLink>
+            </SubmitBtn>
+            <SubmitBtn onClick={() => handleClick()} variant="filled">
+              <SubmitLink to="/signin">Submit</SubmitLink>
+            </SubmitBtn>
+          </SubmitBtnCotainer>
+        </>
+      )}
     </>
   );
 };
