@@ -13,7 +13,10 @@ import {
   rem,
 } from '@mantine/core';
 import styled from '@emotion/styled';
+import { useCallback } from 'react';
 import useMainBoardQuery from '../../hooks/useMainBoardQuery';
+import useObsever from '../../hooks/useObsever';
+import { ScrollObserver } from '../common';
 
 const tvGenres = {
   10759: {
@@ -271,67 +274,73 @@ const ArticleCard = ({ title, originalTitle, posterPath, overview, releaseDate, 
 };
 
 const Cards = ({ mediaType }) => {
-  const { isSuccess, data: content } = useMainBoardQuery(mediaType);
+  const { isSuccess, data: content, hasNextPage, fetchNextPage } = useMainBoardQuery(mediaType);
 
-  console.log('isSuccess :', isSuccess);
-  console.log('content :', content);
+  const getNextPage = useCallback(() => {
+    if (hasNextPage) fetchNextPage();
+  }, [hasNextPage, fetchNextPage]);
+
+  const observerRef = useObsever(getNextPage);
 
   return (
-    <CardGrid
-      cols={6}
-      w={rem(1324)}
-      verticalSpacing="sm"
-      breakpoints={[
-        { maxWidth: '100rem', cols: 5 },
-        { maxWidth: '48rem', cols: 2 },
-        { maxWidth: '36rem', cols: 1 },
-      ]}>
-      {isSuccess && mediaType === 'movie'
-        ? content.map(
-            ({
-              id,
-              name,
-              original_title: originalTitle,
-              poster_path: posterPath,
-              genre_ids: genreIds,
-              overview,
-              first_air_date: firstAirDate,
-            }) => (
-              <ArticleCard
-                key={id}
-                title={name}
-                originalTitle={originalTitle}
-                posterPath={posterPath}
-                genreIds={genreIds}
-                overview={overview}
-                release_date={firstAirDate}
-                mediaType={mediaType}
-              />
+    <>
+      <CardGrid
+        cols={5}
+        w={rem(1324)}
+        verticalSpacing="sm"
+        breakpoints={[
+          { maxWidth: '100rem', cols: 5 },
+          { maxWidth: '48rem', cols: 2 },
+          { maxWidth: '36rem', cols: 1 },
+        ]}>
+        {isSuccess && mediaType === 'movie'
+          ? content.map(
+              ({
+                id,
+                title,
+                original_title: originalTitle,
+                poster_path: posterPath,
+                genre_ids: genreIds,
+                overview,
+                release_date: releaseDate,
+              }) => (
+                <ArticleCard
+                  key={id}
+                  title={title}
+                  originalTitle={originalTitle}
+                  posterPath={posterPath}
+                  genreIds={genreIds}
+                  overview={overview}
+                  release_date={releaseDate}
+                  mediaType={mediaType}
+                />
+              )
             )
-          )
-        : content.map(
-            ({
-              id,
-              name,
-              original_name: originalName,
-              poster_path: posterPath,
-              genre_ids: genreIds,
-              overview,
-              first_air_date: firstAirDate,
-            }) => (
-              <ArticleCard
-                key={id}
-                title={name}
-                originalTitle={originalName}
-                posterPath={posterPath}
-                genreIds={genreIds}
-                overview={overview}
-                release_date={firstAirDate}
-                mediaType={mediaType}
-              />
-            )
-          )}
-    </CardGrid>
+          : content.map(
+              ({
+                id,
+                name,
+                original_name: originalName,
+                poster_path: posterPath,
+                genre_ids: genreIds,
+                overview,
+                first_air_date: firstAirDate,
+              }) => (
+                <ArticleCard
+                  key={id}
+                  title={name}
+                  originalTitle={originalName}
+                  posterPath={posterPath}
+                  genreIds={genreIds}
+                  overview={overview}
+                  release_date={firstAirDate}
+                  mediaType={mediaType}
+                />
+              )
+            )}
+      </CardGrid>
+      <ScrollObserver hasNextPage={hasNextPage} observer={observerRef} />
+    </>
   );
 };
 export default Cards;

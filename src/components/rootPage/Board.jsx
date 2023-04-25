@@ -1,7 +1,8 @@
 import { Suspense, useState } from 'react';
-import { Container, Loader } from '@mantine/core';
+import { Container } from '@mantine/core';
 import Cards from './Cards';
 import Category from './Category';
+import { BarLoader } from '../common';
 
 const Board = () => {
   const [mediaType, setMediaType] = useState('movie');
@@ -23,7 +24,7 @@ const Board = () => {
         handleMediaChange={handleMediaChange}
         handleCategoryChange={handleCategoryChange}
       />
-      <Suspense fallback={<Loader color="grape" size="lg" variant="bars" />}>
+      <Suspense fallback={<BarLoader />}>
         <Cards mediaType={mediaType} />
       </Suspense>
     </Container>
