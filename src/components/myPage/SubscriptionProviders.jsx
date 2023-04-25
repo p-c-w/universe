@@ -1,9 +1,18 @@
 import { Container, Title, Flex, ActionIcon } from '@mantine/core';
 import { IconSettings } from '@tabler/icons-react';
 import ProviderBadges from './ProviderBadges';
+import { PROVIDERS } from '../../constants';
+import useUserQuery from '../../hooks/queries/useUserQuery';
 
 const SubscriptionProviders = ({ onClick }) => {
-  console.log();
+  const { data: subscribeList } = useUserQuery('snowlover@gmail.com', { select: user => user.subscribe_list });
+
+  const getProviderList = () => {
+    const providers = subscribeList?.map(item => PROVIDERS.find(provider => provider.id === item.id));
+    return providers;
+  };
+
+  const providers = getProviderList();
 
   return (
     <Container mt={10} p={0}>
@@ -15,7 +24,7 @@ const SubscriptionProviders = ({ onClick }) => {
           <IconSettings size="1rem" />
         </ActionIcon>
       </Flex>
-      <ProviderBadges variant={'dot'} />
+      <ProviderBadges providers={providers} variant={'dot'} />
     </Container>
   );
 };
