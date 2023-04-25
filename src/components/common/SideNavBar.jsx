@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { Navbar, Transition } from '@mantine/core';
 import { IconUser, IconMovie, IconThumbUp, IconHistory, IconLogout } from '@tabler/icons-react';
-import sideNavOpenedState from '../recoil/atom/sideNavOpenedState';
+import sideNavOpenedState from '../../recoil/atom/sideNavOpenedState';
 
 const Container = styled(Navbar)`
   justify-content: space-between;
