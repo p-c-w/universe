@@ -3,8 +3,10 @@ import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconDiscountCheck } from '@tabler/icons-react';
 import PROVIDERS from '../../constants/providerIds';
 
-const SubscriptionEditor = ({ onClick }) => {
-  const [value, setValue] = useState(['Watcha', 'Wavve']);
+const SubscriptionEditor = ({ providers, onClick }) => {
+  const providersNames = providers?.map(provider => provider.provider_name);
+
+  const [value, setValue] = useState(providersNames);
 
   return (
     <>
