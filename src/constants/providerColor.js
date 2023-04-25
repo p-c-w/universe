@@ -1,5 +1,5 @@
 const PROVIDER_COLOR = {
-  netfix: '#E50914',
+  netflix: '#E50914',
   watcha: '#FF0558',
   disneyplus: '#01147C',
   appletvplus: '#FFF',

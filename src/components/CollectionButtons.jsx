@@ -18,7 +18,7 @@ const handleClick = e => {
   e.stopPropagation();
 };
 
-const ListBadges = ({ gap = 2, size, currentCategory }) => (
+const CollectionButtons = ({ gap = 2, size, currentCategory }) => (
   <Flex gap={gap} align="center">
     {currentCategory !== 'watch' && <WatchIcon onClick={handleClick} size={size} />}
     {currentCategory !== 'like' && <LikeIcon onClick={handleClick} size={size} />}
@@ -26,4 +26,4 @@ const ListBadges = ({ gap = 2, size, currentCategory }) => (
   </Flex>
 );
 
-export default ListBadges;
+export default CollectionButtons;
