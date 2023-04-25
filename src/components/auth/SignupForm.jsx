@@ -81,6 +81,7 @@ const SignupForm = ({ setActive }) => {
             />
             {!errors?.email && (
               <InputButton
+                type="button"
                 onClick={() => {
                   setIsShow(isShow + 1);
                 }}
@@ -103,6 +104,7 @@ const SignupForm = ({ setActive }) => {
             />
             {!errors?.password && (
               <InputButton
+                type="button"
                 onClick={() => {
                   setIsShow(isShow + 1);
                 }}
@@ -125,6 +127,7 @@ const SignupForm = ({ setActive }) => {
             />
             {!errors?.confirmPassword && (
               <InputButton
+                type="button"
                 onClick={() => {
                   setIsShow(isShow + 1);
                 }}
