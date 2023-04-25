@@ -8,7 +8,15 @@ import useTheme from './hooks/useTheme';
 
 import { Root, MyPage, SignIn } from './pages';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      suspense: true,
+      staleTime: 1000 * 60 * 5,
+      retry: 3,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
