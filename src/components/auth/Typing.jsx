@@ -17,6 +17,7 @@ const typingCursor = keyframes`
 `;
 
 const FirstTypeOut = styled.div`
+  font-family: consolas;
   overflow: hidden;
   border-right: 2px solid none;
   white-space: nowrap;
@@ -26,9 +27,9 @@ const FirstTypeOut = styled.div`
   animation-delay: ${({ last }) => last && `calc(${last} * 2s);`};
 `;
 
-const Typing = ({ str, isLast, fontSize }) => (
+const Typing = ({ str, isLast, fontSize, onAnimationEnd }) => (
   <>
-    <FirstTypeOut last={isLast} fontSize={fontSize}>
+    <FirstTypeOut last={isLast} fontSize={fontSize} onAnimationEnd={onAnimationEnd}>
       {str}
     </FirstTypeOut>
   </>
