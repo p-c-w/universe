@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Title, Button, Container, TextInput, Input } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
+import useUserQuery from '../../hooks/queries/useUserQuery';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -25,8 +26,14 @@ const NameInput = styled(TextInput)`
 `;
 
 const MypageTitle = () => {
+  const { data: userName } = useUserQuery('snowlover@gmail.com', { select: user => user.name });
+
+  const [value, setValue] = useState(userName);
   const [editMode, setEditMode] = useState(false);
-  const [value, setValue] = useState('세파피');
+
+  useEffect(() => {
+    setValue(userName);
+  }, [userName]);
 
   const handleKeyUp = e => {
     const content = e.target.value.trim();
