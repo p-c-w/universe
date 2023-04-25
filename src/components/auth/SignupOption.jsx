@@ -47,7 +47,7 @@ const SignupOption = () => {
 
   const handleClick = async () => {
     try {
-      const { email } = user.data;
+      const { email } = user;
       await axios.patch(`/api/users/${email}`, { subscribe_list: subscribed });
     } catch (e) {
       console.log('Error: ', e);
@@ -57,18 +57,6 @@ const SignupOption = () => {
   const handleLogoClick = e => {
     subscribed.push({ id: +e.target.id, price: 'basic' });
   };
-
-  // const handleLogoClick = async e => {
-  //   try {
-  //     console.log(user);
-  //     const { email } = user;
-  //     const id = +e.target.id;
-
-  //     await axios.delete(`/api/users/${email}/${id}`);
-  //   } catch (e) {
-  //     console.log('Error: ', e);
-  //   }
-  // };
 
   return (
     <>
