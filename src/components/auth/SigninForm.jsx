@@ -9,8 +9,8 @@ import { IconX } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 
 import { useSetRecoilState } from 'recoil';
-import { signInSchema } from '../schema/schema';
-import userState from '../recoil/atom/userState';
+import { signInSchema } from '../../schema/schema';
+import userState from '../../recoil/atom/userState';
 
 const Title = styled.h1`
   font-size: 1.5rem;
@@ -61,9 +61,7 @@ const SigninForm = () => {
 
   const handleonSubmit = async data => {
     try {
-      const { data: user } = await axios.post('/api/signin', data);
-
-      console.log(user);
+      const { data: user } = await axios.post('/api/auth/signin', data);
 
       setUser(user);
       navigate('/');
