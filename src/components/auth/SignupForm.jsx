@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { TextInput, PasswordInput, Button } from '@mantine/core';
 import { useForm } from 'react-hook-form';
+import { IconX } from '@tabler/icons-react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -42,6 +43,7 @@ const InputButton = styled(Button)`
 
 const SignupForm = ({ setActive }) => {
   const setUser = useSetRecoilState(userState);
+  const [isShow, setIsShow] = useState(0);
 
   const {
     register,
@@ -53,53 +55,91 @@ const SignupForm = ({ setActive }) => {
     const user = await axios.post('/api/auth/signup', data);
 
     setUser(user);
-    setActive(2);
+    setActive('option');
   };
 
   return (
     <>
       <Typing str="Welcome to Universe!" isLast={0} />
-      <Typing str="Let's begin the adventure🚀👾" isLast={1} />
+      <Typing
+        str="Let's begin the adventure🚀👾"
+        isLast={1}
+        onAnimationEnd={() => {
+          setIsShow(isShow + 1);
+        }}
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <InputWrapper>
-          <EmailInput
-            style={{ width: '600px' }}
-            label="Enter your email"
-            withAsterisk
-            {...register('email')}
-            error={errors?.email?.message}
-          />
-          <InputButton type="submit" variant="outline" color="gray">
-            Continue
-          </InputButton>
-        </InputWrapper>
-        <InputWrapper>
-          <PasswordFormInput
-            style={{ width: '100%' }}
-            label="Create a password"
-            withAsterisk
-            {...register('password')}
-            error={errors?.password?.message}
-          />
-          <InputButton type="submit" variant="outline" color="gray">
-            Continue
-          </InputButton>
-        </InputWrapper>
-        <InputWrapper>
-          <PasswordFormInput
-            style={{ width: '100%' }}
-            label="Please enter your password again"
-            withAsterisk
-            {...register('confirmPassword')}
-            error={errors?.confirmPassword?.message}
-          />
-          <InputButton type="submit" variant="outline" color="gray">
-            Continue
-          </InputButton>
-        </InputWrapper>
-        <Button type="submit" fullWidth style={{ float: 'right' }}>
-          Sign Up
-        </Button>
+        {isShow > 0 && (
+          <InputWrapper>
+            <EmailInput
+              style={{ width: '600px' }}
+              label="Enter your email"
+              withAsterisk
+              {...register('email')}
+              error={errors?.email?.message}
+              icon={errors?.email && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
+            />
+            {!errors?.email && (
+              <InputButton
+                onClick={() => {
+                  setIsShow(isShow + 1);
+                }}
+                variant="outline"
+                color="gray">
+                Continue
+              </InputButton>
+            )}
+          </InputWrapper>
+        )}
+        {isShow > 1 && (
+          <InputWrapper>
+            <PasswordFormInput
+              style={{ width: '100%' }}
+              label="Create a password"
+              withAsterisk
+              {...register('password')}
+              error={errors?.password?.message}
+              icon={errors?.password && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
+            />
+            {!errors?.password && (
+              <InputButton
+                onClick={() => {
+                  setIsShow(isShow + 1);
+                }}
+                variant="outline"
+                color="gray">
+                Continue
+              </InputButton>
+            )}
+          </InputWrapper>
+        )}
+        {isShow > 2 && (
+          <InputWrapper>
+            <PasswordFormInput
+              style={{ width: '100%' }}
+              label="Please enter your password again"
+              withAsterisk
+              {...register('confirmPassword')}
+              error={errors?.confirmPassword?.message}
+              icon={errors?.confirmPassword && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
+            />
+            {!errors?.confirmPassword && (
+              <InputButton
+                onClick={() => {
+                  setIsShow(isShow + 1);
+                }}
+                variant="outline"
+                color="gray">
+                Continue
+              </InputButton>
+            )}
+          </InputWrapper>
+        )}
+        {isShow > 3 && (
+          <Button type="submit" fullWidth style={{ float: 'right' }}>
+            Sign Up
+          </Button>
+        )}
       </form>
     </>
   );
