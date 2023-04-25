@@ -1,19 +1,31 @@
-import { useState } from 'react';
-import { Container } from '@mantine/core';
+import { Suspense, useState } from 'react';
+import { Container, Loader } from '@mantine/core';
 import Cards from './Cards';
 import Category from './Category';
 
 const Board = () => {
-  const [media, setMedia] = useState('movie');
+  const [mediaType, setMediaType] = useState('movie');
+  const [category, setCategory] = useState([]);
 
-  const handleChange = state => {
-    setMedia(state);
+  const handleMediaChange = () => {
+    setMediaType(media => (media === 'movie' ? 'tv' : 'movie'));
+  };
+
+  const handleCategoryChange = newCategory => {
+    setCategory(newCategory);
   };
 
   return (
     <Container fluid>
-      <Category media={media} handleChange={handleChange} />
-      <Cards />
+      <Category
+        mediaType={mediaType}
+        category={category}
+        handleMediaChange={handleMediaChange}
+        handleCategoryChange={handleCategoryChange}
+      />
+      <Suspense fallback={<Loader color="grape" size="lg" variant="bars" />}>
+        <Cards mediaType={mediaType} />
+      </Suspense>
     </Container>
   );
 };
