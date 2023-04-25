@@ -28,6 +28,12 @@ const SubmitLink = styled(Link)`
   color: white;
 `;
 
+const LogoBtn = styled.button`
+  border: none;
+  padding: 0;
+  background: none;
+`;
+
 const logos = [
   { name: 'appletvplus', id: 350 },
   { name: 'disneyplus', id: 337 },
@@ -75,24 +81,22 @@ const SignupOption = () => {
           <Grid columns={3} style={{ margin: '30px' }}>
             {logos.map(({ name, id }, idx) => (
               <Grid.Col span={1} key={name} style={{ textAlign: 'center' }}>
-                <button
+                <LogoBtn
                   onClick={e => {
                     handleLogoClick(e);
-                    console.log('array: ', subscribed);
                   }}
                   type="button"
-                  disabled={idx > 5}
-                  style={{ border: 'none', padding: 0, background: 'none' }}>
+                  disabled={idx > 5}>
                   <LogoImg id={id} src={`./assets/badges/${name}.svg`} alt="button" />
-                </button>
+                </LogoBtn>
               </Grid.Col>
             ))}
           </Grid>
           <SubmitBtnCotainer>
-            <SubmitBtn variant="filled">
+            <SubmitBtn variant="outline">
               <SubmitLink to="/signin">Skip</SubmitLink>
             </SubmitBtn>
-            <SubmitBtn onClick={handleClick} variant="filled">
+            <SubmitBtn onClick={handleClick} variant="outline">
               <SubmitLink to="/signin">Submit</SubmitLink>
             </SubmitBtn>
           </SubmitBtnCotainer>
