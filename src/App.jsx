@@ -18,9 +18,13 @@ const queryClient = new QueryClient({
 });
 
 const router = createBrowserRouter([
+  // {
+  //   path: '/',
+  //   element: <AuthenticationGuard redirectTo="/signin" element={<Root />} />,
+  // },
   {
     path: '/',
-    element: <AuthenticationGuard redirectTo="/signin" element={<Root />} />,
+    element: <Root />,
   },
   { path: '/signin', element: <SignIn /> },
   { path: '/signup', element: <SignUp /> },
