@@ -1,5 +1,5 @@
 import { Flex, Box, Container } from '@mantine/core';
-import { ThemeButton, GlobalShell } from '../components';
+import { ThemeButton, GlobalShell } from '../components/common';
 import {
   Collections,
   MypageTitle,
