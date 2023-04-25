@@ -28,7 +28,17 @@ const SubmitLink = styled(Link)`
   color: white;
 `;
 
-const logos = ['appletvplus', 'disneyplus', 'netflix', 'primevideo', 'watcha', 'wavve'];
+const logos = [
+  { name: 'appletvplus', id: 350 },
+  { name: 'disneyplus', id: 337 },
+  { name: 'netflix', id: 8 },
+  { name: 'primevideo', id: 119 },
+  { name: 'watcha', id: 97 },
+  { name: 'wavve', id: 356 },
+  { name: 'universeLogoWhite1' },
+  { name: 'universeLogoWhite2' },
+  { name: 'universeLogoWhite3' },
+];
 
 const SignupOption = () => {
   const [isLogo, setIsLogo] = useState(false);
@@ -43,6 +53,22 @@ const SignupOption = () => {
       console.log('Error: ', e);
     }
   };
+
+  const handleLogoClick = e => {
+    subscribed.push({ id: +e.target.id, price: 'basic' });
+  };
+
+  // const handleLogoClick = async e => {
+  //   try {
+  //     console.log(user);
+  //     const { email } = user;
+  //     const id = +e.target.id;
+
+  //     await axios.delete(`/api/users/${email}/${id}`);
+  //   } catch (e) {
+  //     console.log('Error: ', e);
+  //   }
+  // };
 
   return (
     <>
@@ -59,9 +85,18 @@ const SignupOption = () => {
       {isLogo && (
         <>
           <Grid columns={3} style={{ margin: '30px' }}>
-            {logos.map(logo => (
-              <Grid.Col span={1} key={logo} style={{ textAlign: 'center' }}>
-                <LogoImg src={`./assets/badges/${logo}.svg`} alt="button" />
+            {logos.map(({ name, id }, idx) => (
+              <Grid.Col span={1} key={name} style={{ textAlign: 'center' }}>
+                <button
+                  onClick={e => {
+                    handleLogoClick(e);
+                    console.log('array: ', subscribed);
+                  }}
+                  type="button"
+                  disabled={idx > 5}
+                  style={{ border: 'none', padding: 0, background: 'none' }}>
+                  <LogoImg id={id} src={`./assets/badges/${name}.svg`} alt="button" />
+                </button>
               </Grid.Col>
             ))}
           </Grid>
@@ -69,7 +104,7 @@ const SignupOption = () => {
             <SubmitBtn variant="filled">
               <SubmitLink to="/signin">Skip</SubmitLink>
             </SubmitBtn>
-            <SubmitBtn onClick={() => handleClick()} variant="filled">
+            <SubmitBtn onClick={handleClick} variant="filled">
               <SubmitLink to="/signin">Submit</SubmitLink>
             </SubmitBtn>
           </SubmitBtnCotainer>
