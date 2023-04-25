@@ -9,12 +9,13 @@ const language = 'ko-KR';
  * @param {'movie' | 'tv'} mediaType
  * @returns data
  */
-export const fetchMediaContentTrendings = async (mediaType, providerId = '8|119|337|356|97|350') => {
+export const fetchMediaContentTrendings = async (mediaType, page = 1, providerId = '8|119|337|356|97|350') => {
   const res = await axios.get(`${API_URL}discover/${mediaType}`, {
     params: {
       api_key: API_KEY,
       language,
       sort_by: 'popularity.desc',
+      page,
       watch_region: 'KR',
       with_watch_providers: providerId,
     },
