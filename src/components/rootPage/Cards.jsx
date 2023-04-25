@@ -1,6 +1,20 @@
 import { IconHeart, IconHistory, IconMovie } from '@tabler/icons-react';
-import { Container, Card, Image, Text, ActionIcon, Badge, Group, Center, Avatar, useMantineTheme } from '@mantine/core';
+import {
+  Container,
+  Card,
+  Image,
+  Text,
+  ActionIcon,
+  Badge,
+  Group,
+  Flex,
+  useMantineTheme,
+  SimpleGrid,
+  rem,
+} from '@mantine/core';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import sideNavOpenedState from '../../recoil/atom/sideNavOpenedState';
 
 const mockData = {
   page: 1,
@@ -429,7 +443,21 @@ const genres = {
   },
 };
 
-const StyledCard = styled(Card)``;
+const CardGrid = styled(SimpleGrid)`
+  position: relative;
+  grid-template-columns: repeat(5, 15.75rem);
+  margin: 0 auto;
+`;
+
+const StyledCard = styled(Card)`
+  padding: 0;
+  &:hover > div {
+    opacity: 90%;
+  }
+  &:hover > div:last-child {
+    opacity: 100%;
+  }
+`;
 
 const Cover = styled(Container)`
   position: absolute;
@@ -437,18 +465,21 @@ const Cover = styled(Container)`
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 80%;
+  opacity: 0%;
+  transition: 0.3s ease;
 `;
 
 const HoverContainer = styled(Container)`
   position: absolute;
   top: 0;
   left: 0;
+  opacity: 0;
+  transition: 0.3s ease;
 `;
 
 const Title = styled(Text)`
   display: 'block';
-  margin-top: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-lg);
   margin-bottom: rem(5);
 `;
 
@@ -470,56 +501,67 @@ const ArticleCard = ({ id, title, originalTitle, posterPath, overview, releaseDa
   const theme = useMantineTheme();
 
   return (
-    <StyledCard w={252} radius="md">
-      <Card.Section>
+    <div style={{ margin: '0 auto' }}>
+      <StyledCard w={252} h={355} radius="md">
         <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
         <Cover />
-      </Card.Section>
-      <HoverContainer>
-        <Container p={0} mb={'sm'}>
-          <Title fw={600}>{title}</Title>
-          <Text fz="sm" color="dimmed" fw={300}>
-            {originalTitle}
-          </Text>
-        </Container>
-        <Container p={0} mb={'sm'}>
-          <Text fw={300} fz="xs" color="dimmed" lineClamp={4}>
-            {overview}
-          </Text>
-        </Container>
-        <Footer position="apart">
-          <Center>
-            {genreIds.map(id => (
-              <Badge color={genres[id].color} key={id}>
-                {genres[id].name}
-              </Badge>
-            ))}
-            <Text fz="sm" inline>
-              {releaseDate}
+        <HoverContainer w={252}>
+          <Container p={0} mb={'sm'}>
+            <Title fw={600}>{title}</Title>
+            <Text fz="sm" color="dimmed">
+              {originalTitle}
             </Text>
-          </Center>
-          <Group spacing={8} mr={0}>
-            <Action>
-              <IconMovie size="1rem" color={theme.colors.yellow[7]} />
-            </Action>
-            <Action>
-              <IconHeart size="1rem" color={theme.colors.red[6]} />
-            </Action>
-            <Action>
-              <IconHistory size="1rem" />
-            </Action>
-          </Group>
-        </Footer>
-      </HoverContainer>
-    </StyledCard>
+          </Container>
+          <Container p={0} mb={'sm'}>
+            <Text w={'100%'} fz="xs" color="dimmed" lineClamp={4}>
+              {overview}
+            </Text>
+          </Container>
+          <Footer position="apart">
+            <Flex w={'100%'} wrap={'wrap'}>
+              {genreIds.map(id => (
+                <Badge color={genres[id].color} key={id}>
+                  {genres[id].name}
+                </Badge>
+              ))}
+              <Text fz="sm" inline>
+                {releaseDate}
+              </Text>
+            </Flex>
+            <Group spacing={8} mr={0}>
+              <Action>
+                <IconMovie size="1rem" color={theme.colors.yellow[7]} />
+              </Action>
+              <Action>
+                <IconHeart size="1rem" color={theme.colors.red[6]} />
+              </Action>
+              <Action>
+                <IconHistory size="1rem" />
+              </Action>
+            </Group>
+          </Footer>
+        </HoverContainer>
+      </StyledCard>
+    </div>
   );
 };
 
 const Cards = () => {
   const { results: movies } = mockData;
+  const opened = useRecoilValue(sideNavOpenedState);
+
+  console.log(movies);
 
   return (
-    <div>
+    <CardGrid
+      cols={6}
+      w={rem(1324)}
+      verticalSpacing="sm"
+      breakpoints={[
+        { maxWidth: '100rem', cols: 5 },
+        { maxWidth: '48rem', cols: 2 },
+        { maxWidth: '36rem', cols: 1 },
+      ]}>
       {movies.map(
         ({
           id,
@@ -542,7 +584,7 @@ const Cards = () => {
           />
         )
       )}
-    </div>
+    </CardGrid>
   );
 };
 export default Cards;
