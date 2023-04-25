@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
 import useColorScheme from './hooks/useColorScheme';
 
 import { Root, MyPage, SignIn } from './pages';
@@ -31,10 +30,10 @@ const router = createBrowserRouter([
     path: '/signin',
     element: <SignIn />,
   },
-  // {
-  //   path: '/signup',
-  //   element: <SignUp />,
-  // },
+  {
+    path: '/signup',
+    element: <SignUp />,
+  },
 ]);
 
 const App = () => {
