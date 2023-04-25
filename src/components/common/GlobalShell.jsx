@@ -1,16 +1,7 @@
 import { useRecoilState } from 'recoil';
-import {
-  AppShell,
-  Header,
-  Container,
-  Button,
-  Text,
-  Burger,
-  useMantineTheme,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { AppShell, Header, Container, Button, Burger, useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import styled from '@emotion/styled';
-import isSideNavOpenState from '../recoil/atom/sideNavOpenedState';
+import isSideNavOpenState from '../../recoil/atom/sideNavOpenedState';
 import SearchBar from './SearchBar';
 import SideNavBar from './SideNavBar';
 
@@ -26,7 +17,7 @@ const Logo = styled.button`
   background-color: transparent;
 `;
 
-const GlobalShell = () => {
+const GlobalShell = ({ children }) => {
   const theme = useMantineTheme();
   const [isOpened, setIsOpend] = useRecoilState(isSideNavOpenState);
   const { colorScheme } = useMantineColorScheme();
@@ -38,7 +29,7 @@ const GlobalShell = () => {
     <AppShell
       styles={{
         main: {
-          background: dark ? theme.colors.dark[7] : theme.colors.gray[0],
+          background: dark ? theme.colors.dark[8] : theme.colors.gray[0],
         },
       }}
       navbar={<SideNavBar />}
@@ -64,7 +55,7 @@ const GlobalShell = () => {
           </SubContainer>
         </Header>
       }>
-      <Text>Resize app to see responsive navbar in action</Text>
+      {children}
     </AppShell>
   );
 };

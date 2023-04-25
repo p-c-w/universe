@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { ActionIcon, useMantineColorScheme } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
+import useColorScheme from '../../hooks/useColorScheme';
 
 const Button = styled(ActionIcon)`
   position: fixed;
@@ -9,7 +10,7 @@ const Button = styled(ActionIcon)`
 `;
 
 const ThemeButton = () => {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [colorScheme, toggleColorScheme] = useColorScheme();
   const dark = colorScheme === 'dark';
 
   return (

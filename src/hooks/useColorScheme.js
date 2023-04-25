@@ -1,9 +1,9 @@
 import { useHotkeys, useLocalStorage } from '@mantine/hooks';
 
-const useTheme = () => {
+const useColorScheme = () => {
   const [colorScheme, setColorScheme] = useLocalStorage({
     key: 'mantine-color-scheme',
-    defaultValue: 'light',
+    defaultValue: 'dark',
     getInitialValueInEffect: true,
   });
 
@@ -14,4 +14,4 @@ const useTheme = () => {
   return [colorScheme, toggleColorScheme];
 };
 
-export default useTheme;
+export default useColorScheme;

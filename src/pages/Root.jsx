@@ -1,11 +1,16 @@
 import React from 'react';
-import { GlobalShell, ThemeButton } from '../components';
+import { GlobalShell, ThemeButton } from '../components/common';
+import { Banner, Board } from '../components/rootPage';
 
 const Root = () => {
   console.log('Root');
+
   return (
     <>
-      <GlobalShell>{/* children */}</GlobalShell>
+      <GlobalShell>
+        <Banner />
+        <Board />
+      </GlobalShell>
       <ThemeButton />
     </>
   );
