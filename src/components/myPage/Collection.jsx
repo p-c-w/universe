@@ -9,15 +9,20 @@ import { PROVIDERS } from '../../constants';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
-const AccordionLabel = ({ title, providerImg }) => (
-  <Group noWrap>
-    <Badge src={providerImg} />
-    <div>
-      <Text>{title}</Text>
-      <CollectionButtons />
-    </div>
-  </Group>
-);
+const AccordionLabel = ({ title, providers }) => {
+  const getProvidersImgPath = providerIds =>
+    providerIds.map(providerId => PROVIDERS.find(PROVIDER => PROVIDER.id === providerId)?.providerImgPath);
+
+  return (
+    <Group noWrap>
+      <Badge src={getProvidersImgPath(providers)[0]} />
+      <div>
+        <Text>{title}</Text>
+        <CollectionButtons />
+      </div>
+    </Group>
+  );
+};
 
 const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
@@ -34,7 +39,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
     queries: detailQueries,
   }).map(query => query.data);
 
-  const collection = userCollectionList
+  let collection = userCollectionList
     .map(item => ({
       id: item.id,
       modified_at: item.modified_at,
@@ -59,8 +64,13 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
     ...data,
     providers: data.providers
       ?.map(provider => provider.provider_id)
-      ?.filter(id => PROVIDERS.find(ott => ott.id === id)),
+      ?.filter(id => PROVIDERS.find(PROVIDER => PROVIDER.id === id)),
   }));
+
+  collection = collection.map(item => {
+    const providerById = providers.find(data => data.id === item.id);
+    return { ...item, ...providerById };
+  });
 
   const itemRef = useRef(null);
 
