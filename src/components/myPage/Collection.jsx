@@ -1,12 +1,10 @@
 import { useRef } from 'react';
 import { Group, Text, Accordion } from '@mantine/core';
-import { useQueries } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { Badges, CollectionButtons } from '../index';
-import { fetchProvider } from '../../api';
 import userState from '../../recoil/atom/userState';
 import { PROVIDERS } from '../../constants';
-import { useContentDetailQueries } from '../../hooks/queries';
+import { useContentDetailQueries, useProviderQueries } from '../../hooks/queries';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -29,6 +27,9 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const userCollectionList = user[`${category.toLowerCase()}_list`];
 
   const { contentDetailDatas } = useContentDetailQueries(userCollectionList);
+  const { providers } = useProviderQueries(userCollectionList, {
+    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+  });
 
   let collection = userCollectionList
     .map(item => ({
@@ -39,24 +40,6 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
       const detailData = contentDetailDatas.find(data => data.id === item.id);
       return { ...item, ...detailData };
     });
-
-  const providerQueries = userCollectionList?.map(item => ({
-    queryKey: ['@provider', item],
-    queryFn: () => fetchProvider(item.type, item.id),
-    select: item => ({ id: item.id, providers: item.results.KR.flatrate }),
-    suspense: true,
-  }));
-
-  const providerDatas = useQueries({
-    queries: providerQueries,
-  }).map(query => query.data);
-
-  const providers = providerDatas.map(data => ({
-    ...data,
-    providers: data.providers
-      ?.map(provider => provider.provider_id)
-      ?.filter(id => PROVIDERS.find(PROVIDER => PROVIDER.id === id)),
-  }));
 
   collection = collection.map(item => {
     const providerById = providers.find(data => data.id === item.id);
