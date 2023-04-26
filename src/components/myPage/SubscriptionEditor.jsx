@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconDiscountCheck } from '@tabler/icons-react';
-import PROVIDERS from '../../constants/providerIds';
+import { PROVIDERS } from '../../constants';
 
 const SubscriptionEditor = ({ providers, onClick }) => {
   const providersNames = providers?.map(provider => provider.provider_name);
