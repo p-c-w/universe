@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion, Box, Container } from '@mantine/core';
+import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { PROVIDERS } from '../../constants';
-import useUserQuery from '../../hooks/queries/useUserQuery';
+import userState from '../../recoil/atom/userState';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -20,7 +21,7 @@ const PresentSubscriptionFee = styled(Accordion)`
 `;
 
 const CurrentSubscriptionInfo = () => {
-  const { data: subscribeList } = useUserQuery('snowlover@gmail.com', { select: user => user.subscribe_list });
+  const { subscribe_list: subscribeList } = useRecoilValue(userState);
 
   const getProviderList = () => {
     const providers = subscribeList?.map(item => PROVIDERS.find(PROVIDER => PROVIDER.id === item.id));
