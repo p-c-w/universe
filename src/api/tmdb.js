@@ -9,7 +9,7 @@ const language = 'ko-KR';
  * @param {'movie' | 'tv'} mediaType
  * @returns data
  */
-export const fetchMediaContentTrendings = async (mediaType, page = 1, providerId = '8|119|337|356|97|350') => {
+export const fetchSortByPopularity = async (mediaType, page, providerId) => {
   const res = await axios.get(`${API_URL}discover/${mediaType}`, {
     params: {
       api_key: API_KEY,
@@ -25,16 +25,41 @@ export const fetchMediaContentTrendings = async (mediaType, page = 1, providerId
 };
 
 /**
- * 미디어 콘텐츠 검색 데이터
+/**
+ * 미디어 콘텐츠 릴리즈 날짜순 정렬 데이터
  * @param {'movie' | 'tv'} mediaType
- * @param {string} query
  * @returns data
  */
-export const fetchMediaContentSearchResult = async (mediaType, query) => {
-  const res = await axios.get(`${API_URL}search/${mediaType}`, {
+export const fetchSortByReleaseDate = async (mediaType, providerId) => {
+  const res = await axios.get(`${API_URL}discover/${mediaType}`, {
     params: {
       api_key: API_KEY,
-      query,
+      language,
+      sort_by: 'release_date.desc',
+      watch_region: 'KR',
+      with_watch_providers: providerId,
+    },
+  });
+
+  return res.data;
+};
+
+/**
+ *  미디어 콘텐츠 장르 인기순 데이터
+ * @param {'movie' | 'tv'} mediaType
+ * @param {string | number} genreId
+ * @param {string | number} providerId
+ * @returns
+ */
+export const fetchWithGenre = async (mediaType, genreId, providerId) => {
+  const res = await axios.get(`${API_URL}discover/${mediaType}`, {
+    params: {
+      api_key: API_KEY,
+      language,
+      sort_by: 'popularity.desc',
+      watch_region: 'KR',
+      with_genres: genreId,
+      with_watch_providers: providerId,
     },
   });
   return res.data;
@@ -57,20 +82,16 @@ export const fetchMediaContentDetails = async (mediaType, id) => {
 };
 
 /**
- *  미디어 콘텐츠 장르 데이터
+ * 미디어 콘텐츠 검색 데이터
  * @param {'movie' | 'tv'} mediaType
- * @param {string | number} genreId
- * @param {string | number} providerId
- * @returns
+ * @param {string} query
+ * @returns data
  */
-export const fetchMediaContentsByGenre = async (mediaType, genreId, providerId) => {
-  const res = await axios.get(`${API_URL}discover/${mediaType}`, {
+export const fetchMediaContentSearchResult = async (mediaType, query) => {
+  const res = await axios.get(`${API_URL}search/${mediaType}`, {
     params: {
       api_key: API_KEY,
-      sort_by: 'popularity.desc',
-      watch_region: 'KR',
-      with_genres: genreId,
-      with_watch_providers: providerId,
+      query,
     },
   });
   return res.data;
