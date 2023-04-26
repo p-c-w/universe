@@ -2,20 +2,19 @@ import { useRef } from 'react';
 import { Group, Text, Accordion } from '@mantine/core';
 import { useQueries } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
-import { Badge, CollectionButtons } from '../index';
+import { Badges, CollectionButtons } from '../index';
 import { fetchMediaContentDetails, fetchProvider } from '../../api';
 import userState from '../../recoil/atom/userState';
 import { PROVIDERS } from '../../constants';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
-const AccordionLabel = ({ title, providers }) => {
-  const getProvidersImgPath = providerIds =>
-    providerIds.map(providerId => PROVIDERS.find(PROVIDER => PROVIDER.id === providerId)?.providerImgPath);
+const AccordionLabel = ({ title, providers: providerIds }) => {
+  const providers = providerIds.map(providerId => PROVIDERS.find(PROVIDER => PROVIDER.id === providerId));
 
   return (
     <Group noWrap>
-      <Badge src={getProvidersImgPath(providers)[0]} />
+      <Badges providers={providers} spacing={30} />
       <div>
         <Text>{title}</Text>
         <CollectionButtons />
