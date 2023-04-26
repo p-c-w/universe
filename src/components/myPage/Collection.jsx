@@ -1,7 +1,8 @@
 import { useRef } from 'react';
 import { Group, Text, Accordion } from '@mantine/core';
+import { useRecoilValue } from 'recoil';
 import { Badge, CollectionButtons } from '../index';
-import { useUserQuery } from '../../hooks/queries';
+import userState from '../../recoil/atom/userState';
 
 // mockdata
 const users = [
@@ -24,13 +25,12 @@ const users = [
 
 const mockData = [
   {
-    id: '507129',
-    providerImg: 'assets/badges/appletvplus.svg',
-    title: '모범택시',
-    contentImg: 'https://image.tmdb.org/t/p/w300/xHB43aUOtIezsD0lUzA0Sqk7ALr.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
+    id: '507129', // user
+    providerImg: 'assets/badges/appletvplus.svg', // tmdb
+    title: '모범택시', // tmdb
+    contentImg: 'https://image.tmdb.org/t/p/w300/xHB43aUOtIezsD0lUzA0Sqk7ALr.jpg', // tmdb
+    modified_at: '2021-05-18T12:59:32.746Z', // user
   },
-
   {
     id: '37692',
     providerImg: 'assets/badges/disneyplus.svg',
@@ -38,7 +38,6 @@ const mockData = [
     contentImg: 'https://image.tmdb.org/t/p/w300/jjHccoFjbqlfr4VGLVLT7yek0Xn.jpg',
     modified_at: '2021-05-18T12:59:32.746Z',
   },
-
   {
     id: '54823',
     providerImg: 'assets/badges/wavve.svg',
@@ -89,9 +88,8 @@ const AccordionLabel = ({ title, providerImg }) => (
 );
 
 const Collection = ({ category, setSelected, setImgSrc }) => {
-  const { data: userCollection } = useUserQuery('snowlover@gmail.com', {
-    select: user => user[`${category.toLowerCase()}_list`],
-  });
+  const user = useRecoilValue(userState);
+  const userCollection = user[`${category.toLowerCase()}_list`];
 
   const itemRef = useRef(null);
 
