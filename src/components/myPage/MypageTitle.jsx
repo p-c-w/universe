@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
-import { Title, Button, Container, TextInput, Input } from '@mantine/core';
+import { useState } from 'react';
+import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import useUserQuery from '../../hooks/queries/useUserQuery';
+import { useRecoilValue } from 'recoil';
+import userState from '../../recoil/atom/userState';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -26,14 +27,10 @@ const NameInput = styled(TextInput)`
 `;
 
 const MypageTitle = () => {
-  const { data: userName } = useUserQuery('snowlover@gmail.com', { select: user => user.name });
+  const { name } = useRecoilValue(userState);
 
-  const [value, setValue] = useState(userName);
+  const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
-
-  useEffect(() => {
-    setValue(userName);
-  }, [userName]);
 
   const handleKeyUp = e => {
     const content = e.target.value.trim();
@@ -47,16 +44,16 @@ const MypageTitle = () => {
         {editMode ? (
           <NameInput
             variant="unstyled"
-            value={value}
+            value={userName}
             onChange={e => {
-              setValue(e.currentTarget.value);
+              setUserName(e.currentTarget.value);
             }}
             onKeyUp={handleKeyUp}
             placeholder="Your Name"
             ref={node => node?.focus()}
           />
         ) : (
-          value
+          userName
         )}
         &apos;s Universe
       </PageTitle>
