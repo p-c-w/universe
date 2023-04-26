@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Button } from '@mantine/core';
+import { Grid, Button, rem } from '@mantine/core';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -7,11 +7,7 @@ import { useRecoilValue } from 'recoil';
 import Typing from './Typing';
 
 import userState from '../../recoil/atom/userState';
-
-const LogoImg = styled.img`
-  width: 4.375rem;
-  height: 70px;
-`;
+import LogoBtn from './LogoBtn';
 
 const SubmitBtnCotainer = styled.div`
   float: right;
@@ -28,12 +24,6 @@ const SubmitLink = styled(Link)`
   color: white;
 `;
 
-const LogoBtn = styled.button`
-  border: none;
-  padding: 0;
-  background: none;
-`;
-
 const logos = [
   { name: 'appletvplus', id: 350 },
   { name: 'disneyplus', id: 337 },
@@ -48,20 +38,17 @@ const logos = [
 
 const SignupOption = () => {
   const [isLogo, setIsLogo] = useState(false);
-  const subscribed = [];
+  const [subscribedOtt, setSubscribedOtt] = useState([]);
   const user = useRecoilValue(userState);
 
   const handleClick = async () => {
     try {
-      const { email } = user;
-      await axios.patch(`/api/users/${email}`, { subscribe_list: subscribed });
+      const { email } = user.data;
+
+      await axios.patch(`/api/users/${email}`, { subscribe_list: subscribedOtt });
     } catch (e) {
       console.log('Error: ', e);
     }
-  };
-
-  const handleLogoClick = e => {
-    subscribed.push({ id: +e.target.id, price: 'basic' });
   };
 
   return (
@@ -78,17 +65,19 @@ const SignupOption = () => {
       />
       {isLogo && (
         <>
-          <Grid columns={3} style={{ margin: '30px' }}>
-            {logos.map(({ name, id }, idx) => (
-              <Grid.Col span={1} key={name} style={{ textAlign: 'center' }}>
-                <LogoBtn
-                  onClick={e => {
-                    handleLogoClick(e);
-                  }}
-                  type="button"
-                  disabled={idx > 5}>
-                  <LogoImg id={id} src={`./assets/badges/${name}.svg`} alt="button" />
-                </LogoBtn>
+          <Grid columns={3} style={{ margin: '30px' }} justify="center">
+            {logos.map((logo, idx) => (
+              <Grid.Col
+                span={1}
+                key={logo.name}
+                style={{
+                  textAlign: 'center',
+                  minHeight: rem(120),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <LogoBtn logo={logo} idx={idx} subscribedOtt={subscribedOtt} setSubscribedOtt={setSubscribedOtt} />
               </Grid.Col>
             ))}
           </Grid>
