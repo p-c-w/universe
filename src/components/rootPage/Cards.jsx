@@ -14,160 +14,10 @@ import {
 } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useCallback } from 'react';
-import useMainBoardQuery from '../../hooks/useMainBoardQuery';
+import useSortByPopularityInfinityQuery from '../../hooks/queries/useSortByPopularityInfinityQuery';
 import useObsever from '../../hooks/useObsever';
 import { ScrollObserver } from '../common';
-
-const tvGenres = {
-  10759: {
-    name: '액션&모험',
-    color: 'red',
-  },
-
-  16: {
-    name: '애니메이션',
-    color: 'grape',
-  },
-  35: {
-    name: '코미디',
-    color: 'violet',
-  },
-  80: {
-    name: '범죄',
-    color: 'indigo',
-  },
-  99: {
-    name: '다큐멘터리',
-    color: 'blue',
-  },
-  18: {
-    name: '드라마',
-    color: 'cyan',
-  },
-  10751: {
-    name: '가족',
-    color: 'teal',
-  },
-  10762: {
-    name: '키즈',
-    color: 'pink',
-  },
-  9648: {
-    name: '미스터리',
-    color: 'red',
-  },
-  10763: {
-    name: '뉴스',
-    color: 'lime',
-  },
-  10764: {
-    name: '리얼리티',
-    color: 'yellow',
-  },
-  10765: {
-    name: 'SF&판타지',
-    color: 'green',
-  },
-  10766: {
-    name: '소프',
-    color: 'orange',
-  },
-  10767: {
-    name: '토크',
-    color: 'pink',
-  },
-  10768: {
-    name: '전쟁&정치',
-    color: 'grape',
-  },
-  10770: {
-    name: 'TV 영화',
-    color: 'violet',
-  },
-  37: {
-    name: '서부',
-    color: 'cyan',
-  },
-};
-
-const movieGenres = {
-  28: {
-    name: '액션',
-    color: 'red',
-  },
-  12: {
-    name: '모험',
-    color: 'pink',
-  },
-  16: {
-    name: '애니메이션',
-    color: 'grape',
-  },
-  35: {
-    name: '코미디',
-    color: 'violet',
-  },
-  80: {
-    name: '범죄',
-    color: 'indigo',
-  },
-  99: {
-    name: '다큐멘터리',
-    color: 'blue',
-  },
-  18: {
-    name: '드라마',
-    color: 'cyan',
-  },
-  10751: {
-    name: '가족',
-    color: 'teal',
-  },
-  14: {
-    name: '판타지',
-    color: 'green',
-  },
-  36: {
-    name: '역사',
-    color: 'lime',
-  },
-  27: {
-    name: '공포',
-    color: 'yellow',
-  },
-  10402: {
-    name: '음악',
-    color: 'orange',
-  },
-  9648: {
-    name: '미스터리',
-    color: 'red',
-  },
-  10749: {
-    name: '로맨스',
-    color: 'pink',
-  },
-  878: {
-    name: 'SF',
-    color: 'grape',
-  },
-  10770: {
-    name: 'TV 영화',
-    color: 'violet',
-  },
-  53: {
-    name: '스릴러',
-    color: 'indigo',
-  },
-  10752: {
-    name: '전쟁',
-    color: 'blue',
-  },
-  37: {
-    name: '서부',
-    color: 'cyan',
-  },
-};
+import genres from '../../constants/genres';
 
 const CardGrid = styled(SimpleGrid)`
   position: relative;
@@ -225,56 +75,56 @@ const Footer = styled(Group)`
 
 const ArticleCard = ({ title, originalTitle, posterPath, overview, releaseDate, genreIds, mediaType }) => {
   const theme = useMantineTheme();
-  const genres = mediaType === 'movie' ? movieGenres : tvGenres;
 
   return (
-    <div style={{ margin: '0 auto' }}>
-      <StyledCard w={252} h={355} radius="md">
-        <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
-        <Cover />
-        <HoverContainer p={'xl'} w={252}>
-          <Flex direction={'column'} align={'baseline'} justify={'space-between'}>
-            <Container m={0} p={0} mb={'md'}>
-              <Title fw={600}>{title}</Title>
-              <Text fz="sm" color="dimmed">
-                {originalTitle}
-              </Text>
-              <Text w={'100%'} mt={'md'} fz="xs" color="dimmed" lineClamp={6}>
-                {overview}
-              </Text>
-            </Container>
-            <Footer position="apart">
-              <Flex w={'100%'} wrap={'wrap'}>
-                {genreIds.map(id => (
-                  <Badge color={genres[id].color} key={id}>
-                    {genres[id].name}
-                  </Badge>
-                ))}
-                <Text fz="sm" inline>
-                  {releaseDate}
-                </Text>
-              </Flex>
-              <Group spacing={8} mr={0}>
-                <Action>
-                  <IconMovie size="1rem" color={theme.colors.yellow[7]} />
-                </Action>
-                <Action>
-                  <IconHeart size="1rem" color={theme.colors.red[6]} />
-                </Action>
-                <Action>
-                  <IconHistory size="1rem" />
-                </Action>
-              </Group>
-            </Footer>
-          </Flex>
-        </HoverContainer>
-      </StyledCard>
-    </div>
+    <StyledCard w={252} h={355} radius="md">
+      <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
+      <Cover />
+      <HoverContainer p={'xl'} w={252}>
+        <Flex direction={'column'} align={'baseline'} justify={'space-between'}>
+          <Container m={0} p={0} mb={'md'}>
+            <Title fz="xl" fw={600}>
+              {title}
+            </Title>
+            <Text fz="md" color="dimmed">
+              {originalTitle}
+            </Text>
+            <Text fw={200} fz={'xs'}>
+              {releaseDate}
+            </Text>
+
+            <Text w={'100%'} mt={'md'} fz="xs" color="dimmed" lineClamp={5}>
+              {overview}
+            </Text>
+          </Container>
+          <Footer position="apart">
+            <Flex w={'100%'} wrap={'wrap'}>
+              {genreIds.map(id => (
+                <Badge color={genres[mediaType][id].color} key={id}>
+                  {genres[mediaType][id].name}
+                </Badge>
+              ))}
+            </Flex>
+            <Group spacing={8} mr={0}>
+              <Action>
+                <IconMovie size="1rem" color={theme.colors.yellow[7]} />
+              </Action>
+              <Action>
+                <IconHeart size="1rem" color={theme.colors.red[6]} />
+              </Action>
+              <Action>
+                <IconHistory size="1rem" />
+              </Action>
+            </Group>
+          </Footer>
+        </Flex>
+      </HoverContainer>
+    </StyledCard>
   );
 };
 
 const Cards = ({ mediaType }) => {
-  const { isSuccess, data: content, hasNextPage, fetchNextPage } = useMainBoardQuery(mediaType);
+  const { isSuccess, data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
 
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
@@ -311,7 +161,7 @@ const Cards = ({ mediaType }) => {
                   posterPath={posterPath}
                   genreIds={genreIds}
                   overview={overview}
-                  release_date={releaseDate}
+                  releaseDate={releaseDate}
                   mediaType={mediaType}
                 />
               )
@@ -333,7 +183,7 @@ const Cards = ({ mediaType }) => {
                   posterPath={posterPath}
                   genreIds={genreIds}
                   overview={overview}
-                  release_date={firstAirDate}
+                  releaseDate={firstAirDate}
                   mediaType={mediaType}
                 />
               )
