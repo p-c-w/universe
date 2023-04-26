@@ -3,9 +3,10 @@ import { Group, Text, Accordion } from '@mantine/core';
 import { useQueries } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { Badges, CollectionButtons } from '../index';
-import { fetchMediaContentDetails, fetchProvider } from '../../api';
+import { fetchProvider } from '../../api';
 import userState from '../../recoil/atom/userState';
 import { PROVIDERS } from '../../constants';
+import { useContentDetailQueries } from '../../hooks/queries';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -27,16 +28,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
   const userCollectionList = user[`${category.toLowerCase()}_list`];
 
-  const detailQueries = userCollectionList?.map(item => ({
-    queryKey: ['@collection', item],
-    queryFn: () => fetchMediaContentDetails(item.type, item.id),
-    select: item => ({ id: item.id, title: item.title || item.name, posterPath: item.poster_path }),
-    suspense: true,
-  }));
-
-  const detailDatas = useQueries({
-    queries: detailQueries,
-  }).map(query => query.data);
+  const { contentDetailDatas } = useContentDetailQueries(userCollectionList);
 
   let collection = userCollectionList
     .map(item => ({
@@ -44,7 +36,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
       modified_at: item.modified_at,
     }))
     .map(item => {
-      const detailData = detailDatas.find(data => data.id === item.id);
+      const detailData = contentDetailDatas.find(data => data.id === item.id);
       return { ...item, ...detailData };
     });
 
