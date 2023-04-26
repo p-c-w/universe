@@ -20,17 +20,19 @@ const PresentSubscriptionFee = styled(Accordion)`
   }
 `;
 
+const getProviderList = list => {
+  const providers = list?.map(item => PROVIDERS.find(PROVIDER => PROVIDER.id === item.id));
+  return providers;
+};
+
+const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
+
 const CurrentSubscriptionInfo = () => {
+  const [editMode, setEditMode] = useState(false);
   const { subscribe_list: subscribeList } = useRecoilValue(userState);
 
-  const getProviderList = () => {
-    const providers = subscribeList?.map(item => PROVIDERS.find(PROVIDER => PROVIDER.id === item.id));
-    return providers;
-  };
-
-  const providers = getProviderList();
-
-  const [editMode, setEditMode] = useState(false);
+  const providers = getProviderList(subscribeList);
+  const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -39,10 +41,10 @@ const CurrentSubscriptionInfo = () => {
   return (
     <StyledContainer>
       <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
-        <Accordion.Item value="₩29,800">
+        <Accordion.Item value={`₩${currentFee}`}>
           <Accordion.Control>
             <Title order={4}>현재 나의 구독료</Title>
-            <Text size="2rem">₩29,800</Text>
+            <Text size="2rem">₩{currentFee}</Text>
           </Accordion.Control>
           <Accordion.Panel>
             {editMode ? (
