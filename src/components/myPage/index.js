@@ -8,3 +8,4 @@ export { default as SubscriptionProviders } from './SubscriptionProviders';
 export { default as CurrentSubscriptionInfo } from './CurrentSubscriptionInfo';
 export { default as SubscriptionEditor } from './SubscriptionEditor';
 export { default as PredictedSubscription } from './PredictedSubscription';
+export { default as AccordionLabel } from './AccordionLabel';

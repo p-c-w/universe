@@ -1,26 +1,11 @@
 import { useRef } from 'react';
-import { Group, Text, Accordion } from '@mantine/core';
+import { Text, Accordion } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
-import { Badges, CollectionButtons } from '../index';
+import { AccordionLabel } from './index';
 import userState from '../../recoil/atom/userState';
-import { PROVIDERS } from '../../constants';
 import { useContentDetailQueries, useProviderQueries } from '../../hooks/queries';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
-
-const AccordionLabel = ({ title, providers: providerIds }) => {
-  const providers = providerIds.map(providerId => PROVIDERS.find(PROVIDER => PROVIDER.id === providerId));
-
-  return (
-    <Group noWrap>
-      <Badges providers={providers} spacing={30} />
-      <div>
-        <Text>{title}</Text>
-        <CollectionButtons />
-      </div>
-    </Group>
-  );
-};
 
 const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
