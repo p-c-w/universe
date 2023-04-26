@@ -3,8 +3,9 @@ import { Group, Text, Accordion } from '@mantine/core';
 import { useQueries } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { Badge, CollectionButtons } from '../index';
-import { fetchMediaContentDetails } from '../../api';
+import { fetchMediaContentDetails, fetchProvider } from '../../api';
 import userState from '../../recoil/atom/userState';
+import { PROVIDERS } from '../../constants';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -22,7 +23,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
   const userCollectionList = user[`${category.toLowerCase()}_list`];
 
-  const queries = userCollectionList?.map(item => ({
+  const detailQueries = userCollectionList?.map(item => ({
     queryKey: ['@collection', item],
     queryFn: () => fetchMediaContentDetails(item.type, item.id),
     select: item => ({ id: item.id, title: item.title || item.name, posterPath: item.poster_path }),
@@ -30,12 +31,10 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   }));
 
   const detailDatas = useQueries({
-    queries,
+    queries: detailQueries,
   }).map(query => query.data);
 
-  let collection = [];
-
-  collection = userCollectionList
+  const collection = userCollectionList
     .map(item => ({
       id: item.id,
       modified_at: item.modified_at,
@@ -44,6 +43,24 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
       const detailData = detailDatas.find(data => data.id === item.id);
       return { ...item, ...detailData };
     });
+
+  const providerQueries = userCollectionList?.map(item => ({
+    queryKey: ['@provider', item],
+    queryFn: () => fetchProvider(item.type, item.id),
+    select: item => ({ id: item.id, providers: item.results.KR.flatrate }),
+    suspense: true,
+  }));
+
+  const providerDatas = useQueries({
+    queries: providerQueries,
+  }).map(query => query.data);
+
+  const providers = providerDatas.map(data => ({
+    ...data,
+    providers: data.providers
+      ?.map(provider => provider.provider_id)
+      ?.filter(id => PROVIDERS.find(ott => ott.id === id)),
+  }));
 
   const itemRef = useRef(null);
 
