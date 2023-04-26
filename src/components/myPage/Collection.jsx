@@ -64,7 +64,9 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const handleChange = e => {
     itemRef.current = e;
     setSelected(itemRef.current !== null);
-    setImgSrc(collection.find(item => item.title === e)?.posterPath);
+    setImgSrc(
+      itemRef.current && `https://image.tmdb.org/t/p/w300${collection.find(item => item.title === e)?.posterPath}`
+    );
   };
 
   return (
