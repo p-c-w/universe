@@ -75,3 +75,18 @@ export const fetchMediaContentsByGenre = async (mediaType, genreId, providerId) 
   });
   return res.data;
 };
+
+/**
+ * 미디어 콘텐츠 OTT서비스 provider 데이터
+ * @param {'movie' | 'tv'} mediaType
+ * @param {string | number} id
+ * @returns
+ */
+export const fetchProvider = async (mediaType, id) => {
+  const res = await axios.get(`${API_URL + mediaType}/${id}/watch/providers`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+  return res.data;
+};
