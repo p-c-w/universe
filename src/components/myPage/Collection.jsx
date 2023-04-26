@@ -26,7 +26,9 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
   const userCollectionList = user[`${category.toLowerCase()}_list`];
 
-  const { contentDetailDatas } = useContentDetailQueries(userCollectionList);
+  const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
+    select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
+  });
   const { providers } = useProviderQueries(userCollectionList, {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
