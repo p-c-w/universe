@@ -1,6 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { AppShell, Header, Container, Button, Burger, useMantineTheme, useMantineColorScheme } from '@mantine/core';
 import styled from '@emotion/styled';
+import { Link } from 'react-router-dom';
 import isSideNavOpenState from '../../recoil/atom/sideNavOpenedState';
 import SearchBar from './SearchBar';
 import SideNavBar from './SideNavBar';
@@ -15,6 +16,10 @@ const Logo = styled.button`
   width: 3.125rem;
   border: none;
   background-color: transparent;
+`;
+
+const SigninLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const GlobalShell = ({ children }) => {
@@ -50,7 +55,7 @@ const GlobalShell = ({ children }) => {
             <Container size={34} />
             <SearchBar />
             <Button variant={'outline'} color={dark ? 'violet' : 'dark'}>
-              Sign in
+              <SigninLink to="/signin">Sign in</SigninLink>
             </Button>
           </SubContainer>
         </Header>
