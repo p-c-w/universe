@@ -1,32 +1,39 @@
 import { Suspense, useState } from 'react';
 import { Container } from '@mantine/core';
-import Cards from './Cards';
-import Category from './Category';
+
 import { BarLoader } from '../common';
+import { Cards, Category, Carousels } from '.';
 
 const Board = () => {
   const [mediaType, setMediaType] = useState('movie');
-  const [category, setCategory] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   const handleMediaChange = () => {
     setMediaType(media => (media === 'movie' ? 'tv' : 'movie'));
   };
 
   const handleCategoryChange = newCategory => {
-    setCategory(newCategory);
+    setSelectedIds(newCategory);
   };
 
   return (
     <Container fluid>
       <Category
         mediaType={mediaType}
-        category={category}
         handleMediaChange={handleMediaChange}
         handleCategoryChange={handleCategoryChange}
       />
-      <Suspense fallback={<BarLoader />}>
-        <Cards mediaType={mediaType} />
-      </Suspense>
+      <Container mt={'md'} maw={'none'}>
+        {selectedIds.length === 0 ? (
+          <Suspense fallback={<BarLoader />}>
+            <Cards mediaType={mediaType} />
+          </Suspense>
+        ) : (
+          <Suspense fallback={<BarLoader />}>
+            <Carousels mediaType={mediaType} providerIds={selectedIds} />
+          </Suspense>
+        )}
+      </Container>
     </Container>
   );
 };
