@@ -19,13 +19,13 @@ const BadgeContainer = styled.div`
   z-index: 999;
 `;
 
-const DetailModal = ({ opened, close, providers, movie: { title, description, genres } }) => (
+const DetailModal = ({ opened, close, providers, movie: { title, background, description, genres } }) => (
   <>
     <Modal.Root opened={opened} onClose={close} size={850} centered>
       <Modal.Overlay />
       <Modal.Content style={{ position: 'relative' }}>
         <ImageContainer>
-          <Image src={`https://image.tmdb.org/t/p/w780/qrlfF3usm2FZCMvCg2uas8CazxW.jpg` || undefined} />
+          <Image src={`https://image.tmdb.org/t/p/w780/${background}.jpg` || undefined} />
           <BadgeContainer>
             <Badges providers={providers} spacing="sm" size="2.5rem" />
             <CollectionButtons size={35} />
