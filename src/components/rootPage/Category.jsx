@@ -1,23 +1,33 @@
 import { forwardRef, useRef } from 'react';
-import { Group, Center, Flex, Box, SegmentedControl, MultiSelect, rem, CloseButton } from '@mantine/core';
+import {
+  Group,
+  Center,
+  Flex,
+  Box,
+  SegmentedControl,
+  MultiSelect,
+  rem,
+  CloseButton,
+  useMantineColorScheme,
+} from '@mantine/core';
 import { IconDeviceTv, IconMovie } from '@tabler/icons-react';
 
 const providerData = [
-  { label: 'Netflix', value: 'netflix' },
-  { label: 'Disney Plus', value: 'disneyplus' },
-  { label: 'Amazon Prime Video', value: 'primevideo' },
-  { label: 'Watcha', value: 'watcha' },
-  { label: 'Wavve', value: 'wavve' },
-  { label: 'Apple TV Plus', value: 'appletvplus' },
+  { label: 'Netflix', value: 8 },
+  { label: 'Watcha', value: 97 },
+  { label: 'Amazon Prime Video', value: 119 },
+  { label: 'Disney Plus', value: 337 },
+  { label: 'Apple TV Plus', value: 350 },
+  { label: 'Wavve', value: 356 },
 ];
 
 const badges = {
-  appletvplus: '/assets/badges/appletvplus.svg',
-  disneyplus: '/assets/badges/disneyplus.svg',
-  netflix: '/assets/badges/netflix.svg',
-  primevideo: '/assets/badges/primevideo.svg',
-  watcha: '/assets/badges/watcha.svg',
-  wavve: '/assets/badges/wavve.svg',
+  8: '/netflix.svg',
+  97: '/watcha.svg',
+  337: '/disneyplus.svg',
+  350: '/appletvplus.svg',
+  119: '/primevideo.svg',
+  356: '/wavve.svg',
 };
 
 const Value = ({ value, label, onRemove }) => {
@@ -29,16 +39,16 @@ const Value = ({ value, label, onRemove }) => {
         display: 'flex',
         cursor: 'default',
         alignItems: 'center',
+        height: rem(30),
         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
         border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4]}`,
         paddingLeft: theme.spacing.xs,
         borderRadius: theme.radius.sm,
-      })}
-      h={30}>
+      })}>
       <Box mr={10}>
         {
           <Box w={20}>
-            <img src={badgePath} alt="value" />
+            <img src={`/assets/badges${badgePath}`} alt="value" />
           </Box>
         }
       </Box>
@@ -56,7 +66,7 @@ const Item = forwardRef(({ label, value, ...others }, ref) => {
       <Flex align="center">
         <Box mr={10}>
           <Box w={20}>
-            <img src={badgePath} alt="value" />
+            <img src={`/assets/badges${badgePath}`} alt="value" />
           </Box>
         </Box>
         <div>{label}</div>
@@ -67,6 +77,8 @@ const Item = forwardRef(({ label, value, ...others }, ref) => {
 
 const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
   const selectedCategory = useRef();
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
   const handleMultiSelectChange = values => {
     selectedCategory.current = values;
@@ -74,45 +86,59 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
   };
 
   return (
-    <Flex mih={'md'} gap="md" mb={'lg'} justify="flex-start" align="center" direction="row" wrap="nowrap">
-      <Group position="center">
-        <SegmentedControl
-          value={media}
-          onChange={handleMediaChange}
-          data={[
-            {
-              value: 'movie',
-              label: (
-                <Center>
-                  <IconMovie size="1rem" stroke={1.5} />
-                  <Box ml={10}>Movie</Box>
-                </Center>
-              ),
-            },
-            {
-              value: 'tv',
-              label: (
-                <Center>
-                  <IconDeviceTv size="1rem" stroke={1.5} />
-                  <Box ml={10}>TV</Box>
-                </Center>
-              ),
-            },
-          ]}
+    <div
+      style={{
+        display: 'flex',
+        backgroundColor: dark ? 'var(--mantine-color-dark-8)' : 'var(--mantine-color-gray-0)',
+        position: 'sticky',
+        margin: '0 calc(-2 * (var(--mantine-spacing-md))',
+        padding: '0 var(--mantine-spacing-xl)',
+        top: '3.125rem',
+        height: '3.125rem',
+        opacity: 0.9,
+        backdropFilter: 'blur(30px)',
+        zIndex: 9999,
+      }}>
+      <Flex mih={'md'} gap="md" justify="flex-start" align="center">
+        <Group position="center">
+          <SegmentedControl
+            value={media}
+            onChange={handleMediaChange}
+            data={[
+              {
+                value: 'movie',
+                label: (
+                  <Center>
+                    <IconMovie size="1rem" stroke={1.5} />
+                    <Box ml={10}>Movie</Box>
+                  </Center>
+                ),
+              },
+              {
+                value: 'tv',
+                label: (
+                  <Center>
+                    <IconDeviceTv size="1rem" stroke={1.5} />
+                    <Box ml={10}>TV</Box>
+                  </Center>
+                ),
+              },
+            ]}
+          />
+        </Group>
+        <MultiSelect
+          data={providerData}
+          miw={300}
+          limit={6}
+          valueComponent={Value}
+          itemComponent={Item}
+          searchable
+          defaultValue={[]}
+          placeholder="Pick Stream Service"
+          onChange={handleMultiSelectChange}
         />
-      </Group>
-      <MultiSelect
-        data={providerData}
-        miw={300}
-        limit={6}
-        valueComponent={Value}
-        itemComponent={Item}
-        searchable
-        defaultValue={[]}
-        placeholder="Pick Stream Service"
-        onChange={handleMultiSelectChange}
-      />
-    </Flex>
+      </Flex>
+    </div>
   );
 };
 
