@@ -30,12 +30,30 @@ const SubscriptionEditor = ({ providers, onClick }) => {
     onClick();
   };
 
+  const toggleAllSelectedProviders = () => {
+    if (selectedProviders.length === PROVIDERS.length) {
+      setSelectedProviders([]);
+      return;
+    }
+
+    setSelectedProviders(PROVIDERS.map(PROVIDER => PROVIDER.provider_name));
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="space-between" align="center" mb={10}>
-        <Title order={5} fw={400}>
-          구독중인 서비스를 선택해주세요.
-        </Title>
+        <Flex align="center" gap="xs">
+          <Title order={5} fw={400}>
+            구독중인 서비스를 선택해주세요.
+          </Title>
+          <Chip
+            checked={selectedProviders.length === PROVIDERS.length}
+            onChange={toggleAllSelectedProviders}
+            size="xs"
+            p={0}>
+            All
+          </Chip>
+        </Flex>
         <ActionIcon component="button" type="submit" variant="transparent" align="center" size="sm">
           <IconDiscountCheck />
         </ActionIcon>
