@@ -19,7 +19,7 @@ const BadgeContainer = styled.div`
   z-index: 999;
 `;
 
-const DetailModal = ({ opened, close }) => (
+const DetailModal = ({ opened, close, providers, movie: { title, description, genres } }) => (
   <>
     <Modal.Root opened={opened} onClose={close} size={850} centered>
       <Modal.Overlay />
@@ -27,18 +27,7 @@ const DetailModal = ({ opened, close }) => (
         <ImageContainer>
           <Image src={`https://image.tmdb.org/t/p/w780/qrlfF3usm2FZCMvCg2uas8CazxW.jpg` || undefined} />
           <BadgeContainer>
-            <Badges
-              providers={[
-                {
-                  id: 356,
-                  provider_name: 'Wavve',
-                  providerImgPath: 'assets/badges/wavve.svg',
-                  fee: 7900,
-                },
-              ]}
-              spacing="sm"
-              size="2.5rem"
-            />
+            <Badges providers={providers} spacing="sm" size="2.5rem" />
             <CollectionButtons size={35} />
           </BadgeContainer>
         </ImageContainer>
@@ -47,18 +36,17 @@ const DetailModal = ({ opened, close }) => (
           <Grid columns={5}>
             <Grid.Col span={2}>
               <Container m={20}>
-                <Title order={2}>모범택시</Title>
+                <Title order={2}>{title}</Title>
                 <Text>2023</Text>
                 <Text fw={300} fz="md">
-                  장르: 액션, 범죄, 드라마
+                  장르: {genres.map(genre => genre).join(', ')}
                 </Text>
               </Container>
             </Grid.Col>
             <Grid.Col span={3}>
               <Container m={30}>
                 <Text fw={300} fz="md" lineClamp={3}>
-                  정의가 실종된 사회, 전화 한 통이면 오케이” 베일에 가려진 택시회사 무지개 운수와 택시기사 김도기가
-                  억울한 피해자를 대신해 복수를 완성하는 사적 복수 대행극
+                  {description}
                 </Text>
               </Container>
             </Grid.Col>
