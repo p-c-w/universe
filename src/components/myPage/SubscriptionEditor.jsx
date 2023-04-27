@@ -36,8 +36,8 @@ const SubscriptionEditor = ({ providers, onClick }) => {
         <Title order={5} fw={400}>
           구독중인 서비스를 선택해주세요.
         </Title>
-        <ActionIcon component="button" type="submit" variant="transparent" align="center">
-          <IconDiscountCheck size="1rem" />
+        <ActionIcon component="button" type="submit" variant="transparent" align="center" size="sm">
+          <IconDiscountCheck />
         </ActionIcon>
       </Flex>
       <Chip.Group multiple value={selectedProviders} onChange={setSelectedProviders}>
