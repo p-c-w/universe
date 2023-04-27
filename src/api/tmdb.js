@@ -7,9 +7,11 @@ const language = 'ko-KR';
 /**
  * 미디어 콘텐츠 인기순 정렬 데이터
  * @param {'movie' | 'tv'} mediaType
+ * @param {number} page
+ * @param {string} providerId
  * @returns data
  */
-export const fetchSortByPopularity = async (mediaType, page, providerId) => {
+export const fetchSortByPopularity = async (mediaType, page, providerId = '8|119|337|356|97|350') => {
   const res = await axios.get(`${API_URL}discover/${mediaType}`, {
     params: {
       api_key: API_KEY,
@@ -71,8 +73,8 @@ export const fetchWithGenre = async (mediaType, genreId, providerId) => {
  * @param {string | number} id
  * @returns
  */
-export const fetchMediaContentDetails = async (mediaType, id) => {
-  const res = await axios.get(`${API_URL + mediaType}/${id}`, {
+export const fetchMediaContentDetails = async (mediaType, contentId) => {
+  const res = await axios.get(`${API_URL + mediaType}/${contentId}`, {
     params: {
       api_key: API_KEY,
       language,
