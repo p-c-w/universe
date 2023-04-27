@@ -176,7 +176,7 @@ const Posters = ({ mediaType }) => {
             )
           )}
       </CardGrid>
-      <ScrollObserver skeleton={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
+      {hasNextPage && <ScrollObserver skeleton={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />}
     </>
   );
 };
