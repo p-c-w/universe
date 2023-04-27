@@ -3,9 +3,9 @@ import { fetchProvider } from '../../api';
 import { PROVIDERS } from '../../constants';
 
 const useProviderQueries = (list, options) => {
-  const providerQueries = list?.map(item => ({
-    queryKey: ['@provider', item],
-    queryFn: () => fetchProvider(item.type, item.id),
+  const providerQueries = list?.map(({ type, id }) => ({
+    queryKey: ['@provider', type, id],
+    queryFn: () => fetchProvider(type, id),
     suspense: true,
     ...options,
   }));
