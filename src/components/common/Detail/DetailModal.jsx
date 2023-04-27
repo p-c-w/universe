@@ -56,7 +56,7 @@ const DetailModal = ({ opened, close }) => (
             </Grid.Col>
             <Grid.Col span={3}>
               <Container m={30}>
-                <Text fw={300} fz="md">
+                <Text fw={300} fz="md" lineClamp={3}>
                   정의가 실종된 사회, 전화 한 통이면 오케이” 베일에 가려진 택시회사 무지개 운수와 택시기사 김도기가
                   억울한 피해자를 대신해 복수를 완성하는 사적 복수 대행극
                 </Text>
