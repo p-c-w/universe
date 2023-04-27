@@ -1,7 +1,7 @@
 import { Suspense, useState } from 'react';
 import { Container } from '@mantine/core';
 
-import { Category, Posters, Carousels, PosterSkeleton, CarouselSkeleton } from '.';
+import { Category, Posters, Carousels, PosterSkeleton } from '.';
 
 const Board = () => {
   const [mediaType, setMediaType] = useState('movie');
@@ -28,10 +28,7 @@ const Board = () => {
             <Posters mediaType={mediaType} />
           </Suspense>
         ) : (
-          <Suspense fallback={<CarouselSkeleton />}>
-            <Carousels mediaType={mediaType} providerIds={selectedIds} />
-            <CarouselSkeleton />
-          </Suspense>
+          <Carousels mediaType={mediaType} providerIds={selectedIds} />
         )}
       </Container>
     </Container>
