@@ -2,12 +2,15 @@ import { useState } from 'react';
 import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconDiscountCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
+import { useSetRecoilState } from 'recoil';
 import { PROVIDERS } from '../../constants';
+import { userState } from '../../recoil/atom';
 
 const SubscriptionEditor = ({ providers, onClick }) => {
   const providersNames = providers?.map(provider => provider.provider_name);
 
   const [selectedProviders, setSelectedProviders] = useState(providersNames);
+  const setUser = useSetRecoilState(userState);
 
   const { register, handleSubmit } = useForm();
 
@@ -23,6 +26,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   const onSubmit = (data, e) => {
     e.preventDefault();
 
+    setUser(user => ({ ...user, subscribe_list: getNewSubscribeList() }));
     onClick();
   };
 
