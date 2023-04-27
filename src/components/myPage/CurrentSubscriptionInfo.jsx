@@ -4,7 +4,7 @@ import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { PROVIDERS } from '../../constants';
-import userState from '../../recoil/atom/userState';
+import { userState } from '../../recoil/atom';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
