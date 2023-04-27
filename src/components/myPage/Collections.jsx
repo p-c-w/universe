@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex } from '@mantine/core';
 import { CollectionButton, Collection } from './index';
+import { BarLoader } from '../common';
 
 const MyListContainer = styled(Container)`
   display: flex;
@@ -50,7 +51,9 @@ const Collections = () => {
       </Flex>
       <Flex gap="1rem">
         <ScrollArea w="100%" h={400}>
-          <Collection setSelected={setSelected} setImgSrc={setImgSrc} category={category} />
+          <Suspense fallback={<BarLoader />}>
+            <Collection category={category} setSelected={setSelected} setImgSrc={setImgSrc} />
+          </Suspense>
         </ScrollArea>
         <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
