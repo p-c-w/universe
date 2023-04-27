@@ -18,6 +18,7 @@ import useSortByPopularityInfinityQuery from '../../hooks/queries/useSortByPopul
 import useObsever from '../../hooks/useObsever';
 import { ScrollObserver } from '../common';
 import genres from '../../constants/genres';
+import PosterSkeleton from './PosterSkeleton';
 
 const CardGrid = styled(SimpleGrid)`
   position: relative;
@@ -73,27 +74,28 @@ const Footer = styled(Group)`
   flex-direction: column;
 `;
 
-const ArticleCard = ({ title, originalTitle, posterPath, overview, releaseDate, genreIds, mediaType }) => {
+const Poster = ({ title, originalTitle, posterPath, overview, date, genreIds, mediaType }) => {
   const theme = useMantineTheme();
 
   return (
     <StyledCard w={252} h={355} radius="md">
-      <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
+      <Image
+        src={posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : 'https://placehold.co/252x378?text=TDB'}
+      />
       <Cover />
       <HoverContainer p={'xl'} w={252}>
         <Flex direction={'column'} align={'baseline'} justify={'space-between'}>
           <Container m={0} p={0} mb={'md'}>
-            <Title fz="xl" fw={600}>
+            <Title fz="xl" fw={600} lineClamp={1}>
               {title}
             </Title>
-            <Text fz="md" color="dimmed">
+            <Text fz="md" color="dimmed" lineClamp={1}>
               {originalTitle}
             </Text>
             <Text fw={200} fz={'xs'}>
-              {releaseDate}
+              {date}
             </Text>
-
-            <Text w={'100%'} mt={'md'} fz="xs" color="dimmed" lineClamp={5}>
+            <Text w="100%" mt="md" fz="xs" color="dimmed" lineClamp={5}>
               {overview}
             </Text>
           </Container>
@@ -123,14 +125,18 @@ const ArticleCard = ({ title, originalTitle, posterPath, overview, releaseDate, 
   );
 };
 
-const Cards = ({ mediaType }) => {
+const observeOption = { rootMargin: '50%' };
+
+const Posters = ({ mediaType }) => {
   const { isSuccess, data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
 
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
   }, [hasNextPage, fetchNextPage]);
 
-  const observerRef = useObsever(getNextPage);
+  const observerRef = useObsever(getNextPage, observeOption);
+
+  const movie = mediaType === 'movie';
 
   return (
     <>
@@ -143,54 +149,35 @@ const Cards = ({ mediaType }) => {
           { maxWidth: '48rem', cols: 2 },
           { maxWidth: '36rem', cols: 1 },
         ]}>
-        {isSuccess && mediaType === 'movie'
-          ? content.map(
-              ({
-                id,
-                title,
-                original_title: originalTitle,
-                poster_path: posterPath,
-                genre_ids: genreIds,
-                overview,
-                release_date: releaseDate,
-              }) => (
-                <ArticleCard
-                  key={id}
-                  title={title}
-                  originalTitle={originalTitle}
-                  posterPath={posterPath}
-                  genreIds={genreIds}
-                  overview={overview}
-                  releaseDate={releaseDate}
-                  mediaType={mediaType}
-                />
-              )
+        {isSuccess &&
+          content.map(
+            ({
+              id,
+              title,
+              name,
+              original_title: originalTitle,
+              original_name: originalName,
+              poster_path: posterPath,
+              genre_ids: genreIds,
+              overview,
+              release_date: releaseDate,
+              first_air_date: firstAirDate,
+            }) => (
+              <Poster
+                key={id}
+                title={movie ? title : name}
+                originalTitle={movie ? originalTitle : originalName}
+                posterPath={posterPath}
+                genreIds={genreIds}
+                overview={overview}
+                date={movie ? releaseDate : firstAirDate}
+                mediaType={mediaType}
+              />
             )
-          : content.map(
-              ({
-                id,
-                name,
-                original_name: originalName,
-                poster_path: posterPath,
-                genre_ids: genreIds,
-                overview,
-                first_air_date: firstAirDate,
-              }) => (
-                <ArticleCard
-                  key={id}
-                  title={name}
-                  originalTitle={originalName}
-                  posterPath={posterPath}
-                  genreIds={genreIds}
-                  overview={overview}
-                  releaseDate={firstAirDate}
-                  mediaType={mediaType}
-                />
-              )
-            )}
+          )}
       </CardGrid>
-      <ScrollObserver hasNextPage={hasNextPage} observer={observerRef} />
+      <ScrollObserver skeleton={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );
 };
-export default Cards;
+export default Posters;
