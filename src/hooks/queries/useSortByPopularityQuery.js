@@ -6,6 +6,7 @@ const useSortByPopularityQuery = (mediaType, providerId) => {
 
   const { data, isSuccess } = useQuery({
     queryKey: [`@${mediaType}`, strProviderId, 'sortByPopularity'],
+    staleTime: 1000 * 60 * 5,
     queryFn: ({ pageParam = 1 }) => fetchSortByPopularity(mediaType, pageParam, strProviderId),
     select: datas => datas.results,
   });
