@@ -11,6 +11,15 @@ const SubscriptionEditor = ({ providers, onClick }) => {
 
   const { register, handleSubmit } = useForm();
 
+  const getNewSubscribeList = () => {
+    const newProviders = selectedProviders.map(providerValue =>
+      PROVIDERS.find(PROVIDER => PROVIDER.provider_name === providerValue)
+    );
+    const newList = newProviders.map(provider => ({ id: provider.id, price: 'basic' }));
+
+    return newList;
+  };
+
   const onSubmit = (data, e) => {
     e.preventDefault();
 
