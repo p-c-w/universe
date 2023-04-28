@@ -1,10 +1,8 @@
 import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
-
 import { Burger, Button, useMantineColorScheme } from '@mantine/core';
 import sideNavOpenedState from '../../recoil/atom/sideNavOpenedState';
-
-import SearchBar from './SearchBar';
+import { SearchBar } from '.';
 
 const Container = styled.div`
   display: flex;
