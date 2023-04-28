@@ -5,6 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
+import { useProviderQueries } from '../../hooks/queries';
+import { getProvidersInfoListByList, getProvidersByList } from '../../utils';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -20,19 +22,27 @@ const PresentSubscriptionFee = styled(Accordion)`
   }
 `;
 
-const getProviderList = list => {
-  const providers = list?.map(item => PROVIDERS.find(PROVIDER => PROVIDER.id === item.id));
-  return providers;
-};
-
 const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
 
 const CurrentSubscriptionInfo = () => {
   const [editMode, setEditMode] = useState(false);
-  const { subscribe_list: subscribeList } = useRecoilValue(userState);
+  const { subscribe_list: subscribeList, watch_list: watchList } = useRecoilValue(userState);
 
-  const providers = getProviderList(subscribeList);
+  const providers = getProvidersInfoListByList(subscribeList);
+
   const currentFee = getCurrentFee(providers);
+
+  const { providers: whatchProvidersWithContenId } = useProviderQueries(watchList, {
+    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+  });
+
+  const subscribeProviderIds = getProvidersByList(subscribeList);
+
+  const whatchProviderIds = whatchProvidersWithContenId.flatMap(content => content.providers);
+
+  const unWatchedProvidersInfoList = subscribeProviderIds
+    .filter(subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId))
+    .map(provider => PROVIDERS.find(PROVIDER => PROVIDER.id === provider));
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -59,7 +69,7 @@ const CurrentSubscriptionInfo = () => {
         <Title order={5} mb={10}>
           구독하고 있지만 보고 있지 않아요
         </Title>
-        <ProviderBadges />
+        <ProviderBadges providers={unWatchedProvidersInfoList} />
       </Box>
     </StyledContainer>
   );
