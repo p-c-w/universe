@@ -7,7 +7,7 @@ import CollectionButtons from '../../CollectionButtons';
 
 import { useProviderQueries } from '../../../hooks/queries';
 
-import { PROVIDERS } from '../../../constants';
+import { getProvidersByIds } from '../../../utils';
 
 const BadgeContainer = styled.div`
   width: 100%;
@@ -27,12 +27,10 @@ const DetailModal = ({
   const userCollectionList = [{ id, type: mediaType }];
 
   const { providers } = useProviderQueries(userCollectionList, {
-    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+    select: data => ({ id: data.id, providers: data.results.KR.flatrate ?? [] }),
   });
 
-  const providerIds = providers[0]?.providers;
-
-  const providerList = providerIds?.map(providerId => PROVIDERS.find(PROVIDER => PROVIDER.id === providerId));
+  const providerIds = getProvidersByIds(providers[0]?.providers);
 
   return (
     <>
@@ -42,7 +40,7 @@ const DetailModal = ({
           <Overlay color="#000" opacity={0.75} zIndex="1" />
           <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
           <BadgeContainer>
-            <Badges providers={providerList} spacing="sm" size="2.5rem" />
+            <Badges providers={providerIds} spacing="sm" size="2.5rem" />
             <CollectionButtons size={35} />
           </BadgeContainer>
           <Modal.CloseButton style={{ zIndex: '999' }} pos="absolute" top={10} right={20} />
@@ -50,7 +48,9 @@ const DetailModal = ({
             <Grid columns={5}>
               <Grid.Col span={3}>
                 <Container m={30}>
-                  <Title order={1}>{title}</Title>
+                  <Title order={1} mb={10}>
+                    {title}
+                  </Title>
                   <Text>2023</Text>
                   <Text fw={300} fz="md">
                     장르: {genreLists.map(genre => genre).join(', ')}
