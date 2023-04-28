@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, Image, Grid, Container, Title, Text, Overlay } from '@mantine/core';
+import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea } from '@mantine/core';
 import styled from '@emotion/styled';
 import Badges from '../../Badges';
 import CollectionButtons from '../../CollectionButtons';
@@ -37,32 +37,32 @@ const DetailModal = ({
       <Modal.Root opened={opened} onClose={close} size={850} centered>
         <Modal.Overlay />
         <Modal.Content pos="relative">
-          <Overlay color="#000" opacity={0.75} zIndex="1" />
+          <Overlay c="#000" opacity={0.75} zIndex="1" />
           <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
           <BadgeContainer>
             <Badges providers={providerIds} spacing="sm" size="2.5rem" />
             <CollectionButtons size={35} />
           </BadgeContainer>
           <Modal.CloseButton style={{ zIndex: '999' }} pos="absolute" top={10} right={20} />
-          <Modal.Body style={{ zIndex: '2' }} pos="absolute" top={0}>
+          <Modal.Body m={40} c="#fff" style={{ zIndex: '2' }} pos="absolute" top={0}>
             <Grid columns={5}>
               <Grid.Col span={3}>
-                <Container m={30}>
-                  <Title order={1} mb={10}>
+                <Container>
+                  <Title order={1} mb={10} mt={10}>
                     {title}
                   </Title>
                   <Text>2023</Text>
                   <Text fw={300} fz="md">
                     장르: {genreLists.map(genre => genre).join(', ')}
                   </Text>
-                  <Text fw={300} fz="sm">
+                  <ScrollArea fw={300} fz="sm" h={200}>
                     {overview}
-                  </Text>
+                  </ScrollArea>
                 </Container>
               </Grid.Col>
               <Grid.Col span={2}>
-                <Container m={30}>
-                  <Image src={`https://image.tmdb.org/t/p/w185${posterPath}` || undefined} />
+                <Container m={10}>
+                  <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
                 </Container>
               </Grid.Col>
             </Grid>
