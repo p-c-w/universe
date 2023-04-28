@@ -8,20 +8,14 @@ import { Root, MyPage, SignIn, SignUp } from './pages';
 import AuthenticationGuard from './guard/AuthenticationGuard';
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-      staleTime: 1000 * 60 * 5,
-      retry: 3,
-    },
-  },
+  retry: 3,
 });
 
 const router = createBrowserRouter([
-  // {
-  //   path: '/',
-  //   element: <AuthenticationGuard redirectTo="/signin" element={<Root />} />,
-  // },
+  {
+    path: '/mypage',
+    element: <AuthenticationGuard redirectTo="/signin" element={<MyPage />} />,
+  },
   {
     path: '/',
     element: <Root />,

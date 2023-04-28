@@ -6,6 +6,7 @@ import { keyframes } from '@emotion/react';
 import { SignupHeader, SignupForm, SignupOption } from '../components/auth';
 
 const Background = styled.div`
+  background-color: #02050d;
   position: absolute;
   top: 0;
   right: 0;
@@ -16,72 +17,75 @@ const Background = styled.div`
 `;
 
 const zoom = keyframes`
-  from {
+  0% {
     transform: scale(1, 1);
+    opacity: 0;
   }
-  to {
-    transform: scale(2, 2);
+  50% {
+    opacity: 1;
+  }
+  100%{
+    transform: scale(1.7, 1.7) rotate(5deg);
+    opacity: 0;
   }
 `;
 
 const Star = styled.div`
-  background-image: radial-gradient(2px 2px at 50px 200px, #eee, rgba(0, 0, 0, 0)),
-    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+  background-image: radial-gradient(2.2px 2.2px at 50px 200px, #eee, rgba(0, 0, 0, 0)),
+    radial-gradient(3px 3px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
     radial-gradient(3px 4px at 120px 40px, #ddd, rgba(0, 0, 0, 0));
   background-repeat: repeat;
-  animation: ${zoom} 10s infinite;
+  animation: ${zoom} 9s infinite;
   background-position: 10% 90%;
-  animation-delay: 0s;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   overflow: hidden;
+  background-size: 270px 500px;
 
-  :nth-child(1) {
+  :nth-of-type(1) {
     background-position: 10% 90%;
     animation-delay: 0s;
   }
-  :nth-child(2) {
+  :nth-of-type(2) {
     background-position: 20% 50%;
-    background-size: 270px 500px;
-    animation-delay: 0.3s;
+    animation-delay: 1.5s;
   }
-  :nth-child(3) {
+  :nth-of-type(3) {
     background-position: 40% -80%;
-    animation-delay: 1.2s;
-  }
-  :nth-child(4) {
-    background-position: -20% -30%;
-    transform: rotate(60deg);
-    animation-delay: 2.5s;
-  }
-
-  :nth-child(5) {
-    background-position: 50% 20%;
     animation-delay: 3s;
+  }
+  :nth-of-type(4) {
+    background-position: -20% -30%;
+    animation-delay: 5s;
+  }
+  :nth-of-type(5) {
+    background-position: 50% 20%;
+    animation-delay: 7s;
   }
 `;
 
 const BackImg = styled.img`
   top: 20%;
   left: 50%;
-  transform: translate(-18%, -25%);
+  opacity: 0.7;
+  transform: translate(-21%, -25%);
   overflow: hidden !important;
 `;
 
 const SignUp = () => {
-  const [active, setActive] = useState('option');
+  const [active, setActive] = useState('form');
 
   return (
     <>
       <Background>
         <Star />
         <Star />
-        {/* <Star />
         <Star />
-        <Star /> */}
+        <Star />
+        <Star />
         <BackImg
           src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg"
           alt="Glowing universe"

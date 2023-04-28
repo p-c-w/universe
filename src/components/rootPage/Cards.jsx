@@ -13,10 +13,13 @@ import {
   rem,
 } from '@mantine/core';
 import styled from '@emotion/styled';
-import { useCallback } from 'react';
+import { useCallback, useState, Suspense } from 'react';
+import { useDisclosure } from '@mantine/hooks';
 import useMainBoardQuery from '../../hooks/useMainBoardQuery';
 import useObsever from '../../hooks/useObsever';
 import { ScrollObserver } from '../common';
+
+import DetailModal from '../common/Detail/DetailModal';
 
 const tvGenres = {
   10759: {
@@ -223,13 +226,34 @@ const Footer = styled(Group)`
   flex-direction: column;
 `;
 
-const ArticleCard = ({ title, originalTitle, posterPath, overview, releaseDate, genreIds, mediaType }) => {
+const ArticleCard = ({
+  setModalState,
+  open,
+  id,
+  title,
+  originalTitle,
+  posterPath,
+  backdropPath,
+  overview,
+  releaseDate,
+  genreIds,
+  mediaType,
+}) => {
   const theme = useMantineTheme();
   const genres = mediaType === 'movie' ? movieGenres : tvGenres;
 
+  const handleCardClick = () => {
+    const genreLists = genreIds?.map(id => genres[id].name);
+
+    const data = { id, title, backdropPath, posterPath, overview, genreLists, mediaType };
+
+    setModalState(data);
+    open();
+  };
+
   return (
     <div style={{ margin: '0 auto' }}>
-      <StyledCard w={252} h={355} radius="md">
+      <StyledCard w={252} h={355} radius="md" onClick={handleCardClick}>
         <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
         <Cover />
         <HoverContainer p={'xl'} w={252}>
@@ -275,6 +299,16 @@ const ArticleCard = ({ title, originalTitle, posterPath, overview, releaseDate, 
 
 const Cards = ({ mediaType }) => {
   const { isSuccess, data: content, hasNextPage, fetchNextPage } = useMainBoardQuery(mediaType);
+  const [opened, { open, close }] = useDisclosure(false);
+  const [modalState, setModalState] = useState({
+    id: '',
+    title: '',
+    backgroundPath: '',
+    posterPath: '',
+    overview: '',
+    genreLists: [],
+    mediaType: '',
+  });
 
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
@@ -300,15 +334,20 @@ const Cards = ({ mediaType }) => {
                 title,
                 original_title: originalTitle,
                 poster_path: posterPath,
+                backdrop_path: backdropPath,
                 genre_ids: genreIds,
                 overview,
                 release_date: releaseDate,
               }) => (
                 <ArticleCard
+                  open={open}
+                  setModalState={setModalState}
                   key={id}
+                  id={id}
                   title={title}
                   originalTitle={originalTitle}
                   posterPath={posterPath}
+                  backdropPath={backdropPath}
                   genreIds={genreIds}
                   overview={overview}
                   release_date={releaseDate}
@@ -322,15 +361,20 @@ const Cards = ({ mediaType }) => {
                 name,
                 original_name: originalName,
                 poster_path: posterPath,
+                backdrop_path: backdropPath,
                 genre_ids: genreIds,
                 overview,
                 first_air_date: firstAirDate,
               }) => (
                 <ArticleCard
+                  open={open}
+                  setModalState={setModalState}
                   key={id}
+                  id={id}
                   title={name}
                   originalTitle={originalName}
                   posterPath={posterPath}
+                  backdropPath={backdropPath}
                   genreIds={genreIds}
                   overview={overview}
                   release_date={firstAirDate}
@@ -339,6 +383,14 @@ const Cards = ({ mediaType }) => {
               )
             )}
       </CardGrid>
+      {opened && (
+        <Suspense
+          fallback={
+            <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
+          }>
+          <DetailModal opened={opened} close={close} movie={modalState} />{' '}
+        </Suspense>
+      )}
       <ScrollObserver hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );

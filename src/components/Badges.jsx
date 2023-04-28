@@ -1,7 +1,7 @@
 import { Avatar, Tooltip } from '@mantine/core';
 import { PROVIDERS } from '../constants';
 
-const Badges = ({ providers = PROVIDERS, spacing = 'sm' }) => (
+const Badges = ({ providers = PROVIDERS, spacing = 'sm', size = '2.2rem' }) => (
   <Tooltip.Group openDelay={100} closeDelay={100}>
     <Avatar.Group spacing={spacing}>
       {providers.map(item => (
@@ -11,7 +11,7 @@ const Badges = ({ providers = PROVIDERS, spacing = 'sm' }) => (
           color="gray"
           withArrow
           transitionProps={{ transition: 'fade', duration: 300 }}>
-          <Avatar src={item.providerImgPath} radius="xl" size="2.2rem" />
+          <Avatar src={item.providerImgPath} radius="xl" size={size} />
         </Tooltip>
       ))}
     </Avatar.Group>
