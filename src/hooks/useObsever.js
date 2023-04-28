@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback } from 'react';
 
-const useObsever = (callback, option = { threshold: 0.8 }) => {
+const useObsever = (callback, option) => {
   const observerRef = useRef(null);
 
   const handleObserver = useCallback(
