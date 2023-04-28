@@ -1,7 +1,5 @@
-import { BarLoader } from '.';
-
-const ScrollObserver = ({ hasNextPage = true, observer = null }) => (
-  <div ref={observer}>{hasNextPage && <BarLoader />}</div>
+const ScrollObserver = ({ loader, hasNextPage = true, observer = null }) => (
+  <div ref={observer}>{hasNextPage && loader}</div>
 );
 
 export default ScrollObserver;
