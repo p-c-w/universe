@@ -1,16 +1,16 @@
 import { useRef, useEffect, useCallback } from 'react';
 
-const useObsever = (callback, option) => {
+const useObserver = (callback, hasNextPage, option) => {
   const observerRef = useRef(null);
 
   const handleObserver = useCallback(
     entries => {
       const [target] = entries;
-      if (target.isIntersecting) {
+      if (target.isIntersecting && hasNextPage) {
         callback();
       }
     },
-    [callback]
+    [callback, hasNextPage]
   );
 
   useEffect(() => {
@@ -24,4 +24,4 @@ const useObsever = (callback, option) => {
   return observerRef;
 };
 
-export default useObsever;
+export default useObserver;
