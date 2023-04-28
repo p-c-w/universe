@@ -22,8 +22,12 @@ const calculateLowestFee = movies => {
 
   const prices = validCombos.map(combo => combo.reduce((total, provider) => total + PRICE[provider].basic, 0));
 
-  const cheapestPrice = Math.min(...prices).toLocaleString();
-  const cheapestCombo = validCombos[prices.indexOf(cheapestPrice)]?.join(', ');
+  const cheapestPrice = Math.min(...prices);
+  const cheapestCombo = [validCombos[prices.indexOf(cheapestPrice)]?.join(', ')].map(id => ({
+    id: +id,
+    provider_name: PRICE[id].name,
+    providerImgPath: PRICE[id].path,
+  }));
 
   return { cheapestCombo, cheapestPrice };
 };
