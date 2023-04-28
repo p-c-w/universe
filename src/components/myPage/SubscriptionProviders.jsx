@@ -2,7 +2,7 @@ import { Container, Title, Flex, ActionIcon } from '@mantine/core';
 import { IconSettings } from '@tabler/icons-react';
 import ProviderBadges from './ProviderBadges';
 
-const SubscriptionServices = ({ onClick }) => (
+const SubscriptionProviders = ({ providers, onClick }) => (
   <Container mt={10} p={0}>
     <Flex justify="space-between" align="center" mb={10}>
       <Title order={5} fw={400}>
@@ -12,8 +12,8 @@ const SubscriptionServices = ({ onClick }) => (
         <IconSettings size="1rem" />
       </ActionIcon>
     </Flex>
-    <ProviderBadges variant={'dot'} />
+    <ProviderBadges providers={providers} variant={'dot'} />
   </Container>
 );
 
-export default SubscriptionServices;
+export default SubscriptionProviders;

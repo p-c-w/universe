@@ -1,34 +1,17 @@
 import { Avatar, Tooltip } from '@mantine/core';
+import { PROVIDERS } from '../constants';
 
-const mockData = [
-  {
-    id: '507129',
-    providerImg: 'assets/badges/appletvplus.svg',
-    provider: 'Apple TV+',
-  },
-  {
-    id: '37692',
-    providerImg: 'assets/badges/disneyplus.svg',
-    provider: 'Disney+',
-  },
-  {
-    id: '54823',
-    providerImg: 'assets/badges/wavve.svg',
-    provider: 'Wavve',
-  },
-];
-
-const Badges = () => (
+const Badges = ({ providers = PROVIDERS, spacing = 'sm', size = '2.2rem' }) => (
   <Tooltip.Group openDelay={100} closeDelay={100}>
-    <Avatar.Group spacing="sm" styles={{}}>
-      {mockData.map(item => (
+    <Avatar.Group spacing={spacing}>
+      {providers.map(item => (
         <Tooltip
           key={item.id}
-          label={item.provider}
+          label={item.provider_name}
           color="gray"
           withArrow
           transitionProps={{ transition: 'fade', duration: 300 }}>
-          <Avatar src={item.providerImg} radius="xl" size="1.8rem" />
+          <Avatar src={item.providerImgPath} radius="xl" size={size} />
         </Tooltip>
       ))}
     </Avatar.Group>

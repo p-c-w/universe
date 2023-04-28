@@ -1,127 +1,42 @@
 import { useRef } from 'react';
-import { Group, Text, Accordion } from '@mantine/core';
-import { Badge, CollectionButtons } from '../index';
-
-// mockdata
-const users = [
-  {
-    email: 'snowlover@gmail.com',
-    password: 'snow123',
-    name: 'snowlover',
-    subscribe_list: [{ id: 8, price: 7900 }],
-    like_list: [
-      { id: 507129, type: 'movie', modified_at: '2021-12-25T12:59:32.746Z' },
-      { id: 37692, type: 'tv', modified_at: '2020-12-31T12:59:32.746Z' },
-    ],
-    watch_list: [{ id: 18465, type: 'movie', modified_at: '2021-05-18T12:59:32.746Z' }],
-    history_list: [
-      { id: 829, type: 'movie', modified_at: '2023-04-15T12:59:32.746Z' },
-      { id: 54823, type: 'tv', modified_at: '2022-01-01T12:59:32.746Z' },
-    ],
-  },
-  {
-    email: 'squid@gmail.com',
-    password: 'squid456',
-    name: 'squid',
-    subscribe_list: [{ id: 8, price: 7900 }],
-    like_list: [
-      { id: 507129, type: 'movie', modified_at: '2021-12-25T12:59:32.746Z' },
-      { id: 37692, type: 'tv', modified_at: '2020-12-31T12:59:32.746Z' },
-    ],
-    watch_list: [{ id: 18465, type: 'movie', modified_at: '2021-05-18T12:59:32.746Z' }],
-    history_list: [
-      { id: 829, type: 'movie', modified_at: '2023-04-15T12:59:32.746Z' },
-      { id: 54823, type: 'tv', modified_at: '2022-01-01T12:59:32.746Z' },
-    ],
-  },
-  {
-    email: 'noname@gmail.com',
-    password: 'noname123',
-    name: 'noname',
-    subscribe_list: [{ id: 8, price: 7900 }],
-    like_list: [
-      { id: 507129, type: 'movie', modified_at: '2021-12-25T12:59:32.746Z' },
-      { id: 37692, type: 'tv', modified_at: '2020-12-31T12:59:32.746Z' },
-    ],
-    watch_list: [{ id: 18465, type: 'movie', modified_at: '2021-05-18T12:59:32.746Z' }],
-    history_list: [
-      { id: 829, type: 'movie', modified_at: '2023-04-15T12:59:32.746Z' },
-      { id: 54823, type: 'tv', modified_at: '2022-01-01T12:59:32.746Z' },
-    ],
-  },
-];
-
-const mockData = [
-  {
-    id: '507129',
-    providerImg: 'assets/badges/appletvplus.svg',
-    title: '모범택시',
-    contentImg: 'https://image.tmdb.org/t/p/w300/xHB43aUOtIezsD0lUzA0Sqk7ALr.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-
-  {
-    id: '37692',
-    providerImg: 'assets/badges/disneyplus.svg',
-    title: '기생충',
-    contentImg: 'https://image.tmdb.org/t/p/w300/jjHccoFjbqlfr4VGLVLT7yek0Xn.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-
-  {
-    id: '54823',
-    providerImg: 'assets/badges/wavve.svg',
-    title: 'Avengers',
-    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-  {
-    id: '1',
-    providerImg: 'assets/badges/wavve.svg',
-    title: 'Avengers',
-    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-  {
-    id: '2',
-    providerImg: 'assets/badges/wavve.svg',
-    title: 'Avengers',
-    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-  {
-    id: '3',
-    providerImg: 'assets/badges/wavve.svg',
-    title: 'Avengers',
-    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-  {
-    id: '4',
-    providerImg: 'assets/badges/wavve.svg',
-    title: 'Avengers',
-    contentImg: 'https://image.tmdb.org/t/p/w300/1uHRkB2Q00Y4i7I7KNd0jGi4OmY.jpg',
-    modified_at: '2021-05-18T12:59:32.746Z',
-  },
-];
+import { Text, Accordion } from '@mantine/core';
+import { useRecoilValue } from 'recoil';
+import { AccordionLabel } from './index';
+import userState from '../../recoil/atom/userState';
+import { useContentDetailQueries, useProviderQueries } from '../../hooks/queries';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
-const AccordionLabel = ({ title, providerImg }) => (
-  <Group noWrap>
-    <Badge src={providerImg} />
-    <div>
-      <Text>{title}</Text>
-      <CollectionButtons />
-    </div>
-  </Group>
-);
+const Collection = ({ category, setSelected, setImgSrc }) => {
+  const user = useRecoilValue(userState);
+  const userCollectionList = user[`${category.toLowerCase()}_list`];
 
-const Collection = ({ setSelected, setImgSrc }) => {
+  const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
+    select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
+  });
+  const { providers } = useProviderQueries(userCollectionList, {
+    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+  });
+
+  let collection = userCollectionList
+    .map(item => ({
+      id: item.id,
+      modified_at: item.modified_at,
+    }))
+    .map(item => {
+      const detailData = contentDetailDatas.find(data => data.id === item.id);
+      return { ...item, ...detailData };
+    });
+
+  collection = collection.map(item => {
+    const providerById = providers.find(data => data.id === item.id);
+    return { ...item, ...providerById };
+  });
+
   const itemRef = useRef(null);
 
-  const items = mockData.map(item => (
-    <Accordion.Item value={item.id} key={item.id}>
+  const items = collection.map(item => (
+    <Accordion.Item value={item.title} key={item.id}>
       <Accordion.Control>
         <AccordionLabel {...item} />
       </Accordion.Control>
@@ -137,7 +52,9 @@ const Collection = ({ setSelected, setImgSrc }) => {
   const handleChange = e => {
     itemRef.current = e;
     setSelected(itemRef.current !== null);
-    setImgSrc(mockData.find(item => item.id === e)?.contentImg);
+    setImgSrc(
+      itemRef.current && `https://image.tmdb.org/t/p/w300${collection.find(item => item.title === e)?.posterPath}`
+    );
   };
 
   return (

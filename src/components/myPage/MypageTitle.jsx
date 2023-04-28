@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Title, Button, Container, TextInput, Input } from '@mantine/core';
+import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
+import userState from '../../recoil/atom/userState';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -25,8 +27,10 @@ const NameInput = styled(TextInput)`
 `;
 
 const MypageTitle = () => {
+  const { name } = useRecoilValue(userState);
+
+  const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
-  const [value, setValue] = useState('세파피');
 
   const handleKeyUp = e => {
     const content = e.target.value.trim();
@@ -40,16 +44,16 @@ const MypageTitle = () => {
         {editMode ? (
           <NameInput
             variant="unstyled"
-            value={value}
+            value={userName}
             onChange={e => {
-              setValue(e.currentTarget.value);
+              setUserName(e.currentTarget.value);
             }}
             onKeyUp={handleKeyUp}
             placeholder="Your Name"
             ref={node => node?.focus()}
           />
         ) : (
-          value
+          userName
         )}
         &apos;s Universe
       </PageTitle>

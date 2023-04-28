@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion, Box, Container } from '@mantine/core';
-import { ProviderBadges, SubscriptionProviders, ProviderChips } from './index';
+import { useRecoilValue } from 'recoil';
+import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
+import { PROVIDERS } from '../../constants';
+import userState from '../../recoil/atom/userState';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -17,8 +20,19 @@ const PresentSubscriptionFee = styled(Accordion)`
   }
 `;
 
+const getProviderList = list => {
+  const providers = list?.map(item => PROVIDERS.find(PROVIDER => PROVIDER.id === item.id));
+  return providers;
+};
+
+const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
+
 const CurrentSubscriptionInfo = () => {
   const [editMode, setEditMode] = useState(false);
+  const { subscribe_list: subscribeList } = useRecoilValue(userState);
+
+  const providers = getProviderList(subscribeList);
+  const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -27,13 +41,17 @@ const CurrentSubscriptionInfo = () => {
   return (
     <StyledContainer>
       <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
-        <Accordion.Item value="₩29,800">
+        <Accordion.Item value={`₩${currentFee}`}>
           <Accordion.Control>
             <Title order={4}>현재 나의 구독료</Title>
-            <Text size="2rem">₩29,800</Text>
+            <Text size="2rem">₩{currentFee}</Text>
           </Accordion.Control>
           <Accordion.Panel>
-            {editMode ? <ProviderChips onClick={toggleEditMode} /> : <SubscriptionProviders onClick={toggleEditMode} />}
+            {editMode ? (
+              <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
+            ) : (
+              <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
+            )}
           </Accordion.Panel>
         </Accordion.Item>
       </PresentSubscriptionFee>
