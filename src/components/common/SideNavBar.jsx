@@ -2,8 +2,10 @@ import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 
 import { Navbar, Transition } from '@mantine/core';
-import { IconUser, IconMovie, IconThumbUp, IconHistory, IconLogout } from '@tabler/icons-react';
+import { IconUser, IconMovie, IconThumbUp, IconHistory } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 import sideNavOpenedState from '../../recoil/atom/sideNavOpenedState';
+import Signout from '../auth/Signout';
 
 const Container = styled(Navbar)`
   justify-content: space-between;
@@ -36,6 +38,13 @@ const LogoutTab = styled(Tab)`
   margin: 0;
 `;
 
+const MypageLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+`;
+
 const Title = styled.span`
   width: 116px;
   margin-left: 1.875rem;
@@ -44,13 +53,13 @@ const Title = styled.span`
 
 const tabs = [
   {
-    link: '',
+    link: '/mypage',
     label: 'MY PAGE',
     icon: <IconUser />,
   },
-  { link: '', label: 'COMMING UP', icon: <IconMovie /> },
-  { link: '', label: 'LIKE', icon: <IconThumbUp /> },
-  { link: '', label: 'HISTORY', icon: <IconHistory /> },
+  { link: '/mypage', label: 'COMMING UP', icon: <IconMovie /> },
+  { link: '/mypage', label: 'LIKE', icon: <IconThumbUp /> },
+  { link: '/mypage', label: 'HISTORY', icon: <IconHistory /> },
 ];
 
 const SideNavBar = () => {
@@ -61,16 +70,17 @@ const SideNavBar = () => {
       {styles => (
         <Container style={styles} p="sm" width={{ base: 240 }}>
           <TabList>
-            {tabs.map(({ label, icon }) => (
+            {tabs.map(({ link, label, icon }) => (
               <Tab key={label} role="button">
-                {icon}
-                <Title>{label}</Title>
+                <MypageLink to={link}>
+                  {icon}
+                  <Title>{label}</Title>
+                </MypageLink>
               </Tab>
             ))}
           </TabList>
           <LogoutTab>
-            <IconLogout />
-            <Title style={styles}>SIGN OUT</Title>
+            <Signout styleProps={styles} titleSize="116px" fontSize={'sm'} />
           </LogoutTab>
         </Container>
       )}
