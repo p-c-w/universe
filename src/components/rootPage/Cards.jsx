@@ -13,7 +13,7 @@ import {
   rem,
 } from '@mantine/core';
 import styled from '@emotion/styled';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
 import useMainBoardQuery from '../../hooks/useMainBoardQuery';
 import useObsever from '../../hooks/useObsever';
@@ -302,12 +302,12 @@ const Cards = ({ mediaType }) => {
   const [opened, { open, close }] = useDisclosure(false);
   const [modalState, setModalState] = useState({
     id: '',
-    type: '',
     title: '',
     backgroundPath: '',
     posterPath: '',
     overview: '',
     genreLists: [],
+    mediaType: '',
   });
 
   const getNextPage = useCallback(() => {
@@ -316,18 +316,8 @@ const Cards = ({ mediaType }) => {
 
   const observerRef = useObsever(getNextPage);
 
-  const providers = [
-    {
-      id: 356,
-      provider_name: 'Wavve',
-      providerImgPath: 'assets/badges/wavve.svg',
-      fee: 7900,
-    },
-  ];
-
   return (
     <>
-      {opened && <DetailModal opened={opened} close={close} movie={modalState} />}
       <CardGrid
         cols={5}
         w={rem(1324)}
@@ -393,6 +383,14 @@ const Cards = ({ mediaType }) => {
               )
             )}
       </CardGrid>
+      {opened && (
+        <Suspense
+          fallback={
+            <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
+          }>
+          <DetailModal opened={opened} close={close} movie={modalState} />{' '}
+        </Suspense>
+      )}
       <ScrollObserver hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );
