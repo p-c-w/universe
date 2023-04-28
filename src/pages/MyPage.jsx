@@ -1,5 +1,6 @@
 import { Flex, Box, Container } from '@mantine/core';
-import { ThemeButton, GlobalShell } from '../components/common';
+import { Suspense } from 'react';
+import { ThemeButton, GlobalShell, BarLoader } from '../components/common';
 import {
   Collections,
   MypageTitle,
@@ -15,7 +16,9 @@ const MyPage = () => (
       <Flex gap={10} mt="2rem">
         <Box w={620}>
           <PredictedSubscription />
-          <CurrentSubscriptionInfo />
+          <Suspense fallback={<BarLoader />}>
+            <CurrentSubscriptionInfo />
+          </Suspense>
         </Box>
         <Statistics />
       </Flex>
