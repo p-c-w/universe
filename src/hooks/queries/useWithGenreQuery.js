@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchWithGenre } from '../../api/tmdb';
 
-const useWithGenreQuery = (mediaType, genreId, providerId) => {
-  const strProviderId = providerId.sort((a, b) => a - b).join('|');
+const useWithGenreQuery = (mediaType, providerIds, genreId) => {
+  const strProviderId = providerIds.sort((a, b) => a - b).join('|');
 
   const { data, isSuccess } = useQuery({
     queryKey: [`@${mediaType}`, strProviderId, genreId],
