@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 import { Navbar, Transition } from '@mantine/core';
 import { IconUser, IconMovie, IconThumbUp, IconHistory, IconLogout } from '@tabler/icons-react';
+import axios from 'axios';
 import sideNavOpenedState from '../../recoil/atom/sideNavOpenedState';
 
 const Container = styled(Navbar)`
@@ -55,6 +56,10 @@ const tabs = [
 
 const SideNavBar = () => {
   const isOpened = useRecoilValue(sideNavOpenedState);
+  const handleClick = async () => {
+    await axios.get('/api/auth/signout');
+    localStorage.removeItem('user');
+  };
 
   return (
     <Transition mounted={isOpened} transition="skew-up" duration={400} timingFunction="ease">
@@ -68,7 +73,7 @@ const SideNavBar = () => {
               </Tab>
             ))}
           </TabList>
-          <LogoutTab>
+          <LogoutTab onClick={handleClick}>
             <IconLogout />
             <Title style={styles}>SIGN OUT</Title>
           </LogoutTab>
