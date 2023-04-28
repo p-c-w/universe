@@ -19,7 +19,7 @@ const PredictedSubscription = () => {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate ?? [] }),
   });
 
-  const { cheapestPrice } = calculateLowestFee(providers);
+  const { cheapestCombo, cheapestPrice } = calculateLowestFee(providers);
 
   return (
     <Container m={0} p={0}>
@@ -27,13 +27,13 @@ const PredictedSubscription = () => {
         <Title order={2} size={30} align="left">
           예상 구독료
         </Title>
-        <Badges size="2rem" />
+        <Badges providers={cheapestCombo} size="2rem" />
       </Flex>
       <Text
         fz="3.5rem"
         color={dark ? theme.colors[theme.primaryColor][2] : theme.colors[theme.primaryColor][9]}
         fw={500}>
-        ₩{cheapestPrice}
+        ₩{cheapestPrice.toLocaleString()}
       </Text>
     </Container>
   );
