@@ -14,8 +14,8 @@ import {
 } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useCallback } from 'react';
-import useSortByPopularityInfinityQuery from '../../hooks/queries/useSortByPopularityInfinityQuery';
-import useObsever from '../../hooks/useObsever';
+import { useSortByPopularityInfinityQuery } from '../../hooks/queries';
+import useObserver from '../../hooks/useObserver';
 import { ScrollObserver } from '../common';
 import genres from '../../constants/genres';
 import PosterSkeleton from './PosterSkeleton';
@@ -134,7 +134,7 @@ const Posters = ({ mediaType }) => {
     if (hasNextPage) fetchNextPage();
   }, [hasNextPage, fetchNextPage]);
 
-  const observerRef = useObsever(getNextPage, observeOption);
+  const observerRef = useObserver(getNextPage, hasNextPage, observeOption);
 
   const movie = mediaType === 'movie';
 
@@ -176,7 +176,7 @@ const Posters = ({ mediaType }) => {
             )
           )}
       </CardGrid>
-      {hasNextPage && <ScrollObserver skeleton={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />}
+      <ScrollObserver loader={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );
 };
