@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchSortByReleaseDate } from '../../api/tmdb';
 
-const useSortByReleaseDateQuery = (mediaType, providerId) => {
-  const strProviderId = providerId.sort((a, b) => a - b).join('|');
+const useSortByReleaseDateQuery = (mediaType, providerIds) => {
+  const strProviderId = providerIds.sort((a, b) => a - b).join('|');
 
   const { data, isSuccess } = useQuery({
     queryKey: [`@${mediaType}`, strProviderId, 'sortByRelease'],

@@ -13,11 +13,10 @@ import {
   rem,
 } from '@mantine/core';
 import styled from '@emotion/styled';
+import { useSortByPopularityInfinityQuery } from '../../hooks/queries';
+import useObserver from '../../hooks/useObserver';
 import { useCallback, useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-
-import useSortByPopularityInfinityQuery from '../../hooks/queries/useSortByPopularityInfinityQuery';
-import useObsever from '../../hooks/useObsever';
 import { ScrollObserver } from '../common';
 import genres from '../../constants/genres';
 import PosterSkeleton from './PosterSkeleton';
@@ -170,7 +169,7 @@ const Posters = ({ mediaType }) => {
     if (hasNextPage) fetchNextPage();
   }, [hasNextPage, fetchNextPage]);
 
-  const observerRef = useObsever(getNextPage, observeOption);
+  const observerRef = useObserver(getNextPage, hasNextPage, observeOption);
 
   const movie = mediaType === 'movie';
 
@@ -225,7 +224,7 @@ const Posters = ({ mediaType }) => {
           <DetailModal opened={opened} close={close} movie={modalState} />
         </Suspense>
       )}
-      {hasNextPage && <ScrollObserver skeleton={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />}
+      <ScrollObserver loader={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );
 };

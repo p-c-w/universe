@@ -1,18 +1,16 @@
 import { Container, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import useWithGenreQuery from '../../hooks/queries/useWithGenreQuery';
 import genres from '../../constants/genres';
 import Slide from './Slide';
 
-const CarouselWithTitle = ({ mediaType, genreId, providerIds }) => {
-  const { isSuccess, data: content } = useWithGenreQuery(mediaType, genreId, providerIds);
-  const movie = mediaType === 'movie';
-
-  if (!genreId) return false;
+const CarouselWithTitle = ({ mediaType, providerIds, title, genreId, fetchFn }) => {
+  const { isSuccess, data: content } = fetchFn(mediaType, providerIds, genreId);
+  const isMovie = mediaType === 'movie';
+  const headerTitle = title || genres[mediaType][genreId].name;
 
   return (
-    <Container key={genreId} maw={'none'} p={0} py={'md'}>
-      <Title fz={'md'}>{genres[mediaType][genreId].name}</Title>
+    <Container maw={'none'} p={0} py={'md'}>
+      <Title fz={'md'}>{headerTitle}</Title>
       <Carousel slideSize="20%" mt={'md'} slideGap="md" loop align="start" slidesToScroll={6} dragFree>
         {isSuccess &&
           content?.map(
@@ -26,8 +24,8 @@ const CarouselWithTitle = ({ mediaType, genreId, providerIds }) => {
             }) => (
               <Slide
                 key={id}
-                title={movie ? title : name}
-                originalTitle={movie ? originalTitle : originalName}
+                title={isMovie ? title : name}
+                originalTitle={isMovie ? originalTitle : originalName}
                 name={name}
                 backdropPath={backdropPath}
                 mediaType={mediaType}

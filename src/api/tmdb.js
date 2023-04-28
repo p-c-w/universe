@@ -89,10 +89,11 @@ export const fetchMediaContentDetails = async (mediaType, contentId) => {
  * @param {string} query
  * @returns data
  */
-export const fetchMediaContentSearchResult = async (mediaType, query) => {
+export const fetchSearchResult = async (mediaType, query) => {
   const res = await axios.get(`${API_URL}search/${mediaType}`, {
     params: {
       api_key: API_KEY,
+      language,
       query,
     },
   });

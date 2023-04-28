@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchSortByPopularity } from '../../api/tmdb';
 
-const useSortByPopularityQuery = (mediaType, providerId) => {
-  const strProviderId = providerId.sort((a, b) => a - b).join('|');
+const useSortByPopularityQuery = (mediaType, providerIds) => {
+  const strProviderId = providerIds.sort((a, b) => a - b).join('|');
 
   const { data, isSuccess } = useQuery({
     queryKey: [`@${mediaType}`, strProviderId, 'sortByPopularity'],
