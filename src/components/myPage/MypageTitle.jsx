@@ -3,7 +3,7 @@ import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
-import userState from '../../recoil/atom/userState';
+import { userState } from '../../recoil/atom';
 
 const StyledContainer = styled(Container)`
   display: flex;

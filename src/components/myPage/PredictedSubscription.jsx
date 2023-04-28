@@ -12,7 +12,7 @@ const PredictedSubscription = () => {
         <Title order={2} size={30} align="left">
           예상 구독료
         </Title>
-        <Badges />
+        <Badges size="2rem" />
       </Flex>
       <Text
         fz="3.5rem"

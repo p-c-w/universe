@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { updateUserSubscription } from '../../api';
 
 const KEY = 'user';
 
@@ -8,10 +9,16 @@ const localStorageEffect = ({ onSet }) => {
   });
 };
 
+const updateSubcrbieList = ({ onSet }) => {
+  onSet(userState => {
+    updateUserSubscription(userState);
+  });
+};
+
 const userState = atom({
   key: 'userState',
   default: JSON.parse(localStorage.getItem(KEY)),
-  effects: [localStorageEffect],
+  effects: [localStorageEffect, updateSubcrbieList],
 });
 
 // const userState = atom({

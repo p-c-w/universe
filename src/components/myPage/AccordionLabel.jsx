@@ -1,10 +1,10 @@
 import React from 'react';
 import { Group, Text } from '@mantine/core';
 import { Badges, CollectionButtons } from '../index';
-import { PROVIDERS } from '../../constants';
+import { getProvidersByIds } from '../../utils';
 
 const AccordionLabel = ({ title, providers: providerIds }) => {
-  const providers = providerIds.map(providerId => PROVIDERS.find(PROVIDER => PROVIDER.id === providerId));
+  const providers = getProvidersByIds(providerIds);
 
   return (
     <Group noWrap>

@@ -14,7 +14,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
     select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
   });
-  const { providers } = useProviderQueries(userCollectionList, {
+  const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
 
@@ -29,7 +29,8 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
     });
 
   collection = collection.map(item => {
-    const providerById = providers.find(data => data.id === item.id);
+    const providerById = providersWithContentId?.find(data => data.id === item.id);
+
     return { ...item, ...providerById };
   });
 

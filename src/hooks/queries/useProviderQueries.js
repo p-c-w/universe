@@ -2,10 +2,10 @@ import { useQueries } from '@tanstack/react-query';
 import { fetchProvider } from '../../api';
 import { PROVIDERS } from '../../constants';
 
-const useProviderQueries = (userCollectionList, options) => {
-  const providerQueries = userCollectionList?.map(item => ({
-    queryKey: ['@provider', item],
-    queryFn: () => fetchProvider(item.type, item.id),
+const useProviderQueries = (list, options) => {
+  const providerQueries = list?.map(({ type, id }) => ({
+    queryKey: ['@provider', type, id],
+    queryFn: () => fetchProvider(type, id),
     suspense: true,
     ...options,
   }));
