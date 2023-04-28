@@ -14,9 +14,10 @@ const providers = [
 
 const movie = {
   title: '모범택시',
-  description:
+  backgroundPath: 'qrlfF3usm2FZCMvCg2uas8CazxW',
+  overview:
     '정의가 실종된 사회, 전화 한 통이면 오케이” 베일에 가려진 택시회사 무지개 운수와 택시기사 김도기가 억울한 피해자를 대신해 복수를 완성하는 사적 복수 대행극',
-  genres: ['액션', '범죄', '드라마'],
+  genreIds: ['액션', '범죄', '드라마'],
 };
 
 const DetailButton = () => {
