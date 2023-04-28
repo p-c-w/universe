@@ -2,9 +2,9 @@ import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 
 import { Navbar, Transition } from '@mantine/core';
-import { IconUser, IconMovie, IconThumbUp, IconHistory, IconLogout } from '@tabler/icons-react';
-import axios from 'axios';
+import { IconUser, IconMovie, IconThumbUp, IconHistory } from '@tabler/icons-react';
 import sideNavOpenedState from '../../recoil/atom/sideNavOpenedState';
+import Signout from '../auth/Signout';
 
 const Container = styled(Navbar)`
   justify-content: space-between;
@@ -56,10 +56,6 @@ const tabs = [
 
 const SideNavBar = () => {
   const isOpened = useRecoilValue(sideNavOpenedState);
-  const handleClick = async () => {
-    await axios.get('/api/auth/signout');
-    localStorage.removeItem('user');
-  };
 
   return (
     <Transition mounted={isOpened} transition="skew-up" duration={400} timingFunction="ease">
@@ -73,9 +69,8 @@ const SideNavBar = () => {
               </Tab>
             ))}
           </TabList>
-          <LogoutTab onClick={handleClick}>
-            <IconLogout />
-            <Title style={styles}>SIGN OUT</Title>
+          <LogoutTab>
+            <Signout styleProps={styles} titleSize="116px" fontSize={'sm'} />
           </LogoutTab>
         </Container>
       )}
