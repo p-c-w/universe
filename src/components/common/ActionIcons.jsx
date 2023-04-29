@@ -1,45 +1,41 @@
 import React from 'react';
-import { useMantineTheme, Group, ActionIcon } from '@mantine/core';
+import { Group, ActionIcon } from '@mantine/core';
 
 import { IconHeart, IconHistory, IconMovie } from '@tabler/icons-react';
-
-import styled from '@emotion/styled';
 import axios from 'axios';
 import { useRecoilValue } from 'recoil';
 import userState from '../../recoil/atom/userState';
 
-const Action = styled(ActionIcon)`
-  background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0])};
-
-  &:hover {
-    background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1])};
-  }
-`;
-
 const ActionIcons = ({ size, id, type }) => {
-  const theme = useMantineTheme();
-  const { email } = useRecoilValue(userState);
-
+  const { email, watch_list: watchlist, like_list: likelist, history_list: historylist } = useRecoilValue(userState);
   const now = new Date();
 
+  // api 요청 확인용 함수
   const handleClick = async listName => {
-    await axios.patch(`/api/users/${email}/${listName}`, { id: +id, type, modified_at: now.toISOString() });
+    await axios.patch(`/api/users/${email}/${listName}`, { id, type, modified_at: now.toISOString() });
   };
 
   return (
-    <>
-      <Group spacing={8} mr={0}>
-        <Action onClick={() => handleClick('watch_list')}>
-          <IconMovie size={size} color={theme.colors.yellow[7]} />
-        </Action>
-        <Action onClick={() => handleClick('like_list')}>
-          <IconHeart size={size} color={theme.colors.red[6]} />
-        </Action>
-        <Action onClick={() => handleClick('history_list')}>
-          <IconHistory size={size} />
-        </Action>
-      </Group>
-    </>
+    <Group spacing={8}>
+      <ActionIcon
+        variant={watchlist.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
+        color={'yellow'}
+        onClick={() => handleClick('watch_list')}>
+        <IconMovie size={size} />
+      </ActionIcon>
+      <ActionIcon
+        variant={!likelist.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
+        color={'red'}
+        onClick={() => handleClick('like_list')}>
+        <IconHeart size={size} />
+      </ActionIcon>
+      <ActionIcon
+        variant={historylist.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
+        onClick={() => handleClick('history_list')}
+        color={'blue'}>
+        <IconHistory size={size} />
+      </ActionIcon>
+    </Group>
   );
 };
 
