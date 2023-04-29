@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
-import { rem, Box, useMantineColorScheme } from '@mantine/core';
-import { DonutChartByProvider, LineChart, StatisticByProvider } from '.';
+import { Box, useMantineColorScheme } from '@mantine/core';
+import { StatisticByProvider } from '.';
 
 const StatisticCarousel = styled(Carousel)`
-  width: 38.75rem;
   text-align: center;
   & .mantine-Carousel-indicator {
     background-color: gray;
@@ -23,12 +22,11 @@ const Statistics = () => {
   const dark = colorScheme === 'dark';
 
   return (
-    <StatisticCarousel height="100%" loop withIndicators>
+    <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
       <Carousel.Slide>
         <StatisticByProvider />
       </Carousel.Slide>
       <Carousel.Slide>
-        <DonutChartByProvider />
         <Box
           sx={{
             backgroundColor: dark ? 'var(--mantine-color-dark-6)' : 'var(--mantine-color-gray-1)',
@@ -36,10 +34,11 @@ const Statistics = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-          }}></Box>
+          }}>
+          1
+        </Box>
       </Carousel.Slide>
       <Carousel.Slide>
-        <LineChart />
         <Box
           sx={{
             backgroundColor: dark ? 'var(--mantine-color-dark-6)' : 'var(--mantine-color-gray-1)',
@@ -47,7 +46,9 @@ const Statistics = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-          }}></Box>
+          }}>
+          2
+        </Box>
       </Carousel.Slide>
       <Carousel.Slide>
         <Box
