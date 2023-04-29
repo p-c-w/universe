@@ -3,10 +3,9 @@ import styled from '@emotion/styled';
 import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
-import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
 import { useProviderQueries } from '../../hooks/queries';
-import { getProvidersInfoListByList, getProvidersByList, getProvidersByIds } from '../../utils';
+import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -31,7 +30,7 @@ const CurrentSubscriptionInfo = () => {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
 
-  const subscribeProviderIds = getProvidersByList(subscribeList);
+  const subscribeProviderIds = getProvidersIdsByList(subscribeList);
   const whatchProviderIds = whatchProvidersWithContenId.flatMap(content => content.providers);
   const unWatchedProviderIds = subscribeProviderIds.filter(
     subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
