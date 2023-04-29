@@ -3,7 +3,8 @@ import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconDiscountCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { PROVIDERS } from '../../constants';
+// import { PROVIDERS } from '../../constants';
+import PROVIDERS from '../../constants/providers';
 import { userState } from '../../recoil/atom';
 
 const SubscriptionEditor = ({ providers, onClick }) => {
@@ -14,9 +15,11 @@ const SubscriptionEditor = ({ providers, onClick }) => {
 
   const { register, handleSubmit } = useForm();
 
+  const providerArray = Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
+
   const getNewSubscribeList = () => {
     const newProviders = selectedProviders.map(providerValue =>
-      PROVIDERS.find(PROVIDER => PROVIDER.provider_name === providerValue)
+      providerArray.find(item => item.provider_name === providerValue)
     );
     const newList = newProviders.map(provider => ({ id: provider.id, price: 'basic' }));
 
@@ -31,12 +34,12 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   };
 
   const toggleAllSelectedProviders = () => {
-    if (selectedProviders.length === PROVIDERS.length) {
+    if (selectedProviders.length === providerArray.length) {
       setSelectedProviders([]);
       return;
     }
 
-    setSelectedProviders(PROVIDERS.map(PROVIDER => PROVIDER.provider_name));
+    setSelectedProviders(providerArray.map(PROVIDER => PROVIDER.provider_name));
   };
 
   return (
@@ -47,7 +50,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
             구독중인 서비스를 선택해주세요.
           </Title>
           <Chip
-            checked={selectedProviders.length === PROVIDERS.length}
+            checked={selectedProviders.length === providerArray.length}
             onChange={toggleAllSelectedProviders}
             size="xs"
             p={0}>
@@ -60,7 +63,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
       </Flex>
       <Chip.Group multiple value={selectedProviders} onChange={setSelectedProviders}>
         <Flex gap={3} wrap="wrap">
-          {PROVIDERS.map(provider => (
+          {providerArray.map(provider => (
             <Chip key={provider.id} value={provider.provider_name} {...register(`${provider.provider_name}`)}>
               {provider.provider_name}
             </Chip>
