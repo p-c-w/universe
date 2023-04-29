@@ -1,7 +1,6 @@
 import { Flex, Badge } from '@mantine/core';
-import { PROVIDERS } from '../../constants';
 
-const ProviderBadges = ({ providers = PROVIDERS, variant }) => (
+const ProviderBadges = ({ providers, variant }) => (
   <>
     <Flex gap={3} wrap="wrap">
       {providers?.map(provider => (
