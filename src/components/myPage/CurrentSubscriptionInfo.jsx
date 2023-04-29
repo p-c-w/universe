@@ -66,10 +66,18 @@ const CurrentSubscriptionInfo = () => {
         </Accordion.Item>
       </PresentSubscriptionFee>
       <Box mt={16}>
-        <Title order={5} mb={10}>
-          구독하고 있지만 보고 있지 않아요
-        </Title>
-        <ProviderBadges providers={unWatchedProvidersInfoList} />
+        {unWatchedProvidersInfoList.length ? (
+          <>
+            <Title order={5} mb={10}>
+              구독하고 있지만 보고 있지 않아요
+            </Title>
+            <ProviderBadges providers={unWatchedProvidersInfoList} />
+          </>
+        ) : (
+          <Title order={5} mb={10}>
+            구독중인 모든 서비스를 사용하고 있어요
+          </Title>
+        )}
       </Box>
     </StyledContainer>
   );
