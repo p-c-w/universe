@@ -3,11 +3,11 @@ import React from 'react';
 import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea } from '@mantine/core';
 import styled from '@emotion/styled';
 import Badges from '../../Badges';
-import CollectionButtons from '../../CollectionButtons';
 
 import { useProviderQueries } from '../../../hooks/queries';
 
 import { getProvidersByIds } from '../../../utils';
+import ActionIcons from '../ActionIcons';
 
 const BadgeContainer = styled.div`
   width: 100%;
@@ -41,7 +41,7 @@ const DetailModal = ({
           <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
           <BadgeContainer>
             <Badges providers={providerIds} spacing="sm" size="2.5rem" />
-            <CollectionButtons size={35} />
+            <ActionIcons size={10} id={id} type={mediaType} />
           </BadgeContainer>
           <Modal.CloseButton style={{ zIndex: '999' }} pos="absolute" top={10} right={20} />
           <Modal.Body m={40} c="#fff" style={{ zIndex: '2' }} pos="absolute" top={0}>
