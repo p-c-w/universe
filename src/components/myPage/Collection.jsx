@@ -7,6 +7,24 @@ import { useContentDetailQueries, useProviderQueries } from '../../hooks/queries
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
+const getCollection = (list, detailDatas, providersList) => {
+  const middleCollection = list
+    .map(item => ({
+      id: item.id,
+      modified_at: item.modified_at,
+    }))
+    .map(item => {
+      const detailData = detailDatas.find(data => data.id === item.id);
+      return { ...item, ...detailData };
+    });
+
+  return middleCollection.map(item => {
+    const providerById = providersList?.find(data => data.id === item.id);
+
+    return { ...item, ...providerById };
+  });
+};
+
 const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
   const userCollectionList = user[`${category.toLowerCase()}_list`];
@@ -18,21 +36,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
 
-  let collection = userCollectionList
-    .map(item => ({
-      id: item.id,
-      modified_at: item.modified_at,
-    }))
-    .map(item => {
-      const detailData = contentDetailDatas.find(data => data.id === item.id);
-      return { ...item, ...detailData };
-    });
-
-  collection = collection.map(item => {
-    const providerById = providersWithContentId?.find(data => data.id === item.id);
-
-    return { ...item, ...providerById };
-  });
+  const collection = getCollection(userCollectionList, contentDetailDatas, providersWithContentId);
 
   const itemRef = useRef(null);
 
