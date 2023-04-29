@@ -27,11 +27,6 @@ const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) 
 const CurrentSubscriptionInfo = () => {
   const [editMode, setEditMode] = useState(false);
   const { subscribe_list: subscribeList, watch_list: watchList } = useRecoilValue(userState);
-
-  const providers = getProvidersInfoListByList(subscribeList);
-
-  const currentFee = getCurrentFee(providers);
-
   const { providers: whatchProvidersWithContenId } = useProviderQueries(watchList, {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
@@ -42,6 +37,9 @@ const CurrentSubscriptionInfo = () => {
     subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
   );
   const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
+
+  const providers = getProvidersInfoListByList(subscribeList);
+  const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
