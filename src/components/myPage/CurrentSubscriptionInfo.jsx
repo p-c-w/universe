@@ -6,7 +6,7 @@ import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './ind
 import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
 import { useProviderQueries } from '../../hooks/queries';
-import { getProvidersInfoListByList, getProvidersByList } from '../../utils';
+import { getProvidersInfoListByList, getProvidersByList, getProvidersByIds } from '../../utils';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -37,12 +37,11 @@ const CurrentSubscriptionInfo = () => {
   });
 
   const subscribeProviderIds = getProvidersByList(subscribeList);
-
   const whatchProviderIds = whatchProvidersWithContenId.flatMap(content => content.providers);
-
-  const unWatchedProvidersInfoList = subscribeProviderIds
-    .filter(subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId))
-    .map(provider => PROVIDERS.find(PROVIDER => PROVIDER.id === provider));
+  const unWatchedProviderIds = subscribeProviderIds.filter(
+    subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
+  );
+  const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
