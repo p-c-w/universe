@@ -7,6 +7,15 @@ import { useSetRecoilState } from 'recoil';
 import PROVIDERS from '../../constants/providers';
 import { userState } from '../../recoil/atom';
 
+const providerArray = Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
+
+const getNewSubscribeList = selectedNames => {
+  const newProviderNames = selectedNames.map(name => providerArray.find(item => item.provider_name === name));
+  const newList = newProviderNames.map(provider => ({ id: provider.id, price: 'basic' }));
+
+  return newList;
+};
+
 const SubscriptionEditor = ({ providers, onClick }) => {
   const providersNames = providers?.map(provider => provider.provider_name);
 
@@ -15,21 +24,10 @@ const SubscriptionEditor = ({ providers, onClick }) => {
 
   const { register, handleSubmit } = useForm();
 
-  const providerArray = Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
-
-  const getNewSubscribeList = () => {
-    const newProviders = selectedProviders.map(providerValue =>
-      providerArray.find(item => item.provider_name === providerValue)
-    );
-    const newList = newProviders.map(provider => ({ id: provider.id, price: 'basic' }));
-
-    return newList;
-  };
-
   const onSubmit = (data, e) => {
     e.preventDefault();
 
-    setUser(user => ({ ...user, subscribe_list: getNewSubscribeList() }));
+    setUser(user => ({ ...user, subscribe_list: getNewSubscribeList(selectedProviders) }));
     onClick();
   };
 
