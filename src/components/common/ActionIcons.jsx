@@ -10,6 +10,7 @@ const ActionIcons = ({ size, id, type }) => {
   const { email, watch_list: watchlist, like_list: likelist, history_list: historylist } = useRecoilValue(userState);
   const now = new Date();
 
+  // api 요청 확인용 함수
   const handleClick = async listName => {
     await axios.patch(`/api/users/${email}/${listName}`, { id, type, modified_at: now.toISOString() });
   };
