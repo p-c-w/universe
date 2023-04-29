@@ -13,11 +13,11 @@ import {
   rem,
 } from '@mantine/core';
 import styled from '@emotion/styled';
-import { useSortByPopularityInfinityQuery } from '../../hooks/queries';
-import useObserver from '../../hooks/useObserver';
 import { useCallback, useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { ScrollObserver } from '../common';
+import { useSortByPopularityInfinityQuery } from '../../hooks/queries';
+import useObserver from '../../hooks/useObserver';
+import { ActionIcons, ScrollObserver } from '../common';
 import genres from '../../constants/genres';
 import PosterSkeleton from './PosterSkeleton';
 import DetailModal from '../common/Detail/DetailModal';
@@ -62,14 +62,6 @@ const Title = styled(Text)`
   margin-bottom: rem(5);
 `;
 
-const Action = styled(ActionIcon)`
-  background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0])};
-
-  &:hover {
-    background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1])};
-  }
-`;
-
 const Footer = styled(Group)`
   margin-top: var(--mantine-spacing-md);
   align-items: flex-start;
@@ -89,7 +81,6 @@ const Poster = ({
   genreIds,
   mediaType,
 }) => {
-  const theme = useMantineTheme();
   const genre = mediaType === 'movie' ? genres.movie : genres.tv;
 
   const handlePosterClick = () => {
@@ -131,17 +122,7 @@ const Poster = ({
                 </Badge>
               ))}
             </Flex>
-            <Group spacing={8} mr={0}>
-              <Action>
-                <IconMovie size="1rem" color={theme.colors.yellow[7]} />
-              </Action>
-              <Action>
-                <IconHeart size="1rem" color={theme.colors.red[6]} />
-              </Action>
-              <Action>
-                <IconHistory size="1rem" />
-              </Action>
-            </Group>
+            <ActionIcons size={'1rem'} id={id} type={mediaType} />
           </Footer>
         </Flex>
       </HoverContainer>
