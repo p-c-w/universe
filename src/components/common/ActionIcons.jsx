@@ -24,7 +24,7 @@ const ActionIcons = ({ size, id, type }) => {
         <IconMovie size={size} />
       </ActionIcon>
       <ActionIcon
-        variant={!likelist.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
+        variant={likelist.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
         color={'red'}
         onClick={() => handleClick('like_list')}>
         <IconHeart size={size} />
