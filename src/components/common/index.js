@@ -5,3 +5,4 @@ export { default as SideNavBar } from './SideNavBar';
 export { default as ThemeButton } from './ThemeButton';
 export { default as ScrollObserver } from './ScrollObserver';
 export { default as BarLoader } from './BarLoader';
+export { default as ActionIcons } from './ActionIcons';
