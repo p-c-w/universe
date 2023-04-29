@@ -9,7 +9,7 @@ const localStorageEffect = ({ onSet }) => {
   });
 };
 
-const updateSubcrbieList = ({ onSet }) => {
+const updateSubscribeList = ({ onSet }) => {
   onSet(userState => {
     updateUserSubscription(userState);
   });
@@ -18,7 +18,7 @@ const updateSubcrbieList = ({ onSet }) => {
 const userState = atom({
   key: 'userState',
   default: JSON.parse(localStorage.getItem(KEY)),
-  effects: [localStorageEffect, updateSubcrbieList],
+  effects: [localStorageEffect, updateSubscribeList],
 });
 
 // const userState = atom({
