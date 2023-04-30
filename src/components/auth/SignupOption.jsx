@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Grid, Button, rem, Container } from '@mantine/core';
+import { Grid, Button, rem } from '@mantine/core';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import Typing from './Typing';
 
 import userState from '../../recoil/atom/userState';
@@ -29,14 +29,12 @@ const logos = [
 const SignupOption = () => {
   const [isLogo, setIsLogo] = useState(false);
   const [subscribedOtt, setSubscribedOtt] = useState([]);
-  const [user, setUser] = useRecoilState(userState);
+  const user = useRecoilValue(userState);
 
   const handleClick = async () => {
     try {
-      const { email } = user.data;
-
-      await axios.patch(`/api/users/${email}`, { subscribe_list: subscribedOtt });
-      setUser(null);
+      await axios.patch(`/api/users/${user}`, { subscribe_list: subscribedOtt });
+      localStorage.removeItem('user');
     } catch (e) {
       console.log('Error: ', e);
     }
