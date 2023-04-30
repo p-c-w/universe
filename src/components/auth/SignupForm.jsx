@@ -38,7 +38,6 @@ const InputWrapper = styled.div`
 const InputButton = styled(Button)`
   float: right;
   align-self: flex-end;
-  font-weight: 300;
 `;
 
 const SignupForm = ({ setActive }) => {
@@ -85,6 +84,7 @@ const SignupForm = ({ setActive }) => {
                 onClick={() => {
                   setStep(step + 1);
                 }}
+                fw={300}
                 variant="outline"
                 color="gray">
                 Continue
@@ -109,6 +109,7 @@ const SignupForm = ({ setActive }) => {
                   setStep(step + 1);
                 }}
                 variant="outline"
+                fw={300}
                 color="gray">
                 Continue
               </InputButton>
@@ -131,6 +132,7 @@ const SignupForm = ({ setActive }) => {
                 onClick={() => {
                   setStep(step + 1);
                 }}
+                fw={300}
                 variant="outline"
                 color="gray">
                 Continue
