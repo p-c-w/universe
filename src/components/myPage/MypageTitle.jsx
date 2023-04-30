@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/atom';
+import { useUserQuery } from '../../hooks/queries';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -27,7 +26,7 @@ const NameInput = styled(TextInput)`
 `;
 
 const MypageTitle = () => {
-  const { name } = useRecoilValue(userState);
+  const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
   const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
