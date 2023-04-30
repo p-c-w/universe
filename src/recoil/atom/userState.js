@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { updateUserSubscription } from '../../api';
+import { updateUser } from '../../api';
 
 const KEY = 'user';
 
@@ -12,7 +12,7 @@ const localStorageEffect = ({ onSet }) => {
 
 const updateSubcrbieList = ({ onSet }) => {
   onSet(userState => {
-    updateUserSubscription(userState);
+    updateUser(userState);
   });
 };
 

@@ -7,8 +7,8 @@ const fetchUser = async email => {
   return data;
 };
 
-const updateUserSubscription = async user => axios.patch(`${url}/${user.email}`, { ...user });
+const updateUser = async user => axios.patch(`${url}/${user.email}`, { ...user });
 
 const updateUserContent = async ({ email, list, value }) => axios.patch(`${url}/${email}/${list}`, value);
 
-export { fetchUser, updateUserSubscription, updateUserContent };
+export { fetchUser, updateUser, updateUserContent };
