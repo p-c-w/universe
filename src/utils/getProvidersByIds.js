@@ -1,4 +1,12 @@
-import { PROVIDERS } from '../constants';
+// import { PROVIDERS } from '../constants';
+import PROVIDERS from '../constants/providers';
 
-const getProvidersByIds = Ids => Ids?.map(Id => PROVIDERS.find(PROVIDER => PROVIDER.id === Id));
+const getProvidersByIds = Ids =>
+  Ids?.map(id => ({
+    id,
+    provider_name: PROVIDERS[id].provider_name,
+    providerImgPath: PROVIDERS[id].providerImgPath,
+    fee: PROVIDERS[id].fee,
+  }));
+
 export default getProvidersByIds;

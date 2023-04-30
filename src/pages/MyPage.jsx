@@ -15,8 +15,8 @@ const MyPage = () => (
       <MypageTitle />
       <SimpleGrid cols={2} mt={32} spacing="xl">
         <Box>
-          <PredictedSubscription />
           <Suspense fallback={<BarLoader />}>
+            <PredictedSubscription />
             <CurrentSubscriptionInfo />
           </Suspense>
         </Box>

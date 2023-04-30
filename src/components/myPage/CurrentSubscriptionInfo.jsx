@@ -3,10 +3,9 @@ import styled from '@emotion/styled';
 import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
-import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
 import { useProviderQueries } from '../../hooks/queries';
-import { getProvidersInfoListByList, getProvidersByList } from '../../utils';
+import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -27,22 +26,19 @@ const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) 
 const CurrentSubscriptionInfo = () => {
   const [editMode, setEditMode] = useState(false);
   const { subscribe_list: subscribeList, watch_list: watchList } = useRecoilValue(userState);
-
-  const providers = getProvidersInfoListByList(subscribeList);
-
-  const currentFee = getCurrentFee(providers);
-
   const { providers: whatchProvidersWithContenId } = useProviderQueries(watchList, {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
 
-  const subscribeProviderIds = getProvidersByList(subscribeList);
-
+  const subscribeProviderIds = getProvidersIdsByList(subscribeList);
   const whatchProviderIds = whatchProvidersWithContenId.flatMap(content => content.providers);
+  const unWatchedProviderIds = subscribeProviderIds.filter(
+    subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
+  );
+  const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
 
-  const unWatchedProvidersInfoList = subscribeProviderIds
-    .filter(subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId))
-    .map(provider => PROVIDERS.find(PROVIDER => PROVIDER.id === provider));
+  const providers = getProvidersInfoListByList(subscribeList);
+  const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
@@ -66,10 +62,18 @@ const CurrentSubscriptionInfo = () => {
         </Accordion.Item>
       </PresentSubscriptionFee>
       <Box mt={16}>
-        <Title order={5} mb={10}>
-          구독하고 있지만 보고 있지 않아요
-        </Title>
-        <ProviderBadges providers={unWatchedProvidersInfoList} />
+        {unWatchedProvidersInfoList.length ? (
+          <>
+            <Title order={5} mb={10}>
+              구독하고 있지만 보고 있지 않아요
+            </Title>
+            <ProviderBadges providers={unWatchedProvidersInfoList} />
+          </>
+        ) : (
+          <Title order={5} mb={10}>
+            구독중인 모든 서비스를 사용하고 있어요
+          </Title>
+        )}
       </Box>
     </StyledContainer>
   );

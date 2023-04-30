@@ -1,6 +1,7 @@
 import { useQueries } from '@tanstack/react-query';
 import { fetchProvider } from '../../api';
-import { PROVIDERS } from '../../constants';
+// import { PROVIDERS } from '../../constants';
+import PROVIDERS from '../../constants/providers';
 
 const useProviderQueries = (list, options) => {
   const providerQueries = list?.map(({ type, id }) => ({
@@ -20,7 +21,7 @@ const useProviderQueries = (list, options) => {
     ...data,
     providers: data.providers
       ?.map(provider => provider.provider_id)
-      ?.filter(id => PROVIDERS.find(PROVIDER => PROVIDER.id === id)),
+      ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
   }));
 
   return { queries, providerDatas, providers };
