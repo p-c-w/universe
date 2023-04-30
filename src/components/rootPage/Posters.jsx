@@ -1,16 +1,22 @@
-import { IconHeart, IconHistory, IconMovie } from '@tabler/icons-react';
+import { IconLayersLinked } from '@tabler/icons-react';
 import {
   Container,
   Card,
   Image,
   Text,
-  ActionIcon,
   Badge,
   Group,
   Flex,
   useMantineTheme,
   SimpleGrid,
   rem,
+  Button,
+  useMantineColorScheme,
+  Title,
+  Overlay,
+  Transition,
+  ThemeIcon,
+  Tooltip,
 } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useCallback, useState, Suspense } from 'react';
@@ -28,123 +34,118 @@ const CardGrid = styled(SimpleGrid)`
   margin: 0 auto;
 `;
 
-const StyledCard = styled(Card)`
-  padding: 0;
-  &:hover > div {
-    opacity: 90%;
-  }
-  &:hover > div:last-child {
-    opacity: 100%;
-  }
-`;
-
-const Cover = styled(Container)`
-  position: absolute;
-  background-color: ${({ theme }) => `var(--mantine-color-${theme.colorScheme === 'dark' ? 'dark-9' : 'gray-1'})`};
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0%;
-  transition: 0.3s ease;
-`;
-
-const HoverContainer = styled(Container)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: 0.3s ease;
-`;
-
-const Title = styled(Text)`
-  display: 'block';
-  margin-top: var(--mantine-spacing-lg);
-  margin-bottom: rem(5);
-`;
-
 const Footer = styled(Group)`
   margin-top: var(--mantine-spacing-md);
   align-items: flex-start;
   flex-direction: column;
 `;
 
-const Poster = ({
-  setModalState,
-  open,
-  id,
-  title,
-  originalTitle,
-  posterPath,
-  backdropPath,
-  overview,
-  date,
-  genreIds,
-  mediaType,
-}) => {
-  const genre = mediaType === 'movie' ? genres.movie : genres.tv;
-
-  const handlePosterClick = () => {
-    const genreLists = genreIds?.map(id => genre[id].name);
-
-    const data = { id, title, backdropPath, posterPath, overview, genreLists, mediaType };
-
-    setModalState(data);
-    open();
-  };
+const Poster = ({ id, title, originalTitle, posterPath, backdropPath, overview, date, genreIds, mediaType }) => {
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  const [hovered, setHovered] = useState(false);
+  const [opened, { open, close }] = useDisclosure(false);
+  const dark = colorScheme === 'dark';
 
   return (
-    <StyledCard w={252} h={355} radius="md" onClick={handlePosterClick}>
-      <Image
-        src={posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : 'https://placehold.co/252x378?text=TDB'}
-      />
-      <Cover />
-      <HoverContainer p={'xl'} w={252}>
-        <Flex direction={'column'} align={'baseline'} justify={'space-between'}>
-          <Container m={0} p={0} mb={'md'}>
-            <Title fz="xl" fw={600} lineClamp={1}>
-              {title}
-            </Title>
-            <Text fz="md" color="dimmed" lineClamp={1}>
-              {originalTitle}
-            </Text>
-            <Text fw={200} fz={'xs'}>
-              {date}
-            </Text>
-            <Text w="100%" mt="md" fz="xs" color="dimmed" lineClamp={5}>
-              {overview}
-            </Text>
-          </Container>
-          <Footer position="apart">
-            <Flex w={'100%'} wrap={'wrap'}>
-              {genreIds.map(id => (
-                <Badge color={genres[mediaType][id].color} key={id}>
-                  {genres[mediaType][id].name}
-                </Badge>
-              ))}
-            </Flex>
-            <ActionIcons size={'1rem'} id={id} type={mediaType} />
-          </Footer>
-        </Flex>
-      </HoverContainer>
-    </StyledCard>
+    <>
+      <Card
+        w={252}
+        h={355}
+        p="0"
+        radius="md"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}>
+        <Image
+          src={posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : 'https://placehold.co/252x378?text=TDB'}
+        />
+        <Transition mounted={hovered} transition="fade" duration={400} timingFunction="ease">
+          {styles => (
+            <Overlay
+              style={styles}
+              display="flex"
+              color={dark ? theme.colors.dark[9] : theme.colors.gray[1]}
+              p={'xl'}
+              opacity={0.85}>
+              <Flex direction={'column'} align="baseline" justify="space-between" opacity="none">
+                <Tooltip
+                  label="더보기"
+                  position="bottom-end"
+                  color={dark ? theme.colors.gray[1] : theme.colors.dark[9]}
+                  withArrow
+                  withinPortal>
+                  <Button
+                    p="xs"
+                    variant="transparent"
+                    pos="absolute"
+                    top={theme.spacing.sm}
+                    right={theme.spacing.sm}
+                    onClick={open}
+                    fz={12}
+                    aria-label="more">
+                    {'more'}
+                    <ThemeIcon variant="transparent">
+                      <IconLayersLinked size={16} />
+                    </ThemeIcon>
+                  </Button>
+                </Tooltip>
+                <Container m={0} mt="xl" p={0} mb={'md'}>
+                  <Title fz="lg" fw={600} lineClamp={1}>
+                    {title}
+                  </Title>
+                  <Text fz="sm" color="dimmed" lineClamp={1}>
+                    {originalTitle}
+                  </Text>
+                  <Text fw={200} fz={'xs'}>
+                    {date}
+                  </Text>
+                  <Text w="100%" mt="md" fz="xs" color="dimmed" lineClamp={5}>
+                    {overview}
+                  </Text>
+                </Container>
+                <Flex wrap={'wrap'}>
+                  {genreIds.map(id => (
+                    <Badge color={genres[mediaType][id].color} key={id}>
+                      {genres[mediaType][id].name}
+                    </Badge>
+                  ))}
+                </Flex>
+                <Footer position="apart">
+                  <Suspense fallback={<div>...loading</div>}>
+                    <ActionIcons size={16} id={id} type={mediaType} />
+                  </Suspense>
+                </Footer>
+              </Flex>
+            </Overlay>
+          )}
+        </Transition>
+      </Card>
+      {opened && (
+        <Suspense
+          fallback={
+            <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
+          }>
+          <DetailModal
+            opened={opened}
+            close={close}
+            id={id}
+            title={title}
+            backdropPath={backdropPath}
+            posterPath={posterPath}
+            overview={overview}
+            genreIds={genreIds}
+            mediaType={mediaType}
+          />
+        </Suspense>
+      )}
+    </>
   );
 };
 
 const observeOption = { rootMargin: '50%' };
 
 const Posters = ({ mediaType }) => {
-  const { isSuccess, data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
-
-  const [opened, { open, close }] = useDisclosure(false);
-  const [modalState, setModalState] = useState({
-    id: '',
-    title: '',
-    backgroundPath: '',
-    posterPath: '',
-    overview: '',
-    genreLists: [],
-    mediaType: '',
-  });
+  const { data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
 
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
@@ -165,46 +166,35 @@ const Posters = ({ mediaType }) => {
           { maxWidth: '48rem', cols: 2 },
           { maxWidth: '36rem', cols: 1 },
         ]}>
-        {isSuccess &&
-          content.map(
-            ({
-              id,
-              title,
-              name,
-              original_title: originalTitle,
-              original_name: originalName,
-              poster_path: posterPath,
-              backdrop_path: backdropPath,
-              genre_ids: genreIds,
-              overview,
-              release_date: releaseDate,
-              first_air_date: firstAirDate,
-            }) => (
-              <Poster
-                open={open}
-                setModalState={setModalState}
-                key={id}
-                id={id}
-                title={movie ? title : name}
-                originalTitle={movie ? originalTitle : originalName}
-                posterPath={posterPath}
-                backdropPath={backdropPath}
-                genreIds={genreIds}
-                overview={overview}
-                date={movie ? releaseDate : firstAirDate}
-                mediaType={mediaType}
-              />
-            )
-          )}
+        {content.map(
+          ({
+            id,
+            title,
+            name,
+            original_title: originalTitle,
+            original_name: originalName,
+            poster_path: posterPath,
+            backdrop_path: backdropPath,
+            genre_ids: genreIds,
+            overview,
+            release_date: releaseDate,
+            first_air_date: firstAirDate,
+          }) => (
+            <Poster
+              key={id}
+              id={id}
+              title={movie ? title : name}
+              originalTitle={movie ? originalTitle : originalName}
+              posterPath={posterPath}
+              backdropPath={backdropPath}
+              genreIds={genreIds}
+              overview={overview}
+              date={movie ? releaseDate : firstAirDate}
+              mediaType={mediaType}
+            />
+          )
+        )}
       </CardGrid>
-      {opened && (
-        <Suspense
-          fallback={
-            <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
-          }>
-          <DetailModal opened={opened} close={close} movie={modalState} />
-        </Suspense>
-      )}
       <ScrollObserver loader={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );
