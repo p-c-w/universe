@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
@@ -30,6 +30,10 @@ const MypageTitle = () => {
 
   const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    setUserName(name);
+  }, [name]);
 
   const handleKeyUp = e => {
     const content = e.target.value.trim();
