@@ -7,12 +7,12 @@ import { userState } from '../../recoil/atom';
 const staleTime = 1000 * 3;
 
 const useUserQuery = options => {
-  const { email } = useRecoilValue(userState);
+  const email = useRecoilValue(userState);
 
   const query = useQuery({
     queryKey: [USER_INFO_QUERY_KEY, email],
-    suspence: true,
     queryFn: () => fetchUser(email),
+    suspence: true,
     staleTime,
     ...options,
   });

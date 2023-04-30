@@ -1,54 +1,57 @@
-import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { Group, ActionIcon } from '@mantine/core';
 import { IconHeart, IconHistory, IconMovie } from '@tabler/icons-react';
-import { useRecoilValue } from 'recoil';
+import { userState } from '../../recoil/atom';
 import { useUserQuery } from '../../hooks/queries';
 import { useAddUserContentMutation } from '../../hooks/mutations';
-import { userState } from '../../recoil/atom';
+
+const getUserInfo = userInfo => ({
+  watchlist: userInfo.watch_list,
+  likelist: userInfo.like_list,
+  historylist: userInfo.history_list,
+});
+
+const defaultData = {
+  watchlist: [],
+  likelist: [],
+  historylist: [],
+};
 
 const ActionIcons = ({ size, id, type }) => {
-  const { email } = useRecoilValue(userState);
+  const email = useRecoilValue(userState);
+
+  // 로그인 확인 훅 추가 예정
+  // const isLogin = useUserVerify() ...
 
   const { data } = useUserQuery({
-    select: userInfo => ({
-      watchlist: userInfo.watch_list,
-      likelist: userInfo.like_list,
-      historylist: userInfo.history_list,
-    }),
+    select: getUserInfo,
   });
 
-  const { watchlist, likelist, historylist } = data || {
-    watchlist: [],
-    likelist: [],
-    historylist: [],
-  };
-
-  const { mutate: updateContent } = useAddUserContentMutation();
+  const { mutate: updateUserContent } = useAddUserContentMutation();
 
   const handleClick = list => {
+    // if (!isLogin) return;
     if (!email) return;
     const now = new Date();
-    updateContent({ email, list, value: { id, type, modified_at: now.toISOString() } });
+    updateUserContent({ email, list, value: { id, type, modified_at: now.toISOString() } });
   };
+
+  const { watchlist, likelist, historylist } = data || defaultData;
+
+  const isItemInList = list => list.some(item => item.id === id && item.type === type);
+
+  const getIconVariant = (list, color) =>
+    isItemInList(list) ? { variant: 'filled', color } : { variant: 'outline', color };
 
   return (
     <Group spacing={8}>
-      <ActionIcon
-        variant={watchlist?.find(({ id: _id, type: _type }) => +_id === id && _type === type) ? 'filled' : 'outline'}
-        color={'yellow'}
-        onClick={() => handleClick('watch_list')}>
+      <ActionIcon {...getIconVariant(watchlist, 'yellow')} onClick={() => handleClick('watch_list')}>
         <IconMovie size={size} />
       </ActionIcon>
-      <ActionIcon
-        variant={likelist?.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
-        color={'red'}
-        onClick={() => handleClick('like_list')}>
+      <ActionIcon {...getIconVariant(likelist, 'red')} onClick={() => handleClick('like_list')}>
         <IconHeart size={size} />
       </ActionIcon>
-      <ActionIcon
-        variant={historylist?.find(({ id: _id, type: _type }) => _id === id && _type === type) ? 'filled' : 'outline'}
-        onClick={() => handleClick('history_list')}
-        color={'blue'}>
+      <ActionIcon {...getIconVariant(historylist, 'blue')} onClick={() => handleClick('history_list')}>
         <IconHistory size={size} />
       </ActionIcon>
     </Group>

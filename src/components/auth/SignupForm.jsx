@@ -38,12 +38,11 @@ const InputWrapper = styled.div`
 const InputButton = styled(Button)`
   float: right;
   align-self: flex-end;
-  font-weight: 300;
 `;
 
 const SignupForm = ({ setActive }) => {
   const setUser = useSetRecoilState(userState);
-  const [isShow, setIsShow] = useState(0);
+  const [step, setStep] = useState(0);
 
   const {
     register,
@@ -52,9 +51,9 @@ const SignupForm = ({ setActive }) => {
   } = useForm({ resolver: zodResolver(signUpSchema) });
 
   const onSubmit = async data => {
-    const user = await axios.post('/api/auth/signup', data);
+    const { data: email } = await axios.post('/api/auth/signup', data);
 
-    setUser(user);
+    setUser(email);
     setActive('option');
   };
 
@@ -65,11 +64,11 @@ const SignupForm = ({ setActive }) => {
         str="Let's begin the adventure🚀👾"
         isLast={1}
         onAnimationEnd={() => {
-          setIsShow(isShow + 1);
+          setStep(step + 1);
         }}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {isShow > 0 && (
+        {step > 0 && (
           <InputWrapper>
             <EmailInput
               style={{ width: '600px' }}
@@ -83,8 +82,9 @@ const SignupForm = ({ setActive }) => {
               <InputButton
                 type="button"
                 onClick={() => {
-                  setIsShow(isShow + 1);
+                  setStep(step + 1);
                 }}
+                fw={300}
                 variant="outline"
                 color="gray">
                 Continue
@@ -92,7 +92,7 @@ const SignupForm = ({ setActive }) => {
             )}
           </InputWrapper>
         )}
-        {isShow > 1 && (
+        {step > 1 && (
           <InputWrapper>
             <PasswordFormInput
               style={{ width: '100%' }}
@@ -106,16 +106,17 @@ const SignupForm = ({ setActive }) => {
               <InputButton
                 type="button"
                 onClick={() => {
-                  setIsShow(isShow + 1);
+                  setStep(step + 1);
                 }}
                 variant="outline"
+                fw={300}
                 color="gray">
                 Continue
               </InputButton>
             )}
           </InputWrapper>
         )}
-        {isShow > 2 && (
+        {step > 2 && (
           <InputWrapper>
             <PasswordFormInput
               style={{ width: '100%' }}
@@ -129,8 +130,9 @@ const SignupForm = ({ setActive }) => {
               <InputButton
                 type="button"
                 onClick={() => {
-                  setIsShow(isShow + 1);
+                  setStep(step + 1);
                 }}
+                fw={300}
                 variant="outline"
                 color="gray">
                 Continue
@@ -138,7 +140,7 @@ const SignupForm = ({ setActive }) => {
             )}
           </InputWrapper>
         )}
-        {isShow > 3 && (
+        {step > 3 && (
           <Button type="submit" fullWidth style={{ float: 'right' }}>
             Sign Up
           </Button>
