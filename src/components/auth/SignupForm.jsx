@@ -52,9 +52,9 @@ const SignupForm = ({ setActive }) => {
   } = useForm({ resolver: zodResolver(signUpSchema) });
 
   const onSubmit = async data => {
-    const user = await axios.post('/api/auth/signup', data);
+    const { data: email } = await axios.post('/api/auth/signup', data);
 
-    setUser(user);
+    setUser(email);
     setActive('option');
   };
 
