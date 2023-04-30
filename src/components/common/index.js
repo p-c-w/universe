@@ -6,3 +6,4 @@ export { default as ThemeButton } from './ThemeButton';
 export { default as ScrollObserver } from './ScrollObserver';
 export { default as BarLoader } from './BarLoader';
 export { default as ActionIcons } from './ActionIcons';
+export { default as DetailModal } from './DetailModal';
