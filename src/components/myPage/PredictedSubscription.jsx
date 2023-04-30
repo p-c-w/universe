@@ -1,9 +1,7 @@
 import { Title, Text, Flex, Container, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { useRecoilValue } from 'recoil';
 import { Badges } from '../index';
-import userState from '../../recoil/atom/userState';
+import { useUserQuery, useProviderQueries } from '../../hooks/queries';
 
-import { useProviderQueries } from '../../hooks/queries';
 import calculateLowestFee from '../../utils/calculateLowestFee';
 
 const PredictedSubscription = () => {
@@ -11,9 +9,17 @@ const PredictedSubscription = () => {
   const dark = colorScheme === 'dark';
   const theme = useMantineTheme();
 
-  const user = useRecoilValue(userState);
+  const { data } = useUserQuery({
+    select: userInfo => ({
+      watchlist: userInfo.watch_list,
+    }),
+  });
 
-  const userCollectionList = user.watch_list.map(list => ({ id: list.id, type: list.type }));
+  const { watchlist } = data || {
+    watchlist: [],
+  };
+
+  const userCollectionList = watchlist.map(list => ({ id: list.id, type: list.type }));
 
   const { providers } = useProviderQueries(userCollectionList, {
     select: data => ({ id: data.id, providers: data.results.KR.flatrate ?? [] }),

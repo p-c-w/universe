@@ -14,16 +14,6 @@ const SubmitBtnCotainer = styled.div`
   padding: 10px 0;
 `;
 
-const SubmitBtn = styled(Button)`
-  margin: 10px;
-  font-weight: 300;
-`;
-
-const SubmitLink = styled(Link)`
-  text-decoration: none;
-  color: white;
-`;
-
 const logos = [
   { name: 'appletvplus', id: 350 },
   { name: 'disneyplus', id: 337 },
@@ -43,9 +33,8 @@ const SignupOption = () => {
 
   const handleClick = async () => {
     try {
-      const { email } = user.data;
-
-      await axios.patch(`/api/users/${email}`, { subscribe_list: subscribedOtt });
+      await axios.patch(`/api/users/${user}`, { subscribe_list: subscribedOtt });
+      localStorage.removeItem('user');
     } catch (e) {
       console.log('Error: ', e);
     }
@@ -65,7 +54,7 @@ const SignupOption = () => {
       />
       {isLogo && (
         <>
-          <Grid columns={3} style={{ margin: '30px' }} justify="center">
+          <Grid columns={3} m={30} justify="center">
             {logos.map((logo, idx) => (
               <Grid.Col
                 span={1}
@@ -82,12 +71,12 @@ const SignupOption = () => {
             ))}
           </Grid>
           <SubmitBtnCotainer>
-            <SubmitBtn variant="outline">
-              <SubmitLink to="/signin">Skip</SubmitLink>
-            </SubmitBtn>
-            <SubmitBtn onClick={handleClick} variant="outline">
-              <SubmitLink to="/signin">Submit</SubmitLink>
-            </SubmitBtn>
+            <Button component={Link} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+              Skip
+            </Button>
+            <Button component={Link} ml={5} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+              Submit
+            </Button>
           </SubmitBtnCotainer>
         </>
       )}
