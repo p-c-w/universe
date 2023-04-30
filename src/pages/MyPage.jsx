@@ -1,4 +1,4 @@
-import { Flex, Box, Container } from '@mantine/core';
+import { Box, Container, SimpleGrid } from '@mantine/core';
 import { Suspense } from 'react';
 import { ThemeButton, GlobalShell, BarLoader } from '../components/common';
 import {
@@ -13,15 +13,15 @@ const MyPage = () => (
   <GlobalShell>
     <Container mt="1rem" mx="auto" size={'100%'} w={1240}>
       <MypageTitle />
-      <Flex gap={10} mt="2rem">
-        <Box w={620}>
+      <SimpleGrid cols={2} mt={32} spacing="xl">
+        <Box>
           <PredictedSubscription />
           <Suspense fallback={<BarLoader />}>
             <CurrentSubscriptionInfo />
           </Suspense>
         </Box>
         <Statistics />
-      </Flex>
+      </SimpleGrid>
       <Collections />
       <ThemeButton />
     </Container>

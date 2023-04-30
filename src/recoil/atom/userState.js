@@ -5,11 +5,12 @@ const KEY = 'user';
 
 const localStorageEffect = ({ onSet }) => {
   onSet(newState => {
-    localStorage.setItem(KEY, JSON.stringify(newState));
+    const { email } = newState;
+    localStorage.setItem(KEY, JSON.stringify(email));
   });
 };
 
-const updateSubscribeList = ({ onSet }) => {
+const updateSubcrbieList = ({ onSet }) => {
   onSet(userState => {
     updateUserSubscription(userState);
   });
@@ -18,19 +19,7 @@ const updateSubscribeList = ({ onSet }) => {
 const userState = atom({
   key: 'userState',
   default: JSON.parse(localStorage.getItem(KEY)),
-  effects: [localStorageEffect, updateSubscribeList],
+  effects: [localStorageEffect, updateSubcrbieList],
 });
-
-// const userState = atom({
-//   key: 'userState',
-//   default: {
-//     email: '',
-//     name: '',
-//     subscribelist: [],
-//     watchlist: [],
-//     likelist: [],
-//     historylist: [],
-//   },
-// });
 
 export default userState;
