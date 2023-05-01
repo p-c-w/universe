@@ -12,14 +12,14 @@ import Typing from './Typing';
 const EmailInput = styled(TextInput)`
   .mantine-TextInput-label {
     font-weight: 300;
-    color: #00cfc8;
+    color: var(--mantine-color-cyan-4);
   }
 `;
 
 const PasswordFormInput = styled(PasswordInput)`
   .mantine-PasswordInput-label {
     font-weight: 300;
-    color: #00cfc8;
+    color: var(--mantine-color-cyan-4);
   }
 `;
 
