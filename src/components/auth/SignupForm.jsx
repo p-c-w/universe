@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { TextInput, PasswordInput, Button } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Container } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX } from '@tabler/icons-react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,29 +10,20 @@ import { signUpSchema } from '../../schema/schema';
 import Typing from './Typing';
 
 const EmailInput = styled(TextInput)`
-  > label,
-  span {
+  .mantine-TextInput-label {
     font-weight: 300;
     color: #00cfc8;
   }
 `;
 
 const PasswordFormInput = styled(PasswordInput)`
-  > label,
-  span {
+  .mantine-PasswordInput-label {
     font-weight: 300;
     color: #00cfc8;
   }
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 32px 0;
-`;
-
 const InputButton = styled(Button)`
-  float: right;
   align-self: flex-end;
 `;
 
@@ -63,7 +54,7 @@ const SignupForm = ({ setUserInput }) => {
       />
       <form onSubmit={handleSubmit(onSubmit)}>
         {step > 0 && (
-          <InputWrapper>
+          <Container display={'flex'} my={20} p={0}>
             <EmailInput
               style={{ width: '600px' }}
               label="Enter your email"
@@ -84,10 +75,10 @@ const SignupForm = ({ setUserInput }) => {
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
         {step > 1 && (
-          <InputWrapper>
+          <Container display={'flex'} my={20} p={0}>
             <PasswordFormInput
               style={{ width: '100%' }}
               label="Create a password"
@@ -108,10 +99,10 @@ const SignupForm = ({ setUserInput }) => {
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
         {step > 2 && (
-          <InputWrapper>
+          <Container display={'flex'} my={20} p={0}>
             <PasswordFormInput
               style={{ width: '100%' }}
               label="Please enter your password again"
@@ -132,7 +123,7 @@ const SignupForm = ({ setUserInput }) => {
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
         {step > 3 && (
           <Button type="submit" fullWidth style={{ float: 'right' }}>
