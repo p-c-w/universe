@@ -41,18 +41,13 @@ const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) 
 
 const CurrentSubscriptionInfo = () => {
   const [editMode, setEditMode] = useState(false);
-  // const { subscribe_list: subscribeList, watch_list: watchList } = useRecoilValue(userState);
 
   const { data } = useUserQuery({
     select: getUserInfo,
   });
   const { subscribeList, watchList } = data || defaultData;
-  // console.log('data: ', data);
-  // console.log(data?.subscribeList);
-  console.log('subscribeList', subscribeList);
-  console.log('watchList: ', watchList);
 
-  const query = useProviderQueries(watchList, {
+  const queries = useProviderQueries(watchList, {
     select: data => ({
       id: data.id,
       providers: data.results.KR.flatrate
@@ -62,51 +57,45 @@ const CurrentSubscriptionInfo = () => {
     enabled: !!watchList.length,
   });
 
-  // if(query.isSuccss) {
-  //   const providerData
-  // }
+  const whatchProvidersWithContenId = [];
+  queries.forEach(query => {
+    if (query.isSuccess) whatchProvidersWithContenId.push(query.data);
+  });
 
-  // const providerInfo = providerDatas || [];
-  console.log('queries: ', query);
-  // console.log('providerDatas: ', providerDatas);
+  const subscribeProviderIds = getProvidersIdsByList(subscribeList);
 
-  // const whatchProvidersWithContenId = getProviderIdsByProviderDatas(providerDatas);
-  // console.log('whatchProvidersWithContenId: ', whatchProvidersWithContenId);
+  const whatchProviderIds = whatchProvidersWithContenId?.flatMap(content => content.providers);
 
-  // console.log('whatchProvidersWithContenId: ', whatchProvidersWithContenId);
+  const unWatchedProviderIds = subscribeProviderIds.filter(
+    subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
+  );
+  const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
 
-  // const subscribeProviderIds = getProvidersIdsByList(subscribeList);
-  // const whatchProviderIds = whatchProvidersWithContenId.flatMap(content => content.providers);
-  // const unWatchedProviderIds = subscribeProviderIds.filter(
-  //   subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
-  // );
-  // const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
+  const providers = getProvidersInfoListByList(subscribeList);
+  const currentFee = getCurrentFee(providers);
 
-  // const providers = getProvidersInfoListByList(subscribeList);
-  // const currentFee = getCurrentFee(providers);
-
-  // const toggleEditMode = () => {
-  //   setEditMode(!editMode);
-  // };
+  const toggleEditMode = () => {
+    // setEditMode(!editMode);
+  };
 
   return (
     <StyledContainer>
-      {/* <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
+      <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
         <Accordion.Item value={`₩${currentFee}`}>
           <Accordion.Control>
             <Title order={4}>현재 나의 구독료</Title>
             <Text size="2rem">₩{currentFee}</Text>
           </Accordion.Control>
           <Accordion.Panel>
-            {editMode ? (
-              <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
-            ) : (
-              <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
-            )}
+            {/* {editMode ? (
+              // <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
+            ) : ( */}
+            <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
+            {/* )} */}
           </Accordion.Panel>
         </Accordion.Item>
-      </PresentSubscriptionFee> */}
-      {/* <Box mt={16}>
+      </PresentSubscriptionFee>
+      <Box mt={16}>
         {unWatchedProvidersInfoList.length ? (
           <>
             <Title order={5} mb={10}>
@@ -119,7 +108,7 @@ const CurrentSubscriptionInfo = () => {
             구독중인 모든 서비스를 사용하고 있어요
           </Title>
         )}
-      </Box> */}
+      </Box>
     </StyledContainer>
   );
 };
