@@ -97,7 +97,7 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
         height: '3.125rem',
         opacity: 0.9,
         backdropFilter: 'blur(30px)',
-        zIndex: 9999,
+        zIndex: 999,
       }}>
       <Flex mih={'md'} gap="md" justify="flex-start" align="center">
         <Group position="center">
