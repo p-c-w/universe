@@ -4,14 +4,10 @@ import styled from '@emotion/styled';
 import { TextInput, PasswordInput, Button } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX } from '@tabler/icons-react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useSetRecoilState } from 'recoil';
-import Typing from './Typing';
-
 import { signUpSchema } from '../../schema/schema';
-import userState from '../../recoil/atom/userState';
+import Typing from './Typing';
 
 const EmailInput = styled(TextInput)`
   > label,
@@ -40,8 +36,7 @@ const InputButton = styled(Button)`
   align-self: flex-end;
 `;
 
-const SignupForm = ({ setActive }) => {
-  const setUser = useSetRecoilState(userState);
+const SignupForm = ({ setUserInput }) => {
   const [step, setStep] = useState(0);
 
   const {
@@ -53,8 +48,7 @@ const SignupForm = ({ setActive }) => {
   const onSubmit = async data => {
     const { data: email } = await axios.post('/api/auth/signup', data);
 
-    setUser(email);
-    setActive('option');
+    setUserInput(email);
   };
 
   return (

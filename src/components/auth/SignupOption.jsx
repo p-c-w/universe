@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
-import { Grid, Button, rem } from '@mantine/core';
-import styled from '@emotion/styled';
+import { Grid, Button, rem, Container } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import Typing from './Typing';
-
-import userState from '../../recoil/atom/userState';
-import LogoBtn from './LogoBtn';
-
-const SubmitBtnCotainer = styled.div`
-  float: right;
-  padding: 10px 0;
-`;
+import { Typing, LogoBtn } from './index';
 
 const logos = [
   { name: 'appletvplus', id: 350 },
@@ -26,15 +16,16 @@ const logos = [
   { name: 'universeLogoWhite3' },
 ];
 
-const SignupOption = () => {
+const SignupOption = ({ userInput, setUserInput }) => {
   const [isLogo, setIsLogo] = useState(false);
   const [subscribedOtt, setSubscribedOtt] = useState([]);
-  const user = useRecoilValue(userState);
 
   const handleClick = async () => {
     try {
-      await axios.patch(`/api/users/${user}`, { subscribe_list: subscribedOtt });
+      await axios.patch(`/api/users/${userInput}`, { subscribe_list: subscribedOtt });
+
       localStorage.removeItem('user');
+      setUserInput(null);
     } catch (e) {
       console.log('Error: ', e);
     }
@@ -53,7 +44,7 @@ const SignupOption = () => {
         }}
       />
       {isLogo && (
-        <>
+        <Container pos={'relative'}>
           <Grid columns={3} m={30} justify="center">
             {logos.map((logo, idx) => (
               <Grid.Col
@@ -70,15 +61,31 @@ const SignupOption = () => {
               </Grid.Col>
             ))}
           </Grid>
-          <SubmitBtnCotainer>
-            <Button component={Link} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+          <Container pos={'absolute'} right={0} bottom={-35}>
+            <Button
+              component={Link}
+              p={10}
+              w={90}
+              to="/signin"
+              c="#FFF"
+              fw={300}
+              variant="outline"
+              onClick={handleClick}>
               Skip
             </Button>
-            <Button component={Link} ml={5} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+            <Button
+              component={Link}
+              w={90}
+              ml={5}
+              to="/signin"
+              c="#FFF"
+              fw={300}
+              variant="outline"
+              onClick={handleClick}>
               Submit
             </Button>
-          </SubmitBtnCotainer>
-        </>
+          </Container>
+        </Container>
       )}
     </>
   );

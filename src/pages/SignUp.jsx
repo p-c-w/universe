@@ -76,7 +76,7 @@ const BackImg = styled.img`
 `;
 
 const SignUp = () => {
-  const [active, setActive] = useState('form');
+  const [userInput, setUserInput] = useState(null);
 
   return (
     <>
@@ -94,7 +94,11 @@ const SignUp = () => {
       <SignupHeader />
       <Flex mih={500} justify="center" direction="column" wrap="wrap">
         <Container style={{ width: '600px', padding: '20px', border: '1px solid #373a40', borderRadius: '6px' }}>
-          {active === 'form' ? <SignupForm setActive={setActive} /> : <SignupOption />}
+          {!userInput ? (
+            <SignupForm setUserInput={setUserInput} />
+          ) : (
+            <SignupOption userInput={userInput} setUserInput={setUserInput} />
+          )}
         </Container>
       </Flex>
     </>
