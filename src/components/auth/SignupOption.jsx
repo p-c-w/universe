@@ -11,9 +11,9 @@ const logos = [
   { name: 'primevideo', id: 119 },
   { name: 'watcha', id: 97 },
   { name: 'wavve', id: 356 },
-  { name: 'universeLogoWhite1' },
-  { name: 'universeLogoWhite2' },
-  { name: 'universeLogoWhite3' },
+  { name: 'universeLogoWhite' },
+  { name: 'universeLogoWhite' },
+  { name: 'universeLogoWhite' },
 ];
 
 const SignupOption = ({ userInput, setUserInput }) => {
@@ -45,11 +45,11 @@ const SignupOption = ({ userInput, setUserInput }) => {
       />
       {isLogo && (
         <Container pos={'relative'}>
-          <Grid columns={3} m={30} justify="center">
+          <Grid columns={3} m={20} justify="center">
             {logos.map((logo, idx) => (
               <Grid.Col
                 span={1}
-                key={logo.name}
+                key={idx}
                 style={{
                   textAlign: 'center',
                   minHeight: rem(120),
@@ -61,27 +61,11 @@ const SignupOption = ({ userInput, setUserInput }) => {
               </Grid.Col>
             ))}
           </Grid>
-          <Container pos={'absolute'} right={0} bottom={-35}>
-            <Button
-              component={Link}
-              p={10}
-              w={90}
-              to="/signin"
-              c="#FFF"
-              fw={300}
-              variant="outline"
-              onClick={handleClick}>
+          <Container pos={'absolute'} mt={10} right={0} bottom={-50}>
+            <Button component={Link} p w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
               Skip
             </Button>
-            <Button
-              component={Link}
-              w={90}
-              ml={5}
-              to="/signin"
-              c="#FFF"
-              fw={300}
-              variant="outline"
-              onClick={handleClick}>
+            <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
               Submit
             </Button>
           </Container>
