@@ -4,10 +4,11 @@ import { fetchSearchResult } from '../../api/tmdb';
 const useSearchResultQueries = (mediaType, query) => {
   const queries = mediaType.map(type => ({
     enabled: !!query,
-    queryKey: ['@Search', `${type}`, query],
+    queryKey: ['@Search', type, query],
     queryFn: () => fetchSearchResult(type, query),
     suspense: true,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 3000,
+    cacheTime: 10000,
     select: data => data.results,
   }));
 
