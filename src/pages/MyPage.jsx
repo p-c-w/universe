@@ -17,14 +17,16 @@ const MyPage = () => (
       </Suspense>
       <SimpleGrid cols={2} mt={32} spacing="xl">
         <Box>
-          {/* <PredictedSubscription /> */}
+          <PredictedSubscription />
           <Suspense fallback={<BarLoader />}>
             <CurrentSubscriptionInfo />
           </Suspense>
         </Box>
         <Statistics />
       </SimpleGrid>
-      <Suspense fallback={<BarLoader />}>{/* <Collections /> */}</Suspense>
+      <Suspense fallback={<BarLoader />}>
+        <Collections />
+      </Suspense>
       <ThemeButton />
     </Container>
   </GlobalShell>
