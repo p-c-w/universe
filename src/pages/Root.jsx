@@ -7,10 +7,11 @@ import { isLoginState } from '../recoil/atom';
 
 const Root = () => {
   const { isSuccess } = useAuthenticationQuery();
+
   const setIsLogin = useSetRecoilState(isLoginState);
 
   useEffect(() => {
-    if (!isSuccess) setIsLogin(true);
+    if (isSuccess) setIsLogin(true);
   }, [isSuccess, setIsLogin]);
 
   return (

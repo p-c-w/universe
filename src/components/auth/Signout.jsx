@@ -6,12 +6,16 @@ import { Button } from '@mantine/core';
 import axios from 'axios';
 import { useSetRecoilState } from 'recoil';
 import userState from '../../recoil/atom/userState';
+import { isLoginState } from '../../recoil/atom';
 
 const Signout = ({ size, fontSize }) => {
   const setUser = useSetRecoilState(userState);
+  const setIsLogin = useSetRecoilState(isLoginState);
+
   const handleClick = async () => {
     await axios.get('/api/auth/signout');
     setUser('');
+    setIsLogin(false);
     localStorage.removeItem('user');
   };
 
