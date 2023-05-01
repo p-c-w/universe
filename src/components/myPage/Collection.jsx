@@ -26,15 +26,10 @@ const getCollection = (list, detailDatas, providersList) => {
 };
 
 const Collection = ({ category, setSelected, setImgSrc }) => {
-  const user = useRecoilValue(userState);
-  const userCollectionList = user[`${category.toLowerCase()}_list`];
-
-  // const { userInfo: userCollectionList } = useUserQuery({
-  //   select: userInfo => userInfo[`${category.toLowerCase()}_list`],
-  // });
-  // const { userInfo } = useUserQuery();
-  // console.log('userInfo: ', userInfo);
-  console.log('collectionList: ', `${category.toLowerCase()}_list`, userCollectionList);
+  const { userInfo: userCollectionList } = useUserQuery({
+    select: userInfo => userInfo[`${category.toLowerCase()}_list`],
+  });
+  // console.log('collectionList: ', `${category.toLowerCase()}_list`, userCollectionList);
 
   // const [userCollectionList, setUserCollectionList] = useState(collectionList);
 
@@ -42,32 +37,32 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   //   setUserCollectionList(collectionList);
   // }, [collectionList]);
 
-  const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
-    enabled: !!userCollectionList,
-    select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
-  });
-  const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
-    enabled: !!userCollectionList,
-    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
-  });
+  // const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
+  //   enabled: !!userCollectionList,
+  //   select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
+  // });
+  // const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
+  //   enabled: !!userCollectionList,
+  //   select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+  // });
 
-  const collection = getCollection(userCollectionList, contentDetailDatas, providersWithContentId);
+  // const collection = getCollection(userCollectionList, contentDetailDatas, providersWithContentId);
 
   const itemRef = useRef(null);
 
-  const items = collection.map(item => (
-    <Accordion.Item value={item.title} key={item.id}>
-      <Accordion.Control>
-        <AccordionLabel {...item} />
-      </Accordion.Control>
-      <Accordion.Panel>
-        <Text size="sm">{getAddedDate(item.modified_at)}에 추가함</Text>
-        <Text href="#" c="dimmed" fz="xs">
-          상세페이지로
-        </Text>
-      </Accordion.Panel>
-    </Accordion.Item>
-  ));
+  // const items = collection.map(item => (
+  //   <Accordion.Item value={item.title} key={item.id}>
+  //     <Accordion.Control>
+  //       <AccordionLabel {...item} />
+  //     </Accordion.Control>
+  //     <Accordion.Panel>
+  //       <Text size="sm">{getAddedDate(item.modified_at)}에 추가함</Text>
+  //       <Text href="#" c="dimmed" fz="xs">
+  //         상세페이지로
+  //       </Text>
+  //     </Accordion.Panel>
+  //   </Accordion.Item>
+  // ));
 
   const handleChange = e => {
     itemRef.current = e;
@@ -79,7 +74,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
 
   return (
     <Accordion chevronPosition="right" variant="separated" sx={{ width: '100%' }} onChange={handleChange}>
-      {items}
+      {/* {items} */}
     </Accordion>
   );
 };
