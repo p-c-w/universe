@@ -25,10 +25,11 @@ const getCollection = (list, detailDatas, providersList) => {
   });
 };
 
-const Collection = ({ category, setSelected, setImgSrc }) => {
-  const { userInfo: userCollectionList } = useUserQuery({
-    select: userInfo => userInfo[`${category.toLowerCase()}_list`],
-  });
+const Collection = ({ collection, setSelected, setImgSrc }) => {
+  console.log('collection22222: ', collection);
+  // const { userInfo: userCollectionList } = useUserQuery({
+  //   select: userInfo => userInfo[`${category.toLowerCase()}_list`],
+  // });
   // console.log('collectionList: ', `${category.toLowerCase()}_list`, userCollectionList);
 
   // const [userCollectionList, setUserCollectionList] = useState(collectionList);
@@ -39,8 +40,9 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
 
   // const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
   //   enabled: !!userCollectionList,
-  //   select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
+  //   // select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
   // });
+  // console.log('contentDetailDatas: ', contentDetailDatas);
   // const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
   //   enabled: !!userCollectionList,
   //   select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
@@ -50,19 +52,19 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
 
   const itemRef = useRef(null);
 
-  // const items = collection.map(item => (
-  //   <Accordion.Item value={item.title} key={item.id}>
-  //     <Accordion.Control>
-  //       <AccordionLabel {...item} />
-  //     </Accordion.Control>
-  //     <Accordion.Panel>
-  //       <Text size="sm">{getAddedDate(item.modified_at)}에 추가함</Text>
-  //       <Text href="#" c="dimmed" fz="xs">
-  //         상세페이지로
-  //       </Text>
-  //     </Accordion.Panel>
-  //   </Accordion.Item>
-  // ));
+  const items = collection?.map(item => (
+    <Accordion.Item value={item.title} key={item.id}>
+      <Accordion.Control>
+        <AccordionLabel {...item} />
+      </Accordion.Control>
+      <Accordion.Panel>
+        <Text size="sm">{getAddedDate(item.modified_at)}에 추가함</Text>
+        <Text href="#" c="dimmed" fz="xs">
+          상세페이지로
+        </Text>
+      </Accordion.Panel>
+    </Accordion.Item>
+  ));
 
   const handleChange = e => {
     itemRef.current = e;
@@ -74,7 +76,7 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
 
   return (
     <Accordion chevronPosition="right" variant="separated" sx={{ width: '100%' }} onChange={handleChange}>
-      {/* {items} */}
+      {items}
     </Accordion>
   );
 };

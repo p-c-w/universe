@@ -24,7 +24,7 @@ const MyPage = () => (
         </Box>
         <Statistics />
       </SimpleGrid>
-      {/* <Collections /> */}
+      <Suspense fallback={<BarLoader />}>{/* <Collections /> */}</Suspense>
       <ThemeButton />
     </Container>
   </GlobalShell>
