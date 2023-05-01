@@ -23,8 +23,8 @@ const ShellHeader = () => {
   const label = isOpened ? 'Close navigation' : 'Open navigation';
 
   return (
-    <Header height={{ base: 50 }} p="md">
-      <Flex align="Center" h="100%">
+    <Header height={{ base: 50 }} p="md" zIndex="9999">
+      <Flex align="Center" h="100%" justify="space-between">
         <Flex align="Center">
           <Burger
             opened={isOpened}
@@ -41,18 +41,20 @@ const ShellHeader = () => {
               alt="home button"
             />
           </Link>
+          <SearchBar />
         </Flex>
-        <SearchBar />
-        <ThemeButton />
-        {isLogin ? (
-          <IconBox color="violet" size="md" variant="filled">
-            {generatInitial(email)}
-          </IconBox>
-        ) : (
-          <Button component={Link} to="/signin" variant="filled" color={dark ? 'violet' : 'dark'}>
-            Sign in
-          </Button>
-        )}
+        <Flex align="Center">
+          <ThemeButton />
+          {isLogin ? (
+            <IconBox color="violet" size="md" variant="filled">
+              {generatInitial(email)}
+            </IconBox>
+          ) : (
+            <Button component={Link} to="/signin" variant="filled" color={dark ? 'violet' : 'dark'}>
+              Sign in
+            </Button>
+          )}
+        </Flex>
       </Flex>
     </Header>
   );
