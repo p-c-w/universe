@@ -54,9 +54,9 @@ const SignupForm = ({ setUserInput }) => {
       />
       <form onSubmit={handleSubmit(onSubmit)}>
         {step > 0 && (
-          <Container display={'flex'} my={20} p={0}>
+          <Container display="flex" my={20} p={0}>
             <EmailInput
-              style={{ width: '600px' }}
+              w="100%"
               label="Enter your email"
               withAsterisk
               {...register('email')}
@@ -78,9 +78,9 @@ const SignupForm = ({ setUserInput }) => {
           </Container>
         )}
         {step > 1 && (
-          <Container display={'flex'} my={20} p={0}>
+          <Container display="flex" my={20} p={0}>
             <PasswordFormInput
-              style={{ width: '100%' }}
+              w="100%"
               label="Create a password"
               withAsterisk
               {...register('password')}
@@ -102,9 +102,9 @@ const SignupForm = ({ setUserInput }) => {
           </Container>
         )}
         {step > 2 && (
-          <Container display={'flex'} my={20} p={0}>
+          <Container display="flex" my={20} p={0}>
             <PasswordFormInput
-              style={{ width: '100%' }}
+              w="100%"
               label="Please enter your password again"
               withAsterisk
               {...register('confirmPassword')}
@@ -126,7 +126,7 @@ const SignupForm = ({ setUserInput }) => {
           </Container>
         )}
         {step > 3 && (
-          <Button type="submit" fullWidth style={{ float: 'right' }}>
+          <Button type="submit" fullWidth>
             Sign Up
           </Button>
         )}

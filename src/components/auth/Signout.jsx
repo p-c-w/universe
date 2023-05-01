@@ -18,8 +18,8 @@ const Signout = ({ size, fontSize }) => {
   return (
     <>
       <Button
-        bg={'none'}
-        variant="white"
+        bg="none"
+        variant="none"
         ml={30}
         w={size}
         fw={`var(--mantine-font-size-${fontSize})`}

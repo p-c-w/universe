@@ -67,7 +67,7 @@ const SigninForm = () => {
         Sign in to Universe
       </Title>
       <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post">
-        <Flex p={16} justify={'space-between'} direction={'column'} gap={20}>
+        <Flex p={16} justify="space-between" direction="column" gap={20}>
           <InputWrapper label="Email address">
             <TextInput {...register('email')} error={errors?.email?.message} />
           </InputWrapper>

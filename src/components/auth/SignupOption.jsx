@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
-import { Grid, Button, rem, Container } from '@mantine/core';
+import { Grid, Button, Container, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import styled from '@emotion/styled';
 import { Typing, LogoBtn } from './index';
+
+const GridCol = styled(Grid.Col)`
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+`;
 
 const logos = [
   { name: 'appletvplus', id: 350 },
@@ -44,31 +51,22 @@ const SignupOption = ({ userInput, setUserInput }) => {
         }}
       />
       {isLogo && (
-        <Container pos={'relative'}>
-          <Grid columns={3} m={20} justify="center">
+        <Container>
+          <Grid columns={3} m={25} justify="center">
             {logos.map((logo, idx) => (
-              <Grid.Col
-                span={1}
-                key={idx}
-                style={{
-                  textAlign: 'center',
-                  minHeight: rem(120),
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
+              <GridCol span={1} key={idx} mih={120} display="flex">
                 <LogoBtn logo={logo} idx={idx} subscribedOtt={subscribedOtt} setSubscribedOtt={setSubscribedOtt} />
-              </Grid.Col>
+              </GridCol>
             ))}
           </Grid>
-          <Container pos={'absolute'} mt={10} right={0} bottom={-50}>
-            <Button component={Link} p w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+          <Flex justify="flex-end">
+            <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
               Skip
             </Button>
             <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
               Submit
             </Button>
-          </Container>
+          </Flex>
         </Container>
       )}
     </>
