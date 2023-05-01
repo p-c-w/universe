@@ -1,54 +1,65 @@
 import { Suspense, useState } from 'react';
-import { useDebouncedValue } from '@mantine/hooks';
-import styled from '@emotion/styled';
-import { TextInput, ActionIcon, useMantineColorScheme, Loader } from '@mantine/core';
+import { useClickOutside, useDebouncedValue } from '@mantine/hooks';
+import { TextInput, ActionIcon, useMantineColorScheme, Loader, Container, Flex } from '@mantine/core';
 import { IconSearch, IconArrowRight } from '@tabler/icons-react';
-import { useSearchResultQueries } from '../../hooks/queries';
-import SearchResult from './SearchResult';
+import styled from '@emotion/styled';
+import { SearchResult } from '.';
 
-const Container = styled.div`
-  margin: 0 1.875rem;
-  width: 100%;
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-
-  width: 500px;
-  margin: 0 auto;
+const ResultContiner = styled(Flex)`
+  border-radius: 0.9375rem;
 `;
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState('');
   const [debounced] = useDebouncedValue(searchInput, 300);
 
+  const [opened, setOpened] = useState(false);
+  const ref = useClickOutside(() => setOpened(false));
+
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
   return (
-    <Container>
-      <InputWrapper>
-        <TextInput
-          icon={<IconSearch size="1.1rem" stroke={1.5} />}
-          radius="xl"
-          size="sm"
-          color={dark ? 'violet' : 'dark'}
-          rightSection={
-            <ActionIcon size="sm" radius="xl" color={dark ? 'dark' : 'gray'} variant={dark ? 'filled' : 'light'}>
-              <IconArrowRight size="1.1rem" stroke={1.5} />
-            </ActionIcon>
+    <Container pos="relative" w={450} mx="md" p={0}>
+      <TextInput
+        icon={<IconSearch size="1.1rem" stroke={1.5} />}
+        p={0}
+        radius="xl"
+        color={dark ? 'violet' : 'dark'}
+        rightSection={
+          <ActionIcon size="sm" radius="xl" color={dark ? 'dark' : 'gray'} variant={dark ? 'filled' : 'light'}>
+            <IconArrowRight size="1.1rem" stroke={1.5} />
+          </ActionIcon>
+        }
+        placeholder="Search for a movie, tv show"
+        rightSectionWidth={42}
+        value={searchInput}
+        onClick={() => setOpened(opened => !opened)}
+        onChange={e => {
+          if (!opened) {
+            setOpened(true);
           }
-          placeholder="Search for a movie, tv show"
-          rightSectionWidth={42}
-          value={searchInput}
-          onChange={event => setSearchInput(event.currentTarget.value)}
-        />
-        {debounced && (
-          <Suspense fallback={<Loader color={dark ? 'violet' : 'dark'} />}>
-            <SearchResult input={debounced} />
-          </Suspense>
-        )}
-      </InputWrapper>
+          setSearchInput(e.currentTarget.value);
+        }}
+      />
+      {opened && debounced && (
+        <Suspense
+          fallback={
+            <ResultContiner
+              pos="absolute"
+              w={450}
+              left="0"
+              align="center"
+              justify="center"
+              py="xl"
+              c="gray.9"
+              bg="rgba(255, 255, 255, 0.95)">
+              <Loader size="md" color={dark ? 'violet' : 'dark'} />
+            </ResultContiner>
+          }>
+          <SearchResult input={debounced} ref={ref} />
+        </Suspense>
+      )}
     </Container>
   );
 };
