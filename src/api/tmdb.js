@@ -114,3 +114,26 @@ export const fetchProvider = async (mediaType, id) => {
   });
   return res.data;
 };
+
+/**
+ * 미디어 콘텐츠 OTT서비스 provider와 detail 데이터
+ * @param {'movie' | 'tv'} mediaType
+ * @param {string | number} id
+ * @returns
+ */
+export const fetchProviderAndDetail = async (mediaType, id) => {
+  const providerRes = await axios.get(`${API_URL + mediaType}/${id}/watch/providers`, {
+    params: {
+      api_key: API_KEY,
+    },
+  });
+
+  const DetailRes = await axios.get(`${API_URL + mediaType}/${id}`, {
+    params: {
+      api_key: API_KEY,
+      language,
+    },
+  });
+
+  return { ...providerRes.data, ...DetailRes.data };
+};
