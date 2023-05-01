@@ -1,9 +1,17 @@
-import React from 'react';
+import { useSetRecoilState } from 'recoil';
+import { useEffect } from 'react';
 import { GlobalShell, ThemeButton } from '../components/common';
 import { Banner, Board } from '../components/rootPage';
+import { useAuthenticationQuery } from '../hooks/queries';
+import { isLoginState } from '../recoil/atom';
 
 const Root = () => {
-  console.log('Root');
+  const { isSuccess } = useAuthenticationQuery();
+  const setIsLogin = useSetRecoilState(isLoginState);
+
+  useEffect(() => {
+    if (!isSuccess) setIsLogin(true);
+  }, [isSuccess, setIsLogin]);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { Group, ActionIcon } from '@mantine/core';
 import { IconHeart, IconHistory, IconMovie } from '@tabler/icons-react';
-import { userState } from '../../recoil/atom';
+import { isLoginState, userState } from '../../recoil/atom';
 import { useUserQuery } from '../../hooks/queries';
 import { useAddUserContentMutation } from '../../hooks/mutations';
 
@@ -19,19 +19,12 @@ const defaultData = {
 
 const ActionIcons = ({ size, id, type }) => {
   const email = useRecoilValue(userState);
+  const isLogin = useRecoilValue(isLoginState);
 
-  // 로그인 확인 훅 추가 예정
-  // const isLogin = useUserVerify() ...
-
-  const { data } = useUserQuery({
-    select: getUserInfo,
-  });
-
+  const { data } = useUserQuery({ select: getUserInfo, enabled: isLogin });
   const { mutate: updateUserContent } = useAddUserContentMutation();
 
   const handleClick = list => {
-    // if (!isLogin) return;
-    if (!email) return;
     const now = new Date();
     updateUserContent({ email, list, value: { id, type, modified_at: now.toISOString() } });
   };
