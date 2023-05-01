@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Text, Accordion } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { AccordionLabel } from './index';
 import userState from '../../recoil/atom/userState';
-import { useContentDetailQueries, useProviderQueries } from '../../hooks/queries';
+import { useContentDetailQueries, useProviderQueries, useUserQuery } from '../../hooks/queries';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -29,10 +29,25 @@ const Collection = ({ category, setSelected, setImgSrc }) => {
   const user = useRecoilValue(userState);
   const userCollectionList = user[`${category.toLowerCase()}_list`];
 
+  // const { userInfo: userCollectionList } = useUserQuery({
+  //   select: userInfo => userInfo[`${category.toLowerCase()}_list`],
+  // });
+  // const { userInfo } = useUserQuery();
+  // console.log('userInfo: ', userInfo);
+  console.log('collectionList: ', `${category.toLowerCase()}_list`, userCollectionList);
+
+  // const [userCollectionList, setUserCollectionList] = useState(collectionList);
+
+  // useEffect(() => {
+  //   setUserCollectionList(collectionList);
+  // }, [collectionList]);
+
   const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
+    enabled: !!userCollectionList,
     select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
   });
   const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
+    enabled: !!userCollectionList,
     select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
   });
 

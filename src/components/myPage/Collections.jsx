@@ -1,8 +1,9 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex } from '@mantine/core';
 import { CollectionButton, Collection } from './index';
 import { BarLoader } from '../common';
+import { useUserQuery } from '../../hooks/queries';
 
 const MyListContainer = styled(Container)`
   display: flex;
