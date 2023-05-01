@@ -2,13 +2,13 @@ import React from 'react';
 
 import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import styled from '@emotion/styled';
-import Badges from '../../Badges';
+import Badges from '../Badges';
 
-import { useProviderQueries } from '../../../hooks/queries';
+import { useProviderQueries } from '../../hooks/queries';
 
-import { getProvidersByIds } from '../../../utils';
-import ActionIcons from '../ActionIcons';
-import genres from '../../../constants/genres';
+import { getProvidersByIds } from '../../utils';
+import ActionIcons from './ActionIcons';
+import genres from '../../constants/genres';
 
 const BadgeContainer = styled.div`
   width: 100%;

@@ -5,8 +5,7 @@ const KEY = 'user';
 
 const localStorageEffect = ({ onSet }) => {
   onSet(newState => {
-    const { email } = newState;
-    localStorage.setItem(KEY, JSON.stringify(email));
+    localStorage.setItem(KEY, JSON.stringify(newState));
   });
 };
 

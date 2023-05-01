@@ -19,9 +19,8 @@ import {
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { ActionIcons } from '../common';
+import { ActionIcons, DetailModal } from '../common';
 import genres from '../../constants/genres';
-import DetailModal from '../common/Detail/DetailModal';
 
 const Footer = styled(Group)`
   margin-top: var(--mantine-spacing-md);
