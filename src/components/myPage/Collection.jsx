@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Text, Accordion } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { AccordionLabel } from './index';
 import userState from '../../recoil/atom/userState';
-import { useContentDetailQueries, useProviderQueries } from '../../hooks/queries';
+import { useContentDetailQueries, useProviderQueries, useUserQuery } from '../../hooks/queries';
 
 const getAddedDate = modifiedAt => modifiedAt.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -25,22 +25,34 @@ const getCollection = (list, detailDatas, providersList) => {
   });
 };
 
-const Collection = ({ category, setSelected, setImgSrc }) => {
-  const user = useRecoilValue(userState);
-  const userCollectionList = user[`${category.toLowerCase()}_list`];
+const Collection = ({ collection, setSelected, setImgSrc }) => {
+  console.log('collection22222: ', collection);
+  // const { userInfo: userCollectionList } = useUserQuery({
+  //   select: userInfo => userInfo[`${category.toLowerCase()}_list`],
+  // });
+  // console.log('collectionList: ', `${category.toLowerCase()}_list`, userCollectionList);
 
-  const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
-    select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
-  });
-  const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
-    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
-  });
+  // const [userCollectionList, setUserCollectionList] = useState(collectionList);
 
-  const collection = getCollection(userCollectionList, contentDetailDatas, providersWithContentId);
+  // useEffect(() => {
+  //   setUserCollectionList(collectionList);
+  // }, [collectionList]);
+
+  // const { contentDetailDatas } = useContentDetailQueries(userCollectionList, {
+  //   enabled: !!userCollectionList,
+  //   // select: data => ({ id: data.id, title: data.title || data.name, posterPath: data.poster_path }),
+  // });
+  // console.log('contentDetailDatas: ', contentDetailDatas);
+  // const { providers: providersWithContentId } = useProviderQueries(userCollectionList, {
+  //   enabled: !!userCollectionList,
+  //   select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+  // });
+
+  // const collection = getCollection(userCollectionList, contentDetailDatas, providersWithContentId);
 
   const itemRef = useRef(null);
 
-  const items = collection.map(item => (
+  const items = collection?.map(item => (
     <Accordion.Item value={item.title} key={item.id}>
       <Accordion.Control>
         <AccordionLabel {...item} />

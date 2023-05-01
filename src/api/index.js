@@ -1,2 +1,2 @@
-export { fetchUser, updateUserSubscription } from './user';
+export { fetchUser, updateUser } from './user';
 export { fetchMediaContentDetails, fetchProvider } from './tmdb';

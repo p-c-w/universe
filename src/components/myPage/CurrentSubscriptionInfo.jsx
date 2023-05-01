@@ -4,8 +4,14 @@ import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { userState } from '../../recoil/atom';
-import { useProviderQueries } from '../../hooks/queries';
-import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
+import { useProviderQueries, useUserQuery } from '../../hooks/queries';
+import {
+  getProvidersInfoListByList,
+  getProvidersIdsByList,
+  getProvidersByIds,
+  getProviderIdsByProviderDatas,
+} from '../../utils';
+import PROVIDERS from '../../constants/providers';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
@@ -21,17 +27,45 @@ const PresentSubscriptionFee = styled(Accordion)`
   }
 `;
 
+const getUserInfo = userInfo => ({
+  subscribeList: userInfo.subscribe_list,
+  watchList: userInfo.watch_list,
+});
+
+const defaultData = {
+  subscribeList: [],
+  watchList: [],
+};
+
 const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
 
 const CurrentSubscriptionInfo = () => {
   const [editMode, setEditMode] = useState(false);
-  const { subscribe_list: subscribeList, watch_list: watchList } = useRecoilValue(userState);
-  const { providers: whatchProvidersWithContenId } = useProviderQueries(watchList, {
-    select: data => ({ id: data.id, providers: data.results.KR.flatrate }),
+
+  const { data } = useUserQuery({
+    select: getUserInfo,
+  });
+  const { subscribeList, watchList } = data || defaultData;
+
+  const queries = useProviderQueries(watchList, {
+    select: data => ({
+      id: data.id,
+      providers: data.results.KR.flatrate
+        .map(provider => provider.provider_id)
+        ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
+    }),
+    enabled: !!watchList.length,
+  });
+
+  const whatchProvidersWithContenId = [];
+  queries.forEach(query => {
+    if (query.isSuccess) whatchProvidersWithContenId.push(query.data);
   });
 
   const subscribeProviderIds = getProvidersIdsByList(subscribeList);
-  const whatchProviderIds = whatchProvidersWithContenId.flatMap(content => content.providers);
+
+  const whatchProviderIds = whatchProvidersWithContenId?.flatMap(content => content.providers);
+
   const unWatchedProviderIds = subscribeProviderIds.filter(
     subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
   );
@@ -41,7 +75,7 @@ const CurrentSubscriptionInfo = () => {
   const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
-    setEditMode(!editMode);
+    // setEditMode(!editMode);
   };
 
   return (
@@ -53,11 +87,11 @@ const CurrentSubscriptionInfo = () => {
             <Text size="2rem">₩{currentFee}</Text>
           </Accordion.Control>
           <Accordion.Panel>
-            {editMode ? (
-              <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
-            ) : (
-              <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
-            )}
+            {/* {editMode ? (
+              // <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
+            ) : ( */}
+            <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
+            {/* )} */}
           </Accordion.Panel>
         </Accordion.Item>
       </PresentSubscriptionFee>

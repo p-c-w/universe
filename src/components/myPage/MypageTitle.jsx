@@ -1,9 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/atom';
+import { useUserQuery } from '../../hooks/queries';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -23,14 +22,19 @@ const NameInput = styled(TextInput)`
     font-size: 2rem;
     color: gray;
     font-weight: 700;
+    -webkit-text-fill-color: gray;
   }
 `;
 
 const MypageTitle = () => {
-  const { name } = useRecoilValue(userState);
+  const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
   const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    setUserName(name);
+  }, [name]);
 
   const handleKeyUp = e => {
     const content = e.target.value.trim();

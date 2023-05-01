@@ -13,9 +13,9 @@ const useContentDetailQueries = (userCollectionList, options) => {
     queries: detailQueries,
   });
 
-  const contentDetailDatas = queries.map(query => query.data);
+  // const contentDetailDatas = queries.map(query => query.data);
 
-  return { queries, contentDetailDatas };
+  return queries;
 };
 
 export default useContentDetailQueries;

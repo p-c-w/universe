@@ -12,17 +12,19 @@ import {
 const MyPage = () => (
   <GlobalShell>
     <Container mt="1rem" mx="auto" size={'100%'} w={1240}>
-      <MypageTitle />
+      <Suspense fallback={<BarLoader />}>
+        <MypageTitle />
+      </Suspense>
       <SimpleGrid cols={2} mt={32} spacing="xl">
         <Box>
+          {/* <PredictedSubscription /> */}
           <Suspense fallback={<BarLoader />}>
-            <PredictedSubscription />
             <CurrentSubscriptionInfo />
           </Suspense>
         </Box>
         <Statistics />
       </SimpleGrid>
-      <Collections />
+      <Suspense fallback={<BarLoader />}>{/* <Collections /> */}</Suspense>
       <ThemeButton />
     </Container>
   </GlobalShell>
