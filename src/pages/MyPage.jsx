@@ -6,7 +6,7 @@ import {
   MypageTitle,
   Statistics,
   CurrentSubscriptionInfo,
-  PredictedSubscription,
+  PredictedFeeWrapper,
 } from '../components/myPage';
 
 const MyPage = () => (
@@ -17,10 +17,13 @@ const MyPage = () => (
       </Suspense>
       <SimpleGrid cols={2} mt={32} spacing="xl">
         <Box>
-          <PredictedSubscription />
+
           <Suspense fallback={<BarLoader />}>
-            <CurrentSubscriptionInfo />
+            <PredictedFeeWrapper />
           </Suspense>
+           <Suspense fallback={<BarLoader />}>
+            <CurrentSubscriptionInfo />
+          </Suspense> 
         </Box>
         <Statistics />
       </SimpleGrid>
