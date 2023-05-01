@@ -1,41 +1,32 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import { Button, Image } from '@mantine/core';
 
-const Btn = styled.button`
-  border: none;
-  padding: 0;
-  background: none;
-  cursor: pointer;
-
-  box-shadow: ${({ active }) => active && '0px 0px 15px 5px rgba(99, 95, 225, 0.5)'};
-  border-radius: ${({ active }) => active && '50%'};
-`;
-
-const LogoImg = styled.img`
-  width: 4.375rem;
-  height: 70px;
+const Logo = styled(Button)`
+  box-shadow: ${({ selected }) => selected && '0px 0px 15px 10px rgba(79, 74, 216, 0.5)'};
+  border-radius: 50%;
 `;
 
 const LogoBtn = ({ logo: { id, name }, idx, subscribedOtt, setSubscribedOtt }) => {
-  const [active, setActive] = useState(false);
+  const [selected, setSelected] = useState(false);
 
   const handleLogoClick = () => {
-    if (active) {
+    if (selected) {
       const newSubscribedOtt = subscribedOtt.filter(ott => ott.id !== id);
       setSubscribedOtt(newSubscribedOtt);
-      setActive(!active);
+      setSelected(!selected);
     } else {
       const newSubscribedOtt = [...subscribedOtt, { id, price: 'basic' }];
       setSubscribedOtt(newSubscribedOtt);
-      setActive(!active);
+      setSelected(!selected);
     }
   };
 
   return (
     <>
-      <Btn onClick={handleLogoClick} type="button" active={active} disabled={idx > 5}>
-        <LogoImg id={id} src={`./assets/badges/${name}.svg`} alt="button" />
-      </Btn>
+      <Logo onClick={handleLogoClick} selected={selected} p={0} h={70} variant="none" type="button" disabled={idx > 5}>
+        <Image width={70} id={id} src={`./assets/badges/${name}.svg`} alt="button" />
+      </Logo>
     </>
   );
 };

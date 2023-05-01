@@ -1,10 +1,9 @@
 import { Avatar, Tooltip } from '@mantine/core';
-import { PROVIDERS } from '../constants';
 
-const Badges = ({ providers = PROVIDERS, spacing = 'sm', size = '2.2rem' }) => (
+const Badges = ({ providers, spacing = 'sm', size = '2.2rem' }) => (
   <Tooltip.Group openDelay={100} closeDelay={100}>
     <Avatar.Group spacing={spacing}>
-      {providers.map(item => (
+      {providers?.map(item => (
         <Tooltip
           key={item.id}
           label={item.provider_name}

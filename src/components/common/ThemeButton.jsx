@@ -1,12 +1,10 @@
-import styled from '@emotion/styled';
-import { ActionIcon } from '@mantine/core';
+import { Avatar } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
+import styled from '@emotion/styled';
 import useColorScheme from '../../hooks/useColorScheme';
 
-const Button = styled(ActionIcon)`
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
+const IconBox = styled(Avatar)`
+  cursor: pointer;
 `;
 
 const ThemeButton = () => {
@@ -14,14 +12,15 @@ const ThemeButton = () => {
   const dark = colorScheme === 'dark';
 
   return (
-    <Button
-      size="xl"
-      variant="outline"
+    <IconBox
+      size="md"
+      mx="xs"
       color={dark ? 'yellow' : 'violet'}
-      onClick={() => toggleColorScheme()}
-      title="Toggle color scheme">
+      title="Toggle color scheme"
+      cursor="pointer"
+      onClick={() => toggleColorScheme()}>
       {dark ? <IconSun size="1.2rem" /> : <IconMoonStars size="1.2rem" />}
-    </Button>
+    </IconBox>
   );
 };
 

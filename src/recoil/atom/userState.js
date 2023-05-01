@@ -21,16 +21,4 @@ const userState = atom({
   effects: [localStorageEffect, updateSubcrbieList],
 });
 
-// const userState = atom({
-//   key: 'userState',
-//   default: {
-//     email: '',
-//     name: '',
-//     subscribelist: [],
-//     watchlist: [],
-//     likelist: [],
-//     historylist: [],
-//   },
-// });
-
 export default userState;

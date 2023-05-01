@@ -1,49 +1,34 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { TextInput, PasswordInput, Button } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Container } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX } from '@tabler/icons-react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useSetRecoilState } from 'recoil';
+import { signUpSchema } from '../../schema/schema';
 import Typing from './Typing';
 
-import { signUpSchema } from '../../schema/schema';
-import userState from '../../recoil/atom/userState';
-
 const EmailInput = styled(TextInput)`
-  > label,
-  span {
+  .mantine-TextInput-label {
     font-weight: 300;
-    color: #00cfc8;
+    color: var(--mantine-color-cyan-4);
   }
 `;
 
 const PasswordFormInput = styled(PasswordInput)`
-  > label,
-  span {
+  .mantine-PasswordInput-label {
     font-weight: 300;
-    color: #00cfc8;
+    color: var(--mantine-color-cyan-4);
   }
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 32px 0;
-`;
-
 const InputButton = styled(Button)`
-  float: right;
   align-self: flex-end;
-  font-weight: 300;
 `;
 
-const SignupForm = ({ setActive }) => {
-  const setUser = useSetRecoilState(userState);
-  const [isShow, setIsShow] = useState(0);
+const SignupForm = ({ setUserInput }) => {
+  const [step, setStep] = useState(0);
 
   const {
     register,
@@ -52,10 +37,9 @@ const SignupForm = ({ setActive }) => {
   } = useForm({ resolver: zodResolver(signUpSchema) });
 
   const onSubmit = async data => {
-    const user = await axios.post('/api/auth/signup', data);
+    const { data: email } = await axios.post('/api/auth/signup', data);
 
-    setUser(user);
-    setActive('option');
+    setUserInput(email);
   };
 
   return (
@@ -65,14 +49,14 @@ const SignupForm = ({ setActive }) => {
         str="Let's begin the adventure🚀👾"
         isLast={1}
         onAnimationEnd={() => {
-          setIsShow(isShow + 1);
+          setStep(step + 1);
         }}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {isShow > 0 && (
-          <InputWrapper>
+        {step > 0 && (
+          <Container display="flex" my={20} p={0}>
             <EmailInput
-              style={{ width: '600px' }}
+              w="100%"
               label="Enter your email"
               withAsterisk
               {...register('email')}
@@ -83,19 +67,20 @@ const SignupForm = ({ setActive }) => {
               <InputButton
                 type="button"
                 onClick={() => {
-                  setIsShow(isShow + 1);
+                  setStep(step + 1);
                 }}
+                fw={300}
                 variant="outline"
                 color="gray">
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
-        {isShow > 1 && (
-          <InputWrapper>
+        {step > 1 && (
+          <Container display="flex" my={20} p={0}>
             <PasswordFormInput
-              style={{ width: '100%' }}
+              w="100%"
               label="Create a password"
               withAsterisk
               {...register('password')}
@@ -106,19 +91,20 @@ const SignupForm = ({ setActive }) => {
               <InputButton
                 type="button"
                 onClick={() => {
-                  setIsShow(isShow + 1);
+                  setStep(step + 1);
                 }}
                 variant="outline"
+                fw={300}
                 color="gray">
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
-        {isShow > 2 && (
-          <InputWrapper>
+        {step > 2 && (
+          <Container display="flex" my={20} p={0}>
             <PasswordFormInput
-              style={{ width: '100%' }}
+              w="100%"
               label="Please enter your password again"
               withAsterisk
               {...register('confirmPassword')}
@@ -129,17 +115,18 @@ const SignupForm = ({ setActive }) => {
               <InputButton
                 type="button"
                 onClick={() => {
-                  setIsShow(isShow + 1);
+                  setStep(step + 1);
                 }}
+                fw={300}
                 variant="outline"
                 color="gray">
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
-        {isShow > 3 && (
-          <Button type="submit" fullWidth style={{ float: 'right' }}>
+        {step > 3 && (
+          <Button type="submit" fullWidth>
             Sign Up
           </Button>
         )}

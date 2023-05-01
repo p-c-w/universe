@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea } from '@mantine/core';
+import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import styled from '@emotion/styled';
-import Badges from '../../Badges';
-import CollectionButtons from '../../CollectionButtons';
+import Badges from '../Badges';
 
-import { useProviderQueries } from '../../../hooks/queries';
+import { useProviderQueries } from '../../hooks/queries';
 
-import { getProvidersByIds } from '../../../utils';
+import { getProvidersByIds } from '../../utils';
+import ActionIcons from './ActionIcons';
+import genres from '../../constants/genres';
 
 const BadgeContainer = styled.div`
   width: 100%;
@@ -19,11 +20,7 @@ const BadgeContainer = styled.div`
   z-index: 999;
 `;
 
-const DetailModal = ({
-  opened,
-  close,
-  movie: { id, title, backdropPath, posterPath, overview, genreLists, mediaType },
-}) => {
+const DetailModal = ({ opened, close, id, title, backdropPath, posterPath, overview, genreIds, mediaType }) => {
   const userCollectionList = [{ id, type: mediaType }];
 
   const { providers } = useProviderQueries(userCollectionList, {
@@ -41,7 +38,7 @@ const DetailModal = ({
           <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
           <BadgeContainer>
             <Badges providers={providerIds} spacing="sm" size="2.5rem" />
-            <CollectionButtons size={35} />
+            <ActionIcons size={10} id={id} type={mediaType} />
           </BadgeContainer>
           <Modal.CloseButton style={{ zIndex: '999' }} pos="absolute" top={10} right={20} />
           <Modal.Body m={40} c="#fff" style={{ zIndex: '2' }} pos="absolute" top={0}>
@@ -52,9 +49,11 @@ const DetailModal = ({
                     {title}
                   </Title>
                   <Text>2023</Text>
-                  <Text fw={300} fz="md">
-                    장르: {genreLists.map(genre => genre).join(', ')}
-                  </Text>
+                  {genreIds.map(id => (
+                    <Badge color={genres[mediaType][id].color} key={id}>
+                      {genres[mediaType][id].name}
+                    </Badge>
+                  ))}
                   <ScrollArea fw={300} fz="sm" h={200}>
                     {overview}
                   </ScrollArea>
