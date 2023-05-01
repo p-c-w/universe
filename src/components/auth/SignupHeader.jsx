@@ -1,38 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from '@emotion/styled';
-
-const Top = styled.div`
-  padding: 40px 80px;
-  height: 100px;
-  justify-content: center;
-  align-content: center;
-`;
-
-const Logo = styled.button`
-  width: 3.75rem;
-  height: 3.75rem;
-  border: none;
-  background-color: transparent;
-  float: left;
-`;
-
-const Callout = styled.div`
-  float: right;
-`;
+import { Flex, Button, Image, Container } from '@mantine/core';
 
 const SignupHeader = () => (
-  <>
-    <Top className="conatiner top">
-      <Logo>
-        <img src={`./assets/logos/universeLogoWhite.svg`} alt="home button" />
-      </Logo>
-      <Callout>
-        <span>Already have an account?</span>
-        <Link to="/signin">Sign in→</Link>
-      </Callout>
-    </Top>
-  </>
+  <Flex justify="space-between" align="center" mx={30} w="full">
+    <Button component={Link} to="/" w={80} h={80} variant="none">
+      <Image src={`./assets/logos/universeLogoWhite.svg`} alt="home button" />
+    </Button>
+    <Container m={0} p={0}>
+      Already have an account?
+      <Link to="/signin"> Sign in→</Link>
+    </Container>
+  </Flex>
 );
 
 export default SignupHeader;

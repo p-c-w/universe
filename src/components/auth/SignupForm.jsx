@@ -1,47 +1,33 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { TextInput, PasswordInput, Button } from '@mantine/core';
+import { TextInput, PasswordInput, Button, Container } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX } from '@tabler/icons-react';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useSetRecoilState } from 'recoil';
+import { signUpSchema } from '../../schema/schema';
 import Typing from './Typing';
 
-import { signUpSchema } from '../../schema/schema';
-import userState from '../../recoil/atom/userState';
-
 const EmailInput = styled(TextInput)`
-  > label,
-  span {
+  .mantine-TextInput-label {
     font-weight: 300;
-    color: #00cfc8;
+    color: var(--mantine-color-cyan-4);
   }
 `;
 
 const PasswordFormInput = styled(PasswordInput)`
-  > label,
-  span {
+  .mantine-PasswordInput-label {
     font-weight: 300;
-    color: #00cfc8;
+    color: var(--mantine-color-cyan-4);
   }
 `;
 
-const InputWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 32px 0;
-`;
-
 const InputButton = styled(Button)`
-  float: right;
   align-self: flex-end;
 `;
 
-const SignupForm = ({ setActive }) => {
-  const setUser = useSetRecoilState(userState);
+const SignupForm = ({ setUserInput }) => {
   const [step, setStep] = useState(0);
 
   const {
@@ -53,8 +39,7 @@ const SignupForm = ({ setActive }) => {
   const onSubmit = async data => {
     const { data: email } = await axios.post('/api/auth/signup', data);
 
-    setUser(email);
-    setActive('option');
+    setUserInput(email);
   };
 
   return (
@@ -69,9 +54,9 @@ const SignupForm = ({ setActive }) => {
       />
       <form onSubmit={handleSubmit(onSubmit)}>
         {step > 0 && (
-          <InputWrapper>
+          <Container display="flex" my={20} p={0}>
             <EmailInput
-              style={{ width: '600px' }}
+              w="100%"
               label="Enter your email"
               withAsterisk
               {...register('email')}
@@ -90,12 +75,12 @@ const SignupForm = ({ setActive }) => {
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
         {step > 1 && (
-          <InputWrapper>
+          <Container display="flex" my={20} p={0}>
             <PasswordFormInput
-              style={{ width: '100%' }}
+              w="100%"
               label="Create a password"
               withAsterisk
               {...register('password')}
@@ -114,12 +99,12 @@ const SignupForm = ({ setActive }) => {
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
         {step > 2 && (
-          <InputWrapper>
+          <Container display="flex" my={20} p={0}>
             <PasswordFormInput
-              style={{ width: '100%' }}
+              w="100%"
               label="Please enter your password again"
               withAsterisk
               {...register('confirmPassword')}
@@ -138,10 +123,10 @@ const SignupForm = ({ setActive }) => {
                 Continue
               </InputButton>
             )}
-          </InputWrapper>
+          </Container>
         )}
         {step > 3 && (
-          <Button type="submit" fullWidth style={{ float: 'right' }}>
+          <Button type="submit" fullWidth>
             Sign Up
           </Button>
         )}

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Input, PasswordInput, Button, TextInput } from '@mantine/core';
+import { Title, Flex, Input, PasswordInput, Button, TextInput } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconX } from '@tabler/icons-react';
@@ -12,41 +12,21 @@ import { useSetRecoilState } from 'recoil';
 import { signInSchema } from '../../schema/schema';
 import userState from '../../recoil/atom/userState';
 
-const Title = styled.h1`
-  font-size: 1.5rem;
-  font-weight: 300;
-  text-align: center;
-`;
-
 const FormBody = styled.form`
-  padding: 1rem;
   border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[1])};
   border-radius: 0.375rem;
-  height: 15.625rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 `;
 
 const InputWrapper = styled(Input.Wrapper)`
   > label {
     font-weight: 300;
   }
-
-  width: full;
 `;
 
 const ForgotPw = styled(Link)`
   float: right;
-  font-size: 0.75rem;
-  color: #2f81f7;
-`;
-
-const SubmitBtn = styled(Button)`
-  padding: 0.3125rem 1rem;
-  font-weight: 300;
-  background-color: #1f883d;
-  width: full;
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-blue-6);
 `;
 
 const SigninForm = () => {
@@ -83,18 +63,22 @@ const SigninForm = () => {
 
   return (
     <>
-      <Title>Sign in to Universe</Title>
+      <Title fz={24} fw={300} mb={20} align="center">
+        Sign in to Universe
+      </Title>
       <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post">
-        <InputWrapper label="Email address">
-          <TextInput {...register('email')} error={errors?.email?.message} />
-        </InputWrapper>
-        <InputWrapper label="Password">
-          <ForgotPw to="/">Forgot password?</ForgotPw>
-          <PasswordInput {...register('password')} error={errors?.password?.message} />
-        </InputWrapper>
-        <SubmitBtn type="submit" color="teal">
-          Sign in
-        </SubmitBtn>
+        <Flex p={16} justify="space-between" direction="column" gap={20}>
+          <InputWrapper label="Email address">
+            <TextInput {...register('email')} error={errors?.email?.message} />
+          </InputWrapper>
+          <InputWrapper label="Password">
+            <ForgotPw to="/">Forgot password?</ForgotPw>
+            <PasswordInput {...register('password')} error={errors?.password?.message} />
+          </InputWrapper>
+          <Button type="submit" fw={300}>
+            Sign in
+          </Button>
+        </Flex>
       </FormBody>
     </>
   );

@@ -25,7 +25,7 @@ const zoom = keyframes`
     opacity: 1;
   }
   100%{
-    transform: scale(1.7, 1.7) rotate(5deg);
+    transform: scale(1.7, 1.7) rotate(7deg);
     opacity: 0;
   }
 `;
@@ -75,8 +75,13 @@ const BackImg = styled.img`
   overflow: hidden !important;
 `;
 
+const FormContainer = styled(Container)`
+  border: 1px solid var(--mantine-color-dark-4);
+  border-radius: 6px;
+`;
+
 const SignUp = () => {
-  const [active, setActive] = useState('form');
+  const [userInput, setUserInput] = useState(null);
 
   return (
     <>
@@ -92,10 +97,14 @@ const SignUp = () => {
           className="js-warp-hide position-absolute overflow-hidden home-hero-glow events-none"></BackImg>
       </Background>
       <SignupHeader />
-      <Flex mih={500} justify="center" direction="column" wrap="wrap">
-        <Container style={{ width: '600px', padding: '20px', border: '1px solid #373a40', borderRadius: '6px' }}>
-          {active === 'form' ? <SignupForm setActive={setActive} /> : <SignupOption />}
-        </Container>
+      <Flex mih={600} justify="center" direction="column" wrap="wrap">
+        <FormContainer w={550} p={20}>
+          {!userInput ? (
+            <SignupForm setUserInput={setUserInput} />
+          ) : (
+            <SignupOption userInput={userInput} setUserInput={setUserInput} />
+          )}
+        </FormContainer>
       </Flex>
     </>
   );

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { Grid, Button, rem } from '@mantine/core';
-import styled from '@emotion/styled';
+import { Grid, Button, Container, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import Typing from './Typing';
+import styled from '@emotion/styled';
+import { Typing, LogoBtn } from './index';
 
-import userState from '../../recoil/atom/userState';
-import LogoBtn from './LogoBtn';
-
-const SubmitBtnCotainer = styled.div`
-  float: right;
-  padding: 10px 0;
+const GridCol = styled(Grid.Col)`
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 `;
 
 const logos = [
@@ -21,20 +18,21 @@ const logos = [
   { name: 'primevideo', id: 119 },
   { name: 'watcha', id: 97 },
   { name: 'wavve', id: 356 },
-  { name: 'universeLogoWhite1' },
-  { name: 'universeLogoWhite2' },
-  { name: 'universeLogoWhite3' },
+  { name: 'universeLogoWhite' },
+  { name: 'universeLogoWhite' },
+  { name: 'universeLogoWhite' },
 ];
 
-const SignupOption = () => {
+const SignupOption = ({ userInput, setUserInput }) => {
   const [isLogo, setIsLogo] = useState(false);
   const [subscribedOtt, setSubscribedOtt] = useState([]);
-  const user = useRecoilValue(userState);
 
   const handleClick = async () => {
     try {
-      await axios.patch(`/api/users/${user}`, { subscribe_list: subscribedOtt });
+      await axios.patch(`/api/users/${userInput}`, { subscribe_list: subscribedOtt });
+
       localStorage.removeItem('user');
+      setUserInput(null);
     } catch (e) {
       console.log('Error: ', e);
     }
@@ -53,32 +51,23 @@ const SignupOption = () => {
         }}
       />
       {isLogo && (
-        <>
-          <Grid columns={3} m={30} justify="center">
+        <Container>
+          <Grid columns={3} m={25} justify="center">
             {logos.map((logo, idx) => (
-              <Grid.Col
-                span={1}
-                key={logo.name}
-                style={{
-                  textAlign: 'center',
-                  minHeight: rem(120),
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
+              <GridCol span={1} key={idx} mih={120} display="flex">
                 <LogoBtn logo={logo} idx={idx} subscribedOtt={subscribedOtt} setSubscribedOtt={setSubscribedOtt} />
-              </Grid.Col>
+              </GridCol>
             ))}
           </Grid>
-          <SubmitBtnCotainer>
-            <Button component={Link} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+          <Flex justify="flex-end">
+            <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
               Skip
             </Button>
-            <Button component={Link} ml={5} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+            <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
               Submit
             </Button>
-          </SubmitBtnCotainer>
-        </>
+          </Flex>
+        </Container>
       )}
     </>
   );
