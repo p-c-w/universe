@@ -3,6 +3,7 @@ import React from 'react';
 import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import styled from '@emotion/styled';
 import Badges from '../Badges';
+import PROVIDERS from '../../constants/providers';
 
 import { useProviderQueries } from '../../hooks/queries';
 
@@ -23,9 +24,16 @@ const BadgeContainer = styled.div`
 const DetailModal = ({ opened, close, id, title, backdropPath, posterPath, overview, genreIds, mediaType }) => {
   const userCollectionList = [{ id, type: mediaType }];
 
-  const { providers } = useProviderQueries(userCollectionList, {
-    select: data => ({ id: data.id, providers: data.results.KR.flatrate ?? [] }),
+  const queries = useProviderQueries(userCollectionList, {
+    select: data => ({
+      id: data.id,
+      providers: data.results.KR.flatrate
+        ?.map(provider => provider.provider_id)
+        ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
+    }),
   });
+
+  const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
   const providerIds = getProvidersByIds(providers[0]?.providers);
 
