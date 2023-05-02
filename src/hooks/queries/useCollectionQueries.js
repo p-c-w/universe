@@ -8,12 +8,15 @@ const useCollectionQueries = (list, options) => {
     queryFn: () => fetchProviderAndDetail(type, id),
     suspense: true,
     select: data => ({
-      id: data.id,
+      id,
       title: data.title || data.name,
+      type,
       posterPath: data.poster_path,
-      providers: data.results.KR.flatrate
-        .map(provider => provider.provider_id)
-        ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
+      providers: data.results.KR
+        ? data.results.KR.flatrate
+            ?.map(provider => provider.provider_id)
+            ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
+        : [],
     }),
     ...options,
   }));
