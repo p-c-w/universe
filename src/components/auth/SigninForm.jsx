@@ -69,7 +69,7 @@ const SigninForm = () => {
       <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post">
         <Flex p={16} justify="space-between" direction="column" gap={20}>
           <InputWrapper label="Email address">
-            <TextInput {...register('email')} error={errors?.email?.message} />
+            <TextInput {...register('email')} error={errors?.email?.message} autoComplete="off" />
           </InputWrapper>
           <InputWrapper label="Password">
             <ForgotPw to="/">Forgot password?</ForgotPw>
