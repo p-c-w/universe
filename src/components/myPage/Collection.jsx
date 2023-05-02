@@ -18,7 +18,7 @@ const Collection = ({ collection, setSelected, setImgSrc }) => {
 
   const collectionList = collectionQueries.map(({ data }) => ({
     ...data,
-    modified_at: collection?.filter(item => item.id === data.id)[0].modified_at,
+    modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
   }));
 
   const itemRef = useRef(null);
@@ -29,20 +29,20 @@ const Collection = ({ collection, setSelected, setImgSrc }) => {
   };
 
   const items = collectionList?.map(item => (
-    <Accordion.Item value={item.title} key={item.id}>
+    <Accordion.Item value={item?.title} key={item?.id}>
       <Accordion.Control>
         <AccordionLabel {...item} />
       </Accordion.Control>
       <Accordion.Panel w="90%">
         <Flex>
-          <Text size="sm">{getAddedDate(item.modified_at)}에 추가함</Text>
+          <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
           <div>
             <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
               <Button
                 p="xs"
                 variant="transparent"
                 pos="absolute"
-                onClick={() => handleClick({ id: item.id, type: item.type })}
+                onClick={() => handleClick({ id: item?.id, type: item?.type })}
                 fz={12}
                 aria-label="more">
                 {'more'}
