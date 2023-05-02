@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Title, Flex, Input, PasswordInput, Button, TextInput, Text } from '@mantine/core';
 import { useForm } from 'react-hook-form';
