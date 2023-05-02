@@ -30,6 +30,7 @@ const Collections = () => {
   const pageLimit = 5;
   const [activePage, setActivePage] = useState(1);
   const offset = (activePage - 1) * pageLimit;
+  const total = isSuccess && +(data.length / 5).toFixed();
   const collection = isSuccess && data?.slice(offset, offset + pageLimit);
 
   return (
@@ -54,9 +55,10 @@ const Collections = () => {
             <Pagination
               value={activePage}
               onChange={setActivePage}
-              total={+(data.length / 5).toFixed()}
+              total={total}
               siblings={2}
               withEdges
+              align="center"
             />
           </Suspense>
         </ScrollArea>
