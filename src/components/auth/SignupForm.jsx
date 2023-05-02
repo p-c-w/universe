@@ -87,6 +87,7 @@ const SignupForm = ({ setUserInput }) => {
             <EmailInput
               w="100%"
               label="Enter your email"
+              autoComplete="off"
               withAsterisk
               {...register('email')}
               error={errors?.email?.message}
