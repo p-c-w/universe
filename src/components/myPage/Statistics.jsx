@@ -31,7 +31,7 @@ const Statistics = () => {
 
   useEffect(() => {
     if (newState) {
-      setStatisticData({ total: newState.newtotal, data: newState.newData });
+      setStatisticData({ total: newState.newTotal, data: newState.newData });
     }
   }, [newState]);
 
