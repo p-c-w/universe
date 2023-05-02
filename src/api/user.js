@@ -13,4 +13,6 @@ const updateUserContent = async ({ email, list, value }) => axios.patch(`${url}/
 
 const updateSubscribeList = async ({ email, newList }) => axios.patch(`${url}/${email}`, { subscribe_list: newList });
 
-export { fetchUser, updateUserName, updateUserContent, updateSubscribeList };
+const deleteUserContent = async ({ email, list, id }) => axios.patch(`${url}/${email}/${list}/${id}`);
+
+export { fetchUser, updateUserName, updateUserContent, updateSubscribeList, deleteUserContent };
