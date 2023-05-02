@@ -2,7 +2,7 @@ import { useRef, Suspense, useState } from 'react';
 import { Accordion } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useCollectionQueries } from '../../hooks/queries';
-import { DetailModalWrapper } from '../common';
+import { DetailModalWrapper, BarLoader } from '../common';
 import { CollectionItem } from '.';
 
 const Collection = ({ collection, setSelected, setImgSrc }) => {
@@ -35,10 +35,7 @@ const Collection = ({ collection, setSelected, setImgSrc }) => {
           collectionList?.map(item => <CollectionItem key={item.id} item={item} setClicked={setClicked} open={open} />)}
       </Accordion>
       {opened && (
-        <Suspense
-          fallback={
-            <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
-          }>
+        <Suspense fallback={<BarLoader />}>
           <DetailModalWrapper opened={opened} close={close} id={clicked.id} type={clicked.type} />
         </Suspense>
       )}
