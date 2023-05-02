@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
 import { Box, useMantineColorScheme } from '@mantine/core';
+import { useSetRecoilState } from 'recoil';
+import { statisticByProviderState } from '../../recoil/atom';
 import { StatisticByProvider } from '.';
+import useStatistics from '../../hooks/useStatistics';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -20,6 +24,16 @@ const StatisticCarousel = styled(Carousel)`
 const Statistics = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+
+  const setStatisticData = useSetRecoilState(statisticByProviderState);
+
+  const newState = useStatistics();
+
+  useEffect(() => {
+    if (newState) {
+      setStatisticData({ total: newState.newtotal, data: newState.newData });
+    }
+  }, [newState]);
 
   return (
     <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>

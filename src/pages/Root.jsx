@@ -3,16 +3,16 @@ import { useEffect } from 'react';
 import { GlobalShell, ThemeButton } from '../components/common';
 import { Banner, Board } from '../components/rootPage';
 import { useAuthenticationQuery } from '../hooks/queries';
-import { isLoginState } from '../recoil/atom';
+import { userState } from '../recoil/atom';
 
 const Root = () => {
-  const { isSuccess } = useAuthenticationQuery();
-
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const { isSuccess, data } = useAuthenticationQuery();
+  const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
-    if (isSuccess) setIsLogin(true);
-  }, [isSuccess, setIsLogin]);
+    if (isSuccess) setUser(data.data);
+    else setUser(null);
+  }, [data, isSuccess, setUser]);
 
   return (
     <>

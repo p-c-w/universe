@@ -2,7 +2,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Avatar, Burger, Button, Flex, Header, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { isLoginState, sideNavOpenedState, userState } from '../../recoil/atom';
+import { sideNavOpenedState, userState } from '../../recoil/atom';
 import { SearchBar, ThemeButton } from '.';
 
 const generatInitial = email => `${email[0]}${email[1]}`;
@@ -16,8 +16,7 @@ const ShellHeader = () => {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
 
-  const email = useRecoilValue(userState);
-  const isLogin = useRecoilValue(isLoginState);
+  const user = useRecoilValue(userState);
 
   const dark = colorScheme === 'dark';
   const label = isOpened ? 'Close navigation' : 'Open navigation';
@@ -45,9 +44,9 @@ const ShellHeader = () => {
         </Flex>
         <Flex align="Center">
           <ThemeButton />
-          {isLogin ? (
+          {user ? (
             <IconBox color="violet" size="md" variant="filled">
-              {generatInitial(email)}
+              {generatInitial(user)}
             </IconBox>
           ) : (
             <Button component={Link} to="/signin" variant="filled" color={dark ? 'violet' : 'dark'}>

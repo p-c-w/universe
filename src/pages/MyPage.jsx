@@ -9,7 +9,6 @@ import {
   CurrentSubscriptionInfo,
   PredictedFeeWrapper,
 } from '../components/myPage';
-
 import { useAuthenticationQuery } from '../hooks/queries';
 import { isLoginState } from '../recoil/atom';
 
@@ -47,4 +46,5 @@ const MyPage = () => {
     </GlobalShell>
   );
 };
+
 export default MyPage;
