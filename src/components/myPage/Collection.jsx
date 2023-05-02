@@ -1,20 +1,17 @@
 import { useRef, Suspense, useState } from 'react';
-import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
-import { IconLayersLinked } from '@tabler/icons-react';
+import { Accordion } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { AccordionLabel } from './index';
 import { useCollectionQueries } from '../../hooks/queries';
 import { DetailModalWrapper } from '../common';
-
-const getAddedDate = modifiedAt => modifiedAt?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
+import { CollectionItem } from '.';
 
 const Collection = ({ collection, setSelected, setImgSrc }) => {
   const collectionQueries = useCollectionQueries(collection);
   const [opened, { open, close }] = useDisclosure(false);
 
-  const [select, setSelect] = useState(null);
+  const [clicked, setClicked] = useState(null);
 
-  console.log('collectionQueries: ', collectionQueries);
+  const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
 
   const collectionList = collectionQueries.map(({ data }) => ({
     ...data,
@@ -22,40 +19,6 @@ const Collection = ({ collection, setSelected, setImgSrc }) => {
   }));
 
   const itemRef = useRef(null);
-
-  const handleClick = item => {
-    setSelect(item);
-    open();
-  };
-
-  const items = collectionList?.map(item => (
-    <Accordion.Item value={item?.title} key={item?.id}>
-      <Accordion.Control>
-        <AccordionLabel {...item} />
-      </Accordion.Control>
-      <Accordion.Panel w="90%">
-        <Flex>
-          <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
-          <div>
-            <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
-              <Button
-                p="xs"
-                variant="transparent"
-                pos="absolute"
-                onClick={() => handleClick({ id: item?.id, type: item?.type })}
-                fz={12}
-                aria-label="more">
-                {'more'}
-                <ThemeIcon variant="transparent">
-                  <IconLayersLinked size={16} />
-                </ThemeIcon>
-              </Button>
-            </Tooltip>
-          </div>
-        </Flex>
-      </Accordion.Panel>
-    </Accordion.Item>
-  ));
 
   const handleChange = e => {
     itemRef.current = e;
@@ -68,14 +31,15 @@ const Collection = ({ collection, setSelected, setImgSrc }) => {
   return (
     <>
       <Accordion chevronPosition="right" variant="separated" sx={{ width: '100%' }} onChange={handleChange}>
-        {items}
+        {allQueriesSucceeded &&
+          collectionList?.map(item => <CollectionItem key={item.id} item={item} setClicked={setClicked} open={open} />)}
       </Accordion>
       {opened && (
         <Suspense
           fallback={
             <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
           }>
-          <DetailModalWrapper opened={opened} close={close} id={select.id} type={select.type} />
+          <DetailModalWrapper opened={opened} close={close} id={clicked.id} type={clicked.type} />
         </Suspense>
       )}
     </>
