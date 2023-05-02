@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconDiscountCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 // import { PROVIDERS } from '../../constants';
 import PROVIDERS from '../../constants/providers';
 import { userState } from '../../recoil/atom';
+import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 
 const providerArray = Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
 
@@ -19,15 +20,16 @@ const getNewSubscribeList = selectedNames => {
 const SubscriptionEditor = ({ providers, onClick }) => {
   const providersNames = providers?.map(provider => provider.provider_name);
 
+  const { mutate: updateSubscribeList } = useUpdateSubscriptionMutation();
   const [selectedProviders, setSelectedProviders] = useState(providersNames);
-  const setUser = useSetRecoilState(userState);
+  const email = useRecoilValue(userState);
 
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data, e) => {
     e.preventDefault();
 
-    setUser(user => ({ ...user, subscribe_list: getNewSubscribeList(selectedProviders) }));
+    updateSubscribeList({ email, newList: getNewSubscribeList(selectedProviders) });
     onClick();
   };
 
@@ -48,7 +50,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
             구독중인 서비스를 선택해주세요.
           </Title>
           <Chip
-            checked={selectedProviders.length === providerArray.length}
+            checked={selectedProviders?.length === providerArray.length}
             onChange={toggleAllSelectedProviders}
             size="xs"
             p={0}>
