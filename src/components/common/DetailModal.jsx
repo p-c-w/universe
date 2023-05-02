@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea, Badge, Flex } from '@mantine/core';
+import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import styled from '@emotion/styled';
 import Badges from '../Badges';
 import PROVIDERS from '../../constants/providers';
@@ -8,7 +8,7 @@ import PROVIDERS from '../../constants/providers';
 import { useProviderQueries } from '../../hooks/queries';
 
 import { getProvidersByIds } from '../../utils';
-import ActionIcons from './ActionIcons';
+import { ActionIcons } from '.';
 import genres from '../../constants/genres';
 
 const CloseBtn = styled(Modal.CloseButton)`

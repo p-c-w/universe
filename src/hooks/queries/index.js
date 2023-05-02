@@ -1,4 +1,3 @@
-export { default as useContentDetailQueries } from './useContentDetailQueries';
 export { default as useProviderQueries } from './useProviderQueries';
 export { default as useSortByPopularityInfinityQuery } from './useSortByPopularityInfinityQuery';
 export { default as useSortByPopularityQuery } from './useSortByPopularityQuery';
