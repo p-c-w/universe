@@ -59,9 +59,11 @@ const useStatistics = () => {
   const queries = useProviderQueries(historyList, {
     select: data => ({
       id: data.id,
-      providers: data.results.KR.flatrate
-        ?.map(provider => provider.provider_id)
-        ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
+      providers: data.results.KR
+        ? data.results.KR.flatrate
+            ?.map(provider => provider.provider_id)
+            ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
+        : [],
     }),
     enabled: !!newtotal,
   });
