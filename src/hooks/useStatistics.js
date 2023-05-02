@@ -49,11 +49,22 @@ const defaultData = {
   ],
 };
 
+const getCountByProvider = (providerId, providerIds) => providerIds?.filter(Id => Id === providerId).length;
+
+const getNewData = (providers, newTotal) => {
+  const providerIds = providers.flatMap(Ids => Ids.providers);
+
+  const newData = defaultData.data
+    .map(item => ({ ...item, count: getCountByProvider(item.id, providerIds) }))
+    .map(item => ({ ...item, part: item.count / newTotal }));
+  return newData;
+};
+
 const useStatistics = () => {
   const { data } = useUserQuery({ select: userInfo => userInfo.history_list });
 
   const historyList = data || [];
-  const newtotal = historyList.length;
+  const newTotal = historyList.length;
   let newData = [];
 
   const queries = useProviderQueries(historyList, {
@@ -65,18 +76,15 @@ const useStatistics = () => {
             ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
         : [],
     }),
-    enabled: !!newtotal,
+    enabled: !!newTotal,
   });
 
-  const getCountByProvider = (providerId, providerIds) => providerIds?.filter(Id => Id === providerId).length;
   const providers = queries.map(({ isSuccess, data }) => isSuccess && data);
-  if (providers[0]) {
-    const providerIds = providers.flatMap(Ids => Ids.providers);
 
-    newData = defaultData.data.map(item => ({ ...item, count: getCountByProvider(item.id, providerIds) }));
-    newData = newData.map(item => ({ ...item, part: item.count / newtotal }));
+  if (providers[0]) {
+    newData = getNewData(providers, newTotal);
   }
-  return { newtotal, newData };
+  return { newTotal, newData };
 };
 
 export default useStatistics;
