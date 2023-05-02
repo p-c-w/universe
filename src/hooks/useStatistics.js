@@ -57,14 +57,15 @@ const getNewData = (providers, newTotal) => {
   const newData = defaultData.data
     .map(item => ({ ...item, count: getCountByProvider(item.id, providerIds) }))
     .map(item => ({ ...item, part: item.count / newTotal }));
+
   return newData;
 };
 
 const useStatistics = () => {
   const { data } = useUserQuery({ select: userInfo => userInfo.history_list });
-
   const historyList = data || [];
   const newTotal = historyList.length;
+
   let newData = [];
 
   const queries = useProviderQueries(historyList, {
