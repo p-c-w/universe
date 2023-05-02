@@ -9,8 +9,6 @@ const useContentDetailQuery = (item, options) => {
     ...options,
   });
 
-  // const contentDetailDatas = queries.map(query => query.data);
-
   return { data, isSuccess };
 };
 
