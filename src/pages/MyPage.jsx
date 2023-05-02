@@ -10,16 +10,16 @@ import {
   PredictedFeeWrapper,
 } from '../components/myPage';
 import { useAuthenticationQuery } from '../hooks/queries';
-import { isLoginState } from '../recoil/atom';
+import { userState } from '../recoil/atom';
 
 const MyPage = () => {
-  const { isSuccess } = useAuthenticationQuery();
-
-  const setIsLogin = useSetRecoilState(isLoginState);
+  const { isSuccess, data } = useAuthenticationQuery();
+  const setUser = useSetRecoilState(userState);
 
   useEffect(() => {
-    if (isSuccess) setIsLogin(true);
-  }, [isSuccess, setIsLogin]);
+    if (isSuccess) setUser(data.data);
+    else setUser(null);
+  }, [data, isSuccess, setUser]);
 
   return (
     <GlobalShell>
