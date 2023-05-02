@@ -5,6 +5,7 @@ import { TextInput, PasswordInput, Button, Container } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX } from '@tabler/icons-react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { notifications } from '@mantine/notifications';
 
 import { signUpSchema } from '../../schema/schema';
 import Typing from './Typing';
@@ -37,9 +38,37 @@ const SignupForm = ({ setUserInput }) => {
   } = useForm({ resolver: zodResolver(signUpSchema) });
 
   const onSubmit = async data => {
-    const { data: email } = await axios.post('/api/auth/signup', data);
+    try {
+      const { data: email } = await axios.post('/api/auth/signup', data);
 
-    setUserInput(email);
+      setUserInput(email);
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        notifications.show({
+          id: 'hello-there',
+          withCloseButton: true,
+          autoClose: 2000,
+          title: 'Signup Failure',
+          message: '중복된 이메일이 존재합니다.',
+          color: 'red',
+          icon: <IconX />,
+          className: 'my-notification-class',
+          loading: false,
+        });
+      } else {
+        notifications.show({
+          id: 'hello-there',
+          withCloseButton: true,
+          autoClose: 2000,
+          title: 'Signup Failure',
+          message: '알 수 없는 오류가 발생했습니다.',
+          color: 'red',
+          icon: <IconX />,
+          className: 'my-notification-class',
+          loading: false,
+        });
+      }
+    }
   };
 
   return (
