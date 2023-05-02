@@ -89,11 +89,11 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
     <div
       style={{
         display: 'flex',
-        backgroundColor: dark ? 'var(--mantine-color-dark-8)' : 'var(--mantine-color-gray-0)',
+        backgroundColor: dark ? 'var(--mantine-color-dark-7)' : 'var(--mantine-color-white)',
         position: 'sticky',
         margin: '0 calc(-2 * (var(--mantine-spacing-md))',
         padding: '0 var(--mantine-spacing-xl)',
-        top: '3.125rem',
+        top: '3.75rem',
         height: '3.125rem',
         opacity: 0.9,
         backdropFilter: 'blur(30px)',

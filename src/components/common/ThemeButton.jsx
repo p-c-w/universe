@@ -5,6 +5,12 @@ import useColorScheme from '../../hooks/useColorScheme';
 
 const IconBox = styled(Avatar)`
   cursor: pointer;
+
+  &:hover .mantine-Avatar-placeholder {
+    transition: 0.3s ease;
+    background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.yellow[5] : theme.colors.gray[9])};
+    color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[9] : theme.colors.yellow[5])};
+  }
 `;
 
 const ThemeButton = () => {
