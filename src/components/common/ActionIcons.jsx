@@ -24,7 +24,7 @@ const ActionIcons = ({ size, id, type }) => {
   const { mutate: updateUserContent } = useAddUserContentMutation();
 
   const handleClick = list => {
-    if (email) return;
+    if (!email) return;
     const now = new Date();
     updateUserContent({ email, list, value: { id, type, modified_at: now.toISOString() } });
   };
