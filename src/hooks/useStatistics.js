@@ -56,7 +56,7 @@ const getNewData = (providers, newTotal) => {
 
   const newData = defaultData.data
     .map(item => ({ ...item, count: getCountByProvider(item.id, providerIds) }))
-    .map(item => ({ ...item, part: item.count / newTotal }));
+    .map(item => ({ ...item, part: +(item.count / newTotal).toFixed() }));
 
   return newData;
 };
