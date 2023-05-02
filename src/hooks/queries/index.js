@@ -8,3 +8,4 @@ export { default as useWithGenreQuery } from './useWithGenreQuery';
 export { default as useUserQuery } from './useUserQuery';
 export { default as useAuthenticationQuery } from './useAuthenticationQuery';
 export { default as useCollectionQueries } from './useCollectionQueries';
+export { default as useContentDetailQuery } from './useContentDetailQuery';

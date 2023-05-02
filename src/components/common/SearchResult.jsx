@@ -1,8 +1,9 @@
 import { forwardRef, useEffect, useRef } from 'react';
-import parse from 'html-react-parser';
 import { Container, Flex, ScrollArea, Space, Text, Title } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useSearchResultQueries } from '../../hooks/queries';
+
+import { Result } from '.';
 
 const mediaType = ['movie', 'tv'];
 
@@ -58,9 +59,14 @@ const SearchResult = forwardRef(({ input }, ref) => {
             <>
               <Scroll mah={200} type="always">
                 {searchResult.map(({ id, title, name }) => (
-                  <Text key={id} mb="sm" fw={400}>
-                    {parse((title || name).replace(userInputRegex.current, match => `<b>${match}</b>`))}
-                  </Text>
+                  <Result
+                    key={id}
+                    id={id}
+                    title={title}
+                    name={name}
+                    reg={userInputRegex.current}
+                    type={mediaType[idx]}
+                  />
                 ))}
               </Scroll>
             </>
