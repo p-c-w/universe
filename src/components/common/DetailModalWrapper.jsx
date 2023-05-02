@@ -8,7 +8,7 @@ const DetailModalWrapper = ({ opened, close, id, type }) => {
 
   return (
     <>
-      <Modal.Root opened={opened} onClose={close} size={850} centered>
+      <Modal.Root opened={opened} onClose={close} size={850} centered zIndex="9999">
         {isSuccess && <DetailModal opened={opened} close={close} type={type} movie={data} />}{' '}
       </Modal.Root>
     </>
