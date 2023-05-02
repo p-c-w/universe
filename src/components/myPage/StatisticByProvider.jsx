@@ -1,4 +1,15 @@
-import { createStyles, Progress, Box, Text, Group, Paper, SimpleGrid, rem, Title } from '@mantine/core';
+import {
+  createStyles,
+  Progress,
+  Box,
+  Text,
+  Group,
+  Paper,
+  SimpleGrid,
+  rem,
+  Title,
+  useMantineColorScheme,
+} from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import { statisticByProviderState } from '../../recoil/atom';
@@ -34,12 +45,15 @@ const useStyles = createStyles(theme => ({
 const StatisticByProvider = () => {
   const { total, data } = useRecoilValue(statisticByProviderState);
 
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
   const { classes } = useStyles();
 
   const segments = data.map(segment => ({
     value: segment.part,
     color: segment.color,
     label: segment.part > 10 ? `${segment.part}%` : undefined,
+    tooltip: `${`${segment.label} ${segment.part}`}%`,
   }));
 
   const descriptions = data.map(stat => (
@@ -52,7 +66,11 @@ const StatisticByProvider = () => {
         <Text fw={700} size="xs">
           {stat.count}
         </Text>
-        <Text c={stat.color} fw={700} size="xs" className={classes.statCount}>
+        <Text
+          c={stat.label === 'Apple TV+' && !dark ? 'gray' : stat.label === 'Disney+' && dark ? 'indigo.5' : stat.color}
+          fw={700}
+          size="xs"
+          className={classes.statCount}>
           {stat.part}%
         </Text>
       </Group>
@@ -60,15 +78,19 @@ const StatisticByProvider = () => {
   ));
 
   return (
-    <Paper withBorder p="lg" radius="md" h="100%">
+    <Paper withBorder p={40} pt="sm" radius="md" h="100%">
       <Box h="80%">
         <Title order={3} align="left">
           Universe 분석
         </Title>
         <Group position="apart" mt={7}>
           <Group align="flex-end" spacing="xs">
-            <Text fz="lg" fw={700}>
-              지금까지 전체 {total}건의 컨텐츠를 감상했어요.
+            <Text fz="lg" fw={700} align="left">
+              지금까지 전체{' '}
+              <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
+                {total}
+              </Text>
+              건의 컨텐츠를 감상했어요.
             </Text>
           </Group>
           <IconDeviceAnalytics size="1.4rem" className={classes.icon} stroke={1.5} />

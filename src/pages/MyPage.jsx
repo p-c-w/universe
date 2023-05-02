@@ -41,7 +41,6 @@ const MyPage = () => {
         <Suspense fallback={<BarLoader />}>
           <Collections />
         </Suspense>
-        <ThemeButton />
       </Container>
     </GlobalShell>
   );
