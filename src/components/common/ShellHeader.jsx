@@ -1,52 +1,63 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Avatar, Burger, Button, Flex, Header, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { sideNavOpenedState, userState } from '../../recoil/atom';
 import { SearchBar, ThemeButton } from '.';
-
-const generatInitial = email => `${email[0]}${email[1]}`;
+import { generateInitial } from '../../utils';
 
 const IconBox = styled(Avatar)`
   cursor: pointer;
 `;
 
-const ShellHeader = () => {
-  const [isOpened, setIsOpend] = useRecoilState(sideNavOpenedState);
-  const { colorScheme } = useMantineColorScheme();
-  const theme = useMantineTheme();
+const Logo = styled(IconBox)`
+  cursor: pointer;
+  transition: 0.1s ease;
+  padding: 0.0625rem;
 
+  &:hover {
+    padding: 0;
+  }
+`;
+
+const ShellHeader = () => {
+  const [isOpened, setIsOpened] = useRecoilState(sideNavOpenedState);
+  const { colorScheme } = useMantineColorScheme();
   const user = useRecoilValue(userState);
+  const theme = useMantineTheme();
 
   const dark = colorScheme === 'dark';
   const label = isOpened ? 'Close navigation' : 'Open navigation';
 
+  const handleBurgerClick = () => setIsOpened(!isOpened);
+
   return (
-    <Header height={{ base: 50 }} p="md" zIndex="9999">
-      <Flex align="Center" h="100%" justify="space-between">
-        <Flex align="Center">
+    <Header height={{ base: 60 }} p="xl" zIndex="9999">
+      <Flex align="center" h="100%" justify="space-between">
+        <Flex align="center">
           <Burger
             opened={isOpened}
-            onClick={() => setIsOpend(!isOpened)}
+            onClick={handleBurgerClick}
             size="sm"
             color={dark ? theme.colors.gray[0] : theme.colors.dark[8]}
-            mr="xl"
+            mr="lg"
             aria-label={label}
           />
           <Link to="/">
-            <Avatar
-              size="md"
-              src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`}
-              alt="home button"
-            />
+            <Logo size={40} src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`} alt="home button" />
           </Link>
+          <Flex h={40} align="end">
+            <Title size={14} fw={100} italic>
+              Beta
+            </Title>
+          </Flex>
           <SearchBar />
         </Flex>
         <Flex align="Center">
           <ThemeButton />
           {user ? (
             <IconBox color="violet" size="md" variant="filled">
-              {generatInitial(user)}
+              {generateInitial(user)}
             </IconBox>
           ) : (
             <Button component={Link} to="/signin" variant="filled" color={dark ? 'violet' : 'dark'}>
