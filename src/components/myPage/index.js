@@ -11,3 +11,4 @@ export { default as PredictedFeeWrapper } from './PredictedFeeWrapper';
 export { default as PredictedSubscription } from './PredictedSubscription';
 export { default as AccordionLabel } from './AccordionLabel';
 export { default as StatisticByProvider } from './StatisticByProvider';
+export { default as CollectionItem } from './CollectionItem';
