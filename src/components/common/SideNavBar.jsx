@@ -51,7 +51,7 @@ const tabs = [
   },
   { link: '/mypage', label: 'Watch now', icon: <IconMovie size="1.1rem" />, category: 'watch', color: 'yellow' },
   { link: '/mypage', label: 'Like', icon: <IconThumbUp size="1.1rem" />, category: 'like', color: 'red' },
-  { link: '/mypage', label: 'History', icon: <IconHistory size="1.1rem" />, category: 'like', color: 'blue' },
+  { link: '/mypage', label: 'History', icon: <IconHistory size="1.1rem" />, category: 'history', color: 'blue' },
 ];
 
 const SideNavBar = () => {
