@@ -1,7 +1,7 @@
 import { useQueries } from '@tanstack/react-query';
 import { fetchProvider } from '../../api';
 
-const staleTime = 1000 * 3;
+const staleTime = 1000 * 5;
 
 const useProviderQueries = (list, options) => {
   const providerQueries = list?.map(({ type, id }) => ({
@@ -9,7 +9,7 @@ const useProviderQueries = (list, options) => {
     queryFn: () => fetchProvider(type, id),
     suspense: true,
     staleTime,
-    notifyOnChangeProps: 'tracked',
+    refetchOnWindowFocus: false,
     ...options,
   }));
 
