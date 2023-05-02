@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Title, Flex, Input, PasswordInput, Button, TextInput } from '@mantine/core';
+import { Title, Flex, Input, PasswordInput, Button, TextInput, Text } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconX } from '@tabler/icons-react';
@@ -21,12 +21,6 @@ const InputWrapper = styled(Input.Wrapper)`
   > label {
     font-weight: 300;
   }
-`;
-
-const ForgotPw = styled(Link)`
-  float: right;
-  font-size: var(--mantine-font-size-xs);
-  color: var(--mantine-color-blue-6);
 `;
 
 const SigninForm = () => {
@@ -71,8 +65,10 @@ const SigninForm = () => {
           <InputWrapper label="Email address">
             <TextInput {...register('email')} error={errors?.email?.message} autoComplete="off" />
           </InputWrapper>
-          <InputWrapper label="Password">
-            <ForgotPw to="/">Forgot password?</ForgotPw>
+          <InputWrapper label="Password" pos="relative">
+            <Text span fz="xs" color="blue.6" pos="absolute" right={0} top={5} justify="center" underline align="right">
+              Forgot password?
+            </Text>
             <PasswordInput {...register('password')} error={errors?.password?.message} />
           </InputWrapper>
           <Button type="submit" fw={300}>
