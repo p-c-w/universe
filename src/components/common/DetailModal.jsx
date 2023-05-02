@@ -21,10 +21,11 @@ const BadgeContainer = styled.div`
   z-index: 999;
 `;
 
-const DetailModal = ({ opened, close, id, title, backdropPath, posterPath, overview, genreIds, mediaType }) => {
-  const userCollectionList = [{ id, type: mediaType }];
-
-  const queries = useProviderQueries(userCollectionList, {
+const DetailModal = ({
+  type,
+  movie: { id, backdrop_path: backdropPath, poster_path: posterPath, overview, title, genres: genreIds },
+}) => {
+  const queries = useProviderQueries([{ id, type }], {
     select: data => ({
       id: data.id,
       providers: data.results.KR.flatrate
@@ -39,43 +40,41 @@ const DetailModal = ({ opened, close, id, title, backdropPath, posterPath, overv
 
   return (
     <>
-      <Modal.Root opened={opened} onClose={close} size={850} centered>
-        <Modal.Overlay />
-        <Modal.Content pos="relative">
-          <Overlay c="#000" opacity={0.75} zIndex="1" />
-          <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
-          <BadgeContainer>
-            <Badges providers={providerIds} spacing="sm" size="2.5rem" />
-            <ActionIcons size={10} id={id} type={mediaType} />
-          </BadgeContainer>
-          <Modal.CloseButton style={{ zIndex: '999' }} pos="absolute" top={10} right={20} />
-          <Modal.Body m={40} c="#fff" style={{ zIndex: '2' }} pos="absolute" top={0}>
-            <Grid columns={5}>
-              <Grid.Col span={3}>
-                <Container>
-                  <Title order={1} mb={10} mt={10}>
-                    {title}
-                  </Title>
-                  <Text>2023</Text>
-                  {genreIds.map(id => (
-                    <Badge color={genres[mediaType][id].color} key={id}>
-                      {genres[mediaType][id].name}
-                    </Badge>
-                  ))}
-                  <ScrollArea fw={300} fz="sm" h={200}>
-                    {overview}
-                  </ScrollArea>
-                </Container>
-              </Grid.Col>
-              <Grid.Col span={2}>
-                <Container m={10}>
-                  <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
-                </Container>
-              </Grid.Col>
-            </Grid>
-          </Modal.Body>
-        </Modal.Content>
-      </Modal.Root>
+      <Modal.Overlay />
+      <Modal.Content pos="relative">
+        <Overlay c="#000" opacity={0.75} zIndex="1" />
+        <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
+        <BadgeContainer>
+          <Badges providers={providerIds} spacing="sm" size="2.5rem" />
+          <ActionIcons size={10} id={id} type={type} />
+        </BadgeContainer>
+        <Modal.CloseButton style={{ zIndex: '999' }} pos="absolute" top={10} right={20} />
+        <Modal.Body m={40} c="#fff" style={{ zIndex: '2' }} pos="absolute" top={0}>
+          <Grid columns={5}>
+            <Grid.Col span={3}>
+              <Container>
+                <Title order={1} mb={10} mt={10}>
+                  {title}
+                </Title>
+                <Text>2023</Text>
+                {genreIds.map(({ id, name }) => (
+                  <Badge color={genres[type][id].color} key={id}>
+                    {name}
+                  </Badge>
+                ))}
+                <ScrollArea fw={300} fz="sm" h={200}>
+                  {overview}
+                </ScrollArea>
+              </Container>
+            </Grid.Col>
+            <Grid.Col span={2}>
+              <Container m={10}>
+                <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
+              </Container>
+            </Grid.Col>
+          </Grid>
+        </Modal.Body>
+      </Modal.Content>
     </>
   );
 };
