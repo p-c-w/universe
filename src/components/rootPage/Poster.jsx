@@ -19,7 +19,7 @@ import {
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { ActionIcons, DetailModal } from '../common';
+import { ActionIcons, DetailModalWrapper } from '../common';
 import genres from '../../constants/genres';
 
 const Footer = styled(Group)`
@@ -28,7 +28,7 @@ const Footer = styled(Group)`
   flex-direction: column;
 `;
 
-const Poster = ({ id, title, originalTitle, posterPath, backdropPath, overview, date, genreIds, mediaType }) => {
+const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds, mediaType }) => {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const [hovered, setHovered] = useState(false);
@@ -113,17 +113,7 @@ const Poster = ({ id, title, originalTitle, posterPath, backdropPath, overview, 
           fallback={
             <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
           }>
-          <DetailModal
-            opened={opened}
-            close={close}
-            id={id}
-            title={title}
-            backdropPath={backdropPath}
-            posterPath={posterPath}
-            overview={overview}
-            genreIds={genreIds}
-            mediaType={mediaType}
-          />
+          <DetailModalWrapper opened={opened} close={close} id={id} type={mediaType} />
         </Suspense>
       )}
     </>
