@@ -43,8 +43,8 @@ const CurrentSubscriptionInfo = () => {
   const queries = useProviderQueries(watchList, {
     select: data => ({
       id: data.id,
-      providers: data.results.KR.flatrate
-        .map(provider => provider.provider_id)
+      providers: data.results.KR?.flatrate
+        ?.map(provider => provider.provider_id)
         ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
     }),
     enabled: !!watchList.length,
