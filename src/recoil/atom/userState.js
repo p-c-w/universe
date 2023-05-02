@@ -1,16 +1,16 @@
 import { atom } from 'recoil';
 
-const KEY = 'user';
+const key = 'userState';
 
 const localStorageEffect = ({ onSet }) => {
   onSet(newUser => {
-    localStorage.setItem(KEY, JSON.stringify(newUser));
+    localStorage.setItem(key, JSON.stringify(newUser));
   });
 };
 
 const userState = atom({
-  key: 'userState',
-  default: JSON.parse(localStorage.getItem(KEY)),
+  key,
+  default: JSON.parse(localStorage.getItem(key)),
   effects: [localStorageEffect],
 });
 

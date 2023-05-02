@@ -1,16 +1,9 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion, Box, Container } from '@mantine/core';
-import { useRecoilValue } from 'recoil';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
-import { userState } from '../../recoil/atom';
 import { useProviderQueries, useUserQuery } from '../../hooks/queries';
-import {
-  getProvidersInfoListByList,
-  getProvidersIdsByList,
-  getProvidersByIds,
-  getProviderIdsByProviderDatas,
-} from '../../utils';
+import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
 import PROVIDERS from '../../constants/providers';
 
 const StyledContainer = styled(Container)`
@@ -50,8 +43,8 @@ const CurrentSubscriptionInfo = () => {
   const queries = useProviderQueries(watchList, {
     select: data => ({
       id: data.id,
-      providers: data.results.KR.flatrate
-        .map(provider => provider.provider_id)
+      providers: data.results.KR?.flatrate
+        ?.map(provider => provider.provider_id)
         ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
     }),
     enabled: !!watchList.length,
@@ -66,7 +59,7 @@ const CurrentSubscriptionInfo = () => {
 
   const whatchProviderIds = whatchProvidersWithContenId?.flatMap(content => content.providers);
 
-  const unWatchedProviderIds = subscribeProviderIds.filter(
+  const unWatchedProviderIds = subscribeProviderIds?.filter(
     subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
   );
   const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
@@ -75,7 +68,7 @@ const CurrentSubscriptionInfo = () => {
   const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
-    // setEditMode(!editMode);
+    setEditMode(!editMode);
   };
 
   return (
@@ -87,16 +80,16 @@ const CurrentSubscriptionInfo = () => {
             <Text size="2rem">₩{currentFee}</Text>
           </Accordion.Control>
           <Accordion.Panel>
-            {/* {editMode ? (
-              // <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
-            ) : ( */}
-            <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
-            {/* )} */}
+            {editMode ? (
+              <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
+            ) : (
+              <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
+            )}
           </Accordion.Panel>
         </Accordion.Item>
       </PresentSubscriptionFee>
       <Box mt={16}>
-        {unWatchedProvidersInfoList.length ? (
+        {unWatchedProvidersInfoList?.length ? (
           <>
             <Title order={5} mb={10}>
               구독하고 있지만 보고 있지 않아요
