@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchSortByPopularity } from '../../api/tmdb';
 
+const staleTime = 1000 * 60 * 5;
+
 const useSortByPopularityQuery = (mediaType, providerIds) => {
   const strProviderId = providerIds.sort((a, b) => a - b).join('|');
 
   const { data, isSuccess } = useQuery({
     queryKey: [`@${mediaType}`, strProviderId, 'sortByPopularity'],
-    staleTime: 1000 * 60 * 5,
     queryFn: ({ pageParam = 1 }) => fetchSortByPopularity(mediaType, pageParam, strProviderId),
+    suspense: true,
+    staleTime,
     select: datas => datas.results,
   });
 
