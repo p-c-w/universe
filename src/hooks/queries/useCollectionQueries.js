@@ -2,7 +2,7 @@ import { useQueries } from '@tanstack/react-query';
 import { fetchProviderAndDetail } from '../../api';
 import PROVIDERS from '../../constants/providers';
 
-const staleTime = 1000 * 3;
+const staleTime = 1000 * 5;
 
 const useCollectionQueries = (list, options) => {
   const collectionQueries = list?.map(({ type, id }) => ({
@@ -10,7 +10,7 @@ const useCollectionQueries = (list, options) => {
     queryFn: () => fetchProviderAndDetail(type, id),
     suspense: true,
     staleTime,
-    notifyOnChangeProps: 'tracked',
+    refetchOnWindowFocus: false,
     select: data => ({
       id,
       title: data.title || data.name,
