@@ -6,6 +6,7 @@ const useProviderQueries = (list, options) => {
     queryKey: ['@provider', type, id],
     queryFn: () => fetchProvider(type, id),
     suspense: true,
+    notifyOnChangeProps: 'tracked',
     ...options,
   }));
 

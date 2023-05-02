@@ -6,6 +6,7 @@ const useContentDetailQueries = (userCollectionList, options) => {
     queryKey: ['@collection', item],
     queryFn: () => fetchMediaContentDetails(item.type, item.id),
     suspense: true,
+    notifyOnChangeProps: 'tracked',
     ...options,
   }));
 

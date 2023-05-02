@@ -7,6 +7,7 @@ const useCollectionQueries = (list, options) => {
     queryKey: ['@collection', type, id],
     queryFn: () => fetchProviderAndDetail(type, id),
     suspense: true,
+    notifyOnChangeProps: 'tracked',
     select: data => ({
       id,
       title: data.title || data.name,
