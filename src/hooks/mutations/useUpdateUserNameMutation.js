@@ -5,12 +5,12 @@ import { useGenericMutation } from '.';
 import { userState } from '../../recoil/atom';
 
 /**
- * useEditUserNameMutation - 사용자 이름을 업데이트하는데 사용되는 커스텀 훅입니다.
+ * useUpdateUserNameMutation - 사용자 이름을 업데이트하는데 사용되는 커스텀 훅입니다.
  *
  * @param {string} name - 변경할 사용자 이름
  */
 
-const useEditUserNameMutation = () => {
+const useUpdateUserNameMutation = () => {
   const email = useRecoilValue(userState);
 
   return useGenericMutation({
@@ -22,4 +22,4 @@ const useEditUserNameMutation = () => {
   });
 };
 
-export default useEditUserNameMutation;
+export default useUpdateUserNameMutation;

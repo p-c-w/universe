@@ -4,7 +4,7 @@ import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
 import { useUserQuery } from '../../hooks/queries';
-import { useEditUserNameMutation } from '../../hooks/mutations';
+import { useUpdateUserNameMutation } from '../../hooks/mutations';
 import { userState } from '../../recoil/atom';
 
 const StyledContainer = styled(Container)`
@@ -33,7 +33,7 @@ const MypageTitle = () => {
   const email = useRecoilValue(userState);
 
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
-  const { mutate: updateUserName } = useEditUserNameMutation();
+  const { mutate: updateUserName } = useUpdateUserNameMutation();
 
   const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
