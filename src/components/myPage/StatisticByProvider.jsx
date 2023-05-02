@@ -1,48 +1,7 @@
-import { createStyles, Progress, Box, Text, Group, Paper, SimpleGrid, rem, Title, Container } from '@mantine/core';
+import { createStyles, Progress, Box, Text, Group, Paper, SimpleGrid, rem, Title } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
-import { PROVIDER_COLOR } from '../../constants';
-
-const mockData = {
-  total: '345,765',
-  data: [
-    {
-      label: 'Netflix',
-      count: '204,001',
-      part: 59,
-      color: `${PROVIDER_COLOR.netflix}`,
-    },
-    {
-      label: 'Wavve',
-      count: '121,017',
-      part: 35,
-      color: `${PROVIDER_COLOR.wavve}`,
-    },
-    {
-      label: 'Apple Tv+',
-      count: '31,118',
-      part: 3,
-      color: `${PROVIDER_COLOR.appletvplus}`,
-    },
-    {
-      label: 'Amazon prime',
-      count: '204,001',
-      part: 1,
-      color: `${PROVIDER_COLOR.primevideo}`,
-    },
-    {
-      label: 'Watcha',
-      count: '121,017',
-      part: 1,
-      color: `${PROVIDER_COLOR.watcha}`,
-    },
-    {
-      label: 'Disney+',
-      count: '31,118',
-      part: 1,
-      color: `${PROVIDER_COLOR.disneyplus}`,
-    },
-  ],
-};
+import { useRecoilValue } from 'recoil';
+import { statisticByProviderState } from '../../recoil/atom';
 
 const useStyles = createStyles(theme => ({
   progressLabel: {
@@ -72,7 +31,9 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-const StatisticByProvider = ({ total = mockData.total, data = mockData.data }) => {
+const StatisticByProvider = () => {
+  const { total, data } = useRecoilValue(statisticByProviderState);
+
   const { classes } = useStyles();
 
   const segments = data.map(segment => ({
