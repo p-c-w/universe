@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal, Image, Grid, Container, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
+import { Modal, Image, Grid, Container, Flex, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import styled from '@emotion/styled';
 import Badges from '../Badges';
 import PROVIDERS from '../../constants/providers';
