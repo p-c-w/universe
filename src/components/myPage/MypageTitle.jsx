@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { Title, Button, Container, TextInput } from '@mantine/core';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
+import { useRecoilValue } from 'recoil';
 import { useUserQuery } from '../../hooks/queries';
+import { useUpdateUserNameMutation } from '../../hooks/mutations';
+import { userState } from '../../recoil/atom';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -27,7 +30,10 @@ const NameInput = styled(TextInput)`
 `;
 
 const MypageTitle = () => {
+  const email = useRecoilValue(userState);
+
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
+  const { mutate: updateUserName } = useUpdateUserNameMutation();
 
   const [userName, setUserName] = useState(name);
   const [editMode, setEditMode] = useState(false);
@@ -37,8 +43,9 @@ const MypageTitle = () => {
   }, [name]);
 
   const handleKeyUp = e => {
-    const content = e.target.value.trim();
+    const content = userName.trim();
     if (e.key !== 'Enter' || content === '') return;
+    updateUserName({ email, name: content });
     setEditMode(false);
   };
 
