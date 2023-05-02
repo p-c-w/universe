@@ -42,8 +42,22 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
+const getMaxProvider = datas => {
+  let max = 0;
+  let maxProvider = '';
+  datas.forEach(data => {
+    if (+data.count >= max) {
+      max = +data.count;
+      maxProvider = data.label;
+    }
+  });
+  return maxProvider;
+};
+
 const StatisticByProvider = () => {
   const { total, data } = useRecoilValue(statisticByProviderState);
+
+  const maxProvider = getMaxProvider(data);
 
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -96,7 +110,7 @@ const StatisticByProvider = () => {
           <IconDeviceAnalytics size="1.4rem" className={classes.icon} stroke={1.5} />
         </Group>
         <Text c="teal" className={classes.diff} fz="sm" fw={700}>
-          Netflix를 가장 많이 사용했어요.
+          {maxProvider}를 가장 많이 사용했어요.
         </Text>
 
         <Progress sections={segments} size={34} classNames={{ label: classes.progressLabel }} mt="md" />
