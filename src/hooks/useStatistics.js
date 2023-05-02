@@ -9,14 +9,16 @@ const defaultData = {
       label: 'Netflix',
       count: 0,
       part: 0,
-      color: `${PROVIDERS[8].color}`,
+      // color: `${PROVIDERS[8].color}`,
+      color: '#FF515E',
     },
     {
       id: 97,
       label: 'Watcha',
       count: 0,
       part: 0,
-      color: `${PROVIDERS[97].color}`,
+      // color: `${PROVIDERS[97].color}`,
+      color: '#FF8A99',
     },
     {
       id: 119,
@@ -30,14 +32,16 @@ const defaultData = {
       label: 'Disney+',
       count: 0,
       part: 0,
-      color: `${PROVIDERS[337].color}`,
+      // color: `${PROVIDERS[337].color}`,
+      color: '#0046AB',
     },
     {
       id: 350,
       label: 'Apple TV+',
       count: 0,
       part: 0,
-      color: `${PROVIDERS[350].color}`,
+      // color: `${PROVIDERS[350].color}`,
+      color: '#DADDE2',
     },
     {
       id: 356,
@@ -56,8 +60,7 @@ const getNewData = (providers, newTotal) => {
 
   const newData = defaultData.data
     .map(item => ({ ...item, count: getCountByProvider(item.id, providerIds) }))
-    .map(item => ({ ...item, part: +(item.count / newTotal).toFixed() }));
-
+    .map(item => ({ ...item, part: +((item.count / newTotal) * 100).toFixed() }));
   return newData;
 };
 
