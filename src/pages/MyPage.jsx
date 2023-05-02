@@ -31,12 +31,12 @@ const MyPage = () => {
           <Box>
             <Suspense fallback={<BarLoader />}>
               <PredictedFeeWrapper />
-            </Suspense>
-            <Suspense fallback={<BarLoader />}>
               <CurrentSubscriptionInfo />
             </Suspense>
           </Box>
-          <Statistics />
+          <Suspense>
+            <Statistics />
+          </Suspense>
         </SimpleGrid>
         <Suspense fallback={<BarLoader />}>
           <Collections />
