@@ -59,6 +59,9 @@ const Collections = () => {
               siblings={2}
               withEdges
               align="center"
+              position="center"
+              size="sm"
+              m="sm"
             />
           </Suspense>
         </ScrollArea>
