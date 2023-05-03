@@ -18,9 +18,9 @@ const logos = [
   { name: 'primevideo', id: 119 },
   { name: 'watcha', id: 97 },
   { name: 'wavve', id: 356 },
-  { name: 'universeLogoWhite' },
-  { name: 'universeLogoWhite' },
-  { name: 'universeLogoWhite' },
+  { name: 'universeLogoBlack' },
+  { name: 'universeLogoBlack' },
+  { name: 'universeLogoBlack' },
 ];
 
 const SignupOption = ({ userInput, setUserInput }) => {
