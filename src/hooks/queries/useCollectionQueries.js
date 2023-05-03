@@ -5,7 +5,7 @@ import { PROVIDERS } from '../../constants';
 const staleTime = 1000 * 5;
 
 const useCollectionQueries = (list, options) => {
-  const collectionQueries = list?.map(({ type, id }) => ({
+  const collectionQueries = list.map(({ type, id }) => ({
     queryKey: ['@collection', type, id],
     queryFn: () => fetchProviderAndDetail(type, id),
     suspense: true,

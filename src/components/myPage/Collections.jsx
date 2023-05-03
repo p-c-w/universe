@@ -24,14 +24,14 @@ const Collections = () => {
   const [imgSrc, setImgSrc] = useState('');
   const [category, setCategory] = useRecoilState(categoryState);
 
-  const { isSuccess, data } = useUserQuery({
+  const { data = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
   });
 
   const [activePage, setActivePage] = useState(1);
   const offset = (activePage - 1) * PAGE_LIMIT;
-  const total = isSuccess && Math.ceil(data.length / 5);
-  const collection = isSuccess && data?.slice(offset, offset + PAGE_LIMIT);
+  const total = Math.ceil(data.length / 5);
+  const collection = data.slice(offset, offset + PAGE_LIMIT);
 
   return (
     <MyListContainer fluid p={0}>
@@ -51,19 +51,19 @@ const Collections = () => {
       <Flex gap="1rem">
         <ScrollArea w="100%" h={400}>
           <Suspense fallback={<CollectionSkeleton />}>
-            {isSuccess && <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />}
-            <Pagination
-              value={activePage}
-              onChange={setActivePage}
-              total={total}
-              siblings={2}
-              withEdges
-              align="center"
-              position="center"
-              size="sm"
-              m="sm"
-            />
+            <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />
           </Suspense>
+          <Pagination
+            value={activePage}
+            onChange={setActivePage}
+            total={total}
+            siblings={2}
+            withEdges
+            align="center"
+            position="center"
+            size="sm"
+            m="sm"
+          />
         </ScrollArea>
         <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
