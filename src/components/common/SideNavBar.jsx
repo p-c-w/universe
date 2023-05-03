@@ -1,7 +1,7 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMantineColorScheme } from '@mantine/core';
-import { IconUser, IconMovie, IconThumbUp, IconHistory } from '@tabler/icons-react';
+import { IconMovie, IconThumbUp, IconHistory, IconPlanet } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 import { userState, sideNavOpenedState, categoryState } from '../../recoil/atom';
@@ -25,8 +25,7 @@ const Tab = styled.div`
   align-items: center;
   justify-content: flex-start;
   list-style: none;
-  height: 2.25rem;
-  padding: 0.3125rem;
+  padding: 0.625rem;
   cursor: pointer;
   transition: 0.2s ease-in;
   border-radius: 0.3125rem;
@@ -46,12 +45,12 @@ const CustomLink = styled(Link)`
 const tabs = [
   {
     link: '/mypage',
-    label: 'My page',
-    icon: <IconUser size="1.1rem" />,
+    label: 'My Universe',
+    icon: <IconPlanet size={16} />,
   },
-  { link: '/mypage', label: 'Watch now', icon: <IconMovie size="1.1rem" />, category: 'watch', color: 'yellow' },
-  { link: '/mypage', label: 'Like', icon: <IconThumbUp size="1.1rem" />, category: 'like', color: 'red' },
-  { link: '/mypage', label: 'History', icon: <IconHistory size="1.1rem" />, category: 'history', color: 'blue' },
+  { link: '/mypage', label: 'Watch now', icon: <IconMovie size={16} />, category: 'watch', color: 'yellow' },
+  { link: '/mypage', label: 'Like', icon: <IconThumbUp size={16} />, category: 'like', color: 'red' },
+  { link: '/mypage', label: 'History', icon: <IconHistory size={16} />, category: 'history', color: 'blue' },
 ];
 
 const SideNavBar = () => {
@@ -65,10 +64,10 @@ const SideNavBar = () => {
   return (
     <Transition mounted={isOpened} transition="slide-right" duration={400} timingFunction="ease">
       {styles => (
-        <Nav style={styles} p="lg" width={{ base: 240 }}>
+        <Nav style={styles} p="md" width={{ base: 240 }}>
           <Navbar.Section w={'100%'}>
             {user ? (
-              <Stack spacing="md">
+              <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
                   <Tab key={label} role="button" aria-label="label" onClick={() => setCategory(category)}>
                     <CustomLink to={link}>

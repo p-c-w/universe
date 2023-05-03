@@ -15,13 +15,12 @@ const CustomLink = styled(Link)`
   color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[0] : theme.colors.gray[9])};
 `;
 
-const Tab = styled.li`
+const Tab = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   list-style: none;
-  height: 2.25rem;
-  padding: 0.3125rem;
+  padding: 0.625rem;
   cursor: pointer;
   transition: 0.2s ease-in;
   border-radius: 0.3125rem;
