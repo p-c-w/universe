@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { Group, ThemeIcon } from '@mantine/core';
+import { Group, ThemeIcon, Tooltip } from '@mantine/core';
 import { IconHistory, IconMovie, IconThumbUp } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { userState } from '../../recoil/atom';
@@ -48,31 +48,37 @@ const ActionIcons = ({ size, id, type, category = '' }) => {
   return (
     <Group spacing={8}>
       {category !== 'watch' && (
-        <CategoryIcon
-          role="button"
-          aria-label={`to ${watchlist}`}
-          {...getIconVariant(watchlist, 'yellow')}
-          onClick={e => handleClick(e, watchlist, 'watch_list')}>
-          <IconMovie size={size} />
-        </CategoryIcon>
+        <Tooltip label="Watch" withArrow>
+          <CategoryIcon
+            role="button"
+            aria-label={`to ${watchlist}`}
+            {...getIconVariant(watchlist, 'yellow')}
+            onClick={e => handleClick(e, watchlist, 'watch_list')}>
+            <IconMovie size={size} />
+          </CategoryIcon>
+        </Tooltip>
       )}
       {category !== 'like' && (
-        <CategoryIcon
-          role="button"
-          aria-label={likelist}
-          {...getIconVariant(likelist, 'red')}
-          onClick={e => handleClick(e, likelist, 'like_list')}>
-          <IconThumbUp size={size} />
-        </CategoryIcon>
+        <Tooltip label="Like" withArrow>
+          <CategoryIcon
+            role="button"
+            aria-label={likelist}
+            {...getIconVariant(likelist, 'red')}
+            onClick={e => handleClick(e, likelist, 'like_list')}>
+            <IconThumbUp size={size} />
+          </CategoryIcon>
+        </Tooltip>
       )}
       {category !== 'history' && (
-        <CategoryIcon
-          role="button"
-          aria-label={historylist}
-          {...getIconVariant(historylist, 'blue')}
-          onClick={e => handleClick(e, historylist, 'history_list')}>
-          <IconHistory size={size} />
-        </CategoryIcon>
+        <Tooltip label="History" withArrow>
+          <CategoryIcon
+            role="button"
+            aria-label={historylist}
+            {...getIconVariant(historylist, 'blue')}
+            onClick={e => handleClick(e, historylist, 'history_list')}>
+            <IconHistory size={size} />
+          </CategoryIcon>
+        </Tooltip>
       )}
     </Group>
   );
