@@ -1,6 +1,6 @@
 import React from 'react';
 import { Group, Text } from '@mantine/core';
-import { Badges, CollectionButtons } from '../index';
+import { Badges } from '..';
 import { getProvidersByIds } from '../../utils';
 
 const AccordionLabel = ({ title, providers: providerIds }) => {
@@ -9,10 +9,9 @@ const AccordionLabel = ({ title, providers: providerIds }) => {
   return (
     <Group noWrap>
       <Badges providers={providers} spacing={30} />
-      <div>
-        <Text>{title}</Text>
-        <CollectionButtons />
-      </div>
+      <Text fz="lg" fw={700}>
+        {title}
+      </Text>
     </Group>
   );
 };

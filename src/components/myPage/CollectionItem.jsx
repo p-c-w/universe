@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { AccordionLabel } from './index';
 import { useDeleteUserContentMutation } from '../../hooks/mutations';
 import { userState, categoryState } from '../../recoil/atom';
+import { ActionIcons } from '../common';
 
 const getAddedDate = modifiedAt => modifiedAt?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -38,34 +39,36 @@ const CollectionItem = ({ item, setClicked, open }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}>
         <Accordion.Control>
-          <Flex direction={'row'} justify={'space-between'}>
+          <Flex direction="row" justify="space-between" align="center">
             <AccordionLabel {...item} />
             {hovered && (
-              <ThemeIcon mt={11} variant="transparent" onClick={handleTrashClick}>
+              <ThemeIcon variant="transparent" onClick={handleTrashClick}>
                 <IconTrash size={16} />
               </ThemeIcon>
             )}
           </Flex>
         </Accordion.Control>
-        <Accordion.Panel w="90%">
-          <Flex>
+        <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
+          <Flex direction="column" align="flex-start" gap={3}>
             <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button
-                  p="xs"
+                  m={0}
+                  pl={0}
+                  pb={3}
                   variant="transparent"
-                  pos="absolute"
                   onClick={() => handleClick({ id: item?.id, type: item?.type })}
                   fz={12}
                   aria-label="more">
-                  {'more'}
+                  <Text>상세페이지로</Text>
                   <ThemeIcon variant="transparent">
                     <IconLayersLinked size={16} />
                   </ThemeIcon>
                 </Button>
               </Tooltip>
             </div>
+            <ActionIcons size={16} id={item.id} type={item.type} category={listName} />
           </Flex>
         </Accordion.Panel>
       </Accordion.Item>

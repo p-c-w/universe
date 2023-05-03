@@ -1,7 +1,7 @@
 import { Box, Container, SimpleGrid, Skeleton } from '@mantine/core';
 import { Suspense, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { ThemeButton, GlobalShell } from '../components/common';
+import { GlobalShell } from '../components/common';
 import {
   Collections,
   MypageTitle,
