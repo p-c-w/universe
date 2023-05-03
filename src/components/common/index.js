@@ -12,3 +12,4 @@ export { default as ActionIcons } from './ActionIcons';
 export { default as DetailModal } from './DetailModal';
 export { default as DetailModalWrapper } from './DetailModalWrapper';
 export { default as Result } from './Result';
+export { default as MyMenu } from './MyMenu';
