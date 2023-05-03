@@ -28,7 +28,8 @@ const ActionIcons = ({ size, id, type }) => {
 
   const isItemInList = list => list.some(item => item.id === id && item.type === type);
 
-  const handleClick = (list, listName) => {
+  const handleClick = (e, list, listName) => {
+    e.stopPropagation();
     if (!userEmail) return;
 
     const now = new Date();
@@ -50,21 +51,21 @@ const ActionIcons = ({ size, id, type }) => {
         role="button"
         aria-label={`to ${watchlist}`}
         {...getIconVariant(watchlist, 'yellow')}
-        onClick={() => handleClick(watchlist, 'watch_list')}>
+        onClick={e => handleClick(e, watchlist, 'watch_list')}>
         <IconMovie size={size} />
       </CategoryIcon>
       <CategoryIcon
         role="button"
         aria-label={likelist}
         {...getIconVariant(likelist, 'red')}
-        onClick={() => handleClick(likelist, 'like_list')}>
+        onClick={e => handleClick(e, likelist, 'like_list')}>
         <IconThumbUp size={size} />
       </CategoryIcon>
       <CategoryIcon
         role="button"
         aria-label={historylist}
         {...getIconVariant(historylist, 'blue')}
-        onClick={() => handleClick(historylist, 'history_list')}>
+        onClick={e => handleClick(e, historylist, 'history_list')}>
         <IconHistory size={size} />
       </CategoryIcon>
     </Group>
