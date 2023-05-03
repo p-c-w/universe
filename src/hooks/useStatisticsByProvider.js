@@ -64,7 +64,7 @@ const getNewData = (providers, newTotal) => {
   return newData;
 };
 
-const useStatistics = () => {
+const useStatisticsByProvider = () => {
   const { data } = useUserQuery({ select: userInfo => userInfo.history_list });
   const historyList = data || [];
   const newTotal = historyList.length;
@@ -91,4 +91,4 @@ const useStatistics = () => {
   return { newTotal, newData };
 };
 
-export default useStatistics;
+export default useStatisticsByProvider;
