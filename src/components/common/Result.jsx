@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 import { Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
-import { DetailModalWrapper, BarLoader } from '.';
+import { DetailModalWrapper, ModalSkeleton } from '.';
 
 const SearchResult = ({ id, title, name, reg, type }) => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -14,7 +14,7 @@ const SearchResult = ({ id, title, name, reg, type }) => {
         {parse((title || name).replace(reg, match => `<b>${match}</b>`))}
       </Text>
       {opened && (
-        <Suspense fallback={<BarLoader />}>
+        <Suspense fallback={<ModalSkeleton />}>
           <DetailModalWrapper opened={opened} close={close} id={id} type={type} />
         </Suspense>
       )}

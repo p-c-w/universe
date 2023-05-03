@@ -14,7 +14,7 @@ import {
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { ActionIcons, DetailModalWrapper } from '../common';
+import { ActionIcons, DetailModalWrapper, ModalSkeleton } from '../common';
 import genres from '../../constants/genres';
 import MoreButton from '../common/MoreButton';
 
@@ -93,10 +93,7 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
         </Transition>
       </Card>
       {opened && (
-        <Suspense
-          fallback={
-            <div style={{ position: 'absolute', width: '100px', height: '200px', backgroundColor: '#fff' }}></div>
-          }>
+        <Suspense fallback={<ModalSkeleton />}>
           <DetailModalWrapper opened={opened} close={close} id={id} type={mediaType} />
         </Suspense>
       )}
