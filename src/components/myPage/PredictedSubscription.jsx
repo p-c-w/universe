@@ -43,6 +43,9 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
           fw={500}>
           ₩{cheapestPrice.toLocaleString()}
         </Text>
+        <Text fz={12} fw={100} m={10}>
+          * universe에서 제공하지 않는 OTT 서비스의 구독료는 포함되지 않습니다.{' '}
+        </Text>
       </Container>
     </>
   );
