@@ -8,7 +8,7 @@ const ModalSkeleton = () => (
       <Modal.Content>
         <Overlay c="#000000" opacity={0.5} zIndex="1" />
         <Modal.Body bg="none" m={0} p={0}>
-          <Skeleton width={1000} height={562} w={'full'} />
+          <Skeleton width={1000} height={562} />
         </Modal.Body>
       </Modal.Content>
     </Modal.Root>
