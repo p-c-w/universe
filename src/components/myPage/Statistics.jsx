@@ -5,7 +5,7 @@ import { Box, useMantineColorScheme } from '@mantine/core';
 import { useSetRecoilState } from 'recoil';
 import { statisticByProviderState } from '../../recoil/atom';
 import { StatisticByProvider } from '.';
-import useStatistics from '../../hooks/useStatistics';
+import { useStatisticsByProvider } from '../../hooks';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -27,7 +27,7 @@ const Statistics = () => {
 
   const setStatisticData = useSetRecoilState(statisticByProviderState);
 
-  const newState = useStatistics();
+  const newState = useStatisticsByProvider();
 
   useEffect(() => {
     if (newState) {
