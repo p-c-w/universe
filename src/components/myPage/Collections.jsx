@@ -1,9 +1,11 @@
 import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
+import { useRecoilState } from 'recoil';
 import { CollectionButton, Collection, CollectionSkeleton } from './index';
 import { useUserQuery } from '../../hooks/queries';
 import { COLLECTION_BUTTON } from '../../constants';
+import { categoryState } from '../../recoil/atom';
 
 const MyListContainer = styled(Container)`
   display: flex;
@@ -20,7 +22,7 @@ const ContentImage = styled(Image)`
 const Collections = () => {
   const [selected, setSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
-  const [category, setCategory] = useState('watch');
+  const [category, setCategory] = useRecoilState(categoryState);
 
   const { isSuccess, data } = useUserQuery({
     select: userInfo => userInfo[`${category.toLowerCase()}_list`],
