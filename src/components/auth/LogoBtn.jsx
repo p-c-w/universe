@@ -23,11 +23,9 @@ const LogoBtn = ({ logo: { id, name }, idx, subscribedOtt, setSubscribedOtt }) =
   };
 
   return (
-    <>
-      <Logo onClick={handleLogoClick} selected={selected} p={0} h={70} variant="none" type="button" disabled={idx > 5}>
-        <Image width={70} id={id} src={`./assets/badges/${name}.svg`} alt="button" />
-      </Logo>
-    </>
+    <Logo onClick={handleLogoClick} selected={selected} p={0} h={70} variant="none" type="button" disabled={idx > 5}>
+      <Image width={70} id={id} src={`./assets/badges/${name}.svg`} alt="button" />
+    </Logo>
   );
 };
 

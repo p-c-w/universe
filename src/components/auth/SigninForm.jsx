@@ -40,13 +40,12 @@ const SigninForm = () => {
       setUser(user);
       navigate('/');
     } catch (e) {
-      console.log(e);
       notifications.show({
         id: 'hello-there',
         withCloseButton: true,
         autoClose: 2000,
         title: 'Login Failure',
-        message: 'Incorrect username or password.',
+        message: '잘못된 이메일이나 비밀번호가 입력됐습니다.',
         color: 'red',
         icon: <IconX />,
         className: 'my-notification-class',
