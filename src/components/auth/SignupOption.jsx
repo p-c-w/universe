@@ -3,6 +3,9 @@ import { Grid, Button, Container, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from '@emotion/styled';
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react';
+
 import { Typing, LogoBtn } from './index';
 
 const GridCol = styled(Grid.Col)`
@@ -34,7 +37,17 @@ const SignupOption = ({ userInput, setUserInput }) => {
       localStorage.removeItem('user');
       setUserInput(null);
     } catch (e) {
-      console.log('Error: ', e);
+      notifications.show({
+        id: 'hello-there',
+        withCloseButton: true,
+        autoClose: 2000,
+        title: 'Signup Failure',
+        message: '알 수 없는 오류가 발생했습니다.',
+        color: 'red',
+        icon: <IconX />,
+        className: 'my-notification-class',
+        loading: false,
+      });
     }
   };
 
