@@ -10,3 +10,5 @@ export { default as CarouselWithTitle } from './CarouselWithTitle';
 
 export { default as PosterSkeleton } from './PosterSkeleton';
 export { default as CarouselSkeleton } from './CarouselSkeleton';
+
+export { default as MoreButton } from './CarouselSkeleton';
