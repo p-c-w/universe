@@ -30,7 +30,7 @@ const Collections = () => {
 
   const [activePage, setActivePage] = useState(1);
   const offset = (activePage - 1) * PAGE_LIMIT;
-  const total = isSuccess && +(data.length / 5).toFixed();
+  const total = isSuccess && Math.ceil(data.length / 5);
   const collection = isSuccess && data?.slice(offset, offset + PAGE_LIMIT);
 
   return (
