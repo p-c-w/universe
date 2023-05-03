@@ -86,11 +86,9 @@ const SignUp = () => {
   return (
     <>
       <Background>
-        <Star />
-        <Star />
-        <Star />
-        <Star />
-        <Star />
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} />
+        ))}
         <BackImg
           src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg"
           alt="Glowing universe"
