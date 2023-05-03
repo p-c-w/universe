@@ -75,7 +75,10 @@ const CurrentSubscriptionInfo = () => {
     <StyledContainer>
       <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
         <Accordion.Item value={`₩${currentFee}`}>
-          <Accordion.Control>
+          <Accordion.Control
+            onClick={() => {
+              setEditMode(false);
+            }}>
             <Title order={4}>현재 나의 구독료</Title>
             <Text size="2rem">₩{currentFee.toLocaleString()}</Text>
           </Accordion.Control>
