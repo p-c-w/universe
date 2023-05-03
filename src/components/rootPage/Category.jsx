@@ -1,5 +1,16 @@
 import { forwardRef, useRef } from 'react';
-import { Group, Center, Flex, Box, SegmentedControl, MultiSelect, rem, CloseButton, Container } from '@mantine/core';
+import {
+  Group,
+  Center,
+  Flex,
+  Box,
+  SegmentedControl,
+  MultiSelect,
+  rem,
+  CloseButton,
+  useMantineColorScheme,
+  Container,
+} from '@mantine/core';
 import { IconDeviceTv, IconMovie } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { PROVIDERS } from '../../constants';
@@ -14,8 +25,6 @@ const providerData = [
 ];
 
 const CategoryContainer = styled(Container)`
-  border-bottom: 0.1px solid
-    ${({ theme }) => (theme.colorScheme === 'dark' ? 'var(--mantine-color-gray-8)' : 'var(--mantine-color-gray-3)')};
   z-index: 999;
 `;
 
@@ -66,6 +75,8 @@ const Item = forwardRef(({ label, value, ...others }, ref) => {
 
 const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
   const selectedCategory = useRef();
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
   const handleMultiSelectChange = values => {
     selectedCategory.current = values;
@@ -73,7 +84,14 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
   };
 
   return (
-    <CategoryContainer pos="sticky" top="3.75rem" mx="-2rem" px="2rem" py="xs" maw="none" opacity={0.9}>
+    <CategoryContainer
+      pos="sticky"
+      bg={dark ? 'dark.7' : 'white'}
+      top="3.75rem"
+      mx="-md"
+      py="xs"
+      maw="none"
+      opacity={0.9}>
       <Flex gap="md" justify="flex-start" align="center">
         <Group>
           <SegmentedControl
