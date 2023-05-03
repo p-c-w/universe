@@ -16,7 +16,7 @@ const CategoryIcon = styled(ThemeIcon)`
   cursor: pointer;
 `;
 
-const ActionIcons = ({ size, id, type }) => {
+const ActionIcons = ({ size, id, type, category = '' }) => {
   const userEmail = useRecoilValue(userState);
 
   const { data } = useUserQuery({ select: getUserInfo, enabled: !!userEmail });
@@ -47,27 +47,33 @@ const ActionIcons = ({ size, id, type }) => {
 
   return (
     <Group spacing={8}>
-      <CategoryIcon
-        role="button"
-        aria-label={`to ${watchlist}`}
-        {...getIconVariant(watchlist, 'yellow')}
-        onClick={e => handleClick(e, watchlist, 'watch_list')}>
-        <IconMovie size={size} />
-      </CategoryIcon>
-      <CategoryIcon
-        role="button"
-        aria-label={likelist}
-        {...getIconVariant(likelist, 'red')}
-        onClick={e => handleClick(e, likelist, 'like_list')}>
-        <IconThumbUp size={size} />
-      </CategoryIcon>
-      <CategoryIcon
-        role="button"
-        aria-label={historylist}
-        {...getIconVariant(historylist, 'blue')}
-        onClick={e => handleClick(e, historylist, 'history_list')}>
-        <IconHistory size={size} />
-      </CategoryIcon>
+      {category !== 'watch' && (
+        <CategoryIcon
+          role="button"
+          aria-label={`to ${watchlist}`}
+          {...getIconVariant(watchlist, 'yellow')}
+          onClick={e => handleClick(e, watchlist, 'watch_list')}>
+          <IconMovie size={size} />
+        </CategoryIcon>
+      )}
+      {category !== 'like' && (
+        <CategoryIcon
+          role="button"
+          aria-label={likelist}
+          {...getIconVariant(likelist, 'red')}
+          onClick={e => handleClick(e, likelist, 'like_list')}>
+          <IconThumbUp size={size} />
+        </CategoryIcon>
+      )}
+      {category !== 'history' && (
+        <CategoryIcon
+          role="button"
+          aria-label={historylist}
+          {...getIconVariant(historylist, 'blue')}
+          onClick={e => handleClick(e, historylist, 'history_list')}>
+          <IconHistory size={size} />
+        </CategoryIcon>
+      )}
     </Group>
   );
 };
