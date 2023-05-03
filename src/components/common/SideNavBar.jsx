@@ -69,7 +69,7 @@ const SideNavBar = () => {
             {user ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
-                  <Tab key={label} role="button" aria-label="label" onClick={() => setCategory(category)}>
+                  <Tab key={label} role="button" aria-label="label" onClick={() => category && setCategory(category)}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}

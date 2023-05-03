@@ -25,7 +25,7 @@ const Collections = () => {
   const [category, setCategory] = useRecoilState(categoryState);
 
   const { isSuccess, data } = useUserQuery({
-    select: userInfo => userInfo[`${category.toLowerCase()}_list`],
+    select: userInfo => userInfo[`${category}_list`],
   });
 
   const [activePage, setActivePage] = useState(1);
