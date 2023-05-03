@@ -29,11 +29,9 @@ const FirstTypeOut = styled.div`
 `;
 
 const Typing = ({ str, isLast, fontSize, onAnimationEnd }) => (
-  <>
-    <FirstTypeOut last={isLast} fontSize={fontSize} onAnimationEnd={onAnimationEnd}>
-      {str}
-    </FirstTypeOut>
-  </>
+  <FirstTypeOut last={isLast} fontSize={fontSize} onAnimationEnd={onAnimationEnd}>
+    {str}
+  </FirstTypeOut>
 );
 
 export default Typing;
