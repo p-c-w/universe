@@ -3,14 +3,10 @@ import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme, use
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { sideNavOpenedState, userState } from '../../recoil/atom';
-import { SearchBar, ThemeButton } from '.';
+import { MyMenu, SearchBar, ThemeButton } from '.';
 import { generateInitial } from '../../utils';
 
-const IconBox = styled(Avatar)`
-  cursor: pointer;
-`;
-
-const Logo = styled(IconBox)`
+const Logo = styled(Avatar)`
   cursor: pointer;
   transition: 0.1s ease;
   padding: 0.0625rem;
@@ -56,9 +52,7 @@ const ShellHeader = () => {
         <Flex align="Center">
           <ThemeButton />
           {user ? (
-            <IconBox color="violet" size="md" variant="filled">
-              {generateInitial(user)}
-            </IconBox>
+            <MyMenu initial={generateInitial(user)} />
           ) : (
             <Button component={Link} to="/signin" variant="filled" color={dark ? 'violet' : 'dark'}>
               Sign in
