@@ -16,11 +16,11 @@ const MoreButton = ({ open, pos, right, left, top, bottom }) => (
     title="더보기"
     aria-label="more"
     onClick={open}>
-    <Text fz="xs" fw={200} color="gray.1">
-      {'More'}
+    <Text fz="xs" fw={200} color="gray.4">
+      {'더보기'}
     </Text>
-    <ThemeIcon variant="transparent" color="white">
-      <IconLayersLinked size={16} color="white" />
+    <ThemeIcon variant="transparent" color="gray">
+      <IconLayersLinked size={16} color="gray" />
     </ThemeIcon>
   </Button>
 );

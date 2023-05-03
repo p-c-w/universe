@@ -36,6 +36,7 @@ const CarouselWithTitle = ({ mediaType, providerIds, title, genreId, fetchFn }) 
           }) => (
             <Slide
               key={id}
+              id={id}
               title={isMovie ? title : name}
               originalTitle={isMovie ? originalTitle : originalName}
               name={name}
