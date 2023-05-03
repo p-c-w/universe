@@ -1,7 +1,6 @@
-import React from 'react';
-
-import { Modal, Image, Grid, Container, Flex, Title, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
+import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import styled from '@emotion/styled';
+import { IconClockPlay } from '@tabler/icons-react';
 import Badges from '../Badges';
 import PROVIDERS from '../../constants/providers';
 
@@ -11,6 +10,10 @@ import { getProvidersByIds } from '../../utils';
 import { ActionIcons } from '.';
 import genres from '../../constants/genres';
 
+const BadgeContainer = styled(Container)`
+  z-index: 999;
+`;
+
 const CloseBtn = styled(Modal.CloseButton)`
   z-index: 999;
 `;
@@ -19,9 +22,31 @@ const Body = styled(Modal.Body)`
   z-index: 2;
 `;
 
+const convertRuntime = runtime => {
+  const hours = Math.floor(runtime / 60);
+  const minutes = runtime % 60;
+  return `${hours}시간 ${minutes}분`;
+};
+
 const DetailModal = ({
   type,
-  movie: { id, backdrop_path: backdropPath, poster_path: posterPath, overview, title, genres: genreIds },
+  movie: {
+    id,
+    title,
+    name: tvName,
+    original_title: originTitle,
+    original_name: originName,
+    backdrop_path: backdropPath,
+    poster_path: posterPath,
+    overview,
+    genres: genreIds,
+    release_date: relaseDate,
+    runtime,
+    tagline,
+    first_air_date: firstAirDate,
+    number_of_seasons: seasons,
+    number_of_episodes: episodes,
+  },
 }) => {
   const queries = useProviderQueries([{ id, type }], {
     select: data => ({
@@ -44,20 +69,28 @@ const DetailModal = ({
       <Modal.Content pos="relative">
         <Overlay c="#000" opacity={0.75} zIndex="1" />
         <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined}></Image>
-        <Container>
-          <Badges providers={providerIds} spacing="sm" size="2.5rem" />
-        </Container>
         <CloseBtn pos="absolute" top={10} right={20} />
         <Body m={40} c="#fff" pos="absolute" top={0}>
-          <Grid columns={5}>
-            <Grid.Col span={3}>
+          <Grid columns={3}>
+            <Grid.Col span={2}>
               <Container>
-                <Title order={1} mb="xs" mt="xs">
-                  {title}
+                <Title order={1} mb="xs" mt="lg">
+                  {title || tvName}
                 </Title>
-                <Text my="sm" pl={3}>
-                  2023
-                </Text>
+                <Title order={3} mb="xs" mt="xs">
+                  {originTitle || originName}
+                </Title>
+                <Flex my="sm" direction="row" gap="xs" align="center">
+                  <Text mr="xs">{relaseDate || firstAirDate}</Text>
+                  {runtime ? (
+                    <>
+                      <IconClockPlay size={17} />
+                      <Text>{convertRuntime(runtime)}</Text>
+                    </>
+                  ) : (
+                    <Text>{seasons > 1 ? `시즌 ${seasons}개` : `에피소드 ${episodes}개`}</Text>
+                  )}
+                </Flex>
                 <Flex justify={'space-between'}>
                   <Flex maw={200} wrap="wrap" mb="lg">
                     {genreIds.map(({ id, name }) => (
@@ -66,17 +99,25 @@ const DetailModal = ({
                       </Badge>
                     ))}
                   </Flex>
-                  <ActionIcons size={17} id={id} type={type} />
+                  <ActionIcons size={20} id={id} type={type} />
                 </Flex>
-                <ScrollArea fw={300} fz="sm" h={200}>
+                <Title my="xs" order={3} color="grey" italic>
+                  {tagline}
+                </Title>
+                <ScrollArea fw={300} fz="sm" h={150}>
                   {overview}
                 </ScrollArea>
               </Container>
             </Grid.Col>
-            <Grid.Col span={2}>
-              <Container m={10}>
+            <Grid.Col span={1}>
+              <Flex direction={'column'} m={10}>
                 <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
-              </Container>
+                <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
+                  <BadgeContainer display="flex">
+                    <Badges providers={providerIds} spacing="xs" size={45} />
+                  </BadgeContainer>
+                </Container>
+              </Flex>
             </Grid.Col>
           </Grid>
         </Body>
