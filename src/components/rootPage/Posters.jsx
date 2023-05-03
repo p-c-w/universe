@@ -1,6 +1,7 @@
-import { SimpleGrid, rem } from '@mantine/core';
+import { SimpleGrid, Space } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useCallback } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 import { useSortByPopularityInfinityQuery } from '../../hooks/queries';
 import useObserver from '../../hooks/useObserver';
 import { ScrollObserver } from '../common';
@@ -9,7 +10,6 @@ import Poster from './Poster';
 
 const CardGrid = styled(SimpleGrid)`
   position: relative;
-  grid-template-columns: repeat(5, 15.75rem);
   margin: 0 auto;
 `;
 
@@ -17,6 +17,7 @@ const observeOption = { rootMargin: '50%' };
 
 const Posters = ({ mediaType }) => {
   const { data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
+  const smallScreen = useMediaQuery('(max-width: 100rem)');
 
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
@@ -30,12 +31,14 @@ const Posters = ({ mediaType }) => {
     <>
       <CardGrid
         cols={5}
-        w={rem(1324)}
+        miw={320}
+        maw={smallScreen ? '100%' : '80%'}
+        m="0 auto"
         verticalSpacing="sm"
         breakpoints={[
-          { maxWidth: '100rem', cols: 5 },
-          { maxWidth: '48rem', cols: 2 },
-          { maxWidth: '36rem', cols: 1 },
+          { maxWidth: '80rem', cols: 4 },
+          { maxWidth: '60rem', cols: 3 },
+          { maxWidth: '40rem', cols: 2 },
         ]}>
         {content.map(
           ({
@@ -66,6 +69,7 @@ const Posters = ({ mediaType }) => {
           )
         )}
       </CardGrid>
+      <Space h="md" />
       <ScrollObserver loader={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
     </>
   );
