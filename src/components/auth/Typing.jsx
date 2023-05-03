@@ -23,8 +23,9 @@ const FirstTypeOut = styled.div`
   white-space: nowrap;
   font-size: ${({ fontSize }) => (fontSize === 'small' ? '1rem;' : '1.2rem;')};
   width: 0;
-  animation: ${typing} 2s steps(20, end) forwards, ${typingCursor} 900ms steps(20) ${({ last }) => last && 'infinite;'};
-  animation-delay: ${({ last }) => last && `calc(${last} * 2s);`};
+  animation: ${typing} 1.5s steps(20, end) forwards,
+    ${typingCursor} 900ms steps(20) ${({ last }) => last && 'infinite;'};
+  animation-delay: ${({ last }) => last && `calc(${last} * 1.5s);`};
 `;
 
 const Typing = ({ str, isLast, fontSize, onAnimationEnd }) => (
