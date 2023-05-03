@@ -4,7 +4,7 @@ import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@man
 import { useRecoilState } from 'recoil';
 import { CollectionButton, Collection, CollectionSkeleton } from './index';
 import { useUserQuery } from '../../hooks/queries';
-import { COLLECTION_BUTTON } from '../../constants';
+import { COLLECTION_BUTTON, PAGE_LIMIT } from '../../constants';
 import { categoryState } from '../../recoil/atom';
 
 const MyListContainer = styled(Container)`
@@ -28,11 +28,10 @@ const Collections = () => {
     select: userInfo => userInfo[`${category.toLowerCase()}_list`],
   });
 
-  const pageLimit = 5;
   const [activePage, setActivePage] = useState(1);
-  const offset = (activePage - 1) * pageLimit;
+  const offset = (activePage - 1) * PAGE_LIMIT;
   const total = isSuccess && +(data.length / 5).toFixed();
-  const collection = isSuccess && data?.slice(offset, offset + pageLimit);
+  const collection = isSuccess && data?.slice(offset, offset + PAGE_LIMIT);
 
   return (
     <MyListContainer fluid p={0}>
