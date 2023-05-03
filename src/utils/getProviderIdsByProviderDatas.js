@@ -1,4 +1,4 @@
-import PROVIDERS from '../constants/providers';
+import { PROVIDERS } from '../constants';
 
 const getProviderIdsByProviderDatas = providerDatas => {
   const providers = providerDatas.map(data => ({

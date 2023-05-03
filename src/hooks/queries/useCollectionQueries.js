@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query';
 import { fetchProviderAndDetail } from '../../api';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 const staleTime = 1000 * 5;
 

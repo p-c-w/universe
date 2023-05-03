@@ -1,5 +1,4 @@
-// import { PROVIDERS } from '../constants';
-import PROVIDERS from '../constants/providers';
+import { PROVIDERS } from '../constants';
 
 const getProvidersByIds = Ids =>
   Ids?.map(id => ({

@@ -3,8 +3,7 @@ import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-// import { PROVIDERS } from '../../constants';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 
@@ -43,9 +42,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      style={{ backgroundColor: 'var(--mantine-color-dark-5)', margin: '-10px', padding: '10px' }}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ margin: '-10px', padding: '10px' }}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
           <Title order={5} fw={400}>
