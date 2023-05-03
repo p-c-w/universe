@@ -9,8 +9,11 @@ import {
   rem,
   CloseButton,
   useMantineColorScheme,
+  Container,
 } from '@mantine/core';
 import { IconDeviceTv, IconMovie } from '@tabler/icons-react';
+import styled from '@emotion/styled';
+import { PROVIDERS } from '../../constants';
 
 const providerData = [
   { label: 'Netflix', value: 8 },
@@ -21,17 +24,12 @@ const providerData = [
   { label: 'Wavve', value: 356 },
 ];
 
-const badges = {
-  8: '/netflix.svg',
-  97: '/watcha.svg',
-  337: '/disneyplus.svg',
-  350: '/appletvplus.svg',
-  119: '/primevideo.svg',
-  356: '/wavve.svg',
-};
+const CategoryContainer = styled(Container)`
+  z-index: 999;
+`;
 
 const Value = ({ value, label, onRemove }) => {
-  const badgePath = badges[value];
+  const badgePath = PROVIDERS[value].providerImgPath;
 
   return (
     <Box
@@ -48,7 +46,7 @@ const Value = ({ value, label, onRemove }) => {
       <Box mr={10}>
         {
           <Box w={20}>
-            <img src={`/assets/badges${badgePath}`} alt="value" />
+            <img src={`/${badgePath}`} alt="value" />
           </Box>
         }
       </Box>
@@ -59,14 +57,14 @@ const Value = ({ value, label, onRemove }) => {
 };
 
 const Item = forwardRef(({ label, value, ...others }, ref) => {
-  const badgePath = badges[value];
+  const badgePath = PROVIDERS[value].providerImgPath;
 
   return (
     <div ref={ref} {...others}>
       <Flex align="center">
         <Box mr={10}>
           <Box w={20}>
-            <img src={`/assets/badges${badgePath}`} alt="value" />
+            <img src={`/${badgePath}`} alt="value" />
           </Box>
         </Box>
         <div>{label}</div>
@@ -86,21 +84,16 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        backgroundColor: dark ? 'var(--mantine-color-dark-7)' : 'var(--mantine-color-white)',
-        position: 'sticky',
-        margin: '0 calc(-2 * (var(--mantine-spacing-md))',
-        padding: '0 var(--mantine-spacing-xl)',
-        top: '3.75rem',
-        height: '3.125rem',
-        opacity: 0.9,
-        backdropFilter: 'blur(30px)',
-        zIndex: 999,
-      }}>
-      <Flex mih={'md'} gap="md" justify="flex-start" align="center">
-        <Group position="center">
+    <CategoryContainer
+      pos="sticky"
+      bg={dark ? 'dark.7' : 'white'}
+      top="3.75rem"
+      mx="-md"
+      py="xs"
+      maw="none"
+      opacity={0.9}>
+      <Flex gap="md" justify="flex-start" align="center">
+        <Group>
           <SegmentedControl
             value={media}
             onChange={handleMediaChange}
@@ -109,7 +102,7 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
                 value: 'movie',
                 label: (
                   <Center>
-                    <IconMovie size="1rem" stroke={1.5} />
+                    <IconMovie size={16} stroke={1.5} />
                     <Box ml={10}>Movie</Box>
                   </Center>
                 ),
@@ -118,7 +111,7 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
                 value: 'tv',
                 label: (
                   <Center>
-                    <IconDeviceTv size="1rem" stroke={1.5} />
+                    <IconDeviceTv size={16} stroke={1.5} />
                     <Box ml={10}>TV</Box>
                   </Center>
                 ),
@@ -138,7 +131,7 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
           onChange={handleMultiSelectChange}
         />
       </Flex>
-    </div>
+    </CategoryContainer>
   );
 };
 

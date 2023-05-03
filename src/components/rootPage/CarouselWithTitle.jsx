@@ -4,34 +4,46 @@ import genres from '../../constants/genres';
 import Slide from './Slide';
 
 const CarouselWithTitle = ({ mediaType, providerIds, title, genreId, fetchFn }) => {
-  const { isSuccess, data: content } = fetchFn(mediaType, providerIds, genreId);
+  const { data: content } = fetchFn(mediaType, providerIds, genreId);
   const isMovie = mediaType === 'movie';
   const headerTitle = title || genres[mediaType][genreId].name;
 
   return (
-    <Container maw={'none'} p={0} py={'md'}>
+    <Container p={0} py={'md'} fluid>
       <Title fz={'md'}>{headerTitle}</Title>
-      <Carousel slideSize="20%" mt={'md'} slideGap="md" loop align="start" slidesToScroll={6} dragFree>
-        {isSuccess &&
-          content?.map(
-            ({
-              id,
-              title,
-              name,
-              original_title: originalTitle,
-              original_name: originalName,
-              backdrop_path: backdropPath,
-            }) => (
-              <Slide
-                key={id}
-                title={isMovie ? title : name}
-                originalTitle={isMovie ? originalTitle : originalName}
-                name={name}
-                backdropPath={backdropPath}
-                mediaType={mediaType}
-              />
-            )
-          )}
+      <Carousel
+        miw={320}
+        slideSize="16.66666%"
+        slideGap="md"
+        loop
+        align="start"
+        slidesToScroll={2}
+        dragFree
+        breakpoints={[
+          { maxWidth: '110rem', slideSize: '20%' },
+          { maxWidth: '80rem', slideSize: '25%' },
+          { maxWidth: '60rem', slideSize: '33.3333%' },
+          { maxWidth: '40rem', slideSize: '50%', slideGap: 'sm' },
+        ]}>
+        {content?.map(
+          ({
+            id,
+            title,
+            name,
+            original_title: originalTitle,
+            original_name: originalName,
+            backdrop_path: backdropPath,
+          }) => (
+            <Slide
+              key={id}
+              title={isMovie ? title : name}
+              originalTitle={isMovie ? originalTitle : originalName}
+              name={name}
+              backdropPath={backdropPath}
+              mediaType={mediaType}
+            />
+          )
+        )}
       </Carousel>
     </Container>
   );

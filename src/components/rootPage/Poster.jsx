@@ -1,4 +1,3 @@
-import { IconLayersLinked } from '@tabler/icons-react';
 import {
   Container,
   Card,
@@ -7,20 +6,36 @@ import {
   Badge,
   Group,
   Flex,
-  useMantineTheme,
-  Button,
   useMantineColorScheme,
   Title,
   Overlay,
   Transition,
-  ThemeIcon,
-  Tooltip,
 } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
 import { ActionIcons, DetailModalWrapper } from '../common';
 import genres from '../../constants/genres';
+import MoreButton from '../common/MoreButton';
+
+const Img = styled(Image)`
+  overflow: hidden;
+
+  &.mantine-Image-root {
+    height: 100%;
+    .mantine-Image-figure {
+      height: 100%;
+      .mantine-Image-imageWrapper {
+        height: 100%;
+        overflow: hidden;
+        .mantine-Image-image {
+          height: 100% !important;
+          fill: cover;
+        }
+      }
+    }
+  }
+`;
 
 const Footer = styled(Group)`
   margin-top: var(--mantine-spacing-md);
@@ -29,7 +44,6 @@ const Footer = styled(Group)`
 `;
 
 const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds, mediaType }) => {
-  const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   const [hovered, setHovered] = useState(false);
   const [opened, { open, close }] = useDisclosure(false);
@@ -37,67 +51,37 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
 
   return (
     <>
-      <Card
-        w={252}
-        h={355}
-        p="0"
-        radius="md"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}>
-        <Image
+      <Card p="0" radius="md" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+        <Img
+          radius="md"
           src={posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : 'https://placehold.co/252x378?text=TDB'}
         />
         <Transition mounted={hovered} transition="fade" duration={400} timingFunction="ease">
           {styles => (
-            <Overlay
-              style={styles}
-              display="flex"
-              color={dark ? theme.colors.dark[9] : theme.colors.gray[1]}
-              p={'xl'}
-              opacity={0.85}>
+            <Overlay style={styles} display="flex" color={dark ? 'dark.9' : 'gray.1'} p="xl" opacity={0.85}>
               <Flex direction={'column'} align="baseline" justify="space-between" opacity="none">
-                <Tooltip
-                  label="더보기"
-                  position="bottom-end"
-                  color={dark ? theme.colors.gray[1] : theme.colors.dark[9]}
-                  withArrow
-                  withinPortal>
-                  <Button
-                    p="xs"
-                    variant="transparent"
-                    pos="absolute"
-                    top={theme.spacing.sm}
-                    right={theme.spacing.sm}
-                    onClick={open}
-                    fz={12}
-                    aria-label="more">
-                    {'more'}
-                    <ThemeIcon variant="transparent">
-                      <IconLayersLinked size={16} />
-                    </ThemeIcon>
-                  </Button>
-                </Tooltip>
+                <MoreButton open={open} pos={'absolute'} right={'0.9375rem'} top={'0.625rem'} />
                 <Container m={0} mt="xl" p={0} mb={'md'}>
-                  <Title fz="lg" fw={600} lineClamp={1}>
+                  <Title fz="lg" fw={600} lineClamp={1} color={'gray.1'}>
                     {title}
                   </Title>
-                  <Text fz="sm" color="dimmed" lineClamp={1}>
+                  <Text fz="sm" lineClamp={1} color={'gray.1'}>
                     {originalTitle}
                   </Text>
-                  <Text fw={200} fz={'xs'}>
+                  <Text fz="xs" fw={200} color={'gray.1'}>
                     {date}
                   </Text>
-                  <Text w="100%" mt="md" fz="xs" color="dimmed" lineClamp={5}>
+                  <Text w="100%" mt="md" fz="xs" color="dimmed" lineClamp={3}>
                     {overview}
                   </Text>
+                  <Flex wrap={'wrap'} mt="lg">
+                    {genreIds.map(id => (
+                      <Badge color={genres[mediaType][id].color} key={id}>
+                        {genres[mediaType][id].name}
+                      </Badge>
+                    ))}
+                  </Flex>
                 </Container>
-                <Flex wrap={'wrap'}>
-                  {genreIds.map(id => (
-                    <Badge color={genres[mediaType][id].color} key={id}>
-                      {genres[mediaType][id].name}
-                    </Badge>
-                  ))}
-                </Flex>
                 <Footer position="apart">
                   <Suspense fallback={<div>...loading</div>}>
                     <ActionIcons size={16} id={id} type={mediaType} />
