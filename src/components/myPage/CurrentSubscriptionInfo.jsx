@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Title, Text, Accordion, Box, Container, useMantineColorScheme } from '@mantine/core';
+import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { useProviderQueries, useUserQuery } from '../../hooks/queries';
 import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
@@ -30,8 +30,6 @@ const defaultData = {
 const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
 
 const CurrentSubscriptionInfo = () => {
-  const { colorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
   const [editMode, setEditMode] = useState(false);
 
   const { data } = useUserQuery({

@@ -1,21 +1,30 @@
-import { Flex, Badge } from '@mantine/core';
+import { Flex, Badge, useMantineColorScheme } from '@mantine/core';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { PROVIDERS } from '../../constants';
 
-// const StyledBadge = styled(Badge)`
+const StyledBadge = styled(Badge)``;
 
-// `;
+const ProviderBadges = ({ providers, variant }) => {
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
-const ProviderBadges = ({ providers, variant }) => (
-  <>
-    <Flex gap={3} wrap="wrap">
-      {providers?.map(provider => (
-        <Badge key={provider.id} size="lg" variant={variant} bg={PROVIDERS[provider.id].color} c={'white'}>
-          {provider.provider_name}
-        </Badge>
-      ))}
-    </Flex>
-  </>
-);
+  return (
+    <>
+      <Flex gap={3} wrap="wrap">
+        {providers?.map(provider => (
+          <StyledBadge
+            key={provider.id}
+            size="lg"
+            variant={variant}
+            bg={!variant && PROVIDERS[provider.id].color}
+            c={provider.id === 350 ? 'gray.7' : variant ? PROVIDERS[provider.id].color : 'white'}>
+            {provider.provider_name}
+          </StyledBadge>
+        ))}
+      </Flex>
+    </>
+  );
+};
 
 export default ProviderBadges;
