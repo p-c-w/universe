@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { useUserQuery } from '../../hooks/queries';
 import PredictedSubscription from './PredictedSubscription';
 
@@ -14,7 +15,11 @@ const PredictedFeeWrapper = () => {
 
   const userCollectionList = watchlist.map(list => ({ type: list.type, id: list.id }));
 
-  return <>{isSuccess && <PredictedSubscription watchlist={watchlist} userCollectionList={userCollectionList} />}</>;
+  return (
+    <Suspense>
+      {isSuccess && <PredictedSubscription watchlist={watchlist} userCollectionList={userCollectionList} />}
+    </Suspense>
+  );
 };
 
 export default PredictedFeeWrapper;

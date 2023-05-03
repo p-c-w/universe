@@ -1,13 +1,14 @@
-import { Box, Container, SimpleGrid } from '@mantine/core';
+import { Box, Container, SimpleGrid, Skeleton } from '@mantine/core';
 import { Suspense, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { ThemeButton, GlobalShell, BarLoader } from '../components/common';
+import { ThemeButton, GlobalShell } from '../components/common';
 import {
   Collections,
   MypageTitle,
   Statistics,
   CurrentSubscriptionInfo,
   PredictedFeeWrapper,
+  BoxSkeleton,
 } from '../components/myPage';
 import { useAuthenticationQuery } from '../hooks/queries';
 import { userState } from '../recoil/atom';
@@ -24,21 +25,21 @@ const MyPage = () => {
   return (
     <GlobalShell>
       <Container mt="1rem" mx="auto" size={'100%'} w={1240}>
-        <Suspense fallback={<BarLoader />}>
+        <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
           <MypageTitle />
         </Suspense>
         <SimpleGrid cols={2} mt={32} spacing="xl">
           <Box>
-            <Suspense fallback={<BarLoader />}>
+            <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
               <PredictedFeeWrapper />
               <CurrentSubscriptionInfo />
             </Suspense>
           </Box>
-          <Suspense>
+          <Suspense fallback={<Skeleton w={500} h="100%" />}>
             <Statistics />
           </Suspense>
         </SimpleGrid>
-        <Suspense fallback={<BarLoader />}>
+        <Suspense fallback={<BoxSkeleton w={1240} h="100%" />}>
           <Collections />
         </Suspense>
       </Container>

@@ -1,8 +1,7 @@
 import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
-import { CollectionButton, Collection } from './index';
-import { BarLoader } from '../common';
+import { CollectionButton, Collection, CollectionSkeleton } from './index';
 import { useUserQuery } from '../../hooks/queries';
 import { COLLECTION_BUTTON } from '../../constants';
 
@@ -50,7 +49,7 @@ const Collections = () => {
       </Flex>
       <Flex gap="1rem">
         <ScrollArea w="100%" h={400}>
-          <Suspense fallback={<BarLoader />}>
+          <Suspense fallback={<CollectionSkeleton />}>
             {isSuccess && <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />}
             <Pagination
               value={activePage}
