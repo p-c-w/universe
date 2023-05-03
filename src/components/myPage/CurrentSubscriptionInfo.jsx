@@ -4,7 +4,7 @@ import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { useProviderQueries, useUserQuery } from '../../hooks/queries';
 import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};

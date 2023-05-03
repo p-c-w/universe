@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 const defaultData = {
   total: '0',

@@ -3,8 +3,7 @@ import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-// import { PROVIDERS } from '../../constants';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 

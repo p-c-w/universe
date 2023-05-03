@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import Badges from '../Badges';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 import { useProviderQueries } from '../../hooks/queries';
 

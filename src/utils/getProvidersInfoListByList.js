@@ -1,5 +1,4 @@
-// import { PROVIDERS } from '../constants';
-import PROVIDERS from '../constants/providers';
+import { PROVIDERS } from '../constants';
 
 const getProvidersInfoListByList = list =>
   list?.map(({ id, price }) => ({
