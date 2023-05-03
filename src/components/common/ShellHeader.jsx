@@ -34,7 +34,7 @@ const ShellHeader = () => {
           <Burger
             opened={isOpened}
             onClick={handleBurgerClick}
-            size="sm"
+            size="md"
             color={dark ? theme.colors.gray[0] : theme.colors.dark[8]}
             mr="lg"
             aria-label={label}
