@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
-import { IconDiscountCheck } from '@tabler/icons-react';
+import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 // import { PROVIDERS } from '../../constants';
@@ -43,7 +43,9 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      style={{ backgroundColor: 'var(--mantine-color-dark-5)', margin: '-10px', padding: '10px' }}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
           <Title order={5} fw={400}>
@@ -58,7 +60,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
           </Chip>
         </Flex>
         <ActionIcon component="button" type="submit" variant="transparent" align="center" size="sm">
-          <IconDiscountCheck />
+          <IconSquareCheck />
         </ActionIcon>
       </Flex>
       <Chip.Group multiple value={selectedProviders} onChange={setSelectedProviders}>

@@ -86,11 +86,9 @@ const SignUp = () => {
   return (
     <>
       <Background>
-        <Star />
-        <Star />
-        <Star />
-        <Star />
-        <Star />
+        {[...Array(5)].map((_, i) => (
+          <Star key={i} />
+        ))}
         <BackImg
           src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg"
           alt="Glowing universe"
@@ -98,7 +96,7 @@ const SignUp = () => {
       </Background>
       <SignupHeader />
       <Flex mih={600} justify="center" direction="column" wrap="wrap">
-        <FormContainer w={550} p={20}>
+        <FormContainer c="gray.1" w={550} p={20}>
           {!userInput ? (
             <SignupForm setUserInput={setUserInput} />
           ) : (
