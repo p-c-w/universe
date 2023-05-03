@@ -4,12 +4,12 @@ import { DetailModal } from '.';
 import { useContentDetailQuery } from '../../hooks/queries';
 
 const DetailModalWrapper = ({ opened, close, id, type }) => {
-  const { data, isSuccess } = useContentDetailQuery({ type, id });
+  const { data } = useContentDetailQuery({ type, id });
 
   return (
     <>
       <Modal.Root opened={opened} onClose={close} size={1000} centered zIndex="9999">
-        {isSuccess && <DetailModal opened={opened} close={close} type={type} movie={data} />}{' '}
+        <DetailModal opened={opened} close={close} type={type} movie={data} />
       </Modal.Root>
     </>
   );
