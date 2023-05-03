@@ -1,17 +1,34 @@
-import { SimpleGrid, rem, Skeleton } from '@mantine/core';
+import { SimpleGrid, Skeleton } from '@mantine/core';
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mantine/hooks';
 
 const CardGrid = styled(SimpleGrid)`
   position: relative;
-  grid-template-columns: repeat(5, 15.75rem);
   margin: 0 auto;
 `;
 
-const PosterSkeleton = () => (
-  <CardGrid cols={5} pt="md" w={rem(1324)} verticalSpacing="sm">
-    {Array.from({ length: 10 }, (_, i) => (
-      <Skeleton key={i} w={252} h={355} radius="md" />
-    ))}
-  </CardGrid>
-);
+const PosterSkeleton = () => {
+  const smallScreen = useMediaQuery('(max-width: 100rem)');
+
+  return (
+    <CardGrid
+      cols={5}
+      miw={320}
+      maw={smallScreen ? '100%' : '80%'}
+      m="0 auto"
+      verticalSpacing="sm"
+      breakpoints={[
+        { maxWidth: '80rem', cols: 4 },
+        { maxWidth: '60rem', cols: 3 },
+        { maxWidth: '40rem', cols: 2 },
+      ]}>
+      {Array.from({ length: 20 }, (_, i) => (
+        <Skeleton key={i} radius="md">
+          <img src="https://placehold.co/252x378?text=TDB" alt="skeleton" />
+        </Skeleton>
+      ))}
+    </CardGrid>
+  );
+};
+
 export default PosterSkeleton;

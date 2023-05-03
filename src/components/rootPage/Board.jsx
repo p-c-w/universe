@@ -22,7 +22,7 @@ const Board = () => {
         handleMediaChange={handleMediaChange}
         handleCategoryChange={handleCategoryChange}
       />
-      <Container p={0} mt={'md'} maw={'none'}>
+      <Container p={0} fluid>
         {selectedIds.length === 0 ? (
           <Suspense fallback={<PosterSkeleton />}>
             <Posters mediaType={mediaType} />
