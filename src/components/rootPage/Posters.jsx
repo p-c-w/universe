@@ -13,7 +13,7 @@ const CardGrid = styled(SimpleGrid)`
   margin: 0 auto;
 `;
 
-const observeOption = { rootMargin: '50%' };
+const observeOption = { rootMargin: '30%' };
 
 const Posters = ({ mediaType }) => {
   const { data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
