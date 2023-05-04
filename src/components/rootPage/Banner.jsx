@@ -42,7 +42,7 @@ const data = [
 ];
 
 const SubContainer = ({ url, title, subtitle, backgroundColor }) => (
-  <Flex miw={800} h={400} m={0} p={50} justify="center" align="center" bg={backgroundColor}>
+  <Flex miw={800} h={'100%'} m={0} p={50} justify="center" align="center" bg={backgroundColor}>
     <Container m={0}>
       <Title order={1} c={'black'}>
         {title}
@@ -63,10 +63,10 @@ const SubContainer = ({ url, title, subtitle, backgroundColor }) => (
 
 const Banner = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
+
   return (
     <BillBoard
       withIndicators
-      height={400}
       plugins={[autoplay.current]}
       loop
       onMouseEnter={autoplay.current.stop}
