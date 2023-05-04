@@ -9,7 +9,7 @@ const AccordionLabel = ({ title, providers: providerIds }) => {
   return (
     <Group noWrap>
       {providers ? (
-        <Badges providers={providers} spacing={30} />
+        <Badges providers={providers} spacing={25} />
       ) : (
         <Badge src={`./assets/logos/universeLogoWhite.svg`} size="2.2rem" />
       )}

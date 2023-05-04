@@ -33,7 +33,7 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
       <Container m={0} p={0}>
         <Flex align="center" gap={20}>
           <Title order={2} size={30} align="left">
-            예상 구독료
+            똑똑한 구독료
           </Title>
           <Badges providers={cheapestCombo} size="2rem" />
         </Flex>
