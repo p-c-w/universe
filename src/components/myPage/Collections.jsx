@@ -1,4 +1,4 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
 import { useRecoilState } from 'recoil';
@@ -32,6 +32,10 @@ const Collections = () => {
   const offset = (activePage - 1) * PAGE_LIMIT;
   const total = Math.ceil(data.length / 5);
   const collection = data.slice(offset, offset + PAGE_LIMIT);
+
+  useEffect(() => {
+    setActivePage(1);
+  }, [category]);
 
   return (
     <MyListContainer fluid p={0}>
