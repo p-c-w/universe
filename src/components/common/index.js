@@ -3,9 +3,7 @@ export { default as ShellHeader } from './ShellHeader';
 export { default as SearchBar } from './SearchBar';
 export { default as SearchResult } from './SearchResult';
 export { default as ThemeButton } from './ThemeButton';
-
 export { default as SideNavBar } from './SideNavBar';
-
 export { default as ScrollObserver } from './ScrollObserver';
 export { default as BarLoader } from './BarLoader';
 export { default as ActionIcons } from './ActionIcons';
@@ -14,3 +12,5 @@ export { default as DetailModalWrapper } from './DetailModalWrapper';
 export { default as Result } from './Result';
 export { default as MyMenu } from './MyMenu';
 export { default as ModalSkeleton } from './ModalSkeleton';
+export { default as Badge } from './Badge';
+export { default as Badges } from './Badges';

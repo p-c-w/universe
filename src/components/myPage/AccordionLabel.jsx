@@ -1,6 +1,6 @@
 import React from 'react';
 import { Group, Text } from '@mantine/core';
-import { Badges, Badge } from '..';
+import { Badges, Badge } from '../common';
 import { getProvidersByIds } from '../../utils';
 
 const AccordionLabel = ({ title, providers: providerIds }) => {

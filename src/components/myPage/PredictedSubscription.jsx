@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Title, Text, Flex, useMantineColorScheme, useMantineTheme } from '@mantine/core';
-import { Badges } from '../index';
+import { Badges } from '../common';
 
 import { useProviderQueries } from '../../hooks/queries';
 import PROVIDERS from '../../constants/providers';
