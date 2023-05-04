@@ -3,7 +3,7 @@ import { Container, Title, Text, Flex, useMantineColorScheme, useMantineTheme } 
 import { Badges } from '../common';
 
 import { useProviderQueries } from '../../hooks/queries';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 import calculateLowestFee from '../../utils/calculateLowestFee';
 

@@ -4,17 +4,14 @@ import { Title, Text, Accordion, Box, Container } from '@mantine/core';
 import { ProviderBadges, SubscriptionProviders, SubscriptionEditor } from './index';
 import { useProviderQueries, useUserQuery } from '../../hooks/queries';
 import { getProvidersInfoListByList, getProvidersIdsByList, getProvidersByIds } from '../../utils';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
   border-radius: 0.5rem;
-  padding: 1rem;
 `;
 
 const PresentSubscriptionFee = styled(Accordion)`
-  /* border-bottom: 1px solid white; */
-
   button {
     padding: 0;
   }
@@ -38,6 +35,7 @@ const CurrentSubscriptionInfo = () => {
   const { data } = useUserQuery({
     select: getUserInfo,
   });
+
   const { subscribeList, watchList } = data || defaultData;
 
   const queries = useProviderQueries(watchList, {
@@ -72,7 +70,7 @@ const CurrentSubscriptionInfo = () => {
   };
 
   return (
-    <StyledContainer>
+    <StyledContainer p={16}>
       <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
         <Accordion.Item value={`₩${currentFee}`}>
           <Accordion.Control

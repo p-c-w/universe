@@ -2,7 +2,7 @@ import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, 
 import styled from '@emotion/styled';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import PROVIDERS from '../../constants/providers';
+import { PROVIDERS } from '../../constants';
 
 import { useProviderQueries } from '../../hooks/queries';
 
