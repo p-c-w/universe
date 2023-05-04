@@ -1,5 +1,5 @@
 import { Suspense, useState } from 'react';
-import { useClickOutside, useDebouncedValue } from '@mantine/hooks';
+import { useClickOutside, useDebouncedValue, useMediaQuery } from '@mantine/hooks';
 import { TextInput, ActionIcon, useMantineColorScheme, Loader, Container, Flex } from '@mantine/core';
 import { IconSearch, IconArrowRight } from '@tabler/icons-react';
 import styled from '@emotion/styled';
@@ -12,6 +12,7 @@ const ResultContiner = styled(Flex)`
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState('');
   const [debounced] = useDebouncedValue(searchInput, 300);
+  const smallScreen = useMediaQuery('(max-width: 60rem)');
 
   const [opened, setOpened] = useState(false);
   const ref = useClickOutside(() => setOpened(false));
@@ -20,10 +21,11 @@ const SearchBar = () => {
   const dark = colorScheme === 'dark';
 
   return (
-    <Container pos="relative" w={450} mx="md" p={0}>
+    <Container pos="relative" w={smallScreen ? 250 : 450} mx="md" p={0}>
       <TextInput
         icon={<IconSearch size="1.1rem" stroke={1.5} />}
         p={0}
+        fz={smallScreen ? 10 : 12}
         radius="xl"
         color={dark ? 'violet' : 'dark'}
         rightSection={
@@ -47,7 +49,7 @@ const SearchBar = () => {
           fallback={
             <ResultContiner
               pos="absolute"
-              w={450}
+              w={smallScreen ? 250 : 450}
               left="0"
               align="center"
               justify="center"

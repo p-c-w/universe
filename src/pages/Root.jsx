@@ -1,4 +1,4 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { GlobalShell, ThemeButton } from '../components/common';
 import { Banner, Board } from '../components/rootPage';
@@ -7,7 +7,7 @@ import { userState } from '../recoil/atom';
 
 const Root = () => {
   const { isSuccess, data } = useAuthenticationQuery();
-  const setUser = useSetRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState);
 
   useEffect(() => {
     if (isSuccess) setUser(data.data);
@@ -17,7 +17,7 @@ const Root = () => {
   return (
     <>
       <GlobalShell>
-        <Banner />
+        {!user && <Banner />}
         <Board />
       </GlobalShell>
       <ThemeButton />

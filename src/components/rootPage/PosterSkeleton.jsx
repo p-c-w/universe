@@ -23,8 +23,8 @@ const PosterSkeleton = () => {
         { maxWidth: '40rem', cols: 2 },
       ]}>
       {Array.from({ length: 20 }, (_, i) => (
-        <Skeleton key={i} radius="md">
-          <img src="https://placehold.co/252x378?text=TDB" alt="skeleton" />
+        <Skeleton key={i} radius="md" mih="300">
+          <img src="https://placehold.co/252x378" alt="skeleton" />
         </Skeleton>
       ))}
     </CardGrid>

@@ -2,13 +2,12 @@ import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, 
 import styled from '@emotion/styled';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import Badges from '../Badges';
 import { PROVIDERS } from '../../constants';
 
 import { useProviderQueries } from '../../hooks/queries';
 
 import { getProvidersByIds } from '../../utils';
-import { ActionIcons } from '.';
+import { ActionIcons, Badges } from '.';
 import genres from '../../constants/genres';
 
 const BadgeContainer = styled(Container)`

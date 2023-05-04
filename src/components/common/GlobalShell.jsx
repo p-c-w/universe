@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { SideNavBar, ShellHeader } from '.';
 
 const Layout = styled(AppShell)`
-  & .main {
-    background: ${({ theme }) => (theme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0])};
+  & .mantine-AppShell-main {
+    background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1])};
   }
 `;
 

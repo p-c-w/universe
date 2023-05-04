@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useRef } from 'react';
 import { Container, Flex, ScrollArea, Space, Text, Title } from '@mantine/core';
 import styled from '@emotion/styled';
+import { useMediaQuery } from '@mantine/hooks';
 import { useSearchResultQueries } from '../../hooks/queries';
 
 import { Result } from '.';
@@ -34,13 +35,23 @@ const Scroll = styled(ScrollArea.Autosize)`
 const SearchResult = forwardRef(({ input }, ref) => {
   const searchResults = useSearchResultQueries(mediaType, input);
   const userInputRegex = useRef(null);
+  const smallScreen = useMediaQuery('(max-width: 60rem)');
 
   useEffect(() => {
     userInputRegex.current = new RegExp(input, 'i');
   }, [input]);
 
   return (
-    <ResultContiner ref={ref} pos="absolute" w={450} px="lg" pt="1.875rem" pb="1.875rem" left="0" c="gray.7" bg="white">
+    <ResultContiner
+      ref={ref}
+      pos="absolute"
+      w={smallScreen ? 250 : 450}
+      px={smallScreen ? 'xs' : 'lg'}
+      pt="1.875rem"
+      pb="1.875rem"
+      left="0"
+      c="gray.7"
+      bg="white">
       {searchResults.map((searchResult, idx) => (
         <Container key={idx}>
           <Flex align="center" justify="space-between">
