@@ -36,7 +36,7 @@ const data = [
   {
     url: banner3,
     title: '나의 Universe',
-    subtitle: '만들고 싶다면',
+    subtitle: '만들어 보고 싶다면',
     backgroundColor: 'blue.4',
   },
 ];
@@ -44,11 +44,11 @@ const data = [
 const SubContainer = ({ url, title, subtitle, backgroundColor }) => (
   <Flex miw={800} h={400} m={0} p={50} justify="center" align="center" bg={backgroundColor}>
     <Container m={0}>
-      <Title order={1} c={'white'}>
+      <Title order={1} c={'black'}>
         {title}
       </Title>
       <Space h={10} />
-      <Title order={2} fw={400} c={'white'}>
+      <Title order={2} fw={400} c={'black'}>
         {subtitle}
       </Title>
       <Space h={50} />
