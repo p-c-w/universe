@@ -11,6 +11,7 @@ const useSortByReleaseDateQuery = (mediaType, providerIds) => {
     queryFn: () => fetchSortByReleaseDate(mediaType, strProviderId),
     staleTime,
     suspense: true,
+    refetchOnWindowFocus: false,
     select: datas => datas.results,
   });
 

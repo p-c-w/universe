@@ -11,6 +11,7 @@ const useSortByPopularityInfinityQuery = mediaType => {
       lastPage.pages !== lastPage.total_pages ? allPages.length + 1 : undefined,
     staleTime,
     suspense: true,
+    refetchOnWindowFocus: false,
     select: datas => datas.pages.map(data => data.results).flat(),
   });
 
