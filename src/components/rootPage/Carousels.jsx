@@ -5,7 +5,7 @@ import { useSortByPopularityQuery, useSortByReleaseDateQuery, useWithGenreQuery 
 import useObserver from '../../hooks/useObserver';
 import genres from '../../constants/genres';
 
-const observeOption = { rootMargin: '50%' };
+const observeOption = { rootMargin: '30%' };
 
 const Carousels = ({ mediaType, providerIds }) => {
   const genreKeys = Object.keys(genres[mediaType]);
