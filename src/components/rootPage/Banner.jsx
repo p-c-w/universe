@@ -52,15 +52,8 @@ const SubContainer = ({ url, title, subtitle, backgroundColor }) => (
         {subtitle}
       </Title>
       <Space h={50} />
-      <Button
-        w={280}
-        h={50}
-        component={Link}
-        to={'/signin'}
-        // variant="gradient"
-        // gradient={{ from: 'violet', to: 'blue', deg: 60 }}
-      >
-        Get Stared!
+      <Button w={280} h={50} component={Link} to={'/signin'} fz="lg">
+        Get Started!
       </Button>
     </Container>
     <Space w={100} />
