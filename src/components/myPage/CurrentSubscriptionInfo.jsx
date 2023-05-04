@@ -90,7 +90,11 @@ const CurrentSubscriptionInfo = () => {
         </Accordion.Item>
       </PresentSubscriptionFee>
       <Box mt={16}>
-        {unWatchedProvidersInfoList?.length ? (
+        {!subscribeProviderIds.length ? (
+          <Title order={5} mb={10}>
+            현재 구독 중인 서비스가 없어요
+          </Title>
+        ) : unWatchedProvidersInfoList?.length ? (
           <>
             <Title order={5} mb={10}>
               구독하고 있지만 보고 있지 않아요
