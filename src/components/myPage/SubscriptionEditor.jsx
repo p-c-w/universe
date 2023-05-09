@@ -3,18 +3,11 @@ import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { PROVIDERS } from '../../constants';
 import { userState } from '../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
+import { getNewSubscribeList, getProviderArray } from '../../utils';
 
-const providerArray = Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
-
-const getNewSubscribeList = selectedNames => {
-  const newProviderNames = selectedNames.map(name => providerArray.find(item => item.provider_name === name));
-  const newList = newProviderNames.map(provider => ({ id: provider.id, price: 'basic' }));
-
-  return newList;
-};
+const providerArray = getProviderArray();
 
 const SubscriptionEditor = ({ providers, onClick }) => {
   const providersNames = providers?.map(provider => provider.provider_name);
