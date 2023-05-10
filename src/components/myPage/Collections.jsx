@@ -2,7 +2,7 @@ import { Suspense, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
 import { useRecoilState } from 'recoil';
-import { CollectionButton, Collection, CollectionSkeleton } from './index';
+import { CollectionButton, Collection, CollectionSkeleton, EmptyCollection } from './index';
 import { useUserQuery } from '../../hooks/queries';
 import { COLLECTION_BUTTON, PAGE_LIMIT } from '../../constants';
 import { categoryState } from '../../recoil/atom';
@@ -55,7 +55,11 @@ const Collections = () => {
       <Flex gap="1rem">
         <ScrollArea w="100%" h={400}>
           <Suspense fallback={<CollectionSkeleton />}>
-            <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />
+            {data.length === 0 ? (
+              <EmptyCollection category={category} />
+            ) : (
+              <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />
+            )}
           </Suspense>
           <Pagination
             value={activePage}

@@ -14,3 +14,4 @@ export { default as StatisticByProvider } from './StatisticByProvider';
 export { default as CollectionItem } from './CollectionItem';
 export { default as CollectionSkeleton } from './CollectionSkeleton';
 export { default as BoxSkeleton } from './BoxSkeleton';
+export { default as EmptyCollection } from './EmptyCollection';
