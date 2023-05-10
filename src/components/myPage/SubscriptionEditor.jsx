@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
-import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
+import { Chip, Flex, Title, ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
@@ -9,14 +9,16 @@ import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 import { getNewSubscribeList, getProviderArray } from '../../utils';
 
 const EditForm = styled.form`
-  margin: -0.625rem;
-  padding: 0.625rem;
-  /* background-color: var(--mantine-color-dark-5); */
+  margin: 1rem -0.625rem;
+  padding: 1rem;
+  background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[8] : theme.colors.gray[3])};
 `;
 
 const providerArray = getProviderArray();
 
 const SubscriptionEditor = ({ providers, onClick }) => {
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
   const providersNames = providers?.map(provider => provider.provider_name);
 
   const { mutate: updateSubscribeList } = useUpdateSubscriptionMutation();
@@ -63,7 +65,11 @@ const SubscriptionEditor = ({ providers, onClick }) => {
       <Chip.Group multiple value={selectedProviders} onChange={setSelectedProviders}>
         <Flex gap={3} wrap="wrap">
           {providerArray.map(provider => (
-            <Chip key={provider.id} value={provider.provider_name} {...register(`${provider.provider_name}`)}>
+            <Chip
+              key={provider.id}
+              value={provider.provider_name}
+              color={dark ? `${provider.provider_name}.4` : provider.provider_name}
+              {...register(`${provider.provider_name}`)}>
               {provider.provider_name}
             </Chip>
           ))}
