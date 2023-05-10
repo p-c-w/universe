@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import useColorScheme from './hooks/useColorScheme';
 import { Root, MyPage, SignIn, SignUp } from './pages';
 import AuthenticationGuard from './guard/AuthenticationGuard';
+import { colors } from './constants';
 
 const queryClient = new QueryClient({
   retry: 3,
@@ -33,7 +34,12 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider
-            theme={{ fontFamily: 'Spoqa Han Sans Neo, sans-serif', colorScheme, primaryColor: 'violet' }}
+            theme={{
+              fontFamily: 'Spoqa Han Sans Neo, sans-serif',
+              colorScheme,
+              primaryColor: 'violet',
+              colors,
+            }}
             withCSSVariables
             withGlobalStyles
             withNormalizeCSS>
