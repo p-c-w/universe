@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styled from '@emotion/styled';
 import { Chip, Flex, Title, ActionIcon } from '@mantine/core';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
@@ -6,6 +7,11 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 import { getNewSubscribeList, getProviderArray } from '../../utils';
+
+const Editor = styled.form`
+  margin: -0.625rem;
+  padding: 0.625rem;
+`;
 
 const providerArray = getProviderArray();
 
@@ -35,7 +41,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ margin: '-10px', padding: '10px' }}>
+    <Editor onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
           <Title order={5} fw={400}>
@@ -62,7 +68,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
           ))}
         </Flex>
       </Chip.Group>
-    </form>
+    </Editor>
   );
 };
 
