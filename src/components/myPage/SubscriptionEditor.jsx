@@ -8,9 +8,10 @@ import { userState } from '../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 import { getNewSubscribeList, getProviderArray } from '../../utils';
 
-const Editor = styled.form`
+const EditForm = styled.form`
   margin: -0.625rem;
   padding: 0.625rem;
+  /* background-color: var(--mantine-color-dark-5); */
 `;
 
 const providerArray = getProviderArray();
@@ -41,7 +42,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   };
 
   return (
-    <Editor onSubmit={handleSubmit(onSubmit)}>
+    <EditForm onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
           <Title order={5} fw={400}>
@@ -68,7 +69,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
           ))}
         </Flex>
       </Chip.Group>
-    </Editor>
+    </EditForm>
   );
 };
 
