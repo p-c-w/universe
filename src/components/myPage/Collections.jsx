@@ -21,7 +21,7 @@ const ContentImage = styled(Image)`
 `;
 
 const Collections = () => {
-  const [selected, setSelected] = useState(false);
+  const [itemSelected, setItemSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
   const [category, setCategory] = useRecoilState(categoryState);
 
@@ -52,7 +52,7 @@ const Collections = () => {
             {data.length === 0 ? (
               <EmptyCollection category={category} />
             ) : (
-              <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />
+              <Collection collection={collection} setItemSelected={setItemSelected} setImgSrc={setImgSrc} />
             )}
           </Suspense>
           <Pagination
@@ -67,8 +67,8 @@ const Collections = () => {
             m="sm"
           />
         </ScrollArea>
-        <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
-          {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
+        <Transition mounted={itemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
+          {styles => <ContentImage open={itemSelected} width={300} src={imgSrc} alt="content image" style={styles} />}
         </Transition>
       </Flex>
     </MyListContainer>

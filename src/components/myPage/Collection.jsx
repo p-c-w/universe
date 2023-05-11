@@ -5,7 +5,7 @@ import { useCollectionQueries } from '../../hooks/queries';
 import { DetailModalWrapper, ModalSkeleton } from '../common';
 import { CollectionItem } from '.';
 
-const Collection = ({ collection, setSelected, setImgSrc }) => {
+const Collection = ({ collection, setItemSelected, setImgSrc }) => {
   const collectionQueries = useCollectionQueries(collection);
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -22,7 +22,7 @@ const Collection = ({ collection, setSelected, setImgSrc }) => {
 
   const handleChange = e => {
     itemRef.current = e;
-    setSelected(itemRef.current !== null);
+    setItemSelected(itemRef.current !== null);
     setImgSrc(
       itemRef.current && `https://image.tmdb.org/t/p/w300${collectionList.find(item => item.title === e)?.posterPath}`
     );
