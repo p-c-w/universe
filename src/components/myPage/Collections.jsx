@@ -1,11 +1,12 @@
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
 import { useRecoilState } from 'recoil';
 import { CollectionCategoryButton, Collection, CollectionSkeleton, EmptyCollection } from './index';
 import { useUserQuery } from '../../hooks/queries';
-import { COLLECTION_BUTTON, PAGE_LIMIT } from '../../constants';
+import { COLLECTION_BUTTON } from '../../constants';
 import { categoryState } from '../../recoil/atom';
+import { usePagination } from '../../hooks';
 
 const MyListContainer = styled(Container)`
   display: flex;
@@ -28,14 +29,7 @@ const Collections = () => {
     select: userInfo => userInfo[`${category}_list`],
   });
 
-  const [activePage, setActivePage] = useState(1);
-  const offset = (activePage - 1) * PAGE_LIMIT;
-  const total = Math.ceil(data.length / 5);
-  const collection = data.slice(offset, offset + PAGE_LIMIT);
-
-  useEffect(() => {
-    setActivePage(1);
-  }, [category]);
+  const { activePage, setActivePage, total, collection } = usePagination(data, category);
 
   return (
     <MyListContainer fluid p={0}>
