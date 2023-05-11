@@ -2,7 +2,7 @@ import { Suspense, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
 import { useRecoilState } from 'recoil';
-import { CollectionButton, Collection, CollectionSkeleton, EmptyCollection } from './index';
+import { CollectionCategoryButton, Collection, CollectionSkeleton, EmptyCollection } from './index';
 import { useUserQuery } from '../../hooks/queries';
 import { COLLECTION_BUTTON, PAGE_LIMIT } from '../../constants';
 import { categoryState } from '../../recoil/atom';
@@ -41,7 +41,7 @@ const Collections = () => {
     <MyListContainer fluid p={0}>
       <Flex gap="0.8rem">
         {COLLECTION_BUTTON.map(button => (
-          <CollectionButton
+          <CollectionCategoryButton
             key={button.label}
             onClick={() => {
               setCategory(`${button.label.toLowerCase()}`);
@@ -49,7 +49,7 @@ const Collections = () => {
             selected={category === `${button.label.toLowerCase()}`}
             tooltip={button.description}>
             {button.label}
-          </CollectionButton>
+          </CollectionCategoryButton>
         ))}
       </Flex>
       <Flex gap="1rem">
