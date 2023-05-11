@@ -31,15 +31,19 @@ const Collections = () => {
 
   const { activePage, setActivePage, total, collection } = usePagination(data, category);
 
+  const handleClick = (e, button) => {
+    if (`${e.target.textContent.toLowerCase()}` === category) return;
+    setCategory(`${button.label.toLowerCase()}`);
+    setItemSelected(false);
+  };
+
   return (
     <MyListContainer fluid p={0}>
       <Flex gap="0.8rem">
         {COLLECTION_BUTTON.map(button => (
           <CollectionCategoryButton
             key={button.label}
-            onClick={() => {
-              setCategory(`${button.label.toLowerCase()}`);
-            }}
+            onClick={e => handleClick(e, button)}
             selected={category === `${button.label.toLowerCase()}`}
             tooltip={button.description}>
             {button.label}

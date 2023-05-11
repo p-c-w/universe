@@ -1,15 +1,19 @@
-import { useRef, Suspense, useState } from 'react';
+import { useRef, Suspense, useState, useEffect } from 'react';
 import { Accordion } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useRecoilValue } from 'recoil';
 import { useCollectionQueries } from '../../hooks/queries';
 import { DetailModalWrapper, ModalSkeleton } from '../common';
 import { CollectionItem } from '.';
+import { categoryState } from '../../recoil/atom';
 
 const Collection = ({ collection, setItemSelected, setImgSrc }) => {
+  const category = useRecoilValue(categoryState);
   const collectionQueries = useCollectionQueries(collection);
   const [opened, { open, close }] = useDisclosure(false);
 
   const [clicked, setClicked] = useState(null);
+  const [value, setValue] = useState(null);
 
   const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
 
@@ -20,7 +24,12 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
 
   const itemRef = useRef(null);
 
+  useEffect(() => {
+    setValue(null);
+  }, [category]);
+
   const handleChange = e => {
+    setValue(e);
     itemRef.current = e;
     setItemSelected(itemRef.current !== null);
     setImgSrc(
@@ -30,7 +39,12 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
 
   return (
     <>
-      <Accordion chevronPosition="right" variant="separated" sx={{ width: '100%' }} onChange={handleChange}>
+      <Accordion
+        chevronPosition="right"
+        variant="separated"
+        sx={{ width: '100%' }}
+        onChange={handleChange}
+        value={value}>
         {allQueriesSucceeded &&
           collectionList?.map(item => <CollectionItem key={item.id} item={item} setClicked={setClicked} open={open} />)}
       </Accordion>
