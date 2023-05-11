@@ -17,16 +17,8 @@ const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
 
   const subscribeProviderIds = getProvidersIdsByList(subscribeList);
 
-  const whatchProvidersWithContenId = [];
-  queries.forEach(query => {
-    if (query.isSuccess) whatchProvidersWithContenId.push(query.data);
-  });
-
-  const whatchProviderIds = whatchProvidersWithContenId?.flatMap(content => content.providers);
-
-  const unWatchedProviderIds = subscribeProviderIds?.filter(
-    subscribeProviderId => !whatchProviderIds.includes(subscribeProviderId)
-  );
+  const whatchProviderIds = queries.map(({ data }) => data).flatMap(content => content?.providers);
+  const unWatchedProviderIds = subscribeProviderIds?.filter(id => !whatchProviderIds.includes(id));
 
   const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
 
