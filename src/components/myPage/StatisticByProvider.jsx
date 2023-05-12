@@ -1,4 +1,4 @@
-import { Progress, Box, Text, Group, Paper, SimpleGrid, Title, useMantineColorScheme } from '@mantine/core';
+import { Progress, Box, Text, Group, Paper, SimpleGrid, Title, useMantineColorScheme, Flex } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
@@ -72,7 +72,7 @@ const StatisticByProvider = () => {
 
   return (
     <Paper withBorder p={40} pt="sm" radius="md" h="100%">
-      <Box h="80%">
+      <Flex direction="column" justify="center" h="100%">
         <Title order={3} align="left">
           Universe 분석
         </Title>
@@ -96,7 +96,7 @@ const StatisticByProvider = () => {
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="md">
           {descriptions}
         </SimpleGrid>
-      </Box>
+      </Flex>
     </Paper>
   );
 };
