@@ -54,13 +54,6 @@ const defaultData = {
       color: `${genres.tv[10751].color}`,
     },
     {
-      id: 14,
-      label: '판타지',
-      count: 0,
-      part: 0,
-      color: `${genres.movie[14].color}`,
-    },
-    {
       id: 36,
       label: '역사',
       count: 0,
