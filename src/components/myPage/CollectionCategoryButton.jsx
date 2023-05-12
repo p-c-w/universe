@@ -1,6 +1,6 @@
 import { Button, Tooltip, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 
-const CollectionButton = ({ tooltip, selected, children, onClick }) => {
+const CollectionCategoryButton = ({ tooltip, selected, children, onClick }) => {
   const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const dark = colorScheme === 'dark';
@@ -17,4 +17,4 @@ const CollectionButton = ({ tooltip, selected, children, onClick }) => {
   );
 };
 
-export default CollectionButton;
+export default CollectionCategoryButton;

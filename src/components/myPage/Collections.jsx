@@ -1,11 +1,12 @@
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
 import { useRecoilState } from 'recoil';
-import { CollectionButton, Collection, CollectionSkeleton } from './index';
+import { CollectionCategoryButton, Collection, CollectionSkeleton, EmptyCollection } from './index';
 import { useUserQuery } from '../../hooks/queries';
-import { COLLECTION_BUTTON, PAGE_LIMIT } from '../../constants';
+import { COLLECTION_BUTTON } from '../../constants';
 import { categoryState } from '../../recoil/atom';
+import { usePagination } from '../../hooks';
 
 const MyListContainer = styled(Container)`
   display: flex;
@@ -20,7 +21,7 @@ const ContentImage = styled(Image)`
 `;
 
 const Collections = () => {
-  const [selected, setSelected] = useState(false);
+  const [itemSelected, setItemSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
   const [category, setCategory] = useRecoilState(categoryState);
 
@@ -28,34 +29,35 @@ const Collections = () => {
     select: userInfo => userInfo[`${category}_list`],
   });
 
-  const [activePage, setActivePage] = useState(1);
-  const offset = (activePage - 1) * PAGE_LIMIT;
-  const total = Math.ceil(data.length / 5);
-  const collection = data.slice(offset, offset + PAGE_LIMIT);
+  const { activePage, setActivePage, total, collection } = usePagination(data, category);
 
-  useEffect(() => {
-    setActivePage(1);
-  }, [category]);
+  const handleClick = (e, button) => {
+    if (`${e.target.textContent.toLowerCase()}` === category) return;
+    setCategory(`${button.label.toLowerCase()}`);
+    setItemSelected(false);
+  };
 
   return (
     <MyListContainer fluid p={0}>
       <Flex gap="0.8rem">
         {COLLECTION_BUTTON.map(button => (
-          <CollectionButton
+          <CollectionCategoryButton
             key={button.label}
-            onClick={() => {
-              setCategory(`${button.label.toLowerCase()}`);
-            }}
+            onClick={e => handleClick(e, button)}
             selected={category === `${button.label.toLowerCase()}`}
             tooltip={button.description}>
             {button.label}
-          </CollectionButton>
+          </CollectionCategoryButton>
         ))}
       </Flex>
       <Flex gap="1rem">
         <ScrollArea w="100%" h={400}>
           <Suspense fallback={<CollectionSkeleton />}>
-            <Collection collection={collection} setSelected={setSelected} setImgSrc={setImgSrc} />
+            {data.length === 0 ? (
+              <EmptyCollection category={category} />
+            ) : (
+              <Collection collection={collection} setItemSelected={setItemSelected} setImgSrc={setImgSrc} />
+            )}
           </Suspense>
           <Pagination
             value={activePage}
@@ -69,8 +71,8 @@ const Collections = () => {
             m="sm"
           />
         </ScrollArea>
-        <Transition mounted={selected} transition="pop-top-right" duration={400} timingFunction="ease">
-          {styles => <ContentImage open={selected} width={300} src={imgSrc} alt="content image" style={styles} />}
+        <Transition mounted={itemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
+          {styles => <ContentImage open={itemSelected} width={300} src={imgSrc} alt="content image" style={styles} />}
         </Transition>
       </Flex>
     </MyListContainer>

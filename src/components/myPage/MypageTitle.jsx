@@ -43,6 +43,11 @@ const MypageTitle = () => {
   }, [name]);
 
   const handleKeyUp = e => {
+    if (e.key === 'Escape') {
+      setUserName(name);
+      setEditMode(false);
+    }
+
     const content = userName.trim();
     if (e.key !== 'Enter' || content === '') return;
     updateUserName({ email, name: content });

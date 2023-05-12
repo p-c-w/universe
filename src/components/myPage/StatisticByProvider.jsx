@@ -1,46 +1,27 @@
-import {
-  createStyles,
-  Progress,
-  Box,
-  Text,
-  Group,
-  Paper,
-  SimpleGrid,
-  rem,
-  Title,
-  useMantineColorScheme,
-} from '@mantine/core';
+import { Progress, Box, Text, Group, Paper, SimpleGrid, Title, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled';
 import { statisticByProviderState } from '../../recoil/atom';
 
-const useStyles = createStyles(theme => ({
-  progressLabel: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    lineHeight: 1,
-    fontSize: theme.fontSizes.sm,
-  },
+const ProgressLabel = styled(Progress)`
+  .mantine-Progress-label {
+    line-height: 1;
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+  }
+`;
 
-  stat: {
-    borderBottom: `${rem(3)} solid`,
-    paddingBottom: rem(5),
-  },
+const Stat = styled(Box)`
+  border-bottom: 0.1875rem solid ${props => props.color};
+`;
 
-  statCount: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    lineHeight: 1.3,
-  },
+const Diff = styled(Text)`
+  align-items: center;
+`;
 
-  diff: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  icon: {
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4],
-  },
-}));
+const Icon = styled(IconDeviceAnalytics)`
+  color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
+`;
 
 const getMaxProvider = datas => {
   let max = 0;
@@ -56,12 +37,10 @@ const getMaxProvider = datas => {
 
 const StatisticByProvider = () => {
   const { total, data } = useRecoilValue(statisticByProviderState);
-
-  const maxProvider = getMaxProvider(data);
-
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-  const { classes } = useStyles();
+
+  const maxProvider = getMaxProvider(data);
 
   const segments = data.map(segment => ({
     value: segment.part,
@@ -71,7 +50,7 @@ const StatisticByProvider = () => {
   }));
 
   const descriptions = data.map(stat => (
-    <Box key={stat.label} sx={{ borderBottomColor: stat.color }} className={classes.stat}>
+    <Stat key={stat.label} color={stat.color} pb={5}>
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
       </Text>
@@ -84,11 +63,11 @@ const StatisticByProvider = () => {
           c={stat.label === 'Apple TV+' && !dark ? 'gray' : stat.label === 'Disney+' && dark ? 'indigo.5' : stat.color}
           fw={700}
           size="xs"
-          className={classes.statCount}>
+          lh="1.3">
           {stat.part}%
         </Text>
       </Group>
-    </Box>
+    </Stat>
   ));
 
   return (
@@ -107,13 +86,13 @@ const StatisticByProvider = () => {
               건의 컨텐츠를 감상했어요.
             </Text>
           </Group>
-          <IconDeviceAnalytics size="1.4rem" className={classes.icon} stroke={1.5} />
+          <Icon size="1.4rem" stroke={1.5} />
         </Group>
-        <Text c="teal" className={classes.diff} fz="sm" fw={700}>
+        <Diff c="teal" fz="sm" fw={700} display="flex">
           {maxProvider}를 가장 많이 사용했어요.
-        </Text>
+        </Diff>
 
-        <Progress sections={segments} size={34} classNames={{ label: classes.progressLabel }} mt="md" />
+        <ProgressLabel sections={segments} size={34} mt="md" />
         <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="md">
           {descriptions}
         </SimpleGrid>
