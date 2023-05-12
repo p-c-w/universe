@@ -8,21 +8,40 @@ const StatsByMonthly = () => {
   const chartData = {
     options: {
       chart: {
-        id: 'basic-line',
+        id: 'monthly-line',
+        type: 'line',
         toolbar: {
           show: false,
         },
       },
+      colors: ['#A17FFB'],
       grid: {
         borderColor: 'transparent',
       },
       xaxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        title: {
+          text: 'Month',
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      stroke: {
+        curve: 'smooth',
+        lineCap: 'butt',
+        width: 3,
       },
     },
     series: [
       {
-        name: 'series-1',
+        name: 'series-monthly',
         data: monthlyData,
       },
     ],
