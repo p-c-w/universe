@@ -39,17 +39,15 @@ const Statistics = () => {
     }
   }, [newMonthlyStats, setMonthlyStats]);
 
+  const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <div key={2}>장르별</div>];
+
   return (
     <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
-      <Carousel.Slide>
-        <StatsWrapper stats={<StatsByProvider />} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <StatsWrapper stats={<StatsByMonthly />} />
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <StatsWrapper stats={<>장르별 통계</>} />
-      </Carousel.Slide>
+      {statsComponents.map((component, i) => (
+        <Carousel.Slide key={i}>
+          <StatsWrapper stats={component} />
+        </Carousel.Slide>
+      ))}
     </StatisticCarousel>
   );
 };
