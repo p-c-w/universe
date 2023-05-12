@@ -53,7 +53,7 @@ const StatsByGenre = () => {
         <Group align="flex-end" spacing="xs">
           <Text fz="lg" fw={700} align="left">
             <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
-              {top3Genres[0].label}{' '}
+              {top3Genres[0]?.label}{' '}
             </Text>
             장르를 가장 많이 감상했어요.
           </Text>
