@@ -12,7 +12,9 @@ const Icon = styled(IconDeviceAnalytics)`
 const StatsByMonthly = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+
   const monthlyData = useRecoilValue(statsByMonthlyState);
+
   const total = monthlyData.reduce((acc, cur) => acc + cur, 0);
 
   const chartData = {
