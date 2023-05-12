@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
 import { Box, useMantineColorScheme } from '@mantine/core';
 import { useSetRecoilState } from 'recoil';
-import { statsByProviderState } from '../../recoil/atom';
+import { statsByProviderState, statsByMonthlyState } from '../../recoil/atom';
 import { StatsByMonthly, StatsByProvider } from '.';
-import { useStatsByProvider } from '../../hooks';
+import { useStatsByProvider, useStatsByMonthly } from '../../hooks';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -26,14 +26,22 @@ const Statistics = () => {
   const dark = colorScheme === 'dark';
 
   const setStatisticData = useSetRecoilState(statsByProviderState);
+  const setMonthlyStats = useSetRecoilState(statsByMonthlyState);
 
   const newState = useStatsByProvider();
+  const newMonthlyStats = useStatsByMonthly();
 
   useEffect(() => {
     if (newState) {
       setStatisticData({ total: newState.newTotal, data: newState.newData });
     }
-  }, [newState]);
+  }, [newState, setStatisticData]);
+
+  useEffect(() => {
+    if (newMonthlyStats) {
+      setMonthlyStats(newMonthlyStats);
+    }
+  }, [newMonthlyStats, setMonthlyStats]);
 
   return (
     <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
@@ -52,19 +60,7 @@ const Statistics = () => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          2
-        </Box>
-      </Carousel.Slide>
-      <Carousel.Slide>
-        <Box
-          sx={{
-            backgroundColor: dark ? 'var(--mantine-color-dark-6)' : 'var(--mantine-color-gray-1)',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          3
+          장르별 통계
         </Box>
       </Carousel.Slide>
     </StatisticCarousel>
