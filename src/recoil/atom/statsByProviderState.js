@@ -49,9 +49,9 @@ const defaultData = {
   ],
 };
 
-const statisticByProviderState = atom({
-  key: 'statisticByProviderState',
+const statsByProviderState = atom({
+  key: 'statsByProviderState',
   default: defaultData,
 });
 
-export default statisticByProviderState;
+export default statsByProviderState;
