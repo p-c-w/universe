@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
 import { Box, useMantineColorScheme } from '@mantine/core';
 import { useSetRecoilState } from 'recoil';
-import { statisticByProviderState } from '../../recoil/atom';
-import { StatisticByProvider } from '.';
-import { useStatisticsByProvider } from '../../hooks';
+import { statsByProviderState } from '../../recoil/atom';
+import { StatsByMonthly, StatsByProvider } from '.';
+import { useStatsByProvider } from '../../hooks';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -25,9 +25,9 @@ const Statistics = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const setStatisticData = useSetRecoilState(statisticByProviderState);
+  const setStatisticData = useSetRecoilState(statsByProviderState);
 
-  const newState = useStatisticsByProvider();
+  const newState = useStatsByProvider();
 
   useEffect(() => {
     if (newState) {
@@ -38,19 +38,10 @@ const Statistics = () => {
   return (
     <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
       <Carousel.Slide>
-        <StatisticByProvider />
+        <StatsByProvider />
       </Carousel.Slide>
       <Carousel.Slide>
-        <Box
-          sx={{
-            backgroundColor: dark ? 'var(--mantine-color-dark-6)' : 'var(--mantine-color-gray-1)',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          1
-        </Box>
+        <StatsByMonthly />
       </Carousel.Slide>
       <Carousel.Slide>
         <Box

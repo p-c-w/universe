@@ -1,4 +1,5 @@
 export { default as sideNavOpenedState } from './sideNavOpenedState';
 export { default as userState } from './userState';
 export { default as categoryState } from './categoryState';
-export { default as statisticByProviderState } from './statisticByProviderState';
+export { default as statsByProviderState } from './statsByProviderState';
+export { default as statisticByMonthlyState } from './statsByMonthlyState';
