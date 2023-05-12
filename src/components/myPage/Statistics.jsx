@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
 import { useSetRecoilState } from 'recoil';
-import { statsByProviderState, statsByMonthlyState } from '../../recoil/atom';
-import { StatsByMonthly, StatsByProvider, StatsWrapper } from '.';
-import { useStatsByProvider, useStatsByMonthly } from '../../hooks';
+import { statsByProviderState, statsByMonthlyState, statsByGenreState } from '../../recoil/atom';
+import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
+import { useStatsByProvider, useStatsByMonthly, useStatsByGenre } from '../../hooks';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -23,9 +23,11 @@ const StatisticCarousel = styled(Carousel)`
 const Statistics = () => {
   const setStatisticData = useSetRecoilState(statsByProviderState);
   const setMonthlyStats = useSetRecoilState(statsByMonthlyState);
+  const setGenreStats = useSetRecoilState(statsByGenreState);
 
   const newState = useStatsByProvider();
   const newMonthlyStats = useStatsByMonthly();
+  const newGenreStats = useStatsByGenre();
 
   useEffect(() => {
     if (newState) {
@@ -39,7 +41,13 @@ const Statistics = () => {
     }
   }, [newMonthlyStats, setMonthlyStats]);
 
-  const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <div key={2}>장르별</div>];
+  useEffect(() => {
+    if (newGenreStats) {
+      setGenreStats({ total: newGenreStats.newTotal, data: newGenreStats.newData });
+    }
+  }, [newGenreStats, setGenreStats]);
+
+  const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <StatcsByGenre key={2} />];
 
   return (
     <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>

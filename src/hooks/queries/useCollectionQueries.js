@@ -21,6 +21,7 @@ const useCollectionQueries = (list, options) => {
             ?.map(provider => provider.provider_id)
             ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
         : [],
+      genres: data.genres,
     }),
     ...options,
   }));
