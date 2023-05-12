@@ -1,4 +1,4 @@
-import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme, Flex } from '@mantine/core';
+import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
