@@ -1,4 +1,4 @@
-import { Progress, Box, Text, Group, Paper, SimpleGrid, Title, useMantineColorScheme, Flex } from '@mantine/core';
+import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme, Flex } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
@@ -71,33 +71,28 @@ const StatsByProvider = () => {
   ));
 
   return (
-    <Paper withBorder p={40} pt="sm" radius="md" h="100%">
-      <Flex direction="column" justify="center" h="100%">
-        <Title order={3} align="left">
-          Universe 분석
-        </Title>
-        <Group position="apart" mt={7}>
-          <Group align="flex-end" spacing="xs">
-            <Text fz="lg" fw={700} align="left">
-              지금까지 전체{' '}
-              <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
-                {total}
-              </Text>
-              건의 컨텐츠를 감상했어요.
+    <>
+      <Group position="apart" mt={7}>
+        <Group align="flex-end" spacing="xs">
+          <Text fz="lg" fw={700} align="left">
+            지금까지 전체{' '}
+            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
+              {total}
             </Text>
-          </Group>
-          <Icon size="1.4rem" stroke={1.5} />
+            건의 컨텐츠를 감상했어요.
+          </Text>
         </Group>
-        <Diff c="teal" fz="sm" fw={700} display="flex">
-          {maxProvider}를 가장 많이 사용했어요.
-        </Diff>
+        <Icon size="1.4rem" stroke={1.5} />
+      </Group>
+      <Diff c="teal" fz="sm" fw={700} display="flex">
+        {maxProvider}를 가장 많이 사용했어요.
+      </Diff>
 
-        <ProgressLabel sections={segments} size={34} mt="md" />
-        <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="md">
-          {descriptions}
-        </SimpleGrid>
-      </Flex>
-    </Paper>
+      <ProgressLabel sections={segments} size={34} mt="md" />
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="md">
+        {descriptions}
+      </SimpleGrid>
+    </>
   );
 };
 
