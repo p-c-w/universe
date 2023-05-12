@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { TextInput, PasswordInput, Button, Container } from '@mantine/core';
 import { useForm } from 'react-hook-form';
-import { IconX } from '@tabler/icons-react';
+import { IconX, IconCheck } from '@tabler/icons-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { notifications } from '@mantine/notifications';
 
@@ -41,6 +41,17 @@ const SignupForm = ({ setUserInput }) => {
     try {
       const { data: email } = await axios.post('/api/auth/signup', data);
 
+      notifications.show({
+        id: 'hello-there',
+        withCloseButton: true,
+        autoClose: 2000,
+        title: 'Signup Failure',
+        message: '회원가입에 성공했습니다.',
+        color: 'green',
+        icon: <IconCheck />,
+        className: 'my-notification-class',
+        loading: false,
+      });
       setUserInput(email);
     } catch (error) {
       if (error.response && error.response.status === 409) {
