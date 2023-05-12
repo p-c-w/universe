@@ -1,7 +1,11 @@
 import ReactApexChart from 'react-apexcharts';
 import { Paper, Title, Flex } from '@mantine/core';
+import { useRecoilValue } from 'recoil';
+import { statsByMonthlyState } from '../../recoil/atom';
 
 const StatsByMonthly = () => {
+  const monthlyData = useRecoilValue(statsByMonthlyState);
+
   const chartData = {
     options: {
       chart: {
@@ -20,6 +24,7 @@ const StatsByMonthly = () => {
     series: [
       {
         name: 'series-1',
+        data: monthlyData,
       },
     ],
   };
