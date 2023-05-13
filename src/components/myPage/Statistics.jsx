@@ -25,15 +25,15 @@ const Statistics = () => {
   const setMonthlyStats = useSetRecoilState(statsByMonthlyState);
   const setGenreStats = useSetRecoilState(statsByGenreState);
 
-  const newState = useStatsByProvider();
+  const newProviderStats = useStatsByProvider();
   const newMonthlyStats = useStatsByMonthly();
   const newGenreStats = useStatsByGenre();
 
   useEffect(() => {
-    if (newState) {
-      setStatisticData({ total: newState.newTotal, data: newState.newData });
+    if (newProviderStats) {
+      setStatisticData({ total: newProviderStats.newTotal, data: newProviderStats.newData });
     }
-  }, [newState, setStatisticData]);
+  }, [newProviderStats, setStatisticData]);
 
   useEffect(() => {
     if (newMonthlyStats) {
