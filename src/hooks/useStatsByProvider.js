@@ -1,5 +1,5 @@
 import { useProviderQueries, useUserQuery } from './queries';
-import { PROVIDERS } from '../constants';
+import { PROVIDERS, colors } from '../constants';
 
 const defaultData = {
   total: '0',
@@ -9,46 +9,42 @@ const defaultData = {
       label: 'Netflix',
       count: 0,
       part: 0,
-      // color: `${PROVIDERS[8].color}`,
-      color: '#FF515E',
+      color: colors.Netflix,
     },
     {
       id: 97,
       label: 'Watcha',
       count: 0,
       part: 0,
-      // color: `${PROVIDERS[97].color}`,
-      color: '#FF8A99',
+      color: colors.Watcha,
     },
     {
       id: 119,
       label: 'Amazon Prime',
       count: 0,
       part: 0,
-      color: `${PROVIDERS[119].color}`,
+      color: colors['Amazon Prime Video'],
     },
     {
       id: 337,
       label: 'Disney+',
       count: 0,
       part: 0,
-      // color: `${PROVIDERS[337].color}`,
-      color: '#0046AB',
+      color: colors['Disney Plus'],
     },
     {
       id: 350,
       label: 'Apple TV+',
       count: 0,
       part: 0,
-      // color: `${PROVIDERS[350].color}`,
-      color: '#DADDE2',
+      color: colors['Apple TV Plus'],
     },
     {
       id: 356,
       label: 'Wavve',
       count: 0,
       part: 0,
-      color: `${PROVIDERS[356].color}`,
+      color: colors.Wavve,
     },
   ],
 };

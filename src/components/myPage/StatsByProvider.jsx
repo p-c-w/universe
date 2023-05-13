@@ -43,13 +43,13 @@ const StatsByProvider = ({ stats }) => {
 
   const segments = data?.map(segment => ({
     value: segment.part,
-    color: segment.color,
+    color: dark ? segment.color[4] : segment.color[6],
     label: segment.part > 10 ? `${segment.part}%` : undefined,
     tooltip: `${`${segment.label} ${segment.part}`}%`,
   }));
 
   const descriptions = data?.map(stat => (
-    <Stat key={stat.label} color={stat.color} pb={5}>
+    <Stat key={stat.label} color={dark ? stat.color[4] : stat.color[6]} pb={5}>
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
       </Text>
@@ -58,17 +58,7 @@ const StatsByProvider = ({ stats }) => {
         <Text fw={700} size="xs">
           {stat.count}
         </Text>
-        <Text
-          c={
-            stat.label === 'Apple TV+' && !dark
-              ? 'gray'
-              : stat.label === 'Disney+' && dark
-              ? 'indigo.5'
-              : `${stat.name}`
-          }
-          fw={700}
-          size="xs"
-          lh="1.3">
+        <Text c={dark ? stat.color[4] : stat.color[6]} fw={700} size="xs" lh="1.3">
           {stat.part}%
         </Text>
       </Group>
