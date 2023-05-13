@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
 import { useSetRecoilState } from 'recoil';
-import { statsByMonthlyState, statsByGenreState } from '../../recoil/atom';
+import { statsByMonthlyState, statsByGenreState, statsByProviderState } from '../../recoil/atom';
 import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
-import { useStatsByProvider, useStatsByMonthly, useStatsByGenre } from '../../hooks';
+import { useStatsByProvider, useStatsByMonthly, useStatsByGenre, useStats } from '../../hooks';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -21,25 +21,12 @@ const StatisticCarousel = styled(Carousel)`
 `;
 
 const Statistics = () => {
-  const [stats, setStats] = useState({});
-  const setMonthlyStats = useSetRecoilState(statsByMonthlyState);
+  useStats(statsByProviderState, useStatsByProvider);
+  useStats(statsByMonthlyState, useStatsByMonthly);
+
   const setGenreStats = useSetRecoilState(statsByGenreState);
 
-  const newProviderStats = useStatsByProvider();
-  const newMonthlyStats = useStatsByMonthly();
   const newGenreStats = useStatsByGenre();
-
-  useEffect(() => {
-    if (newProviderStats) {
-      setStats({ total: newProviderStats.newTotal, data: newProviderStats.newData });
-    }
-  }, [newProviderStats, setStats]);
-
-  useEffect(() => {
-    if (newMonthlyStats) {
-      setMonthlyStats(newMonthlyStats);
-    }
-  }, [newMonthlyStats, setMonthlyStats]);
 
   useEffect(() => {
     if (newGenreStats) {
@@ -47,11 +34,7 @@ const Statistics = () => {
     }
   }, [newGenreStats, setGenreStats]);
 
-  const statsComponents = [
-    <StatsByProvider key={0} stats={stats} />,
-    <StatsByMonthly key={1} />,
-    <StatcsByGenre key={2} />,
-  ];
+  const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <StatcsByGenre key={2} />];
 
   return (
     <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
