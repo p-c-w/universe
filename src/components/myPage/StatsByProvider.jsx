@@ -1,8 +1,6 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
-import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
-import { statsByProviderState } from '../../recoil/atom';
 
 const ProgressLabel = styled(Progress)`
   .mantine-Progress-label {
@@ -26,7 +24,7 @@ const Icon = styled(IconDeviceAnalytics)`
 const getMaxProvider = datas => {
   let max = 0;
   let maxProvider = '';
-  datas.forEach(data => {
+  datas?.forEach(data => {
     if (+data.count >= max) {
       max = +data.count;
       maxProvider = data.label;
@@ -35,21 +33,22 @@ const getMaxProvider = datas => {
   return maxProvider;
 };
 
-const StatsByProvider = () => {
-  const { total, data } = useRecoilValue(statsByProviderState);
+const StatsByProvider = ({ stats }) => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
+  const { total, data } = stats;
+
   const maxProvider = getMaxProvider(data);
 
-  const segments = data.map(segment => ({
+  const segments = data?.map(segment => ({
     value: segment.part,
     color: segment.color,
     label: segment.part > 10 ? `${segment.part}%` : undefined,
     tooltip: `${`${segment.label} ${segment.part}`}%`,
   }));
 
-  const descriptions = data.map(stat => (
+  const descriptions = data?.map(stat => (
     <Stat key={stat.label} color={stat.color} pb={5}>
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
@@ -60,7 +59,13 @@ const StatsByProvider = () => {
           {stat.count}
         </Text>
         <Text
-          c={stat.label === 'Apple TV+' && !dark ? 'gray' : stat.label === 'Disney+' && dark ? 'indigo.5' : stat.color}
+          c={
+            stat.label === 'Apple TV+' && !dark
+              ? 'gray'
+              : stat.label === 'Disney+' && dark
+              ? 'indigo.5'
+              : `${stat.name}`
+          }
           fw={700}
           size="xs"
           lh="1.3">
