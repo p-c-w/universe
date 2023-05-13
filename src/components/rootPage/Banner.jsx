@@ -1,12 +1,15 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
 import { Button, Container, Flex, Image, Space, Title } from '@mantine/core';
 import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+
 import banner1 from '../../assets/images/banner-1.svg';
 import banner2 from '../../assets/images/banner-2.svg';
 import banner3 from '../../assets/images/banner-3.svg';
+import { sideNavOpenedState } from '../../recoil/atom';
 
 const BillBoard = styled(Carousel)`
   & .mantine-Carousel-indicator {
@@ -41,8 +44,8 @@ const data = [
   },
 ];
 
-const SubContainer = ({ url, title, subtitle, backgroundColor }) => (
-  <Flex miw={800} h={'100%'} m={0} p={50} justify="center" align="center" bg={backgroundColor}>
+const SubContainer = ({ url, title, subtitle }) => (
+  <Flex h={'100%'} m={0} p={50} justify="center" align="center">
     <Container m={0}>
       <Title order={1} c={'black'}>
         {title}
@@ -63,17 +66,24 @@ const SubContainer = ({ url, title, subtitle, backgroundColor }) => (
 
 const Banner = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const [remountKey, setRemountKey] = useState(0);
+  const sideNavState = useRecoilValue(sideNavOpenedState);
+
+  useEffect(() => {
+    setTimeout(() => setRemountKey(prev => prev + 1), 410);
+  }, [sideNavState]);
 
   return (
     <BillBoard
+      key={remountKey}
       withIndicators
       plugins={[autoplay.current]}
       loop
       onMouseEnter={autoplay.current.stop}
       onMouseLeave={autoplay.current.reset}>
       {data.map(({ url, title, subtitle, backgroundColor }) => (
-        <Carousel.Slide key={title}>
-          <SubContainer url={url} title={title} subtitle={subtitle} backgroundColor={backgroundColor} />
+        <Carousel.Slide key={title} bg={backgroundColor} size="100%">
+          <SubContainer url={url} title={title} subtitle={subtitle} />
         </Carousel.Slide>
       ))}
     </BillBoard>
