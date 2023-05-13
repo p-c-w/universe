@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { sideNavOpenedState, userState } from '../../recoil/atom';
@@ -20,12 +20,11 @@ const ShellHeader = () => {
   const [isOpened, setIsOpened] = useRecoilState(sideNavOpenedState);
   const { colorScheme } = useMantineColorScheme();
   const user = useRecoilValue(userState);
-  const theme = useMantineTheme();
 
   const dark = colorScheme === 'dark';
   const label = isOpened ? 'Close navigation' : 'Open navigation';
 
-  const handleBurgerClick = () => setIsOpened(!isOpened);
+  const handleBurgerClick = () => setIsOpened(prev => !prev);
 
   return (
     <Header height={{ base: 60 }} p="xl" zIndex="9999">
@@ -35,7 +34,7 @@ const ShellHeader = () => {
             opened={isOpened}
             onClick={handleBurgerClick}
             size="md"
-            color={dark ? theme.colors.gray[0] : theme.colors.dark[8]}
+            c={dark ? 'gray.0' : 'dark.8'}
             mr="lg"
             aria-label={label}
           />
@@ -43,7 +42,7 @@ const ShellHeader = () => {
             <Logo size={40} src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`} alt="home button" />
           </Link>
           <Flex h={40} align="end">
-            <Title size={14} fw={100} italic>
+            <Title size={14} fw="100" italic>
               Beta
             </Title>
           </Flex>
