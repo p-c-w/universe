@@ -1,21 +1,40 @@
 import ReactApexChart from 'react-apexcharts';
-import { useRecoilValue } from 'recoil';
 import { Text, Group, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { statsByMonthlyState } from '../../recoil/atom';
+import { useStatsByMonthly } from '../../hooks/statistics';
 
 const Icon = styled(IconDeviceAnalytics)`
   color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
 `;
 
+const Diff = styled(Text)`
+  align-items: center;
+`;
+
+const getMaxMonth = datas => {
+  let max = -1;
+  let maxMonth = [];
+  datas.forEach((data, idx) => {
+    if (data > max) {
+      max = data;
+      maxMonth = [idx + 1];
+    } else if (data === max) {
+      max = data;
+      maxMonth.push(idx + 1);
+    }
+  });
+  return maxMonth.join(', ');
+};
+
 const StatsByMonthly = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const monthlyData = useRecoilValue(statsByMonthlyState);
+  const monthlyData = useStatsByMonthly();
 
   const total = monthlyData.reduce((acc, cur) => acc + cur, 0);
+  const maxMonth = getMaxMonth(monthlyData);
 
   const chartData = {
     options: {
@@ -73,7 +92,9 @@ const StatsByMonthly = () => {
         </Group>
         <Icon size="1.4rem" stroke={1.5} />
       </Group>
-
+      <Diff c="teal" fz="sm" fw={700} display="flex">
+        {total === 0 ? '지금부터 컨텐츠를 감상해보세요!' : `${maxMonth}월에 가장 많은 컨텐츠를 감상했어요.`}
+      </Diff>
       <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={250} />
     </>
   );
