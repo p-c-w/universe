@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex, Badge } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
-import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
+import { DatePickerInput } from '@mantine/dates';
+import { IconLayersLinked, IconTrash, IconCalendar } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import { AccordionLabel } from './index';
@@ -66,14 +66,31 @@ const CollectionItem = ({ item, setClicked, open }) => {
         <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
             <Flex align="center" gap={10}>
-              <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
-              {listName === 'history' && (
-                <EditButton size="sm" variant="outline" onClick={handleEditDate}>
-                  날짜 수정
-                </EditButton>
+              {editMode ? (
+                <DatePickerInput
+                  onClick={handleDatePicker}
+                  placeholder="감상한 날을 선택해주세요"
+                  size="xs"
+                  w={200}
+                  maw={400}
+                  icon={<IconCalendar size="1.1rem" stroke={1.5} />}
+                />
+              ) : (
+                <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
               )}
+
+              {listName === 'history' &&
+                (!editMode ? (
+                  <EditButton size="sm" variant="outline" onClick={handleEditDate}>
+                    날짜 수정
+                  </EditButton>
+                ) : (
+                  <EditButton size="sm" variant="filled" onClick={handleEditDate}>
+                    수정 완료
+                  </EditButton>
+                ))}
             </Flex>
-            {editMode && <DatePicker onClick={handleDatePicker} size="xs" />}
+
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button
