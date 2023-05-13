@@ -1,7 +1,7 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { useStatsByProvider } from '../../hooks';
+import { useStatsByProvider } from '../../hooks/statistics';
 
 const ProgressLabel = styled(Progress)`
   .mantine-Progress-label {

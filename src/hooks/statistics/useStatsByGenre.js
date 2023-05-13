@@ -1,5 +1,5 @@
-import { useUserQuery, useCollectionQueries } from './queries';
-import { genres } from '../constants';
+import { useUserQuery, useCollectionQueries } from '../queries';
+import { genres } from '../../constants';
 
 const defaultData = {
   total: '0',

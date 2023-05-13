@@ -3,7 +3,7 @@ import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import ReactApexChart from 'react-apexcharts';
-import { useStatsByGenre } from '../../hooks';
+import { useStatsByGenre } from '../../hooks/statistics';
 
 const Diff = styled(Text)`
   align-items: center;

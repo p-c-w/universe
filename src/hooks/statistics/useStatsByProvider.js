@@ -1,5 +1,5 @@
-import { useProviderQueries, useUserQuery } from './queries';
-import { PROVIDERS, colors } from '../constants';
+import { useProviderQueries, useUserQuery } from '../queries';
+import { PROVIDERS, colors } from '../../constants';
 
 const defaultData = {
   total: '0',

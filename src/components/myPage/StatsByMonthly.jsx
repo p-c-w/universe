@@ -2,7 +2,7 @@ import ReactApexChart from 'react-apexcharts';
 import { Text, Group, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { useStatsByMonthly } from '../../hooks';
+import { useStatsByMonthly } from '../../hooks/statistics';
 
 const Icon = styled(IconDeviceAnalytics)`
   color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
