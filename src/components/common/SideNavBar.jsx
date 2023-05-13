@@ -65,11 +65,11 @@ const SideNavBar = () => {
     <Transition mounted={isOpened} transition="slide-right" duration={400} timingFunction="ease">
       {styles => (
         <Nav style={styles} p="md" width={{ base: 240 }}>
-          <Navbar.Section w={'100%'}>
+          <Navbar.Section w="100%">
             {user ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
-                  <Tab key={label} role="button" aria-label="label" onClick={() => category && setCategory(category)}>
+                  <Tab key={label} role="button" aria-label={label} onClick={() => category && setCategory(category)}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}
@@ -83,13 +83,19 @@ const SideNavBar = () => {
               </Stack>
             ) : (
               <>
-                <Text size="sm" fw={300}>
+                <Text size="sm" color={dark ? 'gray.0' : 'gray.9'}>
                   {'아직 나의'}
                 </Text>
-                <Text size="sm" fw={300}>
+                <Text size="sm" color={dark ? 'gray.0' : 'gray.9'}>
                   {parse('<b>유니버스</b>가 없나요?')}
                 </Text>
-                <Button component={Link} to={'/signin'} w="100%" my="sm" variant="gradient">
+                <Button
+                  component={Link}
+                  to={'/signin'}
+                  w="100%"
+                  my="sm"
+                  variant="gradient"
+                  gradient={{ from: 'violet', to: 'blue', deg: 35 }}>
                   🚀Get Started !
                 </Button>
               </>
@@ -116,7 +122,7 @@ const SideNavBar = () => {
                     <Image maw={45} src="/assets/logos/tmdb_1x1.svg" w={20} alt="tmdb logo" />
                   </Link>
                 </Group>
-                <Text size={12} fw={300} align="center">
+                <Text size={12} align="center">
                   {'Copyright © 2023'}
                   <br />
                   {'Universe All rights reserved'}
