@@ -33,6 +33,10 @@ const CollectionItem = ({ item, setClicked, open }) => {
     setEditMode(!editMode);
   };
 
+  const handleDatePicker = e => {
+    e.stopPropagation();
+  };
+
   const handleMouseEnter = () => setHovered(true);
 
   const handleMouseLeave = () => setHovered(false);
@@ -57,7 +61,6 @@ const CollectionItem = ({ item, setClicked, open }) => {
                 <IconTrash size={16} />
               </ThemeIcon>
             )}
-            {editMode && <DatePicker />}
           </Flex>
         </Accordion.Control>
         <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
@@ -70,6 +73,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
                 </EditButton>
               )}
             </Flex>
+            {editMode && <DatePicker onClick={handleDatePicker} size="xs" />}
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button
