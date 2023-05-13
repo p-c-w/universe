@@ -50,7 +50,14 @@ const CollectionItem = ({ item, setClicked, open }) => {
         </Accordion.Control>
         <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
-            <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
+            <Flex align="center" gap={10}>
+              <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
+              {listName === 'history' && (
+                <Button size="xs" compact variant="default">
+                  날짜 수정
+                </Button>
+              )}
+            </Flex>
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button
