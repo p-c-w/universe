@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
-import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
+import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex, Badge } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled';
 import { AccordionLabel } from './index';
 import { useDeleteUserContentMutation } from '../../hooks/mutations';
 import { userState, categoryState } from '../../recoil/atom';
 import { ActionIcons } from '../common';
+
+const EditButton = styled(Badge)`
+  cursor: pointer;
+`;
 
 const getAddedDate = modifiedAt => modifiedAt?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
@@ -14,12 +20,17 @@ const CollectionItem = ({ item, setClicked, open }) => {
   const listName = useRecoilValue(categoryState);
 
   const [hovered, setHovered] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const { mutate: deleteUserContent } = useDeleteUserContentMutation();
 
   const handleClick = item => {
     setClicked(item);
     open();
+  };
+
+  const handleEditDate = () => {
+    setEditMode(!editMode);
   };
 
   const handleMouseEnter = () => setHovered(true);
@@ -46,6 +57,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
                 <IconTrash size={16} />
               </ThemeIcon>
             )}
+            {editMode && <DatePicker />}
           </Flex>
         </Accordion.Control>
         <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
@@ -53,9 +65,9 @@ const CollectionItem = ({ item, setClicked, open }) => {
             <Flex align="center" gap={10}>
               <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
               {listName === 'history' && (
-                <Button size="xs" compact variant="default">
+                <EditButton size="sm" variant="outline" onClick={handleEditDate}>
                   날짜 수정
-                </Button>
+                </EditButton>
               )}
             </Flex>
             <div>
