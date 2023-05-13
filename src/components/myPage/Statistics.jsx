@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { Carousel } from '@mantine/carousel';
-import { useSetRecoilState } from 'recoil';
-import { statsByMonthlyState, statsByGenreState, statsByProviderState } from '../../recoil/atom';
 import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
-import { useStatsByProvider, useStatsByMonthly, useStatsByGenre, useStats } from '../../hooks';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -21,19 +17,6 @@ const StatisticCarousel = styled(Carousel)`
 `;
 
 const Statistics = () => {
-  useStats(statsByProviderState, useStatsByProvider);
-  useStats(statsByMonthlyState, useStatsByMonthly);
-
-  const setGenreStats = useSetRecoilState(statsByGenreState);
-
-  const newGenreStats = useStatsByGenre();
-
-  useEffect(() => {
-    if (newGenreStats) {
-      setGenreStats({ total: newGenreStats.newTotal, data: newGenreStats.newData });
-    }
-  }, [newGenreStats, setGenreStats]);
-
   const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <StatcsByGenre key={2} />];
 
   return (

@@ -1,8 +1,7 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { useRecoilValue } from 'recoil';
-import { statsByProviderState } from '../../recoil/atom';
+import { useStatsByProvider } from '../../hooks';
 
 const ProgressLabel = styled(Progress)`
   .mantine-Progress-label {
@@ -39,7 +38,7 @@ const StatsByProvider = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const { total, data } = useRecoilValue(statsByProviderState);
+  const { total, data } = useStatsByProvider();
 
   const maxProvider = getMaxProvider(data);
 

@@ -1,9 +1,8 @@
 import ReactApexChart from 'react-apexcharts';
-import { useRecoilValue } from 'recoil';
 import { Text, Group, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { statsByMonthlyState } from '../../recoil/atom';
+import { useStatsByMonthly } from '../../hooks';
 
 const Icon = styled(IconDeviceAnalytics)`
   color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
@@ -32,7 +31,7 @@ const StatsByMonthly = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const monthlyData = useRecoilValue(statsByMonthlyState);
+  const monthlyData = useStatsByMonthly();
 
   const total = monthlyData.reduce((acc, cur) => acc + cur, 0);
   const maxMonth = getMaxMonth(monthlyData);
