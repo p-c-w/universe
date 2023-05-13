@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
-import { GlobalShell, ThemeButton } from '../components/common';
+import { GlobalShell } from '../components/common';
 import { Banner, Board } from '../components/rootPage';
 import { useAuthenticationQuery } from '../hooks/queries';
 import { userState } from '../recoil/atom';
@@ -20,7 +20,6 @@ const Root = () => {
         {!user && <Banner />}
         <Board />
       </GlobalShell>
-      <ThemeButton />
     </>
   );
 };
