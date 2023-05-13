@@ -1,4 +1,4 @@
-import { useContentDetailQuery, useUserQuery, useCollectionQueries } from './queries';
+import { useUserQuery, useCollectionQueries } from './queries';
 import { genres } from '../constants';
 
 const defaultData = {
@@ -194,7 +194,9 @@ const useStatsByGenre = () => {
     newData = getNewData(genres, newTotal);
   }
 
-  return { newTotal, newData };
+  const newStats = { total: newTotal, data: newData };
+
+  return newStats;
 };
 
 export default useStatsByGenre;
