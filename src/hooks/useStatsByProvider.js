@@ -84,7 +84,10 @@ const useStatisticsByProvider = () => {
   if (providers[0]) {
     newData = getNewData(providers, newTotal);
   }
-  return { newTotal, newData };
+
+  const newStats = { total: newTotal, data: newData };
+
+  return newStats;
 };
 
 export default useStatisticsByProvider;
