@@ -1,4 +1,4 @@
-import { useUserQuery } from './queries';
+import { useUserQuery } from '../queries';
 
 const thisYear = new Date().getFullYear();
 

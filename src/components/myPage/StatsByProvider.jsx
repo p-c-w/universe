@@ -1,8 +1,7 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
-import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
-import { statsByProviderState } from '../../recoil/atom';
+import { useStatsByProvider } from '../../hooks/statistics';
 
 const ProgressLabel = styled(Progress)`
   .mantine-Progress-label {
@@ -26,7 +25,7 @@ const Icon = styled(IconDeviceAnalytics)`
 const getMaxProvider = datas => {
   let max = 0;
   let maxProvider = '';
-  datas.forEach(data => {
+  datas?.forEach(data => {
     if (+data.count >= max) {
       max = +data.count;
       maxProvider = data.label;
@@ -36,21 +35,22 @@ const getMaxProvider = datas => {
 };
 
 const StatsByProvider = () => {
-  const { total, data } = useRecoilValue(statsByProviderState);
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
+  const { total, data } = useStatsByProvider();
+
   const maxProvider = getMaxProvider(data);
 
-  const segments = data.map(segment => ({
+  const segments = data?.map(segment => ({
     value: segment.part,
-    color: segment.color,
+    color: dark ? segment.color[4] : segment.color[6],
     label: segment.part > 10 ? `${segment.part}%` : undefined,
     tooltip: `${`${segment.label} ${segment.part}`}%`,
   }));
 
-  const descriptions = data.map(stat => (
-    <Stat key={stat.label} color={stat.color} pb={5}>
+  const descriptions = data?.map(stat => (
+    <Stat key={stat.label} color={dark ? stat.color[4] : stat.color[6]} pb={5}>
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
       </Text>
@@ -59,11 +59,7 @@ const StatsByProvider = () => {
         <Text fw={700} size="xs">
           {stat.count}
         </Text>
-        <Text
-          c={stat.label === 'Apple TV+' && !dark ? 'gray' : stat.label === 'Disney+' && dark ? 'indigo.5' : stat.color}
-          fw={700}
-          size="xs"
-          lh="1.3">
+        <Text c={dark ? stat.color[4] : stat.color[6]} fw={700} size="xs" lh="1.3">
           {stat.part}%
         </Text>
       </Group>

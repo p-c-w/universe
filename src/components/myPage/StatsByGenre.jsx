@@ -2,10 +2,8 @@ import React from 'react';
 import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { statsByGenreState } from '../../recoil/atom';
 import ReactApexChart from 'react-apexcharts';
-
-import { useRecoilValue } from 'recoil';
+import { useStatsByGenre } from '../../hooks/statistics';
 
 const Diff = styled(Text)`
   align-items: center;
@@ -16,17 +14,14 @@ const Icon = styled(IconDeviceAnalytics)`
 `;
 
 const StatsByGenre = () => {
-  const { data } = useRecoilValue(statsByGenreState);
+  const { data } = useStatsByGenre();
+
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-
-  console.log('data: ', data);
 
   const genres = data.filter(({ count }) => count);
 
   const top3Genres = genres.sort((a, b) => b.count - a.count).slice(0, 3);
-
-  console.log('top3: ', top3Genres);
 
   const chartData = {
     options: {
