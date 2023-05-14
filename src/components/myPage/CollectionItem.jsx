@@ -24,7 +24,8 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
 
   const handleMouseLeave = () => setHovered(false);
 
-  const handleDeleteClick = item => {
+  const handleDeleteClick = (e, item) => {
+    e.stopPropagation();
     setClicked(item);
     openComfirmModal();
   };
@@ -40,7 +41,7 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
           <Flex direction="row" justify="space-between" align="center">
             <AccordionLabel {...item} />
             {hovered && (
-              <ThemeIcon variant="transparent" onClick={() => handleDeleteClick({ id: item?.id, listName })}>
+              <ThemeIcon variant="transparent" onClick={e => handleDeleteClick(e, { id: item?.id, listName })}>
                 <IconTrash size={16} />
               </ThemeIcon>
             )}
