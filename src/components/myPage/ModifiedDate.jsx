@@ -14,8 +14,9 @@ const EditButton = styled(Badge)`
 const ModifiedDate = ({ date }) => {
   const category = useRecoilValue(categoryState);
   const [editMode, setEditMode] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date(date));
 
-  const handleEditDate = () => {
+  const handleEditDateButton = () => {
     setEditMode(!editMode);
   };
 
@@ -28,10 +29,11 @@ const ModifiedDate = ({ date }) => {
       {editMode ? (
         <DatePickerInput
           onClick={handleDatePicker}
-          placeholder="감상한 날을 선택해주세요"
           size="xs"
           w={200}
           maw={400}
+          value={selectedDate}
+          onChange={setSelectedDate}
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
@@ -40,11 +42,11 @@ const ModifiedDate = ({ date }) => {
 
       {category === 'history' &&
         (!editMode ? (
-          <EditButton size="sm" variant="outline" onClick={handleEditDate}>
+          <EditButton size="sm" variant="outline" onClick={handleEditDateButton}>
             날짜 수정
           </EditButton>
         ) : (
-          <EditButton size="sm" variant="filled" onClick={handleEditDate}>
+          <EditButton size="sm" variant="filled" onClick={handleEditDateButton}>
             수정 완료
           </EditButton>
         ))}
