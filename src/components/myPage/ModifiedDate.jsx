@@ -13,17 +13,25 @@ const EditDate = styled(Badge)`
   cursor: pointer;
 `;
 
+const offset = new Date().getTimezoneOffset() * 60000;
+
 const ModifiedDate = ({ id, date }) => {
   const email = useRecoilValue(userState);
   const category = useRecoilValue(categoryState);
   const [editMode, setEditMode] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date(date));
 
+  const handleChange = e => {
+    const offsetDate = new Date(e - offset);
+
+    setSelectedDate(offsetDate);
+  };
+
   const { mutate: updateModifiedAt } = useUpdateModifiedAtMutation();
 
   const handleEditDateButton = () => {
     if (editMode) {
-      const newDate = new Date(Date.parse(selectedDate) + 86400000).toISOString();
+      const newDate = selectedDate.toISOString();
 
       updateModifiedAt({ email, list: 'history_list', id, value: newDate });
     }
@@ -45,7 +53,7 @@ const ModifiedDate = ({ id, date }) => {
           locale="ko"
           valueFormat="YYYY. MM. DD"
           value={selectedDate}
-          onChange={setSelectedDate}
+          onChange={handleChange}
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
