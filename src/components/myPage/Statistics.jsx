@@ -1,4 +1,6 @@
+import { useRef } from 'react';
 import styled from '@emotion/styled';
+import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
 import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
 
@@ -17,10 +19,19 @@ const StatisticCarousel = styled(Carousel)`
 `;
 
 const Statistics = () => {
+  const autoplay = useRef(Autoplay({ delay: 5000 }));
   const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <StatcsByGenre key={2} />];
 
   return (
-    <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
+    <StatisticCarousel
+      height="100%"
+      loop
+      withIndicators
+      controlsOffset="xs"
+      controlSize={20}
+      plugins={[autoplay.current]}
+      onMouseEnter={autoplay.current.stop}
+      onMouseLeave={autoplay.current.reset}>
       {statsComponents.map((component, i) => (
         <Carousel.Slide key={i}>
           <StatsWrapper stats={component} />
