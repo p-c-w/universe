@@ -10,7 +10,7 @@ const EditButton = styled(Badge)`
   cursor: pointer;
 `;
 
-const getAddedDate = modifiedAt => modifiedAt?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
+const formatDate = date => date?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
 const ModifiedDate = ({ date }) => {
   const category = useRecoilValue(categoryState);
@@ -36,7 +36,7 @@ const ModifiedDate = ({ date }) => {
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
-        <Text size="sm">{getAddedDate(date)}에 추가함</Text>
+        <Text size="sm">{formatDate(date)}에 추가함</Text>
       )}
 
       {category === 'history' &&
