@@ -5,12 +5,11 @@ import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { IconCalendar } from '@tabler/icons-react';
 import { categoryState } from '../../recoil/atom';
+import { formatDate } from '../../utils';
 
 const EditButton = styled(Badge)`
   cursor: pointer;
 `;
-
-const formatDate = date => date?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
 const ModifiedDate = ({ date }) => {
   const category = useRecoilValue(categoryState);
