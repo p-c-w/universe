@@ -4,13 +4,14 @@ import { useDisclosure } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
 import { useCollectionQueries } from '../../hooks/queries';
 import { DetailModalWrapper, ModalSkeleton } from '../common';
-import { CollectionItem } from '.';
+import { CollectionItem, ConfirmModal } from '.';
 import { categoryState } from '../../recoil/atom';
 
 const Collection = ({ collection, setItemSelected, setImgSrc }) => {
   const category = useRecoilValue(categoryState);
   const collectionQueries = useCollectionQueries(collection);
-  const [opened, { open, close }] = useDisclosure(false);
+  const [detailModalOpened, { open: openDetailModal, close: closeDetailModal }] = useDisclosure(false);
+  const [confirmModalOpened, { open: openComfirmModal, close: closeConfirmModal }] = useDisclosure(false);
 
   const [clicked, setClicked] = useState(null);
   const [value, setValue] = useState(null);
@@ -46,12 +47,28 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
         onChange={handleChange}
         value={value}>
         {allQueriesSucceeded &&
-          collectionList?.map(item => <CollectionItem key={item.id} item={item} setClicked={setClicked} open={open} />)}
+          collectionList?.map(item => (
+            <CollectionItem
+              key={item.id}
+              item={item}
+              setClicked={setClicked}
+              openDetailModal={openDetailModal}
+              openComfirmModal={openComfirmModal}
+            />
+          ))}
       </Accordion>
-      {opened && (
+      {detailModalOpened && (
         <Suspense fallback={<ModalSkeleton />}>
-          <DetailModalWrapper opened={opened} close={close} id={clicked.id} type={clicked.type} />
+          <DetailModalWrapper opened={detailModalOpened} close={closeDetailModal} id={clicked.id} type={clicked.type} />
         </Suspense>
+      )}
+      {confirmModalOpened && (
+        <ConfirmModal
+          opened={confirmModalOpened}
+          close={closeConfirmModal}
+          id={clicked.id}
+          listName={clicked.listName}
+        />
       )}
     </>
   );

@@ -3,30 +3,26 @@ import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import { AccordionLabel, ModifiedDate } from './index';
-import { useDeleteUserContentMutation } from '../../hooks/mutations';
-import { userState, categoryState } from '../../recoil/atom';
+import { categoryState } from '../../recoil/atom';
 import { ActionIcons } from '../common';
 
-const CollectionItem = ({ item, setClicked, open }) => {
-  const email = useRecoilValue(userState);
+const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal }) => {
   const listName = useRecoilValue(categoryState);
-
   const [hovered, setHovered] = useState(false);
 
-  const { mutate: deleteUserContent } = useDeleteUserContentMutation();
-
-  const handleClick = item => {
+  const handleDetailClick = item => {
     setClicked(item);
-    open();
+    openDetailModal();
   };
 
   const handleMouseEnter = () => setHovered(true);
 
   const handleMouseLeave = () => setHovered(false);
 
-  const handleTrashClick = e => {
+  const handleDeleteClick = (e, item) => {
     e.stopPropagation();
-    deleteUserContent({ email, list: `${listName}_list`, id: item.id });
+    setClicked(item);
+    openComfirmModal();
   };
 
   return (
@@ -40,7 +36,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
           <Flex direction="row" justify="space-between" align="center">
             <AccordionLabel {...item} />
             {hovered && (
-              <ThemeIcon variant="transparent" onClick={handleTrashClick}>
+              <ThemeIcon variant="transparent" onClick={e => handleDeleteClick(e, { id: item?.id, listName })}>
                 <IconTrash size={16} />
               </ThemeIcon>
             )}
@@ -50,7 +46,6 @@ const CollectionItem = ({ item, setClicked, open }) => {
         <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
             <ModifiedDate id={item?.id} date={item?.modified_at} />
-
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button
@@ -58,7 +53,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
                   pl={0}
                   pb={3}
                   variant="transparent"
-                  onClick={() => handleClick({ id: item?.id, type: item?.type })}
+                  onClick={() => handleDetailClick({ id: item?.id, type: item?.type })}
                   fz={12}
                   aria-label="more">
                   <Text>상세페이지로</Text>
@@ -68,7 +63,6 @@ const CollectionItem = ({ item, setClicked, open }) => {
                 </Button>
               </Tooltip>
             </div>
-
             <ActionIcons size={16} id={item.id} type={item.type} category={listName} />
           </Flex>
         </Accordion.Panel>

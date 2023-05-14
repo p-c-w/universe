@@ -20,6 +20,7 @@ export { default as CollectionItem } from './CollectionItem';
 export { default as AccordionLabel } from './AccordionLabel';
 export { default as EmptyCollection } from './EmptyCollection';
 export { default as ProviderBadges } from './ProviderBadges';
+export { default as ConfirmModal } from './ConfirmModal';
 export { default as ModifiedDate } from './ModifiedDate';
 
 export { default as CollectionSkeleton } from './CollectionSkeleton';
