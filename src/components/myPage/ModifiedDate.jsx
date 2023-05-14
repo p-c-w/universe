@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
+import 'dayjs/locale/ko';
 import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { IconCalendar } from '@tabler/icons-react';
@@ -41,6 +42,8 @@ const ModifiedDate = ({ id, date }) => {
           size="xs"
           w={200}
           maw={400}
+          locale="ko"
+          valueFormat="YYYY. MM. DD"
           value={selectedDate}
           onChange={setSelectedDate}
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
