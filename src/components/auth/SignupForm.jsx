@@ -10,19 +10,15 @@ import { notifications } from '@mantine/notifications';
 import { signUpSchema } from '../../schema/schema';
 import Typing from './Typing';
 
-const EmailInput = styled(TextInput)`
-  .mantine-TextInput-label {
-    font-weight: 300;
-    color: var(--mantine-color-cyan-4);
-  }
-`;
+import EmailInput from './EmailInput';
+import PasswordFormInput from './PasswordFormInput';
 
-const PasswordFormInput = styled(PasswordInput)`
-  .mantine-PasswordInput-label {
-    font-weight: 300;
-    color: var(--mantine-color-cyan-4);
-  }
-`;
+// const PasswordFormInput = styled(PasswordInput)`
+//   .mantine-PasswordInput-label {
+//     font-weight: 300;
+//     color: var(--mantine-color-cyan-4);
+//   }
+// `;
 
 const InputButton = styled(Button)`
   align-self: flex-end;
@@ -34,8 +30,17 @@ const SignupForm = ({ setUserInput }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: zodResolver(signUpSchema) });
+    control,
+    trigger,
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: zodResolver(signUpSchema),
+    defaultValues: {
+      email: null,
+      password: null,
+      confirmPassword: null,
+    },
+  });
 
   const onSubmit = async data => {
     try {
@@ -93,78 +98,12 @@ const SignupForm = ({ setUserInput }) => {
         }}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {step > 0 && (
-          <Container display="flex" my={20} p={0}>
-            <EmailInput
-              w="100%"
-              label="Enter your email"
-              autoComplete="off"
-              withAsterisk
-              {...register('email')}
-              error={errors?.email?.message}
-              icon={errors?.email && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
-            />
-            {!errors?.email && (
-              <InputButton
-                type="button"
-                onClick={() => {
-                  setStep(step + 1);
-                }}
-                fw={300}
-                variant="outline"
-                color="gray">
-                Continue
-              </InputButton>
-            )}
-          </Container>
-        )}
+        {step > 0 && <EmailInput name="email" control={control} trigger={trigger} setStep={setStep} step={step} />}
         {step > 1 && (
-          <Container display="flex" my={20} p={0}>
-            <PasswordFormInput
-              w="100%"
-              label="Create a password"
-              withAsterisk
-              {...register('password')}
-              error={errors?.password?.message}
-              icon={errors?.password && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
-            />
-            {!errors?.password && (
-              <InputButton
-                type="button"
-                onClick={() => {
-                  setStep(step + 1);
-                }}
-                variant="outline"
-                fw={300}
-                color="gray">
-                Continue
-              </InputButton>
-            )}
-          </Container>
+          <PasswordFormInput name="password" control={control} trigger={trigger} setStep={setStep} step={step} />
         )}
         {step > 2 && (
-          <Container display="flex" my={20} p={0}>
-            <PasswordFormInput
-              w="100%"
-              label="Please enter your password again"
-              withAsterisk
-              {...register('confirmPassword')}
-              error={errors?.confirmPassword?.message}
-              icon={errors?.confirmPassword && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
-            />
-            {!errors?.confirmPassword && (
-              <InputButton
-                type="button"
-                onClick={() => {
-                  setStep(step + 1);
-                }}
-                fw={300}
-                variant="outline"
-                color="gray">
-                Continue
-              </InputButton>
-            )}
-          </Container>
+          <PasswordFormInput name="confirmPassword" control={control} trigger={trigger} setStep={setStep} step={step} />
         )}
         {step > 3 && (
           <Button type="submit" fullWidth>
