@@ -60,11 +60,31 @@ const ModifiedDate = ({ id, date }) => {
         <Text size="sm">{formatDate(date)}에 추가함</Text>
       )}
 
-      {category === 'history' && (
-        <EditDate size="sm" variant={editMode ? 'filled' : 'outline'} onClick={handleEditDateButton}>
-          {editMode ? '수정 완료' : '날짜 수정'}
-        </EditDate>
-      )}
+      {category === 'history' &&
+        (editMode ? (
+          <Flex>
+            <EditDate size="sm" variant="filled" onClick={handleEditDateButton}>
+              수정 완료
+            </EditDate>
+            <EditDate
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                setEditMode(false);
+              }}>
+              수정 취소
+            </EditDate>
+          </Flex>
+        ) : (
+          <EditDate
+            size="sm"
+            variant="outline"
+            onClick={() => {
+              setEditMode(true);
+            }}>
+            날짜 수정
+          </EditDate>
+        ))}
     </Flex>
   );
 };
