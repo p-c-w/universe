@@ -7,7 +7,7 @@ import { IconCalendar } from '@tabler/icons-react';
 import { categoryState } from '../../recoil/atom';
 import { formatDate } from '../../utils';
 
-const EditButton = styled(Badge)`
+const EditDate = styled(Badge)`
   cursor: pointer;
 `;
 
@@ -40,16 +40,11 @@ const ModifiedDate = ({ date }) => {
         <Text size="sm">{formatDate(date)}에 추가함</Text>
       )}
 
-      {category === 'history' &&
-        (!editMode ? (
-          <EditButton size="sm" variant="outline" onClick={handleEditDateButton}>
-            날짜 수정
-          </EditButton>
-        ) : (
-          <EditButton size="sm" variant="filled" onClick={handleEditDateButton}>
-            수정 완료
-          </EditButton>
-        ))}
+      {category === 'history' && (
+        <EditDate size="sm" variant={editMode ? 'filled' : 'outline'} onClick={handleEditDateButton}>
+          {editMode ? '수정 완료' : '날짜 수정'}
+        </EditDate>
+      )}
     </Flex>
   );
 };
