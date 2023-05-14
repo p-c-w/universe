@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
-import { useRecoilValue } from 'recoil';
 import { AccordionLabel } from './index';
-import { useDeleteUserContentMutation } from '../../hooks/mutations';
-import { userState, categoryState } from '../../recoil/atom';
+
+import { categoryState } from '../../recoil/atom';
+import { useRecoilValue } from 'recoil';
+
 import { ActionIcons } from '../common';
 
 const getAddedDate = modifiedAt => modifiedAt?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
-const CollectionItem = ({ item, setClicked, open }) => {
-  const email = useRecoilValue(userState);
-  const listName = useRecoilValue(categoryState);
-
+const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal }) => {
   const [hovered, setHovered] = useState(false);
 
-  const { mutate: deleteUserContent } = useDeleteUserContentMutation();
+  const listName = useRecoilValue(categoryState);
 
-  const handleClick = item => {
+  const handleDetailClick = item => {
     setClicked(item);
-    open();
+    openDetailModal();
   };
 
   const handleMouseEnter = () => setHovered(true);
 
   const handleMouseLeave = () => setHovered(false);
 
-  const handleTrashClick = e => {
-    e.stopPropagation();
-    deleteUserContent({ email, list: `${listName}_list`, id: item.id });
+  const handleDeleteClick = item => {
+    setClicked(item);
+    openComfirmModal();
   };
 
   return (
@@ -42,7 +40,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
           <Flex direction="row" justify="space-between" align="center">
             <AccordionLabel {...item} />
             {hovered && (
-              <ThemeIcon variant="transparent" onClick={handleTrashClick}>
+              <ThemeIcon variant="transparent" onClick={() => handleDeleteClick({ id: item?.id, listName })}>
                 <IconTrash size={16} />
               </ThemeIcon>
             )}
@@ -58,7 +56,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
                   pl={0}
                   pb={3}
                   variant="transparent"
-                  onClick={() => handleClick({ id: item?.id, type: item?.type })}
+                  onClick={() => handleDetailClick({ id: item?.id, type: item?.type })}
                   fz={12}
                   aria-label="more">
                   <Text>상세페이지로</Text>
