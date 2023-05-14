@@ -4,19 +4,28 @@ import styled from '@emotion/styled';
 import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { IconCalendar } from '@tabler/icons-react';
-import { categoryState } from '../../recoil/atom';
+import { categoryState, userState } from '../../recoil/atom';
 import { formatDate } from '../../utils';
+import { useUpdateModifiedAtMutation } from '../../hooks/mutations';
 
 const EditDate = styled(Badge)`
   cursor: pointer;
 `;
 
-const ModifiedDate = ({ date }) => {
+const ModifiedDate = ({ id, date }) => {
+  const email = useRecoilValue(userState);
   const category = useRecoilValue(categoryState);
   const [editMode, setEditMode] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date(date));
 
+  const { mutate: updateModifiedAt } = useUpdateModifiedAtMutation();
+
   const handleEditDateButton = () => {
+    if (editMode) {
+      const newDate = new Date(Date.parse(selectedDate) + 86400000).toISOString();
+
+      updateModifiedAt({ email, list: 'history_list', id, value: newDate });
+    }
     setEditMode(!editMode);
   };
 
