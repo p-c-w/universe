@@ -38,6 +38,11 @@ const ModifiedDate = ({ id, date }) => {
     setEditMode(!editMode);
   };
 
+  const handleCancel = () => {
+    setEditMode(false);
+    setSelectedDate(new Date(date));
+  };
+
   const handleDatePicker = e => {
     e.stopPropagation();
   };
@@ -62,16 +67,11 @@ const ModifiedDate = ({ id, date }) => {
 
       {category === 'history' &&
         (editMode ? (
-          <Flex>
+          <Flex gap={5}>
             <EditDate size="sm" variant="filled" onClick={handleEditDateButton}>
               수정 완료
             </EditDate>
-            <EditDate
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                setEditMode(false);
-              }}>
+            <EditDate size="sm" variant="outline" onClick={handleCancel}>
               수정 취소
             </EditDate>
           </Flex>
