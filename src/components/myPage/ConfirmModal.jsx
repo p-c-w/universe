@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Text, Button } from '@mantine/core';
+import { Modal, Text, Button, Flex, Title } from '@mantine/core';
 import { useDeleteUserContentMutation } from '../../hooks/mutations';
 import { userState } from '../../recoil/atom';
 import { useRecoilValue } from 'recoil';
@@ -17,9 +17,13 @@ const ConfirmModal = ({ opened, close, id, listName }) => {
 
   return (
     <>
-      <Modal opened={opened} title="정말 해당 컨텐트를 삭제하시겠습니까?">
-        <Button onClick={close}>아니오</Button>
-        <Button onClick={handleTrashClick}>네</Button>
+      <Modal opened={opened} onClose={close} centered title=" 해당 컨텐츠를 삭제하시겠습니까?">
+        <Flex justify={'flex-end'} gap={7} my={10}>
+          <Button onClick={handleTrashClick}>삭제하기</Button>
+          <Button onClick={close} color="gray">
+            취소하기
+          </Button>
+        </Flex>
       </Modal>
     </>
   );
