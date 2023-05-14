@@ -21,15 +21,9 @@ const ModifiedDate = ({ id, date }) => {
   const [editMode, setEditMode] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date(date));
 
-  const handleChange = e => {
-    const offsetDate = new Date(e - offset);
-
-    setSelectedDate(offsetDate);
-  };
-
   const { mutate: updateModifiedAt } = useUpdateModifiedAtMutation();
 
-  const handleEditDateButton = () => {
+  const handleEdit = () => {
     if (editMode) {
       const newDate = selectedDate.toISOString();
 
@@ -41,6 +35,12 @@ const ModifiedDate = ({ id, date }) => {
   const handleCancel = () => {
     setEditMode(false);
     setSelectedDate(new Date(date));
+  };
+
+  const handleChange = e => {
+    const offsetDate = new Date(e - offset);
+
+    setSelectedDate(offsetDate);
   };
 
   const handleDatePicker = e => {
@@ -68,7 +68,7 @@ const ModifiedDate = ({ id, date }) => {
       {category === 'history' &&
         (editMode ? (
           <Flex gap={5}>
-            <EditDate size="sm" variant="filled" onClick={handleEditDateButton}>
+            <EditDate size="sm" variant="filled" onClick={handleEdit}>
               수정 완료
             </EditDate>
             <EditDate size="sm" variant="outline" onClick={handleCancel}>
