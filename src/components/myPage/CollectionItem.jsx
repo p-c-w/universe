@@ -46,9 +46,10 @@ const CollectionItem = ({ item, setClicked, open }) => {
             )}
           </Flex>
         </Accordion.Control>
+
         <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
-            <ModifiedDate date={item?.modified_at} />
+            <ModifiedDate id={item?.id} date={item?.modified_at} />
 
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
@@ -67,6 +68,7 @@ const CollectionItem = ({ item, setClicked, open }) => {
                 </Button>
               </Tooltip>
             </div>
+
             <ActionIcons size={16} id={item.id} type={item.type} category={listName} />
           </Flex>
         </Accordion.Panel>
