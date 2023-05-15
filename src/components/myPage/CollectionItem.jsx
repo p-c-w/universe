@@ -40,7 +40,7 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
             <AccordionLabel {...item} />
             {hovered && (
               <ThemeIcon variant="transparent" onClick={e => handleDeleteClick(e, { id: item?.id, listName })}>
-                <IconTrash size={16} />
+                <IconTrash size={xsmallScreen ? 12 : 16} />
               </ThemeIcon>
             )}
           </Flex>
