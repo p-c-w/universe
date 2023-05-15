@@ -1,19 +1,25 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useController } from 'react-hook-form';
-import { TextInput, Container } from '@mantine/core';
+import { TextInput, Button, Container } from '@mantine/core';
 import { debounce } from 'lodash';
 import { IconX } from '@tabler/icons-react';
 
 import styled from '@emotion/styled';
 
-const MailInput = styled(TextInput)`
+const Input = styled(TextInput)`
   .mantine-TextInput-label {
     font-weight: 300;
     color: var(--mantine-color-cyan-4);
   }
 `;
 
-const SignupInput = ({ name, control, trigger, children }) => {
+const InputButton = styled(Button)`
+  align-self: flex-end;
+`;
+
+const SignupInput = ({ name, control, trigger, step, setStep }) => {
+  const [continueBtn, setContinueBtn] = useState(false);
+
   const {
     field: { onChange },
     fieldState: { invalid, isDirty, error },
@@ -32,10 +38,15 @@ const SignupInput = ({ name, control, trigger, children }) => {
     debouncedTrigger();
   };
 
+  const handleClick = () => {
+    setStep(step + 1);
+    setContinueBtn(true);
+  };
+
   return (
     <>
       <Container display="flex" my={20} p={0}>
-        <MailInput
+        <Input
           onChange={handleChange}
           onKeyDown={e => {
             if (e.keyCode === 13) {
@@ -46,11 +57,22 @@ const SignupInput = ({ name, control, trigger, children }) => {
           label={`Enter your ${name}`}
           autoComplete="off"
           withAsterisk
-          type={name}
-          error={error?.message}
+          error={error?.message !== 'Required' && error?.message}
+          required={false}
+          type={name.toLowerCase().includes('password') ? 'password' : 'text'}
           icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
         />
-        {isDirty && !invalid && children}
+        {isDirty && !invalid && (
+          <InputButton
+            type="button"
+            onClick={handleClick}
+            fw={300}
+            disabled={continueBtn}
+            variant="outline"
+            color="gray">
+            Continue
+          </InputButton>
+        )}
       </Container>
     </>
   );
