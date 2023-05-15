@@ -20,7 +20,7 @@ const StatisticCarousel = styled(Carousel)`
 
 const Statistics = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
-  const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <StatcsByGenre key={2} />];
+  const statsComponents = [<StatsByProvider key={0} />, <StatcsByGenre key={1} />, <StatsByMonthly key={2} />];
 
   return (
     <StatisticCarousel
