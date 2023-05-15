@@ -20,6 +20,9 @@ const PresentSubscriptionFee = styled(Accordion)`
   }
   .mantine-Accordion-control {
     padding: 0;
+    :active {
+      background-color: inherit;
+    }
   }
 `;
 
