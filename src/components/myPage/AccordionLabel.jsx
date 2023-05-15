@@ -17,7 +17,7 @@ const AccordionLabel = ({ title, providers: providerIds }) => {
       ) : (
         <Badge src={`./assets/logos/universeLogoWhite.svg`} size={35} />
       )}
-      <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700}>
+      <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} lineClamp={1}>
         {title}
       </Text>
     </Group>
