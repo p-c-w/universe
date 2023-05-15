@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion, Container } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { SubscriptionProviders, SubscriptionEditor, CurrentUnsubscriptionInfo } from './index';
 import { useUserQuery } from '../../hooks/queries';
 import { getProvidersInfoListByList } from '../../utils';
@@ -35,6 +36,8 @@ const defaultData = {
 const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
 
 const CurrentSubscriptionInfo = () => {
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const [editMode, setEditMode] = useState(false);
 
   const { data } = useUserQuery({
@@ -57,8 +60,10 @@ const CurrentSubscriptionInfo = () => {
             onClick={() => {
               setEditMode(false);
             }}>
-            <Title order={4}>현재 나의 구독료</Title>
-            <Text size="2rem">₩{currentFee.toLocaleString()}</Text>
+            <Title order={4} size={xsmallScreen ? 16 : 18}>
+              현재 나의 구독료
+            </Title>
+            <Text size={xsmallScreen ? 28 : 32}>₩{currentFee.toLocaleString()}</Text>
           </Accordion.Control>
           <Accordion.Panel>
             {editMode ? (
