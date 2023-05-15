@@ -68,11 +68,11 @@ const Star = styled.div`
 `;
 
 const BackImg = styled.img`
-  top: 20%;
-  left: 50%;
   opacity: 0.7;
   transform: translate(-21%, -25%);
   overflow: hidden !important;
+  width: 170%;
+  /* height: 170%; */
 `;
 
 const FormContainer = styled(Container)`
@@ -95,7 +95,7 @@ const SignUp = () => {
           className="js-warp-hide position-absolute overflow-hidden home-hero-glow events-none"></BackImg>
       </Background>
       <SignupHeader />
-      <Flex mih={600} justify="center" direction="column" wrap="wrap">
+      <Flex mih={600} justify="center" direction="column" wrap="wrap" align="center">
         <FormContainer c="gray.1" w={550} p={20}>
           {!userInput ? (
             <SignupForm setUserInput={setUserInput} />
