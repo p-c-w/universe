@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import 'dayjs/locale/ko';
 import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconCalendar } from '@tabler/icons-react';
 import { categoryState, userState } from '../../recoil/atom';
 import { formatDate } from '../../utils';
@@ -16,6 +17,9 @@ const EditDate = styled(Badge)`
 const offset = new Date().getTimezoneOffset() * 60000;
 
 const ModifiedDate = ({ id, date }) => {
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const email = useRecoilValue(userState);
   const category = useRecoilValue(categoryState);
   const [editMode, setEditMode] = useState(false);
@@ -48,12 +52,12 @@ const ModifiedDate = ({ id, date }) => {
   };
 
   return (
-    <Flex align="center" gap={10}>
+    <Flex direction={smallScreen && 'column'} align={smallScreen ? 'start' : 'center'} gap={smallScreen ? 7 : 10}>
       {editMode ? (
         <DatePickerInput
           onClick={handleDatePicker}
           size="xs"
-          w={200}
+          w={xsmallScreen ? 150 : 180}
           maw={400}
           locale="ko"
           valueFormat="YYYY. MM. DD"
@@ -62,7 +66,7 @@ const ModifiedDate = ({ id, date }) => {
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
-        <Text size="sm">{formatDate(date)}에 추가함</Text>
+        <Text size={xsmallScreen ? 'xs' : 'sm'}>{formatDate(date)}에 추가함</Text>
       )}
 
       {category === 'history' &&
