@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import ReactApexChart from 'react-apexcharts';
@@ -14,6 +15,8 @@ const Icon = styled(IconDeviceAnalytics)`
 `;
 
 const StatsByGenre = () => {
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const { data } = useStatsByGenre();
 
   const { colorScheme } = useMantineColorScheme();
@@ -46,7 +49,7 @@ const StatsByGenre = () => {
     <>
       <Group position="apart" mt={7}>
         <Group align="flex-end" spacing="xs">
-          <Text fz="lg" fw={700} align="left">
+          <Text fz={xsmallScreen ? 'sm' : 'lg'} fw={700} align="left">
             <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
               {top3Genres[0]?.label}{' '}
             </Text>
@@ -55,7 +58,7 @@ const StatsByGenre = () => {
         </Group>
         <Icon size="1.4rem" stroke={1.5} />
       </Group>
-      <Diff c="teal" fz="sm" fw={700} display="flex">
+      <Diff c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} display="flex">
         많이 시청한 장르 TOP3는 {top3Genres.map(({ label }) => label).join(', ')} 입니다.
       </Diff>
 

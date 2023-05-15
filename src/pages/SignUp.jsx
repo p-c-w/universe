@@ -70,7 +70,11 @@ const Star = styled.div`
 const BackImg = styled.img`
   top: 20%;
   left: 50%;
+  /* top: 20%;
+  left: 50%; */
+  /* transform: translate(-21%, -25%); */
   opacity: 0.7;
+  /* width: 160%; */
   transform: translate(-21%, -25%);
   overflow: hidden !important;
 `;

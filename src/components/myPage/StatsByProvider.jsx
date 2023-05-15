@@ -1,4 +1,5 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { useStatsByProvider } from '../../hooks/statistics';
@@ -35,6 +36,8 @@ const getMaxProvider = datas => {
 };
 
 const StatsByProvider = () => {
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -70,9 +73,9 @@ const StatsByProvider = () => {
     <>
       <Group position="apart" mt={7}>
         <Group align="flex-end" spacing="xs">
-          <Text fz="lg" fw={700} align="left">
+          <Text fz={xsmallScreen ? 'sm' : 'lg'} fw={700} align="left">
             지금까지 전체{' '}
-            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
+            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
               {total}
             </Text>
             건의 컨텐츠를 감상했어요.
@@ -80,7 +83,7 @@ const StatsByProvider = () => {
         </Group>
         <Icon size="1.4rem" stroke={1.5} />
       </Group>
-      <Diff c="teal" fz="sm" fw={700} display="flex">
+      <Diff c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} display="flex">
         {maxProvider}를 가장 많이 사용했어요.
       </Diff>
 
