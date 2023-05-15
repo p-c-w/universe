@@ -40,12 +40,7 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
 
   return (
     <>
-      <Accordion
-        chevronPosition="right"
-        variant="separated"
-        sx={{ width: '100%' }}
-        onChange={handleChange}
-        value={value}>
+      <Accordion variant="separated" w="100%" onChange={handleChange} value={value}>
         {allQueriesSucceeded &&
           collectionList?.map(item => (
             <CollectionItem
