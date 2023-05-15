@@ -11,7 +11,13 @@ const StyledContainer = styled(Container)`
 `;
 
 const PresentSubscriptionFee = styled(Accordion)`
-  button {
+  .mantine-Accordion-item {
+    border-bottom: none;
+  }
+  .mantine-Accordion-label {
+    padding: 0;
+  }
+  .mantine-Accordion-control {
     padding: 0;
   }
 `;
@@ -45,7 +51,7 @@ const CurrentSubscriptionInfo = () => {
 
   return (
     <StyledContainer p={16}>
-      <PresentSubscriptionFee styles={{ item: { borderBottom: 'none' }, label: { padding: '0' } }}>
+      <PresentSubscriptionFee>
         <Accordion.Item value={`₩${currentFee}`}>
           <Accordion.Control
             onClick={() => {
