@@ -46,7 +46,7 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
           </Flex>
         </Accordion.Control>
 
-        <Accordion.Panel w="90%" ml={xsmallScreen ? 43 : 55} mt={xsmallScreen ? -5 : -15} mb={20}>
+        <Accordion.Panel w="90%" ml={xsmallScreen ? 43 : 55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
             <ModifiedDate id={item?.id} date={item?.modified_at} />
             <div>
