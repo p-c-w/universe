@@ -4,8 +4,9 @@ import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMa
 import { IconMovie, IconThumbUp, IconHistory, IconPlanet } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
-import { userState, sideNavOpenedState, categoryState } from '../../recoil/atom';
+import { userState, sideNavState, categoryState } from '../../recoil/atom';
 import Signout from '../auth/Signout';
+import { SIDE_NAV_DURATION } from '../../constants';
 
 const Nav = styled(Navbar)`
   justify-content: space-between;
@@ -55,14 +56,14 @@ const tabs = [
 
 const SideNavBar = () => {
   const user = useRecoilValue(userState);
-  const isOpened = useRecoilValue(sideNavOpenedState);
+  const isOpened = useRecoilValue(sideNavState);
   const { colorScheme } = useMantineColorScheme();
   const setCategory = useSetRecoilState(categoryState);
 
   const dark = colorScheme === 'dark';
 
   return (
-    <Transition mounted={isOpened} transition="slide-right" duration={400} timingFunction="ease">
+    <Transition mounted={isOpened} transition="slide-right" duration={SIDE_NAV_DURATION} timingFunction="ease">
       {styles => (
         <Nav style={styles} p="md" width={{ base: 240 }}>
           <Navbar.Section w="100%">
