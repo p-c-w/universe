@@ -28,7 +28,7 @@ const MyPage = () => {
         <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
           <MypageTitle />
         </Suspense>
-        <SimpleGrid cols={2} mt={32} spacing="xl">
+        <SimpleGrid cols={2} mt={32} spacing="xl" breakpoints={[{ maxWidth: '60rem', cols: 1 }]}>
           <Box>
             <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
               <PredictedFeeWrapper />
