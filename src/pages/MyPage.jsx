@@ -24,7 +24,7 @@ const MyPage = () => {
 
   return (
     <GlobalShell>
-      <Container mt="1rem" mx="auto" size={'100%'} w={1240}>
+      <Container mt="1rem" mx="auto" size={'100%'} w={1240} miw={375}>
         <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
           <MypageTitle />
         </Suspense>
