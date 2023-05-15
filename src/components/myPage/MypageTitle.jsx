@@ -54,7 +54,7 @@ const MypageTitle = () => {
     <Container m={0} mb={16} p={0} spacing={5} miw={350} display="flex" gap={3.2} align="start">
       <PageTitle
         order={1}
-        size={xsmallScreen ? 32 : 40}
+        size={xsmallScreen ? 30 : 40}
         display="flex"
         fw={900}
         variant="gradient"
