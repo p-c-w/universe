@@ -17,7 +17,7 @@ const MyListContainer = styled(Container)`
 
 const ContentImage = styled(Image)`
   display: ${props => (props.open ? 'block' : 'none')};
-  width: 30%;
+  /* width: 30%; */
 `;
 
 const Collections = () => {
@@ -51,7 +51,7 @@ const Collections = () => {
         ))}
       </Flex>
       <Flex gap="1rem">
-        <ScrollArea w="100%" h={400}>
+        <ScrollArea w="100%" h={400} miw={250}>
           <Suspense fallback={<CollectionSkeleton />}>
             {data.length === 0 ? (
               <EmptyCollection category={category} />
@@ -72,7 +72,9 @@ const Collections = () => {
           />
         </ScrollArea>
         <Transition mounted={itemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
-          {styles => <ContentImage open={itemSelected} width={300} src={imgSrc} alt="content image" style={styles} />}
+          {styles => (
+            <ContentImage open={itemSelected} maw={300} miw={50} src={imgSrc} alt="content image" style={styles} />
+          )}
         </Transition>
       </Flex>
     </MyListContainer>
