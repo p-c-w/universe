@@ -7,7 +7,7 @@ import { useUserQuery } from '../../hooks/queries';
 import { getProvidersInfoListByList } from '../../utils';
 
 const StyledContainer = styled(Container)`
-  background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[1])};
+  background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2])};
   border-radius: 0.5rem;
 `;
 
