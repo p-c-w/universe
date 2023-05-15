@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { TextInput, PasswordInput, Button, Container } from '@mantine/core';
+import { Button } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX, IconCheck } from '@tabler/icons-react';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,13 +13,6 @@ import Typing from './Typing';
 import EmailInput from './EmailInput';
 import PasswordFormInput from './PasswordFormInput';
 
-// const PasswordFormInput = styled(PasswordInput)`
-//   .mantine-PasswordInput-label {
-//     font-weight: 300;
-//     color: var(--mantine-color-cyan-4);
-//   }
-// `;
-
 const InputButton = styled(Button)`
   align-self: flex-end;
 `;
@@ -28,7 +21,6 @@ const SignupForm = ({ setUserInput }) => {
   const [step, setStep] = useState(0);
 
   const {
-    register,
     handleSubmit,
     control,
     trigger,
@@ -87,6 +79,19 @@ const SignupForm = ({ setUserInput }) => {
     }
   };
 
+  const ContinueBtn = (
+    <InputButton
+      type="button"
+      onClick={() => {
+        setStep(step + 1);
+      }}
+      fw={300}
+      variant="outline"
+      color="gray">
+      Continue
+    </InputButton>
+  );
+
   return (
     <>
       <Typing str="Welcome to Universe!" isLast={0} />
@@ -98,15 +103,13 @@ const SignupForm = ({ setUserInput }) => {
         }}
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {step > 0 && <EmailInput name="email" control={control} trigger={trigger} setStep={setStep} step={step} />}
-        {step > 1 && (
-          <PasswordFormInput name="password" control={control} trigger={trigger} setStep={setStep} step={step} />
-        )}
+        {step > 0 && <EmailInput name="email" control={control} trigger={trigger} children={ContinueBtn} />}
+        {step > 1 && <PasswordFormInput name="password" control={control} trigger={trigger} children={ContinueBtn} />}
         {step > 2 && (
-          <PasswordFormInput name="confirmPassword" control={control} trigger={trigger} setStep={setStep} step={step} />
+          <PasswordFormInput name="confirmPassword" control={control} trigger={trigger} children={ContinueBtn} />
         )}
         {step > 3 && (
-          <Button type="submit" fullWidth>
+          <Button type="submit" disabled={!isValid} fullWidth>
             Sign Up
           </Button>
         )}
