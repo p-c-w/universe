@@ -41,7 +41,7 @@ const Collections = () => {
 
   return (
     <MyListContainer fluid p={0}>
-      <Flex gap={smallScreen ? '0.5rem' : '0.8rem'}>
+      <Flex gap={smallScreen ? 8 : 12}>
         {COLLECTION_BUTTON.map(button => (
           <CollectionCategoryButton
             key={button.label}
@@ -52,7 +52,7 @@ const Collections = () => {
           </CollectionCategoryButton>
         ))}
       </Flex>
-      <Flex gap={smallScreen ? '0.5rem' : '1rem'}>
+      <Flex gap={smallScreen ? 8 : 16}>
         <ScrollArea w="100%" h={400} miw={250}>
           <Suspense fallback={<CollectionSkeleton />}>
             {data.length === 0 ? (
