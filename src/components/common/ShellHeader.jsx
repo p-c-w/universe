@@ -2,7 +2,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { sideNavOpenedState, userState } from '../../recoil/atom';
+import { sideNavState, userState } from '../../recoil/atom';
 import { MyMenu, SearchBar, ThemeButton } from '.';
 import { generateInitial } from '../../utils';
 
@@ -17,7 +17,7 @@ const Logo = styled(Avatar)`
 `;
 
 const ShellHeader = () => {
-  const [isOpened, setIsOpened] = useRecoilState(sideNavOpenedState);
+  const [isOpened, setIsOpened] = useRecoilState(sideNavState);
   const { colorScheme } = useMantineColorScheme();
   const user = useRecoilValue(userState);
 
