@@ -18,10 +18,11 @@ const EditForm = styled.form`
 const providerArray = getProviderArray();
 
 const SubscriptionEditor = ({ providers, onClick }) => {
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const providersNames = providers?.map(provider => provider.provider_name);
 
@@ -51,13 +52,13 @@ const SubscriptionEditor = ({ providers, onClick }) => {
     <EditForm onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
-          <Title order={5} fw={400} fz={xsmallScreen ? 12 : 16}>
+          <Title order={5} fw={400} fz={xsmallScreen ? 12 : smallScreen ? 14 : 16}>
             구독중인 서비스를 선택해주세요.
           </Title>
           <Chip
             checked={selectedProviders?.length === providerArray.length}
             onChange={toggleAllSelectedProviders}
-            size="xs"
+            size={xsmallScreen ? 'xs' : 'sm'}
             p={0}>
             All
           </Chip>

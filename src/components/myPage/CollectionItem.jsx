@@ -11,6 +11,7 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
   const listName = useRecoilValue(categoryState);
   const [hovered, setHovered] = useState(false);
 
+  const smallScreen = useMediaQuery('(max-width: 30rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const handleDetailClick = item => {
@@ -40,13 +41,13 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
             <AccordionLabel {...item} />
             {hovered && (
               <ThemeIcon variant="transparent" onClick={e => handleDeleteClick(e, { id: item?.id, listName })}>
-                <IconTrash size={xsmallScreen ? 12 : 16} />
+                <IconTrash size={xsmallScreen ? 12 : smallScreen ? 14 : 16} />
               </ThemeIcon>
             )}
           </Flex>
         </Accordion.Control>
 
-        <Accordion.Panel w="90%" ml={xsmallScreen ? 43 : 55} mt={-15} mb={20}>
+        <Accordion.Panel w="90%" ml={xsmallScreen ? 43 : smallScreen ? 51 : 55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
             <ModifiedDate id={item?.id} date={item?.modified_at} />
             <div>
