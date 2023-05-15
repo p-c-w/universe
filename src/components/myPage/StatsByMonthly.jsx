@@ -1,17 +1,7 @@
 import ReactApexChart from 'react-apexcharts';
 import { Text, Group, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconDeviceAnalytics } from '@tabler/icons-react';
-import styled from '@emotion/styled';
 import { useStatsByMonthly } from '../../hooks/statistics';
-
-const Icon = styled(IconDeviceAnalytics)`
-  color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
-`;
-
-const Diff = styled(Text)`
-  align-items: center;
-`;
 
 const getMaxMonth = datas => {
   let max = -1;
@@ -29,6 +19,7 @@ const getMaxMonth = datas => {
 };
 
 const StatsByMonthly = () => {
+  const smallScreen = useMediaQuery('(max-width: 30rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const { colorScheme } = useMantineColorScheme();
@@ -84,21 +75,18 @@ const StatsByMonthly = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Group align="flex-end" spacing="xs">
-          <Text fz={xsmallScreen ? 'sm' : 'lg'} fw={700} align="left">
-            올해는 총{' '}
-            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
-              {total}
-            </Text>
-            건의 컨텐츠를 감상했어요.
+        <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} align="left">
+          올해는 총{' '}
+          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
+            {total}
           </Text>
-        </Group>
-        <Icon size="1.4rem" stroke={1.5} />
+          건의 컨텐츠를 감상했어요.
+        </Text>
       </Group>
-      <Diff c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} display="flex">
+      <Text c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} align="start">
         {total === 0 ? '지금부터 컨텐츠를 감상해보세요!' : `${maxMonth}월에 가장 많은 컨텐츠를 감상했어요.`}
-      </Diff>
-      <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={250} />
+      </Text>
+      <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={180} />
     </>
   );
 };

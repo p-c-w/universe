@@ -21,11 +21,11 @@ const ContentImage = styled(Image)`
 `;
 
 const Collections = () => {
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
+
   const [itemSelected, setItemSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
   const [category, setCategory] = useRecoilState(categoryState);
-
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const { data = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
@@ -75,7 +75,14 @@ const Collections = () => {
         </ScrollArea>
         <Transition mounted={itemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => (
-            <ContentImage open={itemSelected} maw={300} miw={50} src={imgSrc} alt="content image" style={styles} />
+            <ContentImage
+              open={itemSelected}
+              maw={smallScreen ? 250 : 300}
+              miw={50}
+              src={imgSrc}
+              alt="content image"
+              style={styles}
+            />
           )}
         </Transition>
       </Flex>

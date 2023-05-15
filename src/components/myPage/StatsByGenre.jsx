@@ -1,20 +1,11 @@
 import React from 'react';
 import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconDeviceAnalytics } from '@tabler/icons-react';
-import styled from '@emotion/styled';
 import ReactApexChart from 'react-apexcharts';
 import { useStatsByGenre } from '../../hooks/statistics';
 
-const Diff = styled(Text)`
-  align-items: center;
-`;
-
-const Icon = styled(IconDeviceAnalytics)`
-  color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
-`;
-
 const StatsByGenre = () => {
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const { data } = useStatsByGenre();
@@ -48,24 +39,21 @@ const StatsByGenre = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Group align="flex-end" spacing="xs">
-          <Text fz={xsmallScreen ? 'sm' : 'lg'} fw={700} align="left">
-            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
-              {top3Genres[0]?.label}{' '}
-            </Text>
-            장르를 가장 많이 감상했어요.
+        <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} align="left">
+          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
+            {top3Genres[0]?.label}{' '}
           </Text>
-        </Group>
-        <Icon size="1.4rem" stroke={1.5} />
+          장르를 가장 많이 감상했어요.
+        </Text>
       </Group>
-      <Diff c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} display="flex">
+      <Text c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} align="start">
         많이 시청한 장르 TOP3는 {top3Genres.map(({ label }) => label).join(', ')} 입니다.
-      </Diff>
+      </Text>
 
-      <Flex>
+      <Flex justify="center">
         <Group position="center">
           <RingProgress
-            size={170}
+            size={smallScreen ? 150 : 170}
             thickness={16}
             label={<Text size="xs" align="center" px="xs" sx={{ pointerEvents: 'none' }}></Text>}
             sections={genres.map(({ label, part, count, color }) => ({
