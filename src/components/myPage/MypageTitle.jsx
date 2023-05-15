@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Title, Button, Container, TextInput } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
@@ -7,20 +8,12 @@ import { useUserQuery } from '../../hooks/queries';
 import { useUpdateUserNameMutation } from '../../hooks/mutations';
 import { userState } from '../../recoil/atom';
 
-const StyledContainer = styled(Container)`
-  display: flex;
-  gap: 0.2rem;
-  margin: 0;
-  padding: 0;
-`;
-
 const PageTitle = styled(Title)`
   display: flex;
   align-items: center;
 `;
 
 const NameInput = styled(TextInput)`
-  width: 15rem;
   input {
     font-size: 2rem;
     color: gray;
@@ -30,6 +23,9 @@ const NameInput = styled(TextInput)`
 `;
 
 const MypageTitle = () => {
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const email = useRecoilValue(userState);
 
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
@@ -55,10 +51,17 @@ const MypageTitle = () => {
   };
 
   return (
-    <StyledContainer mb="1rem" spacing={5} align="start">
-      <PageTitle order={1} size={40} fw={900} variant="gradient" gradient={{ from: 'violet', to: 'cyan', deg: 145 }}>
+    <Container m={0} mb={16} p={0} spacing={5} miw={350} display="flex" gap={3.2} align="start">
+      <PageTitle
+        order={1}
+        size={xsmallScreen ? 32 : 40}
+        display="flex"
+        fw={900}
+        variant="gradient"
+        gradient={{ from: 'violet', to: 'cyan', deg: 145 }}>
         {editMode ? (
           <NameInput
+            w={xsmallScreen ? 150 : smallScreen ? 200 : 400}
             variant="unstyled"
             value={userName}
             onChange={e => {
@@ -81,7 +84,7 @@ const MypageTitle = () => {
         }}>
         <IconPencil size={15} />
       </Button>
-    </StyledContainer>
+    </Container>
   );
 };
 
