@@ -10,8 +10,11 @@ import { categoryState } from '../../recoil/atom';
 
 const ItemContainer = styled(Accordion)`
   .mantine-Accordion-label {
-    padding-top: ${props => props.padding};
-    padding-bottom: ${props => props.padding};
+    padding-top: ${props => props.space};
+    padding-bottom: ${props => props.space};
+  }
+  .mantine-Accordion-chevron {
+    margin-left: ${props => props.space};
   }
 `;
 
@@ -55,7 +58,7 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
         w="100%"
         onChange={handleChange}
         value={value}
-        padding={xsmallScreen && '0.5rem'}>
+        space={xsmallScreen && '0.5rem'}>
         {allQueriesSucceeded &&
           collectionList?.map(item => (
             <CollectionItem
