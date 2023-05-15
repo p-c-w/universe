@@ -104,9 +104,17 @@ const SignupForm = ({ setUserInput }) => {
       />
       <form onSubmit={handleSubmit(onSubmit)}>
         {step > 0 && <EmailInput name="email" control={control} trigger={trigger} children={ContinueBtn} />}
-        {step > 1 && <PasswordFormInput name="password" control={control} trigger={trigger} children={ContinueBtn} />}
+        {step > 1 && (
+          <PasswordFormInput name="password" control={control} trigger={trigger} children={ContinueBtn} step={step} />
+        )}
         {step > 2 && (
-          <PasswordFormInput name="confirmPassword" control={control} trigger={trigger} children={ContinueBtn} />
+          <PasswordFormInput
+            name="confirmPassword"
+            control={control}
+            trigger={trigger}
+            children={ContinueBtn}
+            step={step}
+          />
         )}
         {step > 3 && (
           <Button type="submit" disabled={!isValid} fullWidth>
