@@ -1,19 +1,19 @@
 import React, { useCallback } from 'react';
 import { useController } from 'react-hook-form';
-import { PasswordInput, Container } from '@mantine/core';
+import { TextInput, Container } from '@mantine/core';
 import { debounce } from 'lodash';
 import { IconX } from '@tabler/icons-react';
 
 import styled from '@emotion/styled';
 
-const Input = styled(PasswordInput)`
-  .mantine-PasswordInput-label {
+const MailInput = styled(TextInput)`
+  .mantine-TextInput-label {
     font-weight: 300;
     color: var(--mantine-color-cyan-4);
   }
 `;
 
-const PasswordFormInput = ({ name, control, trigger, children, step }) => {
+const SignupInput = ({ name, control, trigger, children }) => {
   const {
     field: { onChange },
     fieldState: { invalid, isDirty, error },
@@ -22,7 +22,7 @@ const PasswordFormInput = ({ name, control, trigger, children, step }) => {
   const debouncedTrigger = useCallback(
     debounce(() => {
       trigger(name);
-      if (name === 'password' && step > 2) trigger('confirmPassword');
+      if (name === 'password') trigger('confirmPassword');
     }, 100),
     []
   );
@@ -35,12 +35,18 @@ const PasswordFormInput = ({ name, control, trigger, children, step }) => {
   return (
     <>
       <Container display="flex" my={20} p={0}>
-        <Input
+        <MailInput
           onChange={handleChange}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              e.preventDefault();
+            }
+          }}
           w="100%"
-          label="Enter your password"
+          label={`Enter your ${name}`}
           autoComplete="off"
           withAsterisk
+          type={name}
           error={error?.message}
           icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
         />
@@ -50,4 +56,4 @@ const PasswordFormInput = ({ name, control, trigger, children, step }) => {
   );
 };
 
-export default PasswordFormInput;
+export default SignupInput;
