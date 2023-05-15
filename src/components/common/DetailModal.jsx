@@ -10,10 +10,6 @@ import { getProvidersByIds } from '../../utils';
 import { ActionIcons, Badges } from '.';
 import genres from '../../constants/genres';
 
-const BadgeContainer = styled(Container)`
-  z-index: 999;
-`;
-
 const CloseBtn = styled(Modal.CloseButton)`
   z-index: 999;
 `;
@@ -116,9 +112,9 @@ const DetailModal = ({ type, movie }) => {
               <Flex direction={'column'} m={10}>
                 <Image src={`https://image.tmdb.org/t/p/w342${posterPath}` || undefined} />
                 <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
-                  <BadgeContainer display="flex">
+                  <Container display="flex">
                     <Badges providers={providerIds} spacing="xs" size={45} />
-                  </BadgeContainer>
+                  </Container>
                 </Container>
               </Flex>
             </Grid.Col>
