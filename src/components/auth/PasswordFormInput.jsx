@@ -13,7 +13,7 @@ const Input = styled(PasswordInput)`
   }
 `;
 
-const PasswordFormInput = ({ name, control, trigger, children }) => {
+const PasswordFormInput = ({ name, control, trigger, children, step }) => {
   const {
     field: { onChange },
     fieldState: { invalid, isDirty, error },
@@ -22,7 +22,7 @@ const PasswordFormInput = ({ name, control, trigger, children }) => {
   const debouncedTrigger = useCallback(
     debounce(() => {
       trigger(name);
-      if (name === 'password') trigger('confirmPassword');
+      if (name === 'password' && step > 2) trigger('confirmPassword');
     }, 100),
     []
   );
