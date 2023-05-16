@@ -16,7 +16,7 @@ const MyListContainer = styled(Container)`
   margin-top: 1.6rem;
 `;
 
-const ContentImage = styled(Image)`
+const PosterImage = styled(Image)`
   display: ${props => (props.open ? 'block' : 'none')};
 `;
 
@@ -75,7 +75,7 @@ const Collections = () => {
         </ScrollArea>
         <Transition mounted={isItemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => (
-            <ContentImage
+            <PosterImage
               open={isItemSelected}
               maw={smallScreen ? 250 : 300}
               miw={50}
