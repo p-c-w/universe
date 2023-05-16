@@ -1,17 +1,15 @@
-import { useRef, Suspense, useState, useEffect } from 'react';
+import { useRef, Suspense, useState } from 'react';
 import { Accordion } from '@mantine/core';
-import { useDisclosure, useMediaQuery } from '@mantine/hooks';
+import { useDisclosure } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
 import { useCollectionQueries } from '../../hooks/queries';
+import { useSelectedItem } from '../../hooks';
 import { DetailModalWrapper, ModalSkeleton } from '../common';
 import { CollectionItem, ConfirmModal } from '.';
-import { categoryState, sideNavOpenedState } from '../../recoil/atom';
+import { sideNavOpenedState } from '../../recoil/atom';
 
 const Collection = ({ collection, setItemSelected, setImgSrc }) => {
-  const middleScreen = useMediaQuery('(max-width: 51.25rem)');
-
   const isNavOpened = useRecoilValue(sideNavOpenedState);
-  const category = useRecoilValue(categoryState);
 
   const collectionQueries = useCollectionQueries(collection);
   const [detailModalOpened, { open: openDetailModal, close: closeDetailModal }] = useDisclosure(false);
@@ -27,23 +25,9 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
     modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
   }));
 
+  const screenToClose = useSelectedItem(setSelectedItem, setItemSelected, selectedItem);
+
   const itemRef = useRef(null);
-
-  useEffect(() => {
-    setSelectedItem(null);
-  }, [category]);
-
-  useEffect(() => {
-    if (middleScreen && isNavOpened) {
-      setItemSelected(false);
-    }
-  }, [middleScreen]);
-
-  useEffect(() => {
-    if (!middleScreen && selectedItem && isNavOpened) {
-      setItemSelected(true);
-    }
-  }, [middleScreen]);
 
   const handleChange = e => {
     setSelectedItem(e);
@@ -52,7 +36,7 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
       itemRef.current && `https://image.tmdb.org/t/p/w300${collectionList.find(item => item.title === e)?.posterPath}`
     );
 
-    if (isNavOpened && middleScreen) {
+    if (isNavOpened && screenToClose) {
       setItemSelected(null);
       return;
     }
