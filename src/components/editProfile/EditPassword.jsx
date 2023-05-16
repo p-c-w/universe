@@ -6,7 +6,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { signUpSchema } from '../../schema/schema';
-import { notifications, Notifications } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atom';
@@ -22,9 +22,10 @@ const EditPassword = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = async data => {
+  const handleSubmit = async e => {
+    e.preventDefault();
     try {
-      const { data: alarm } = await axios.patch('/api/auth/changepw', { email, ...data });
+      const { data: alarm } = await axios.patch('/api/auth/changepw', { email, nowPw, newPw, newConfirmPw });
 
       notifications.show({
         withCloseButton: true,
@@ -62,13 +63,9 @@ const EditPassword = () => {
   };
 
   return (
-    <Container my={10}>
+    <Container my={10} p={0}>
       <Modal opened={opened} centered onClose={close} title="비밀번호 변경" style={{ marginTop: '10rem' }}>
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            onSubmit({ nowPw, newPw, newConfirmPw });
-          }}>
+        <form onSubmit={handleSubmit}>
           <Flex direction="column" gap={10}>
             <Password label="현재 비밀번호" control={control} trigger={trigger} setPw={setNowPw} />
             <Password label="새 비밀번호" control={control} trigger={trigger} name="password" setPw={setNewPw} />
@@ -83,7 +80,7 @@ const EditPassword = () => {
           </Flex>
         </form>
       </Modal>
-      <Flex gap={50}>
+      <Flex gap={50} align={'center'} justify={'space-between'}>
         <Title order={5}>비밀번호</Title>
         <Button onClick={open} variant="outline">
           수정
