@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { PasswordInput } from '@mantine/core';
 import { useController } from 'react-hook-form';
 
-const Password = ({ label, control, trigger }) => {
+const Password = ({ name, control, trigger, label }) => {
   const {
     field: { onChange },
     fieldState: { invalid, isDirty, error },
