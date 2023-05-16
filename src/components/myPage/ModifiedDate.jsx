@@ -6,7 +6,7 @@ import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCalendar } from '@tabler/icons-react';
-import { categoryState, userState } from '../../recoil/atom';
+import { categoryState, sideNavState, userState } from '../../recoil/atom';
 import { formatDate } from '../../utils';
 import { useUpdateModifiedAtMutation } from '../../hooks/mutations';
 
@@ -17,9 +17,11 @@ const EditDate = styled(Badge)`
 const offset = new Date().getTimezoneOffset() * 60000;
 
 const ModifiedDate = ({ id, date }) => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const middleScreen = useMediaQuery('(max-width: 64rem)');
+  const smallScreen = useMediaQuery('(max-width: 44rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
+  const isNavOpened = useRecoilValue(sideNavState);
   const email = useRecoilValue(userState);
   const category = useRecoilValue(categoryState);
   const [editMode, setEditMode] = useState(false);
@@ -52,7 +54,10 @@ const ModifiedDate = ({ id, date }) => {
   };
 
   return (
-    <Flex direction={smallScreen && 'column'} align={smallScreen ? 'start' : 'center'} gap={smallScreen ? 7 : 10}>
+    <Flex
+      direction={(smallScreen || (middleScreen && isNavOpened)) && 'column'}
+      align={smallScreen || (middleScreen && isNavOpened) ? 'start' : 'center'}
+      gap={smallScreen ? 7 : 10}>
       {editMode ? (
         <DatePickerInput
           onClick={handleDatePicker}

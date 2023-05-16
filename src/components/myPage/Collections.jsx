@@ -16,16 +16,16 @@ const MyListContainer = styled(Container)`
   margin-top: 1.6rem;
 `;
 
-const ContentImage = styled(Image)`
+const PosterImage = styled(Image)`
   display: ${props => (props.open ? 'block' : 'none')};
 `;
 
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
-  const [itemSelected, setItemSelected] = useState(false);
-  const [imgSrc, setImgSrc] = useState('');
   const [category, setCategory] = useRecoilState(categoryState);
+  const [isItemSelected, setIsItemSelected] = useState(false);
+  const [imgSrc, setImgSrc] = useState('');
 
   const { data = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
@@ -36,7 +36,7 @@ const Collections = () => {
   const handleClick = (e, button) => {
     if (`${e.target.textContent.toLowerCase()}` === category) return;
     setCategory(`${button.label.toLowerCase()}`);
-    setItemSelected(false);
+    setIsItemSelected(false);
   };
 
   return (
@@ -47,7 +47,7 @@ const Collections = () => {
             key={button.label}
             onClick={e => handleClick(e, button)}
             selected={category === `${button.label.toLowerCase()}`}
-            tooltip={button.description}>
+            {...button}>
             {button.label}
           </CollectionCategoryButton>
         ))}
@@ -58,7 +58,12 @@ const Collections = () => {
             {data.length === 0 ? (
               <EmptyCollection category={category} />
             ) : (
-              <Collection collection={collection} setItemSelected={setItemSelected} setImgSrc={setImgSrc} />
+              <Collection
+                collection={collection}
+                setIsItemSelected={setIsItemSelected}
+                setImgSrc={setImgSrc}
+                page={activePage}
+              />
             )}
           </Suspense>
           <Pagination
@@ -73,10 +78,10 @@ const Collections = () => {
             m={smallScreen ? 'xs' : 'sm'}
           />
         </ScrollArea>
-        <Transition mounted={itemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
+        <Transition mounted={isItemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => (
-            <ContentImage
-              open={itemSelected}
+            <PosterImage
+              open={isItemSelected}
               maw={smallScreen ? 250 : 300}
               miw={50}
               src={imgSrc}

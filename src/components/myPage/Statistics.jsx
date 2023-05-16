@@ -1,8 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import Autoplay from 'embla-carousel-autoplay';
-import { Carousel } from '@mantine/carousel';
+import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
+import { useRecoilValue } from 'recoil';
 import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
+import { sideNavState } from '../../recoil/atom';
+import { SIDE_NAV_DURATION } from '../../constants';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -20,15 +23,29 @@ const StatisticCarousel = styled(Carousel)`
 
 const Statistics = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const currentSlide = useRef(0);
+  const isOpened = useRecoilValue(sideNavState);
+  const [embla, setEmbla] = useState(null);
+
+  useAnimationOffsetEffect(embla, SIDE_NAV_DURATION);
+
+  const handleCurrentSlide = idx => {
+    currentSlide.current = idx;
+  };
+
   const statsComponents = [<StatsByProvider key={0} />, <StatcsByGenre key={1} />, <StatsByMonthly key={2} />];
 
   return (
     <StatisticCarousel
+      key={isOpened ? 'open' : 'close'}
       height="100%"
       loop
       withIndicators
       controlsOffset="xs"
       controlSize={20}
+      onSlideChange={handleCurrentSlide}
+      initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
+      getEmblaApi={setEmbla}
       plugins={[autoplay.current]}
       onMouseEnter={autoplay.current.stop}
       onMouseLeave={autoplay.current.reset}>
