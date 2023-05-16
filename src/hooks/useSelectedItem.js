@@ -25,6 +25,12 @@ const useSelectedItem = (setSelectedItem, setIsItemSelected, selectedItem) => {
     }
   }, [middleScreen]);
 
+  useEffect(() => {
+    if (middleScreen && selectedItem && !isNavOpened) {
+      setIsItemSelected(true);
+    }
+  }, [isNavOpened]);
+
   return middleScreen;
 };
 
