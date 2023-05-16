@@ -23,9 +23,9 @@ const PosterImage = styled(Image)`
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
+  const [category, setCategory] = useRecoilState(categoryState);
   const [isItemSelected, setIsItemSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
-  const [category, setCategory] = useRecoilState(categoryState);
 
   const { data = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
