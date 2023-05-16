@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Container, Title, Flex, Button, Modal, Notification } from '@mantine/core';
+import { Container, Title, Flex, Button, Modal } from '@mantine/core';
 import { Password } from '.';
 import { useDisclosure } from '@mantine/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,11 +18,7 @@ const EditPassword = () => {
   const [newPw, setNewPw] = useState(null);
   const [newConfirmPw, setNewConfirmPw] = useState(null);
 
-  const {
-    control,
-    trigger,
-    formState: { isValid },
-  } = useForm({
+  const { control, trigger } = useForm({
     resolver: zodResolver(signUpSchema),
   });
 
@@ -41,6 +37,7 @@ const EditPassword = () => {
         icon: <IconCheck />,
         loading: false,
       });
+      close();
     } catch (error) {
       if (error.response && error.response.status === 401) {
         notifications.show({
@@ -67,7 +64,7 @@ const EditPassword = () => {
   };
 
   return (
-    <Container>
+    <Container my={10}>
       <Modal opened={opened} centered onClose={close} title="비밀번호 변경" style={{ marginTop: '10rem' }}>
         <form
           onSubmit={e => {
@@ -89,8 +86,10 @@ const EditPassword = () => {
         </form>
       </Modal>
       <Flex gap={50}>
-        <Title order={2}>비밀번호</Title>
-        <Button onClick={open}>수정</Button>
+        <Title order={5}>비밀번호</Title>
+        <Button onClick={open} variant="outline">
+          수정
+        </Button>
       </Flex>
     </Container>
   );
