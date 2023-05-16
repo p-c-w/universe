@@ -18,7 +18,7 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
   const [confirmModalOpened, { open: openComfirmModal, close: closeConfirmModal }] = useDisclosure(false);
 
   const [clicked, setClicked] = useState(null);
-  const [value, setValue] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
 
@@ -30,11 +30,11 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
   const itemRef = useRef(null);
 
   useEffect(() => {
-    setValue(null);
+    setSelectedItem(null);
   }, [category]);
 
   const handleChange = e => {
-    setValue(e);
+    setSelectedItem(e);
 
     if (isNavOpened && middleScreen) {
       setItemSelected(null);
@@ -50,7 +50,7 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
 
   return (
     <>
-      <Accordion variant="separated" w="100%" onChange={handleChange} value={value}>
+      <Accordion variant="separated" w="100%" onChange={handleChange} value={selectedItem}>
         {allQueriesSucceeded &&
           collectionList?.map(item => (
             <CollectionItem
