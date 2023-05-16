@@ -58,7 +58,7 @@ const Collections = () => {
             {data.length === 0 ? (
               <EmptyCollection category={category} />
             ) : (
-              <Collection collection={collection} setItemSelected={setIsItemSelected} setImgSrc={setImgSrc} />
+              <Collection collection={collection} setIsItemSelected={setIsItemSelected} setImgSrc={setImgSrc} />
             )}
           </Suspense>
           <Pagination

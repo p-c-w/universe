@@ -8,7 +8,7 @@ import { DetailModalWrapper, ModalSkeleton } from '../common';
 import { CollectionItem, ConfirmModal } from '.';
 import { sideNavState } from '../../recoil/atom';
 
-const Collection = ({ collection, setItemSelected, setImgSrc }) => {
+const Collection = ({ collection, setIsItemSelected, setImgSrc }) => {
   const isNavOpened = useRecoilValue(sideNavState);
 
   const collectionQueries = useCollectionQueries(collection);
@@ -25,7 +25,7 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
     modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
   }));
 
-  const screenToClose = useSelectedItem(setSelectedItem, setItemSelected, selectedItem);
+  const screenToClose = useSelectedItem(setSelectedItem, setIsItemSelected, selectedItem);
 
   const itemRef = useRef(null);
 
@@ -37,11 +37,11 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
     );
 
     if (isNavOpened && screenToClose) {
-      setItemSelected(null);
+      setIsItemSelected(null);
       return;
     }
 
-    setItemSelected(itemRef.current !== null);
+    setIsItemSelected(itemRef.current !== null);
   };
 
   return (

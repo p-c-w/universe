@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
 import { sideNavState, categoryState } from '../recoil/atom';
 
-const useSelectedItem = (setSelectedItem, setItemSelected, selectedItem) => {
+const useSelectedItem = (setSelectedItem, setIsItemSelected, selectedItem) => {
   const middleScreen = useMediaQuery('(max-width: 51.25rem)');
 
   const category = useRecoilValue(categoryState);
@@ -15,13 +15,13 @@ const useSelectedItem = (setSelectedItem, setItemSelected, selectedItem) => {
 
   useEffect(() => {
     if (middleScreen && isNavOpened) {
-      setItemSelected(false);
+      setIsItemSelected(false);
     }
   }, [middleScreen]);
 
   useEffect(() => {
     if (!middleScreen && selectedItem && isNavOpened) {
-      setItemSelected(true);
+      setIsItemSelected(true);
     }
   }, [middleScreen]);
 
