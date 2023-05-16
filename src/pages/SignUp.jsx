@@ -69,6 +69,7 @@ const Star = styled.div`
 
 const BackImg = styled.img`
   opacity: 0.7;
+  /* width: 160%; */
   transform: translate(-21%, -25%);
   overflow: hidden !important;
   width: 170%;

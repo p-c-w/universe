@@ -1,5 +1,5 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
-import { IconDeviceAnalytics } from '@tabler/icons-react';
+import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
 import { useStatsByProvider } from '../../hooks/statistics';
 
@@ -12,14 +12,6 @@ const ProgressLabel = styled(Progress)`
 
 const Stat = styled(Box)`
   border-bottom: 0.1875rem solid ${props => props.color};
-`;
-
-const Diff = styled(Text)`
-  align-items: center;
-`;
-
-const Icon = styled(IconDeviceAnalytics)`
-  color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
 `;
 
 const getMaxProvider = datas => {
@@ -35,6 +27,9 @@ const getMaxProvider = datas => {
 };
 
 const StatsByProvider = () => {
+  const smallScreen = useMediaQuery('(max-width: 30rem)');
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -69,23 +64,20 @@ const StatsByProvider = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Group align="flex-end" spacing="xs">
-          <Text fz="lg" fw={700} align="left">
-            지금까지 전체{' '}
-            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} span>
-              {total}
-            </Text>
-            건의 컨텐츠를 감상했어요.
+        <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} align="left">
+          지금까지 전체{' '}
+          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
+            {total}
           </Text>
-        </Group>
-        <Icon size="1.4rem" stroke={1.5} />
+          건의 컨텐츠를 감상했어요.
+        </Text>
       </Group>
-      <Diff c="teal" fz="sm" fw={700} display="flex">
+      <Text c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} align="start">
         {maxProvider}를 가장 많이 사용했어요.
-      </Diff>
+      </Text>
 
       <ProgressLabel sections={segments} size={34} mt="md" />
-      <SimpleGrid cols={3} breakpoints={[{ maxWidth: 'xs', cols: 1 }]} mt="md">
+      <SimpleGrid cols={3} breakpoints={[{ maxWidth: '40rem', cols: 2 }]} mt="md">
         {descriptions}
       </SimpleGrid>
     </>
