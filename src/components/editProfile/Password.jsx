@@ -3,7 +3,7 @@ import { PasswordInput } from '@mantine/core';
 import { useController } from 'react-hook-form';
 import { debounce } from 'lodash';
 
-const Password = ({ name = '', control, trigger, label }) => {
+const Password = ({ name = '', control, trigger, label, setPw }) => {
   const {
     field: { onChange },
     fieldState: { error },
@@ -19,6 +19,7 @@ const Password = ({ name = '', control, trigger, label }) => {
   const handleChange = e => {
     onChange(e);
     debouncedTrigger();
+    setPw(e.target.value);
   };
 
   return (
