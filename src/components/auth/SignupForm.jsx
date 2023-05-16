@@ -28,40 +28,34 @@ const SignupForm = ({ setUserInput }) => {
       const { data: email } = await axios.post('/api/auth/signup', data);
 
       notifications.show({
-        id: 'hello-there',
         withCloseButton: true,
         autoClose: 2000,
         title: 'Signup Failure',
         message: '회원가입에 성공했습니다.',
         color: 'green',
         icon: <IconCheck />,
-        className: 'my-notification-class',
         loading: false,
       });
       setUserInput(email);
     } catch (error) {
       if (error.response && error.response.status === 409) {
         notifications.show({
-          id: 'hello-there',
           withCloseButton: true,
           autoClose: 2000,
           title: 'Signup Failure',
-          message: '중복된 이메일이 존재합니다.',
+          message: error.response.data,
           color: 'red',
           icon: <IconX />,
-          className: 'my-notification-class',
           loading: false,
         });
       } else {
         notifications.show({
-          id: 'hello-there',
           withCloseButton: true,
           autoClose: 2000,
           title: 'Signup Failure',
           message: '알 수 없는 오류가 발생했습니다.',
           color: 'red',
           icon: <IconX />,
-          className: 'my-notification-class',
           loading: false,
         });
       }
