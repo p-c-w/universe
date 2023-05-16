@@ -1,17 +1,17 @@
 import React, { useCallback } from 'react';
 import { PasswordInput } from '@mantine/core';
 import { useController } from 'react-hook-form';
+import { debounce } from 'lodash';
 
-const Password = ({ name, control, trigger, label }) => {
+const Password = ({ name = '', control, trigger, label }) => {
   const {
     field: { onChange },
-    fieldState: { invalid, isDirty, error },
+    fieldState: { error },
   } = useController({ name, control, defaultValue: {} });
 
   const debouncedTrigger = useCallback(
     debounce(() => {
       trigger(name);
-      if (name === 'password') trigger('confirmPassword');
     }, 100),
     []
   );
@@ -26,7 +26,7 @@ const Password = ({ name, control, trigger, label }) => {
       <PasswordInput
         onChange={handleChange}
         placeholder="Password"
-        error={error?.message !== 'Required' && error?.message}
+        error={error?.message !== 'Expected string, received object' && error?.message}
         label={label}
         withAsterisk
       />
