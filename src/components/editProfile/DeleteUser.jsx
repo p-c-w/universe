@@ -46,7 +46,7 @@ const DeleteUser = () => {
   };
 
   return (
-    <Container>
+    <Container p={0}>
       <Modal opened={opened} centered onClose={close} title="회원 탈퇴" style={{ marginTop: '10rem' }}>
         <Flex direction={'column'} gap={20}>
           <Text> 회원 탈퇴시 {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
@@ -61,7 +61,7 @@ const DeleteUser = () => {
           </Flex>
         </Flex>
       </Modal>
-      <Flex gap={50}>
+      <Flex gap={50} align={'center'} justify={'space-between'}>
         <Title order={5}>회원탈퇴</Title>
         <Button onClick={open} variant="outline">
           탈퇴
