@@ -25,7 +25,7 @@ const MyMenu = ({ initial }) => {
           My Universe
         </Menu.Item>
         <Menu.Item icon={<IconMessageCircle size={14} />}>Message</Menu.Item>
-        <Menu.Item icon={<IconSettings size={14} />}>Settings</Menu.Item>
+        <Menu.Item icon={<IconSettings size={14} component={Link} to={'/editprofile'} />}>Settings</Menu.Item>
         <Menu.Divider />
         <Menu.Label>Danger zone</Menu.Label>
         <Menu.Item icon={<IconArrowsLeftRight size={14} />}>Transfer my data</Menu.Item>
