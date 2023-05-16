@@ -33,19 +33,25 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
     setSelectedItem(null);
   }, [category]);
 
+  useEffect(() => {
+    if (middleScreen && isNavOpened) {
+      setItemSelected(false);
+    }
+  }, [middleScreen]);
+
   const handleChange = e => {
     setSelectedItem(e);
+    itemRef.current = e;
+    setImgSrc(
+      itemRef.current && `https://image.tmdb.org/t/p/w300${collectionList.find(item => item.title === e)?.posterPath}`
+    );
 
     if (isNavOpened && middleScreen) {
       setItemSelected(null);
       return;
     }
 
-    itemRef.current = e;
     setItemSelected(itemRef.current !== null);
-    setImgSrc(
-      itemRef.current && `https://image.tmdb.org/t/p/w300${collectionList.find(item => item.title === e)?.posterPath}`
-    );
   };
 
   return (
