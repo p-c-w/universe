@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Title, Flex, Button, Modal } from '@mantine/core';
 import { Password } from '.';
 import { useDisclosure } from '@mantine/hooks';
