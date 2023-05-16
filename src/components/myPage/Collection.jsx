@@ -69,6 +69,8 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
           close={closeConfirmModal}
           id={clicked.id}
           listName={clicked.listName}
+          setIsItemSelected={setIsItemSelected}
+          setSelectedItem={setSelectedItem}
         />
       )}
     </>
