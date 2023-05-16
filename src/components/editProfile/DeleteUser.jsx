@@ -13,10 +13,10 @@ const DeleteUser = () => {
     <Container>
       <Modal opened={opened} centered onClose={close} title="회원 탈퇴" style={{ marginTop: '10rem' }}>
         <Flex direction={'column'} gap={20}>
-          <Text> 계정 삭제시 {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
+          <Text> 회원 탈퇴시 {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
           <Checkbox onChange={event => setChecked(!event.currentTarget.checked)} label="이에 동의하십니까?" />
           <Flex gap={3}>
-            <Button fullWidth variant="outline">
+            <Button fullWidth variant="outline" onClick={close}>
               취소하기
             </Button>
             <Button fullWidth variant="outline" disabled={checked}>
