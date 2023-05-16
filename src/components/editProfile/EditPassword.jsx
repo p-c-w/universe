@@ -23,8 +23,6 @@ const EditPassword = () => {
   });
 
   const onSubmit = async data => {
-    console.log('data: ', data);
-
     try {
       const { data: alarm } = await axios.patch('/api/auth/changepw', { email, ...data });
 
