@@ -9,7 +9,7 @@ const useAuthenticationQuery = () => {
   const setUserId = useSetRecoilState(userState);
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
 
-  const { isSuccess, isFetched, error, data } = useQuery({
+  const { isSuccess, isFetched, data } = useQuery({
     queryKey: [IS_AUTHENTICATED_QUERY_KEY],
     queryFn: async () => {
       const res = await axios('/api/auth/verify');
@@ -30,9 +30,9 @@ const useAuthenticationQuery = () => {
       setUserId(data.email);
       setIsLogin(data.isLogin);
     }
-  }, [data, error, isSuccess, setIsLogin, setUserId]);
+  }, [data, isSuccess, setIsLogin, setUserId]);
 
-  return { isSuccess, isFetched, error, data, isLogin };
+  return { isSuccess, isFetched, data, isLogin };
 };
 
 export default useAuthenticationQuery;
