@@ -21,4 +21,15 @@ const signUpSchema = signInSchema
     path: ['confirmPassword'],
   });
 
-export { signInSchema, signUpSchema };
+const ChangePwSchema = z.object({
+  nowPassword: z.string().min(1, '패스워드를 입력해 주세요'),
+  newPassword: z
+    .string()
+    .min(1, '패스워드를 입력해 주세요')
+    .regex(/^[a-zA-Z0-9]+$/, '영문 또는 숫자를 입력해 주세요')
+    .min(6, '6자 이상 입력해 주세요')
+    .max(12, '12자 이하로 입력해 주세요'),
+  confirmPassword: z.string().min(1, '패스워드를 입력해 주세요'),
+});
+
+export { signInSchema, signUpSchema, ChangePwSchema };
