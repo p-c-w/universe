@@ -6,10 +6,10 @@ import { useCollectionQueries } from '../../hooks/queries';
 import { useSelectedItem } from '../../hooks';
 import { DetailModalWrapper, ModalSkeleton } from '../common';
 import { CollectionItem, ConfirmModal } from '.';
-import { sideNavOpenedState } from '../../recoil/atom';
+import { sideNavState } from '../../recoil/atom';
 
 const Collection = ({ collection, setItemSelected, setImgSrc }) => {
-  const isNavOpened = useRecoilValue(sideNavOpenedState);
+  const isNavOpened = useRecoilValue(sideNavState);
 
   const collectionQueries = useCollectionQueries(collection);
   const [detailModalOpened, { open: openDetailModal, close: closeDetailModal }] = useDisclosure(false);
