@@ -1,18 +1,15 @@
-import { Button, Tooltip, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Button, Tooltip } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-const CollectionCategoryButton = ({ tooltip, selected, children, onClick }) => {
-  const { colorScheme } = useMantineColorScheme();
-  const theme = useMantineTheme();
-  const dark = colorScheme === 'dark';
-
+const CollectionCategoryButton = ({ description, color, selected, children, onClick }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   return (
-    <Tooltip label={tooltip}>
+    <Tooltip label={description}>
       <Button
         radius="xl"
-        color={dark && selected ? theme.primaryColor : dark && !selected ? 'violet.3' : selected ? 'gray.7' : 'gray.6'}
+        color={color}
+        variant={selected ? 'filled' : 'light'}
         onClick={onClick}
         size={smallScreen ? 'xs' : 'sm'}>
         {children}
