@@ -21,7 +21,7 @@ const useAuthenticationQuery = () => {
   });
 
   useEffect(() => {
-    if (error) {
+    if (isSuccess && !data.email) {
       setUserId(null);
       setIsLogin(data.isLogin);
     }

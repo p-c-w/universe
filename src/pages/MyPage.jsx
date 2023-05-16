@@ -1,6 +1,5 @@
 import { Box, Container, SimpleGrid, Skeleton } from '@mantine/core';
-import { Suspense, useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { Suspense } from 'react';
 import { GlobalShell } from '../components/common';
 import {
   Collections,
@@ -11,16 +10,9 @@ import {
   BoxSkeleton,
 } from '../components/myPage';
 import { useAuthenticationQuery } from '../hooks/queries';
-import { userState } from '../recoil/atom';
 
 const MyPage = () => {
-  const { isSuccess, data } = useAuthenticationQuery();
-  const setUser = useSetRecoilState(userState);
-
-  useEffect(() => {
-    if (isSuccess) setUser(data.data);
-    else setUser(null);
-  }, [data, isSuccess, setUser]);
+  useAuthenticationQuery();
 
   return (
     <GlobalShell>

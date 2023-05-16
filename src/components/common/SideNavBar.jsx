@@ -4,7 +4,7 @@ import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMa
 import { IconMovie, IconThumbUp, IconHistory, IconPlanet } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
-import { userState, sideNavState, categoryState } from '../../recoil/atom';
+import { sideNavState, categoryState, isLoginState } from '../../recoil/atom';
 import Signout from '../auth/Signout';
 import { SIDE_NAV_DURATION } from '../../constants';
 
@@ -55,7 +55,7 @@ const tabs = [
 ];
 
 const SideNavBar = () => {
-  const user = useRecoilValue(userState);
+  const isLogin = useRecoilValue(isLoginState);
   const isOpened = useRecoilValue(sideNavState);
   const { colorScheme } = useMantineColorScheme();
   const setCategory = useSetRecoilState(categoryState);
@@ -67,7 +67,7 @@ const SideNavBar = () => {
       {styles => (
         <Nav style={styles} p="md" width={{ base: 240 }}>
           <Navbar.Section w="100%">
-            {user ? (
+            {isLogin ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
                   <Tab key={label} role="button" aria-label={label} onClick={() => category && setCategory(category)}>
@@ -103,7 +103,7 @@ const SideNavBar = () => {
             )}
           </Navbar.Section>
           <Stack>
-            {user && (
+            {isLogin && (
               <Navbar.Section>
                 <Signout />
               </Navbar.Section>
