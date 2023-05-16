@@ -35,7 +35,15 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
 
   useEffect(() => {
     if (middleScreen && isNavOpened) {
+      console.log('1111111');
       setItemSelected(false);
+    }
+  }, [middleScreen]);
+
+  useEffect(() => {
+    if (!middleScreen && selectedItem && isNavOpened) {
+      console.log('asldj');
+      setItemSelected(true);
     }
   }, [middleScreen]);
 
