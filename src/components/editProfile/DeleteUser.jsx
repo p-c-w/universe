@@ -3,7 +3,7 @@ import { Title, Container, Flex, Button, Modal, Text, Checkbox } from '@mantine/
 import { useDisclosure } from '@mantine/hooks';
 import { useUserQuery } from '../../hooks/queries';
 import axios from 'axios';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { userState } from '../../recoil/atom';
 import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
@@ -12,13 +12,15 @@ import { Link } from 'react-router-dom';
 const DeleteUser = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [checked, setChecked] = useState(true);
-  const email = useRecoilValue(userState);
+  const [user, setUser] = useRecoilState(userState);
 
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
   const handleClick = async () => {
     try {
-      const { data: alarm } = await axios.delete(`/api/auth/withdrawal/${email}`);
+      const { data: alarm } = await axios.delete(`/api/auth/withdrawal/${user}`);
+      setUser(null);
+      localStorage.removeItem('user');
 
       notifications.show({
         withCloseButton: true,
