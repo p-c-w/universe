@@ -17,7 +17,7 @@ const useSelectedItem = (setSelectedItem, setIsItemSelected, selectedItem) => {
     if (middleScreen && isNavOpened) {
       setIsItemSelected(false);
     }
-  }, [middleScreen]);
+  }, [middleScreen, isNavOpened]);
 
   useEffect(() => {
     if (!middleScreen && selectedItem && isNavOpened) {
