@@ -8,8 +8,8 @@ const IconBox = styled(Avatar)`
 
   &:hover .mantine-Avatar-placeholder {
     transition: 0.3s ease;
-    background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.yellow[5] : theme.colors.gray[9])};
-    color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[9] : theme.colors.yellow[5])};
+    background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.yellow[4] : theme.colors.dark[4])};
+    color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.yellow[4])};
   }
 `;
 
