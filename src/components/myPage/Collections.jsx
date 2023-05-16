@@ -47,7 +47,7 @@ const Collections = () => {
             key={button.label}
             onClick={e => handleClick(e, button)}
             selected={category === `${button.label.toLowerCase()}`}
-            tooltip={button.description}>
+            {...button}>
             {button.label}
           </CollectionCategoryButton>
         ))}
