@@ -1,10 +1,10 @@
 import React from 'react';
-import { Modal, Text, Button, Flex, Title } from '@mantine/core';
+import { Modal, Button, Flex } from '@mantine/core';
+import { useRecoilValue } from 'recoil';
 import { useDeleteUserContentMutation } from '../../hooks/mutations';
 import { userState } from '../../recoil/atom';
-import { useRecoilValue } from 'recoil';
 
-const ConfirmModal = ({ opened, close, id, listName }) => {
+const ConfirmModal = ({ opened, close, id, listName, setIsItemSelected, setSelectedItem }) => {
   const email = useRecoilValue(userState);
 
   const { mutate: deleteUserContent } = useDeleteUserContentMutation();
@@ -13,6 +13,8 @@ const ConfirmModal = ({ opened, close, id, listName }) => {
     e.stopPropagation();
     deleteUserContent({ email, list: `${listName}_list`, id });
     close();
+    setSelectedItem(null);
+    setIsItemSelected(false);
   };
 
   return (
