@@ -22,7 +22,10 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
   },
-  { path: '/editprofile', element: <EditProfile /> },
+  {
+    path: '/editprofile',
+    element: <AuthenticationGuard redirectTo="/signin" element={<EditProfile />} />,
+  },
   { path: '/signin', element: <SignIn /> },
   { path: '/signup', element: <SignUp /> },
 ]);

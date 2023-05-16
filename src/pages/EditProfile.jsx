@@ -4,8 +4,11 @@ import { GlobalShell } from '../components/common';
 import { EditPassword, DeleteUser } from '../components/editProfile';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../recoil/atom';
+import { useAuthenticationQuery } from '../hooks/queries';
 
 const EditProfile = () => {
+  useAuthenticationQuery();
+
   const email = useRecoilValue(userState);
 
   return (
