@@ -7,7 +7,6 @@ import useColorScheme from './hooks/useColorScheme';
 import { Root, MyPage, SignIn, SignUp } from './pages';
 import AuthenticationGuard from './guard/AuthenticationGuard';
 import { colors } from './constants';
-import { Notifications } from '@mantine/notifications';
 
 const queryClient = new QueryClient({
   retry: 3,
@@ -43,7 +42,6 @@ const App = () => {
             withCSSVariables
             withGlobalStyles
             withNormalizeCSS>
-            <Notifications position="bottom-right" />
             <RouterProvider router={router} />
           </MantineProvider>
         </ColorSchemeProvider>
