@@ -1,14 +1,18 @@
 import { useRef, Suspense, useState, useEffect } from 'react';
 import { Accordion } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
 import { useCollectionQueries } from '../../hooks/queries';
 import { DetailModalWrapper, ModalSkeleton } from '../common';
 import { CollectionItem, ConfirmModal } from '.';
-import { categoryState } from '../../recoil/atom';
+import { categoryState, sideNavOpenedState } from '../../recoil/atom';
 
 const Collection = ({ collection, setItemSelected, setImgSrc }) => {
+  const middleScreen = useMediaQuery('(max-width: 51.25rem)');
+
+  const isNavOpened = useRecoilValue(sideNavOpenedState);
   const category = useRecoilValue(categoryState);
+
   const collectionQueries = useCollectionQueries(collection);
   const [detailModalOpened, { open: openDetailModal, close: closeDetailModal }] = useDisclosure(false);
   const [confirmModalOpened, { open: openComfirmModal, close: closeConfirmModal }] = useDisclosure(false);
@@ -31,6 +35,12 @@ const Collection = ({ collection, setItemSelected, setImgSrc }) => {
 
   const handleChange = e => {
     setValue(e);
+
+    if (isNavOpened && middleScreen) {
+      setItemSelected(null);
+      return;
+    }
+
     itemRef.current = e;
     setItemSelected(itemRef.current !== null);
     setImgSrc(
