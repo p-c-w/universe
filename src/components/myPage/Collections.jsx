@@ -23,7 +23,7 @@ const ContentImage = styled(Image)`
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
-  const [itemSelected, setItemSelected] = useState(false);
+  const [isItemSelected, setIsItemSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
   const [category, setCategory] = useRecoilState(categoryState);
 
@@ -36,7 +36,7 @@ const Collections = () => {
   const handleClick = (e, button) => {
     if (`${e.target.textContent.toLowerCase()}` === category) return;
     setCategory(`${button.label.toLowerCase()}`);
-    setItemSelected(false);
+    setIsItemSelected(false);
   };
 
   return (
@@ -58,7 +58,7 @@ const Collections = () => {
             {data.length === 0 ? (
               <EmptyCollection category={category} />
             ) : (
-              <Collection collection={collection} setItemSelected={setItemSelected} setImgSrc={setImgSrc} />
+              <Collection collection={collection} setItemSelected={setIsItemSelected} setImgSrc={setImgSrc} />
             )}
           </Suspense>
           <Pagination
@@ -73,10 +73,10 @@ const Collections = () => {
             m={smallScreen ? 'xs' : 'sm'}
           />
         </ScrollArea>
-        <Transition mounted={itemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
+        <Transition mounted={isItemSelected} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => (
             <ContentImage
-              open={itemSelected}
+              open={isItemSelected}
               maw={smallScreen ? 250 : 300}
               miw={50}
               src={imgSrc}
