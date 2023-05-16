@@ -11,6 +11,7 @@ export { default as Statistics } from './Statistics';
 export { default as StatsWrapper } from './StatsWrapper';
 export { default as StatsByProvider } from './StatsByProvider';
 export { default as StatsByMonthly } from './StatsByMonthly';
+export { default as StatcsByGenre } from './StatsByGenre';
 
 export { default as CollectionCategoryButton } from './CollectionCategoryButton';
 export { default as Collections } from './Collections';
@@ -19,6 +20,8 @@ export { default as CollectionItem } from './CollectionItem';
 export { default as AccordionLabel } from './AccordionLabel';
 export { default as EmptyCollection } from './EmptyCollection';
 export { default as ProviderBadges } from './ProviderBadges';
+export { default as ConfirmModal } from './ConfirmModal';
+export { default as ModifiedDate } from './ModifiedDate';
 
 export { default as CollectionSkeleton } from './CollectionSkeleton';
 export { default as BoxSkeleton } from './BoxSkeleton';

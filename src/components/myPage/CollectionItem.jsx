@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
-import { AccordionLabel } from './index';
-import { useDeleteUserContentMutation } from '../../hooks/mutations';
-import { userState, categoryState } from '../../recoil/atom';
+import { AccordionLabel, ModifiedDate } from './index';
+import { categoryState } from '../../recoil/atom';
 import { ActionIcons } from '../common';
 
-const getAddedDate = modifiedAt => modifiedAt?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
-
-const CollectionItem = ({ item, setClicked, open }) => {
-  const email = useRecoilValue(userState);
+const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal }) => {
   const listName = useRecoilValue(categoryState);
-
   const [hovered, setHovered] = useState(false);
 
-  const { mutate: deleteUserContent } = useDeleteUserContentMutation();
+  const smallScreen = useMediaQuery('(max-width: 30rem)');
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
-  const handleClick = item => {
+  const handleDetailClick = item => {
     setClicked(item);
-    open();
+    openDetailModal();
   };
 
   const handleMouseEnter = () => setHovered(true);
 
   const handleMouseLeave = () => setHovered(false);
 
-  const handleTrashClick = e => {
+  const handleDeleteClick = (e, item) => {
     e.stopPropagation();
-    deleteUserContent({ email, list: `${listName}_list`, id: item.id });
+    setClicked(item);
+    openComfirmModal();
   };
 
   return (
@@ -38,19 +36,20 @@ const CollectionItem = ({ item, setClicked, open }) => {
         key={item?.id}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}>
-        <Accordion.Control>
+        <Accordion.Control px={xsmallScreen && 8}>
           <Flex direction="row" justify="space-between" align="center">
             <AccordionLabel {...item} />
             {hovered && (
-              <ThemeIcon variant="transparent" onClick={handleTrashClick}>
-                <IconTrash size={16} />
+              <ThemeIcon variant="transparent" onClick={e => handleDeleteClick(e, { id: item?.id, listName })}>
+                <IconTrash size={xsmallScreen ? 12 : smallScreen ? 14 : 16} />
               </ThemeIcon>
             )}
           </Flex>
         </Accordion.Control>
-        <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
+
+        <Accordion.Panel w="90%" ml={xsmallScreen ? 43 : smallScreen ? 51 : 55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
-            <Text size="sm">{getAddedDate(item?.modified_at)}에 추가함</Text>
+            <ModifiedDate id={item?.id} date={item?.modified_at} />
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button
@@ -58,10 +57,10 @@ const CollectionItem = ({ item, setClicked, open }) => {
                   pl={0}
                   pb={3}
                   variant="transparent"
-                  onClick={() => handleClick({ id: item?.id, type: item?.type })}
+                  onClick={() => handleDetailClick({ id: item?.id, type: item?.type })}
                   fz={12}
                   aria-label="more">
-                  <Text>상세페이지로</Text>
+                  <Text fz={xsmallScreen ? 'xs' : 'sm'}>상세페이지로</Text>
                   <ThemeIcon variant="transparent">
                     <IconLayersLinked size={16} />
                   </ThemeIcon>

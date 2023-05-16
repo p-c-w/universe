@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
+import { useRef } from 'react';
 import styled from '@emotion/styled';
+import Autoplay from 'embla-carousel-autoplay';
 import { Carousel } from '@mantine/carousel';
-import { useSetRecoilState } from 'recoil';
-import { statsByProviderState, statsByMonthlyState } from '../../recoil/atom';
-import { StatsByMonthly, StatsByProvider, StatsWrapper } from '.';
-import { useStatsByProvider, useStatsByMonthly } from '../../hooks';
+import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -21,28 +19,19 @@ const StatisticCarousel = styled(Carousel)`
 `;
 
 const Statistics = () => {
-  const setStatisticData = useSetRecoilState(statsByProviderState);
-  const setMonthlyStats = useSetRecoilState(statsByMonthlyState);
-
-  const newState = useStatsByProvider();
-  const newMonthlyStats = useStatsByMonthly();
-
-  useEffect(() => {
-    if (newState) {
-      setStatisticData({ total: newState.newTotal, data: newState.newData });
-    }
-  }, [newState, setStatisticData]);
-
-  useEffect(() => {
-    if (newMonthlyStats) {
-      setMonthlyStats(newMonthlyStats);
-    }
-  }, [newMonthlyStats, setMonthlyStats]);
-
-  const statsComponents = [<StatsByProvider key={0} />, <StatsByMonthly key={1} />, <div key={2}>장르별</div>];
+  const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const statsComponents = [<StatsByProvider key={0} />, <StatcsByGenre key={1} />, <StatsByMonthly key={2} />];
 
   return (
-    <StatisticCarousel height="100%" loop withIndicators controlsOffset="xs" controlSize={20}>
+    <StatisticCarousel
+      height="100%"
+      loop
+      withIndicators
+      controlsOffset="xs"
+      controlSize={20}
+      plugins={[autoplay.current]}
+      onMouseEnter={autoplay.current.stop}
+      onMouseLeave={autoplay.current.reset}>
       {statsComponents.map((component, i) => (
         <Carousel.Slide key={i}>
           <StatsWrapper stats={component} />
