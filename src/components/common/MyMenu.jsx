@@ -29,7 +29,7 @@ const MyMenu = ({ initial }) => {
         <Menu.Divider />
         <Menu.Label>Danger zone</Menu.Label>
         <Menu.Item icon={<IconArrowsLeftRight size={14} />}>Transfer my data</Menu.Item>
-        <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={signout}>
+        <Menu.Item component={Link} to={'/'} color="red" icon={<IconLogout size={14} />} onClick={signout}>
           Sign out
         </Menu.Item>
       </Menu.Dropdown>
