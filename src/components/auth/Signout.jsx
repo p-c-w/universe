@@ -1,12 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from '@emotion/styled';
 import { IconLogout } from '@tabler/icons-react';
 import { Text, ThemeIcon, useMantineColorScheme } from '@mantine/core';
-
-import axios from 'axios';
-import { useSetRecoilState } from 'recoil';
-import styled from '@emotion/styled';
-import userState from '../../recoil/atom/userState';
+import { useSignout } from '../../hooks';
 
 const CustomLink = styled(Link)`
   display: flex;
@@ -31,19 +27,13 @@ const Tab = styled.div`
 `;
 
 const Signout = () => {
-  const setUser = useSetRecoilState(userState);
+  const signout = useSignout();
   const { colorScheme } = useMantineColorScheme();
 
   const dark = colorScheme === 'dark';
 
-  const handleClick = async () => {
-    await axios.get('/api/auth/signout');
-    setUser(null);
-    localStorage.removeItem('user');
-  };
-
   return (
-    <Tab role="button" aria-label="label" onClick={handleClick}>
+    <Tab role="button" aria-label="Sign out" onClick={signout}>
       <CustomLink to="/">
         <ThemeIcon variant={dark ? 'filled' : 'light'} color="gray">
           <IconLogout size="1.1rem" />

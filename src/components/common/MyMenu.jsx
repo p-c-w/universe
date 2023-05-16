@@ -1,23 +1,15 @@
-import { Menu, Avatar } from '@mantine/core';
-import { IconSettings, IconMessageCircle, IconArrowsLeftRight, IconPlanet, IconLogout } from '@tabler/icons-react';
-import styled from '@emotion/styled';
-import { useSetRecoilState } from 'recoil';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { userState } from '../../recoil/atom';
+import { Menu, Avatar } from '@mantine/core';
+import styled from '@emotion/styled';
+import { IconSettings, IconMessageCircle, IconArrowsLeftRight, IconPlanet, IconLogout } from '@tabler/icons-react';
+import { useSignout } from '../../hooks';
 
 const IconBox = styled(Avatar)`
   cursor: pointer;
 `;
 
 const MyMenu = ({ initial }) => {
-  const setUser = useSetRecoilState(userState);
-
-  const handleClick = async () => {
-    await axios.get('/api/auth/signout');
-    setUser(null);
-    localStorage.removeItem('user');
-  };
+  const signout = useSignout();
 
   return (
     <Menu shadow="md" width={200}>
@@ -37,7 +29,7 @@ const MyMenu = ({ initial }) => {
         <Menu.Divider />
         <Menu.Label>Danger zone</Menu.Label>
         <Menu.Item icon={<IconArrowsLeftRight size={14} />}>Transfer my data</Menu.Item>
-        <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={handleClick}>
+        <Menu.Item color="red" icon={<IconLogout size={14} />} onClick={signout}>
           Sign out
         </Menu.Item>
       </Menu.Dropdown>
