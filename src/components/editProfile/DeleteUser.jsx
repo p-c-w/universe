@@ -7,6 +7,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atom';
 import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
+import { Link } from 'react-router-dom';
 
 const DeleteUser = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -16,7 +17,6 @@ const DeleteUser = () => {
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
   const handleClick = async () => {
-    console.log('Hi!');
     try {
       const { data: alarm } = await axios.delete(`/api/auth/withdrawal/${email}`);
 
@@ -53,7 +53,7 @@ const DeleteUser = () => {
             <Button fullWidth variant="outline" onClick={close}>
               취소하기
             </Button>
-            <Button onClick={handleClick} fullWidth variant="outline" disabled={checked}>
+            <Button onClick={handleClick} component={Link} to="/" fullWidth variant="outline" disabled={checked}>
               탈퇴하기
             </Button>
           </Flex>
