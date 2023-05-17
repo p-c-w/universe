@@ -1,23 +1,22 @@
-import { SimpleGrid } from '@mantine/core';
-import styled from '@emotion/styled';
 import { useCallback } from 'react';
+import styled from '@emotion/styled';
+import { SimpleGrid } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useSortByPopularityInfinityQuery } from '../../../hooks/queries';
+import { Poster, PosterSkeleton } from '.';
 import useObserver from '../../../hooks/useObserver';
 import { ScrollObserver } from '../../common';
-import PosterSkeleton from '../PosterSkeleton';
-import { Poster } from '.';
 
 const CardGrid = styled(SimpleGrid)`
   position: relative;
-  margin: 0 auto;
+  margin-bottom: var(--mantine-spacing-md);
 `;
 
 const observeOption = { rootMargin: '30%' };
 
 const Posters = ({ mediaType }) => {
   const { data: content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
-  const smallScreen = useMediaQuery('(max-width: 100rem)');
+  const smallScreen = useMediaQuery('(max-width: 96rem)');
 
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
@@ -34,7 +33,6 @@ const Posters = ({ mediaType }) => {
         miw={320}
         maw={smallScreen ? '100%' : '80%'}
         m="0 auto"
-        mb="md"
         verticalSpacing="sm"
         breakpoints={[
           { maxWidth: '80rem', cols: 4 },
