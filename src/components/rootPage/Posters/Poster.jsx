@@ -15,7 +15,7 @@ import {
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
 import { ActionIcons } from '../../common';
-import genres from '../..../constants/genres';
+import genres from '../../../constants/genres';
 import MoreButton from '../../common/MoreButton';
 
 const Img = styled(Image)`
