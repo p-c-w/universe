@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react';
+import { useRef } from 'react';
 import {
   Group,
   Center,
@@ -6,14 +6,12 @@ import {
   Box,
   SegmentedControl,
   MultiSelect,
-  rem,
-  CloseButton,
   useMantineColorScheme,
   Container,
 } from '@mantine/core';
 import { IconDeviceTv, IconMovie } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { PROVIDERS } from '../../constants';
+import { Value, Item } from '.';
 
 const providerData = [
   { label: 'Netflix', value: 8 },
@@ -28,52 +26,7 @@ const CategoryContainer = styled(Container)`
   z-index: 999;
 `;
 
-const Value = ({ value, label, onRemove }) => {
-  const badgePath = PROVIDERS[value].providerImgPath;
-
-  return (
-    <Box
-      sx={theme => ({
-        display: 'flex',
-        cursor: 'default',
-        alignItems: 'center',
-        height: rem(30),
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
-        border: `${rem(1)} solid ${theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[4]}`,
-        paddingLeft: theme.spacing.xs,
-        borderRadius: theme.radius.sm,
-      })}>
-      <Box mr={10}>
-        {
-          <Box w={20}>
-            <img src={`/${badgePath}`} alt="value" />
-          </Box>
-        }
-      </Box>
-      <Box sx={{ lineHeight: 1, fontSize: rem(12) }}>{label}</Box>
-      <CloseButton onMouseDown={onRemove} variant="transparent" size={22} iconSize={14} tabIndex={-1} />
-    </Box>
-  );
-};
-
-const Item = forwardRef(({ label, value, ...others }, ref) => {
-  const badgePath = PROVIDERS[value].providerImgPath;
-
-  return (
-    <div ref={ref} {...others}>
-      <Flex align="center">
-        <Box mr={10}>
-          <Box w={20}>
-            <img src={`/${badgePath}`} alt="value" />
-          </Box>
-        </Box>
-        <div>{label}</div>
-      </Flex>
-    </div>
-  );
-});
-
-const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
+const Category = ({ mediaType, handleMediaChange, handleCategoryChange }) => {
   const selectedCategory = useRef();
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -88,14 +41,15 @@ const Category = ({ media, handleMediaChange, handleCategoryChange }) => {
       pos="sticky"
       bg={dark ? 'dark.7' : 'white'}
       top="3.75rem"
-      mx="-md"
+      mx={-32}
       py="xs"
+      px="xl"
       maw="none"
       opacity={0.9}>
       <Flex gap="md" justify="flex-start" align="center">
         <Group>
           <SegmentedControl
-            value={media}
+            value={mediaType}
             onChange={handleMediaChange}
             data={[
               {
