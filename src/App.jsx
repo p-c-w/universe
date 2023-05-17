@@ -38,21 +38,20 @@ const App = () => {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-          <ModalsProvider>
-            <MantineProvider
-              theme={{
-                fontFamily: 'Spoqa Han Sans Neo, sans-serif',
-                colorScheme,
-                primaryColor: 'violet',
-                colors,
-              }}
-              withCSSVariables
-              withGlobalStyles
-              withNormalizeCSS>
-              <Notifications position="bottom-right" />
-              <RouterProvider router={router} />
-            </MantineProvider>
-          </ModalsProvider>
+          <MantineProvider
+            theme={{
+              fontFamily: 'Spoqa Han Sans Neo, sans-serif',
+              colorScheme,
+              primaryColor: 'violet',
+              colors,
+            }}
+            withCSSVariables
+            withGlobalStyles
+            withNormalizeCSS>
+            <ModalsProvider />
+            <Notifications position="bottom-right" />
+            <RouterProvider router={router} />
+          </MantineProvider>
         </ColorSchemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
