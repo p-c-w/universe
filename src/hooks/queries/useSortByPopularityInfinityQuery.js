@@ -4,7 +4,7 @@ import { fetchSortByPopularity } from '../../api/tmdb';
 const staleTime = 1000 * 60 * 5;
 
 const useSortByPopularityInfinityQuery = mediaType => {
-  const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQuery({
+  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: [`@${mediaType}`],
     queryFn: ({ pageParam = 1 }) => fetchSortByPopularity(mediaType, pageParam),
     getNextPageParam: (lastPage, allPages) =>
@@ -15,7 +15,7 @@ const useSortByPopularityInfinityQuery = mediaType => {
     select: datas => datas.pages.map(data => data.results).flat(),
   });
 
-  return { data, isSuccess, hasNextPage, fetchNextPage };
+  return { data, hasNextPage, fetchNextPage };
 };
 
 export default useSortByPopularityInfinityQuery;
