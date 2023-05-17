@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { userState } from '../../recoil/atom';
 import { useUserQuery } from '../../hooks/queries';
+import { userState } from '../../recoil/atom';
 import { notifications } from '@mantine/notifications';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
@@ -59,7 +59,9 @@ const DeleteUser = () => {
           <Text> 이에 동의하십니까?</Text>
         </Flex>
       ),
-      onConfirm: () =>
+      onConfirm: () => {
+        modals.closeAll();
+
         modals.openConfirmModal({
           title: '회원 탈퇴',
           centered: true,
@@ -68,7 +70,8 @@ const DeleteUser = () => {
           children: <Text size="sm">그동안 유니버스를 이용해 주셔서 감사합니다.</Text>,
           onCancel: modals.closeAll,
           onConfirm: handleClick,
-        }),
+        });
+      },
     });
   };
 
