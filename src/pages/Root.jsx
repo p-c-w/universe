@@ -1,5 +1,6 @@
 import { GlobalShell } from '../components/common';
-import { Banner, Board } from '../components/rootPage';
+import { Banner, Board, TopButton } from '../components/rootPage';
+import { BUTTON_START_Y } from '../constants';
 import { useAuthenticationQuery } from '../hooks/queries';
 
 const Root = () => {
@@ -11,6 +12,7 @@ const Root = () => {
         {!isLogin && <Banner />}
         <Board />
       </GlobalShell>
+      <TopButton boundary={BUTTON_START_Y} />
     </>
   );
 };
