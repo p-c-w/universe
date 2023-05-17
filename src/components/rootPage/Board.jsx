@@ -1,7 +1,7 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
-
 import { Category, Posters, Carousels, PosterSkeleton } from '.';
+import { goToTop } from '../../utils';
 
 const Board = () => {
   const [mediaType, setMediaType] = useState('movie');
@@ -14,6 +14,10 @@ const Board = () => {
   const handleCategoryChange = newCategory => {
     setSelectedIds(newCategory);
   };
+
+  useEffect(() => {
+    goToTop();
+  }, [mediaType, selectedIds]);
 
   return (
     <Container fluid>
