@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import { Container, Title, Flex, Button, Modal } from '@mantine/core';
+import { Container, Title, Flex, Button } from '@mantine/core';
 import { Password } from '.';
-import { useDisclosure } from '@mantine/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { ChangePwSchema } from '../../schema/schema';
@@ -10,9 +9,9 @@ import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atom';
+import { modals } from '@mantine/modals';
 
 const EditPassword = () => {
-  const [opened, { open, close }] = useDisclosure(false);
   const email = useRecoilValue(userState);
 
   const { control, trigger, handleSubmit } = useForm({
@@ -32,7 +31,7 @@ const EditPassword = () => {
         icon: <IconCheck />,
         loading: false,
       });
-      close();
+      modals.closeAll();
     } catch (error) {
       if (error.response && error.response.status === 401) {
         notifications.show({
@@ -58,9 +57,11 @@ const EditPassword = () => {
     }
   };
 
-  return (
-    <Container my={10} p={0}>
-      <Modal opened={opened} centered onClose={close} title="비밀번호 변경" style={{ marginTop: '10rem' }}>
+  const openModal = () => {
+    modals.open({
+      title: '비밀번호 변경',
+      centered: true,
+      children: (
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -73,10 +74,15 @@ const EditPassword = () => {
             <Button type="submit">제출</Button>
           </Flex>
         </form>
-      </Modal>
+      ),
+    });
+  };
+
+  return (
+    <Container my={10} p={0}>
       <Flex gap={50} align={'center'} justify={'space-between'}>
         <Title order={5}>비밀번호</Title>
-        <Button onClick={open} variant="outline">
+        <Button onClick={openModal} variant="outline">
           수정
         </Button>
       </Flex>

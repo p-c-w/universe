@@ -1,21 +1,16 @@
-import { useRef, Suspense, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Accordion } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
 import { useCollectionQueries } from '../../hooks/queries';
 import { useSelectedItem } from '../../hooks';
-import { DetailModalWrapper, ModalSkeleton } from '../common';
-import { CollectionItem, ConfirmModal } from '.';
+import { CollectionItem } from '.';
 import { sideNavState } from '../../recoil/atom';
 
 const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
   const isNavOpened = useRecoilValue(sideNavState);
 
   const collectionQueries = useCollectionQueries(collection);
-  const [detailModalOpened, { open: openDetailModal, close: closeDetailModal }] = useDisclosure(false);
-  const [confirmModalOpened, { open: openComfirmModal, close: closeConfirmModal }] = useDisclosure(false);
 
-  const [clicked, setClicked] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
 
   const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
@@ -52,27 +47,11 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
             <CollectionItem
               key={item.id}
               item={item}
-              setClicked={setClicked}
-              openDetailModal={openDetailModal}
-              openComfirmModal={openComfirmModal}
+              setSelectedItem={setSelectedItem}
+              setIsItemSelected={setIsItemSelected}
             />
           ))}
       </Accordion>
-      {detailModalOpened && (
-        <Suspense fallback={<ModalSkeleton />}>
-          <DetailModalWrapper opened={detailModalOpened} close={closeDetailModal} id={clicked.id} type={clicked.type} />
-        </Suspense>
-      )}
-      {confirmModalOpened && (
-        <ConfirmModal
-          opened={confirmModalOpened}
-          close={closeConfirmModal}
-          id={clicked.id}
-          listName={clicked.listName}
-          setIsItemSelected={setIsItemSelected}
-          setSelectedItem={setSelectedItem}
-        />
-      )}
     </>
   );
 };

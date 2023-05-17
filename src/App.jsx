@@ -8,6 +8,7 @@ import { Root, MyPage, SignIn, SignUp, EditProfile } from './pages';
 import AuthenticationGuard from './guard/AuthenticationGuard';
 import { colors } from './constants';
 import { Notifications } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 
 const queryClient = new QueryClient({
   retry: 3,
@@ -47,6 +48,7 @@ const App = () => {
             withCSSVariables
             withGlobalStyles
             withNormalizeCSS>
+            <ModalsProvider />
             <Notifications position="bottom-right" />
             <RouterProvider router={router} />
           </MantineProvider>

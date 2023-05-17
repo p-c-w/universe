@@ -1,12 +1,9 @@
 import { Carousel } from '@mantine/carousel';
 import { Card, Image, Container, Text } from '@mantine/core';
-import { Suspense, useState } from 'react';
-import { useDisclosure } from '@mantine/hooks';
+import { useState } from 'react';
 import MoreButton from '../common/MoreButton';
-import { DetailModalWrapper, ModalSkeleton } from '../common';
 
 const Slide = ({ id, title, originalTitle, backdropPath, mediaType }) => {
-  const [opened, { open, close }] = useDisclosure(false);
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -27,13 +24,8 @@ const Slide = ({ id, title, originalTitle, backdropPath, mediaType }) => {
             </Text>
           </Container>
         </Card>
-        {isHovered && <MoreButton open={open} pos={'absolute'} right={'20px'} top={'20px'} />}
+        {isHovered && <MoreButton id={id} type={mediaType} pos={'absolute'} right={'20px'} top={'20px'} />}
       </Carousel.Slide>
-      {opened && (
-        <Suspense fallback={<ModalSkeleton />}>
-          <DetailModalWrapper opened={opened} close={close} id={id} type={mediaType} />
-        </Suspense>
-      )}
     </>
   );
 };

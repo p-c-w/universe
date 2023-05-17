@@ -16,7 +16,7 @@ const PredictedFeeWrapper = () => {
   const userCollectionList = watchlist.map(list => ({ type: list.type, id: list.id }));
 
   return (
-    <Suspense>
+    <Suspense fallback={<div>isLoading..</div>}>
       {isSuccess && <PredictedSubscription watchlist={watchlist} userCollectionList={userCollectionList} />}
     </Suspense>
   );
