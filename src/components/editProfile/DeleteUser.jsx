@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Title, Container, Flex, Button, Modal, Text, Checkbox } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import { useUserQuery } from '../../hooks/queries';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../recoil/atom';
 import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
+import { modals } from '@mantine/modals';
 import { Link } from 'react-router-dom';
 
 const DeleteUser = () => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
   const [user, setUser] = useRecoilState(userState);
 
@@ -31,7 +31,8 @@ const DeleteUser = () => {
         icon: <IconCheck />,
         loading: false,
       });
-      close();
+
+      modals.closeAll();
     } catch (error) {
       notifications.show({
         withCloseButton: true,
@@ -45,25 +46,32 @@ const DeleteUser = () => {
     }
   };
 
-  return (
-    <Container p={0}>
-      <Modal opened={opened} centered onClose={close} title="회원 탈퇴" style={{ marginTop: '10rem' }}>
+  const openModal = () => {
+    modals.open({
+      title: '회원 탈퇴',
+      centered: true,
+      children: (
         <Flex direction={'column'} gap={20}>
           <Text> 회원 탈퇴시 {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
-          <Checkbox onChange={event => setChecked(!event.currentTarget.checked)} label="이에 동의하십니까?" />
+          <Checkbox onChange={e => setChecked(!e.currentTarget.checked)} label="이에 동의하십니까?" />
           <Flex gap={3}>
             <Button fullWidth variant="outline" onClick={close}>
               취소하기
             </Button>
-            <Button onClick={handleClick} component={Link} to="/" fullWidth variant="outline" disabled={checked}>
+            <Button onClick={handleClick} component={Link} to={'/'} fullWidth variant="outline" disabled={checked}>
               탈퇴하기
             </Button>
           </Flex>
         </Flex>
-      </Modal>
+      ),
+    });
+  };
+
+  return (
+    <Container p={0}>
       <Flex gap={50} align={'center'} justify={'space-between'}>
         <Title order={5}>회원탈퇴</Title>
-        <Button onClick={open} variant="outline">
+        <Button onClick={openModal} variant="outline">
           탈퇴
         </Button>
       </Flex>
