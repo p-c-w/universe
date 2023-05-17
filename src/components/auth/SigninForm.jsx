@@ -39,18 +39,18 @@ const SigninForm = () => {
 
       setUser(user);
       navigate('/');
-    } catch (e) {
-      notifications.show({
-        id: 'hello-there',
-        withCloseButton: true,
-        autoClose: 2000,
-        title: 'Login Failure',
-        message: '잘못된 이메일이나 비밀번호가 입력됐습니다.',
-        color: 'red',
-        icon: <IconX />,
-        className: 'my-notification-class',
-        loading: false,
-      });
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        notifications.show({
+          withCloseButton: true,
+          autoClose: 2000,
+          title: 'Login Failure',
+          message: error.response.data,
+          color: 'red',
+          icon: <IconX />,
+          loading: false,
+        });
+      }
     }
   };
 

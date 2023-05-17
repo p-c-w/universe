@@ -1,12 +1,16 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import ReactApexChart from 'react-apexcharts';
+import { sideNavState } from '../../recoil/atom';
 import { useStatsByGenre } from '../../hooks/statistics';
 
 const StatsByGenre = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+
+  const isOpened = useRecoilValue(sideNavState);
 
   const { data } = useStatsByGenre();
 
@@ -50,10 +54,10 @@ const StatsByGenre = () => {
         많이 시청한 장르 TOP3는 {top3Genres.map(({ label }) => label).join(', ')} 입니다.
       </Text>
 
-      <Flex justify="center">
+      <Flex justify="center" align="center" gap={0}>
         <Group position="center">
           <RingProgress
-            size={smallScreen ? 150 : 170}
+            size={smallScreen || isOpened ? 130 : 170}
             thickness={16}
             label={<Text size="xs" align="center" px="xs" sx={{ pointerEvents: 'none' }}></Text>}
             sections={genres.map(({ label, part, count, color }) => ({
