@@ -8,7 +8,6 @@ export { default as ScrollObserver } from './ScrollObserver';
 export { default as BarLoader } from './BarLoader';
 export { default as ActionIcons } from './ActionIcons';
 export { default as DetailModal } from './DetailModal';
-export { default as DetailModalWrapper } from './DetailModalWrapper';
 export { default as Result } from './Result';
 export { default as MyMenu } from './MyMenu';
 export { default as ModalSkeleton } from './ModalSkeleton';
