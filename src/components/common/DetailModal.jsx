@@ -25,7 +25,7 @@ const Body = styled(Grid)`
 `;
 
 const DetailModal = ({ id, type }) => {
-  const { data, isLoading } = useContentDetailQuery({ type, id });
+  const { data } = useContentDetailQuery({ type, id });
 
   const {
     title,
