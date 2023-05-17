@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
-import { CategoryPicker, Posters, Carousels, PosterSkeleton } from '.';
+import { CategoryPicker, Posters, Carousels } from '.';
+import { PosterSkeleton } from './Posters';
 import { goToTop } from '../../utils';
 
 const Board = () => {
