@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
-import { Category, Posters, Carousels, PosterSkeleton } from '.';
+import { CategoryPicker, Posters, Carousels, PosterSkeleton } from '.';
 import { goToTop } from '../../utils';
 
 const Board = () => {
@@ -21,7 +21,7 @@ const Board = () => {
 
   return (
     <Container fluid>
-      <Category
+      <CategoryPicker
         mediaType={mediaType}
         handleMediaChange={handleMediaChange}
         handleCategoryChange={handleCategoryChange}
