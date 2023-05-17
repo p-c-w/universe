@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { Title, Container, Flex, Button, Text, Checkbox } from '@mantine/core';
-import { useUserQuery } from '../../hooks/queries';
+import React from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../recoil/atom';
+import { useUserQuery } from '../../hooks/queries';
 import { notifications } from '@mantine/notifications';
-import { IconX, IconCheck } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
 import { modals } from '@mantine/modals';
+import { Title, Container, Flex, Button, Text } from '@mantine/core';
+import { IconX, IconCheck } from '@tabler/icons-react';
 
 const DeleteUser = () => {
-  const [checked, setChecked] = useState(true);
   const [user, setUser] = useRecoilState(userState);
 
   const navigate = useNavigate();
