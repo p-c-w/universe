@@ -4,7 +4,7 @@ import { modals } from '@mantine/modals';
 import { Suspense } from 'react';
 import { DetailModal, ModalSkeleton } from '.';
 
-const MoreButton = ({ id, type, pos, right, left, top, bottom }) => {
+const MoreButton = ({ id, type, pos, right, top }) => {
   const DetailClick = () => {
     modals.open({
       centered: true,
@@ -24,9 +24,7 @@ const MoreButton = ({ id, type, pos, right, left, top, bottom }) => {
     <Button
       pos={pos}
       top={top}
-      bottom={bottom}
       right={right}
-      left={left}
       variant="transparent"
       m={0}
       p={0}
