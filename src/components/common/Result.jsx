@@ -21,7 +21,7 @@ const SearchResult = ({ id, title, name, reg, type }) => {
       m: 0,
       children: (
         <Suspense fallback={<ModalSkeleton />}>
-          <DetailModal type={type} id={id} />
+          <DetailModal id={id} type={type} />
         </Suspense>
       ),
     });
