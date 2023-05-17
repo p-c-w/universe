@@ -31,6 +31,8 @@ const MyPage = () => {
           <Box>
             <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
               <PredictedFeeWrapper />
+            </Suspense>
+            <Suspense fallback={<BoxSkeleton w={500} h="100%" />}>
               <CurrentSubscriptionInfo />
             </Suspense>
           </Box>
