@@ -7,6 +7,10 @@ const CardGrid = styled(SimpleGrid)`
   margin: 0 auto;
 `;
 
+const StyledSkeleton = styled(Skeleton)`
+  aspect-ratio: 3/4;
+`;
+
 const PosterSkeleton = () => {
   const smallScreen = useMediaQuery('(max-width: 100rem)');
 
@@ -23,9 +27,7 @@ const PosterSkeleton = () => {
         { maxWidth: '40rem', cols: 2 },
       ]}>
       {Array.from({ length: 20 }, (_, i) => (
-        <Skeleton key={i} radius="md" mih={300}>
-          <img src="https://placehold.co/252x378" alt="skeleton" />
-        </Skeleton>
+        <StyledSkeleton key={i} radius="md" />
       ))}
     </CardGrid>
   );

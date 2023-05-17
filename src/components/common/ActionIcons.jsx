@@ -6,80 +6,76 @@ import { userState } from '../../recoil/atom';
 import { useUserQuery } from '../../hooks/queries';
 import { useAddUserContentMutation, useDeleteUserContentMutation } from '../../hooks/mutations';
 
+const CategoryIcon = styled(ThemeIcon)`
+  cursor: pointer;
+`;
+
 const getUserInfo = userInfo => ({
   watchlist: userInfo.watch_list,
   likelist: userInfo.like_list,
   historylist: userInfo.history_list,
 });
 
-const CategoryIcon = styled(ThemeIcon)`
-  cursor: pointer;
-`;
+const isItemInList = (list, id, type) => list.some(item => item.id === id && item.type === type);
 
 const ActionIcons = ({ size, id, type, category = '' }) => {
-  const userEmail = useRecoilValue(userState);
-
-  const { data } = useUserQuery({ select: getUserInfo, enabled: !!userEmail });
-
+  const email = useRecoilValue(userState);
+  const { userInfo } = useUserQuery({ select: getUserInfo, enabled: !!email });
   const { mutate: addUserContent } = useAddUserContentMutation();
   const { mutate: deleteUserContent } = useDeleteUserContentMutation();
 
-  const { watchlist = [], likelist = [], historylist = [] } = data || {};
-
-  const isItemInList = list => list.some(item => item.id === id && item.type === type);
-
-  const handleClick = (e, list, listName) => {
-    e.stopPropagation();
-    if (!userEmail) return;
-
+  const handleAction = (list, listName) => {
     const now = new Date();
     const contentData = { id, type, modified_at: now.toISOString() };
 
-    if (isItemInList(list)) {
-      deleteUserContent({ email: userEmail, list: listName, id });
+    if (isItemInList(list, id, type)) {
+      deleteUserContent({ email, list: listName, id });
     } else {
-      addUserContent({ email: userEmail, list: listName, value: contentData });
+      addUserContent({ email, list: listName, value: contentData });
     }
   };
 
   const getIconVariant = (list, color) =>
-    isItemInList(list) ? { variant: 'filled', color } : { variant: 'outline', color };
+    list && isItemInList(list, id, type) ? { variant: 'filled', color } : { variant: 'outline', color };
+
+  const renderCategoryIcon = (list, label, color, iconComponent, listName) => (
+    <Tooltip label={label} withArrow>
+      <CategoryIcon
+        role="button"
+        aria-label={list}
+        {...getIconVariant(list, color)}
+        onClick={email ? () => handleAction(list, listName) : undefined}>
+        {iconComponent}
+      </CategoryIcon>
+    </Tooltip>
+  );
 
   return (
     <Group spacing={8}>
-      {category !== 'watch' && (
-        <Tooltip label="Watch" withArrow>
-          <CategoryIcon
-            role="button"
-            aria-label={`to ${watchlist}`}
-            {...getIconVariant(watchlist, 'yellow')}
-            onClick={e => handleClick(e, watchlist, 'watch_list')}>
-            <IconMovie size={size} />
-          </CategoryIcon>
-        </Tooltip>
-      )}
-      {category !== 'like' && (
-        <Tooltip label="Like" withArrow>
-          <CategoryIcon
-            role="button"
-            aria-label={likelist}
-            {...getIconVariant(likelist, 'red')}
-            onClick={e => handleClick(e, likelist, 'like_list')}>
-            <IconThumbUp size={size} />
-          </CategoryIcon>
-        </Tooltip>
-      )}
-      {category !== 'history' && (
-        <Tooltip label="History" withArrow>
-          <CategoryIcon
-            role="button"
-            aria-label={historylist}
-            {...getIconVariant(historylist, 'blue')}
-            onClick={e => handleClick(e, historylist, 'history_list')}>
-            <IconHistory size={size} />
-          </CategoryIcon>
-        </Tooltip>
-      )}
+      {category !== 'watch' &&
+        renderCategoryIcon(
+          email ? userInfo.watchlist : undefined,
+          'Watch',
+          'yellow',
+          <IconMovie size={size} />,
+          'watch_list'
+        )}
+      {category !== 'like' &&
+        renderCategoryIcon(
+          email ? userInfo.likelist : undefined,
+          'Like',
+          'red',
+          <IconThumbUp size={size} />,
+          'like_list'
+        )}
+      {category !== 'history' &&
+        renderCategoryIcon(
+          email ? userInfo.historylist : undefined,
+          'History',
+          'blue',
+          <IconHistory size={size} />,
+          'history_list'
+        )}
     </Group>
   );
 };

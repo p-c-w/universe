@@ -12,7 +12,7 @@ const useUserQuery = options => {
   const query = useQuery({
     queryKey: [USER_INFO_QUERY_KEY, email],
     queryFn: () => fetchUser(email),
-    suspence: true,
+    suspense: true,
     staleTime,
     ...options,
   });
