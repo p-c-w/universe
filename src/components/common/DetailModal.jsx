@@ -63,11 +63,15 @@ const DetailModal = ({ id, type }) => {
   const providerIds = getProvidersByIds(providers[0]?.providers);
 
   return (
-    <Container pos={'relative'} m={0} p={0}>
+    <Container pos="relative" m={0} p={0}>
       <Overlay c="#000" opacity={0.75} zIndex="1" />
       <CloseBtn pos="absolute" top={10} right={20} />
-      <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined} />
-      <Body m={40} c="#fff" columns={3} pos={'absolute'} top={0}>
+      {backdropPath ? (
+        <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}`} />
+      ) : (
+        <Container w={950} h={535} bg="dark.5" />
+      )}
+      <Body m={40} c="#fff" columns={3} pos="absolute" top={0}>
         <Grid.Col span={2}>
           <Container>
             <Title order={midScreen ? 1 : 2} mb="xs" mt="lg">
@@ -110,8 +114,12 @@ const DetailModal = ({ id, type }) => {
           </Container>
         </Grid.Col>
         <Grid.Col span={1}>
-          <Flex direction={'column'} m={10} justify={'center'} align={'center'}>
-            <Image src={`https://image.tmdb.org/t/p/w${smallScreen ? 342 : 185}${posterPath}` || undefined} />
+          <Flex direction="column" m={10} justify={'center'} align={'center'}>
+            {posterPath ? (
+              <Image src={`https://image.tmdb.org/t/p/w${smallScreen ? 342 : 185}${posterPath}`} />
+            ) : (
+              <Container bg="dark.7" w={smallScreen ? 230 : 185} h={smallScreen ? 354 : 280} p={0} />
+            )}
             <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
               <Container display="flex">
                 <Badges providers={providerIds} spacing="xs" size={45} />
