@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Title, Container, Flex, Button, Modal, Text, Checkbox } from '@mantine/core';
+import { Title, Container, Flex, Button, Text, Checkbox } from '@mantine/core';
 import { useUserQuery } from '../../hooks/queries';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { userState } from '../../recoil/atom';
 import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
+import { useNavigate } from 'react-router-dom';
 import { modals } from '@mantine/modals';
-import { Link } from 'react-router-dom';
 
 const DeleteUser = () => {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ const DeleteUser = () => {
       });
 
       modals.closeAll();
+      navigate('/');
     } catch (error) {
       notifications.show({
         withCloseButton: true,
@@ -55,10 +56,10 @@ const DeleteUser = () => {
           <Text> 회원 탈퇴시 {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
           <Checkbox onChange={e => setChecked(!e.currentTarget.checked)} label="이에 동의하십니까?" />
           <Flex gap={3}>
-            <Button fullWidth variant="outline" onClick={close}>
+            <Button fullWidth variant="outline" onClick={modals.closeAll}>
               취소하기
             </Button>
-            <Button onClick={handleClick} component={Link} to={'/'} fullWidth variant="outline" disabled={checked}>
+            <Button onClick={handleClick} fullWidth variant="outline">
               탈퇴하기
             </Button>
           </Flex>
