@@ -1,4 +1,4 @@
-import React from 'react';
+import { Suspense } from 'react';
 import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
@@ -97,7 +97,9 @@ const DetailModal = ({ id, type }) => {
                   </Badge>
                 ))}
               </Flex>
-              <ActionIcons size={20} id={id} type={type} />
+              <Suspense fallback={<div>...loading</div>}>
+                <ActionIcons size={20} id={id} type={type} />
+              </Suspense>
             </Flex>
             <ScrollArea fw={300} fz="sm" w={midScreen ? 450 : 350} h={midScreen ? 240 : 150} m={10}>
               <Title my="xs" w={450} order={midScreen ? 3 : 4} color="grey" italic>
