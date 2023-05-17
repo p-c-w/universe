@@ -4,6 +4,7 @@ import { SideNavBar, ShellHeader } from '.';
 
 const Layout = styled(AppShell)`
   & .mantine-AppShell-main {
+    padding-top: calc(var(--mantine-header-height, 0px));
     background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1])};
   }
 `;
