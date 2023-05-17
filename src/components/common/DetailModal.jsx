@@ -6,7 +6,7 @@ import { PROVIDERS } from '../../constants';
 import styled from '@emotion/styled';
 import { useProviderQueries } from '../../hooks/queries';
 import { getProvidersByIds } from '../../utils';
-import { ActionIcons, Badges } from '.';
+import { ActionIcons, Badges, ModalSkeleton } from '.';
 import genres from '../../constants/genres';
 import { useContentDetailQuery } from '../../hooks/queries';
 
@@ -25,7 +25,7 @@ const Body = styled(Grid)`
 `;
 
 const DetailModal = ({ id, type }) => {
-  const { data } = useContentDetailQuery({ type, id });
+  const { data, isLoading } = useContentDetailQuery({ type, id });
 
   const {
     title,
@@ -63,62 +63,68 @@ const DetailModal = ({ id, type }) => {
   const providerIds = getProvidersByIds(providers[0]?.providers);
 
   return (
-    <Container pos={'relative'} m={0} p={0}>
-      <Overlay c="#000" opacity={0.75} zIndex="1" />
-      <CloseBtn pos="absolute" top={10} right={20} />
-      <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined} />
-      <Body m={40} c="#fff" columns={3} pos={'absolute'} top={0}>
-        <Grid.Col span={2}>
-          <Container>
-            <Title order={midScreen ? 1 : 2} mb="xs" mt="lg">
-              {title || tvName}
-            </Title>
-            {midScreen && (
-              <Title order={3} mb="xs" mt="xs">
-                {originTitle || originName}
-              </Title>
-            )}
-            <Flex my="sm" direction="row" gap="xs" align="center">
-              <Text mr="xs">{relaseDate || firstAirDate}</Text>
-              {runtime ? (
-                <>
-                  <IconClockPlay size={17} />
-                  <Text>{convertRuntime(runtime)}</Text>
-                </>
-              ) : (
-                <Text>{seasons > 1 ? `시즌 ${seasons}개` : `에피소드 ${episodes}개`}</Text>
-              )}
-            </Flex>
-            <Flex justify="space-between" ml="lg">
-              <Flex maw={200} wrap="wrap" gap={5}>
-                {genreIds.map(({ id, name }) => (
-                  <Badge color={genres[type][id].color} key={id}>
-                    {name}
-                  </Badge>
-                ))}
-              </Flex>
-              <ActionIcons size={20} id={id} type={type} />
-            </Flex>
-            <ScrollArea fw={300} fz="sm" w={midScreen ? 450 : 350} h={midScreen ? 240 : 150} m={10}>
-              <Title my="xs" w={450} order={midScreen ? 3 : 4} color="grey" italic>
-                {tagline}
-              </Title>
-              {overview}
-            </ScrollArea>
-          </Container>
-        </Grid.Col>
-        <Grid.Col span={1}>
-          <Flex direction={'column'} m={10} justify={'center'} align={'center'}>
-            <Image src={`https://image.tmdb.org/t/p/w${smallScreen ? 342 : 185}${posterPath}` || undefined} />
-            <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
-              <Container display="flex">
-                <Badges providers={providerIds} spacing="xs" size={45} />
+    <>
+      {isLoading ? (
+        <ModalSkeleton />
+      ) : (
+        <Container pos={'relative'} m={0} p={0}>
+          <Overlay c="#000" opacity={0.75} zIndex="1" />
+          <CloseBtn pos="absolute" top={10} right={20} />
+          <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}` || undefined} />
+          <Body m={40} c="#fff" columns={3} pos={'absolute'} top={0}>
+            <Grid.Col span={2}>
+              <Container>
+                <Title order={midScreen ? 1 : 2} mb="xs" mt="lg">
+                  {title || tvName}
+                </Title>
+                {midScreen && (
+                  <Title order={3} mb="xs" mt="xs">
+                    {originTitle || originName}
+                  </Title>
+                )}
+                <Flex my="sm" direction="row" gap="xs" align="center">
+                  <Text mr="xs">{relaseDate || firstAirDate}</Text>
+                  {runtime ? (
+                    <>
+                      <IconClockPlay size={17} />
+                      <Text>{convertRuntime(runtime)}</Text>
+                    </>
+                  ) : (
+                    <Text>{seasons > 1 ? `시즌 ${seasons}개` : `에피소드 ${episodes}개`}</Text>
+                  )}
+                </Flex>
+                <Flex justify="space-between" ml="lg">
+                  <Flex maw={200} wrap="wrap" gap={5}>
+                    {genreIds.map(({ id, name }) => (
+                      <Badge color={genres[type][id].color} key={id}>
+                        {name}
+                      </Badge>
+                    ))}
+                  </Flex>
+                  <ActionIcons size={20} id={id} type={type} />
+                </Flex>
+                <ScrollArea fw={300} fz="sm" w={midScreen ? 450 : 350} h={midScreen ? 240 : 150} m={10}>
+                  <Title my="xs" w={450} order={midScreen ? 3 : 4} color="grey" italic>
+                    {tagline}
+                  </Title>
+                  {overview}
+                </ScrollArea>
               </Container>
-            </Container>
-          </Flex>
-        </Grid.Col>
-      </Body>
-    </Container>
+            </Grid.Col>
+            <Grid.Col span={1}>
+              <Flex direction={'column'} m={10} justify={'center'} align={'center'}>
+                <Image src={`https://image.tmdb.org/t/p/w${smallScreen ? 342 : 185}${posterPath}` || undefined} />
+                <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
+                  <Container display="flex">
+                    <Badges providers={providerIds} spacing="xs" size={45} />
+                  </Container>
+                </Container>
+              </Flex>
+            </Grid.Col>
+          </Body>
+        </Container>
+      )}
+    </>
   );
 };
 
