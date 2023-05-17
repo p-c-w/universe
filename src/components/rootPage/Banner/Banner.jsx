@@ -1,19 +1,19 @@
 import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import Autoplay from 'embla-carousel-autoplay';
-import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
-import { Button, Container, Flex, Image, Space, Title } from '@mantine/core';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
+import Autoplay from 'embla-carousel-autoplay';
 
-import { SIDE_NAV_DURATION } from '../../constants';
+import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
+import { Slide } from '.';
 
-import banner1 from '../../assets/images/banner-1.svg';
-import banner2 from '../../assets/images/banner-2.svg';
-import banner3 from '../../assets/images/banner-3.svg';
-import { sideNavState } from '../../recoil/atom';
+import { SIDE_NAV_DURATION } from '../../../constants';
+import { sideNavState } from '../../../recoil/atom';
 
-const BillBoard = styled(Carousel)`
+import banner1 from '../../../assets/images/banner-1.svg';
+import banner2 from '../../../assets/images/banner-2.svg';
+import banner3 from '../../../assets/images/banner-3.svg';
+
+const CarouselContainer = styled(Carousel)`
   & .mantine-Carousel-indicator {
     width: 0.9375rem;
     height: 0.125rem;
@@ -46,26 +46,6 @@ const data = [
   },
 ];
 
-const SildeContainer = ({ url, title, subtitle }) => (
-  <Flex h={'100%'} m={0} p={50} justify="center" align="center">
-    <Container m={0}>
-      <Title order={1} c={'black'}>
-        {title}
-      </Title>
-      <Space h={10} />
-      <Title order={2} fw={400} c={'black'}>
-        {subtitle}
-      </Title>
-      <Space h={50} />
-      <Button w={280} h={50} component={Link} to={'/signin'} fz="lg">
-        Get Started!
-      </Button>
-    </Container>
-    <Space w={100} />
-    <Image maw={500} h="100%" src={url} fit="contain" />
-  </Flex>
-);
-
 const Banner = () => {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   const currentSlide = useRef(0);
@@ -79,8 +59,9 @@ const Banner = () => {
   };
 
   return (
-    <BillBoard
+    <CarouselContainer
       key={isOpened ? 'open' : 'close'}
+      my="md"
       withIndicators
       plugins={[autoplay.current]}
       initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
@@ -91,10 +72,10 @@ const Banner = () => {
       onMouseLeave={autoplay.current.reset}>
       {data.map(({ url, title, subtitle, backgroundColor }) => (
         <Carousel.Slide key={title} bg={backgroundColor}>
-          <SildeContainer url={url} title={title} subtitle={subtitle} />
+          <Slide url={url} title={title} subtitle={subtitle} />
         </Carousel.Slide>
       ))}
-    </BillBoard>
+    </CarouselContainer>
   );
 };
 
