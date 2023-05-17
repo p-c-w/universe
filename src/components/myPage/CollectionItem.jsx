@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 import { categoryState } from '../../recoil/atom';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
@@ -6,7 +6,7 @@ import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { AccordionLabel, ModifiedDate, ConfirmModal } from '.';
-import { ActionIcons, DetailModal } from '../common';
+import { ActionIcons, DetailModal, ModalSkeleton } from '../common';
 
 const CollectionItem = ({ item, setSelectedItem, setIsItemSelected }) => {
   const listName = useRecoilValue(categoryState);
@@ -22,7 +22,11 @@ const CollectionItem = ({ item, setSelectedItem, setIsItemSelected }) => {
       size: 950,
       padding: 0,
       m: 0,
-      children: <DetailModal type={item.type} id={item.id} />,
+      children: (
+        <Suspense fallback={<ModalSkeleton />}>
+          <DetailModal type={item.type} id={item.id} />
+        </Suspense>
+      ),
     });
   };
 
