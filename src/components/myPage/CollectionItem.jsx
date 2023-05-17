@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { categoryState } from '../../recoil/atom';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
+import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
-import { useRecoilValue } from 'recoil';
-import { AccordionLabel, ModifiedDate } from './index';
-import { categoryState } from '../../recoil/atom';
+import { AccordionLabel, ModifiedDate, ConfirmModal } from '.';
 import { ActionIcons } from '../common';
 
-const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal }) => {
+const CollectionItem = ({ item, setClicked, openDetailModal, setSelectedItem, setIsItemSelected }) => {
   const listName = useRecoilValue(categoryState);
   const [hovered, setHovered] = useState(false);
 
@@ -23,10 +24,21 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
 
   const handleMouseLeave = () => setHovered(false);
 
-  const handleDeleteClick = (e, item) => {
+  const handleDeleteClick = e => {
     e.stopPropagation();
-    setClicked(item);
-    openComfirmModal();
+
+    modals.open({
+      centered: true,
+      title: ' 해당 컨텐츠를 삭제하시겠습니까?',
+      children: <ConfirmModal id={item.id} listName={listName} />,
+    });
+  };
+
+  const trashClick = e => {
+    handleDeleteClick(e, { id: item?.id, listName });
+
+    setSelectedItem(null);
+    setIsItemSelected(false);
   };
 
   return (
@@ -40,7 +52,7 @@ const CollectionItem = ({ item, setClicked, openDetailModal, openComfirmModal })
           <Flex direction="row" justify="space-between" align="center">
             <AccordionLabel {...item} />
             {hovered && (
-              <ThemeIcon variant="transparent" onClick={e => handleDeleteClick(e, { id: item?.id, listName })}>
+              <ThemeIcon variant="transparent" onClick={trashClick}>
                 <IconTrash size={xsmallScreen ? 12 : smallScreen ? 14 : 16} />
               </ThemeIcon>
             )}
