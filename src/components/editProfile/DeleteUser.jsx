@@ -10,9 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { modals } from '@mantine/modals';
 
 const DeleteUser = () => {
-  const navigate = useNavigate();
   const [checked, setChecked] = useState(true);
   const [user, setUser] = useRecoilState(userState);
+
+  const navigate = useNavigate();
 
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
@@ -48,23 +49,27 @@ const DeleteUser = () => {
   };
 
   const openModal = () => {
-    modals.open({
+    modals.openConfirmModal({
       title: '회원 탈퇴',
       centered: true,
+      closeOnConfirm: false,
+      labels: { confirm: '예', cancel: '아니오' },
       children: (
         <Flex direction={'column'} gap={20}>
-          <Text> 회원 탈퇴시 {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
-          <Checkbox onChange={e => setChecked(!e.currentTarget.checked)} label="이에 동의하십니까?" />
-          <Flex gap={3}>
-            <Button fullWidth variant="outline" onClick={modals.closeAll}>
-              취소하기
-            </Button>
-            <Button onClick={handleClick} fullWidth variant="outline">
-              탈퇴하기
-            </Button>
-          </Flex>
+          <Text> {name}님의 유니버스가 삭제되며 복구 불가능합니다.</Text>
+          <Text> 이에 동의하십니까?</Text>
         </Flex>
       ),
+      onConfirm: () =>
+        modals.openConfirmModal({
+          title: '회원 탈퇴',
+          centered: true,
+          labels: { confirm: '탈퇴하기', cancel: '취소하기' },
+          closeOnConfirm: false,
+          children: <Text size="sm">그동안 유니버스를 이용해 주셔서 감사합니다.</Text>,
+          onCancel: modals.closeAll,
+          onConfirm: handleClick,
+        }),
     });
   };
 
