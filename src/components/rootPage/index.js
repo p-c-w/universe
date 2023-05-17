@@ -1,8 +1,8 @@
 export { Banner } from './Banner';
 
 export { default as Board } from './Board';
-export { default as Posters } from './Posters';
-export { default as Poster } from './Poster';
+export { Posters } from './Posters';
+export { default as Poster } from './Posters/Poster';
 
 export { CategoryPicker } from './CategoryPicker';
 

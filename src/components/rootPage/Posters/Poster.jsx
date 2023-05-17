@@ -14,9 +14,9 @@ import {
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import { ActionIcons, DetailModalWrapper, ModalSkeleton } from '../common';
-import genres from '../../constants/genres';
-import MoreButton from '../common/MoreButton';
+import { ActionIcons, DetailModalWrapper, ModalSkeleton } from '../../common';
+import genres from '../../../constants/genres';
+import MoreButton from '../../common/MoreButton';
 
 const Img = styled(Image)`
   overflow: hidden;
