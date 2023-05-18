@@ -2,13 +2,12 @@ import { Suspense } from 'react';
 import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import { PROVIDERS } from '../../constants';
 import styled from '@emotion/styled';
-import { useProviderQueries } from '../../hooks/queries';
+import { PROVIDERS } from '../../constants';
+import { useProviderQueries, useContentDetailQuery } from '../../hooks/queries';
 import { getProvidersByIds } from '../../utils';
 import { ActionIcons, Badges } from '.';
 import genres from '../../constants/genres';
-import { useContentDetailQuery } from '../../hooks/queries';
 
 const convertRuntime = runtime => {
   const hours = Math.floor(runtime / 60);
@@ -54,7 +53,7 @@ const DetailModal = ({ id, type }) => {
         ? data.results.KR.flatrate
             ?.map(provider => provider.provider_id)
             ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
-        : [],
+        : undefined,
     }),
   });
 
