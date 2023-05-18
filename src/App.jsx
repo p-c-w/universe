@@ -3,12 +3,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Notifications } from '@mantine/notifications';
+import { ModalsProvider } from '@mantine/modals';
 import useColorScheme from './hooks/useColorScheme';
 import { Root, MyPage, SignIn, SignUp, EditProfile } from './pages';
 import AuthenticationGuard from './guard/AuthenticationGuard';
-import { colors } from './constants';
-import { Notifications } from '@mantine/notifications';
-import { ModalsProvider } from '@mantine/modals';
+import { COLORS } from './constants';
 
 const queryClient = new QueryClient({
   retry: 3,
@@ -43,7 +43,7 @@ const App = () => {
               fontFamily: 'Spoqa Han Sans Neo, sans-serif',
               colorScheme,
               primaryColor: 'violet',
-              colors,
+              colors: COLORS,
             }}
             withCSSVariables
             withGlobalStyles
