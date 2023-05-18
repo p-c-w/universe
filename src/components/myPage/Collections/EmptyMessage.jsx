@@ -1,9 +1,9 @@
 import { Image, Flex, Container, Title, Space, Button } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Link } from 'react-router-dom';
-import emptybox from '../../assets/images/empty-box.svg';
+import emptybox from '../../../assets/images/empty-box.svg';
 
-const EmptyCollection = ({ category }) => {
+const EmptyMessage = ({ category }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   return (
@@ -26,4 +26,4 @@ const EmptyCollection = ({ category }) => {
   );
 };
 
-export default EmptyCollection;
+export default EmptyMessage;

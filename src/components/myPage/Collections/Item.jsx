@@ -4,11 +4,12 @@ import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
-import { categoryState } from '../../recoil/atom';
-import { AccordionLabel, ModifiedDate, ConfirmModal } from '.';
-import { ActionIcons, DetailModal, ModalSkeleton } from '../common';
+import { categoryState } from '../../../recoil/atom';
+import { ItemTitle, DateEditor } from '.';
+import { ConfirmModal } from '../index';
+import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
-const CollectionItem = ({ item, setSelectedItem, setIsItemSelected }) => {
+const Item = ({ item, setSelectedItem, setIsItemSelected }) => {
   const listName = useRecoilValue(categoryState);
   const [hovered, setHovered] = useState(false);
 
@@ -59,7 +60,7 @@ const CollectionItem = ({ item, setSelectedItem, setIsItemSelected }) => {
         onMouseLeave={handleMouseLeave}>
         <Accordion.Control px={8}>
           <Flex direction="row" justify="space-between" align="center">
-            <AccordionLabel {...item} />
+            <ItemTitle {...item} />
             {hovered && (
               <ThemeIcon variant="transparent" onClick={trashClick}>
                 <IconTrash size={smallScreen ? 14 : 16} />
@@ -70,7 +71,7 @@ const CollectionItem = ({ item, setSelectedItem, setIsItemSelected }) => {
 
         <Accordion.Panel w="90%" ml={smallScreen ? 51 : 55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
-            <ModifiedDate id={item?.id} date={item?.modified_at} />
+            <DateEditor id={item?.id} date={item?.modified_at} />
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
                 <Button m={0} pl={0} pb={3} variant="transparent" onClick={DetailClick} fz={12} aria-label="more">
@@ -89,4 +90,4 @@ const CollectionItem = ({ item, setSelectedItem, setIsItemSelected }) => {
   );
 };
 
-export default CollectionItem;
+export default Item;

@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { Accordion } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
-import { useCollectionQueries } from '../../hooks/queries';
-import { useSelectedItem } from '../../hooks';
-import { CollectionItem } from '.';
-import { sideNavState } from '../../recoil/atom';
+import { useCollectionQueries } from '../../../hooks/queries';
+import { useSelectedItem } from '../../../hooks';
+import { sideNavState } from '../../../recoil/atom';
+import { Item } from '.';
 
 const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
   const isNavOpened = useRecoilValue(sideNavState);
@@ -44,12 +44,7 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
       <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
         {allQueriesSucceeded &&
           collectionList?.map(item => (
-            <CollectionItem
-              key={item.id}
-              item={item}
-              setSelectedItem={setSelectedItem}
-              setIsItemSelected={setIsItemSelected}
-            />
+            <Item key={item.id} item={item} setSelectedItem={setSelectedItem} setIsItemSelected={setIsItemSelected} />
           ))}
       </Accordion>
     </>

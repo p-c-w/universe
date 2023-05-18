@@ -6,9 +6,9 @@ import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCalendar } from '@tabler/icons-react';
-import { categoryState, sideNavState, userState } from '../../recoil/atom';
-import { formatDate } from '../../utils';
-import { useUpdateModifiedAtMutation } from '../../hooks/mutations';
+import { categoryState, sideNavState, userState } from '../../../recoil/atom';
+import { formatDate } from '../../../utils';
+import { useUpdateModifiedAtMutation } from '../../../hooks/mutations';
 
 const EditDate = styled(Badge)`
   cursor: pointer;
@@ -16,7 +16,7 @@ const EditDate = styled(Badge)`
 
 const offset = new Date().getTimezoneOffset() * 60000;
 
-const ModifiedDate = ({ id, date }) => {
+const DateEditor = ({ id, date }) => {
   const middleScreen = useMediaQuery('(max-width: 64rem)');
   const smallScreen = useMediaQuery('(max-width: 44rem)');
 
@@ -97,4 +97,4 @@ const ModifiedDate = ({ id, date }) => {
   );
 };
 
-export default ModifiedDate;
+export default DateEditor;

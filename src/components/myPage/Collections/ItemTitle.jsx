@@ -1,9 +1,9 @@
 import React from 'react';
 import { Group, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Badges, Badge } from '../common';
+import { Badges, Badge } from '../../common';
 
-const AccordionLabel = ({ title, providers: providerIds }) => {
+const ItemTitle = ({ title, providers: providerIds }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   return (
@@ -20,4 +20,4 @@ const AccordionLabel = ({ title, providers: providerIds }) => {
   );
 };
 
-export default AccordionLabel;
+export default ItemTitle;
