@@ -33,7 +33,7 @@ const Board = () => {
             <Posters mediaType={mediaType} />
           </Suspense>
         ) : (
-          <Carousels mediaType={mediaType} providerIds={selectedIds} />
+          <Carousels mediaType={mediaType} selectedIds={selectedIds} />
         )}
       </Container>
     </Container>
