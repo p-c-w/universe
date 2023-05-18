@@ -8,7 +8,6 @@ import { useStatsByGenre } from '../../hooks/statistics';
 
 const StatsByGenre = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const isOpened = useRecoilValue(sideNavState);
 
@@ -43,14 +42,14 @@ const StatsByGenre = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} align="left">
+        <Text fz={smallScreen ? 'md' : 'lg'} fw={700} align="left">
           <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
             {top3Genres[0]?.label}{' '}
           </Text>
           장르를 가장 많이 감상했어요.
         </Text>
       </Group>
-      <Text c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} align="start">
+      <Text c="teal" fz="sm" fw={700} align="start">
         많이 시청한 장르 TOP3는 {top3Genres.map(({ label }) => label).join(', ')} 입니다.
       </Text>
 

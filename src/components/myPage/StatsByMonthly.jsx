@@ -19,8 +19,7 @@ const getMaxMonth = datas => {
 };
 
 const StatsByMonthly = () => {
-  const smallScreen = useMediaQuery('(max-width: 30rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -75,7 +74,7 @@ const StatsByMonthly = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} align="left">
+        <Text fz={smallScreen ? 'md' : 'lg'} fw={700} align="left">
           올해는 총{' '}
           <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
             {total}
@@ -83,7 +82,7 @@ const StatsByMonthly = () => {
           건의 컨텐츠를 감상했어요.
         </Text>
       </Group>
-      <Text c="teal" fz={xsmallScreen ? 'xs' : 'sm'} fw={700} align="start">
+      <Text c="teal" fz="sm" fw={700} align="start">
         {total === 0 ? '지금부터 컨텐츠를 감상해보세요!' : `${maxMonth}월에 가장 많은 컨텐츠를 감상했어요.`}
       </Text>
       <ReactApexChart options={chartData.options} series={chartData.series} type="line" height={180} />

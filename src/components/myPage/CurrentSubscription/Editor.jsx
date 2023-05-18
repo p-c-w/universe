@@ -20,7 +20,6 @@ const providerArray = getProviderArray();
 
 const Editor = ({ providers, onClick }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -53,13 +52,13 @@ const Editor = ({ providers, onClick }) => {
     <EditForm onSubmit={handleSubmit(onSubmit)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
-          <Title order={5} fw={400} fz={xsmallScreen ? 12 : smallScreen ? 14 : 16}>
+          <Title order={5} fw={400} fz={smallScreen ? 14 : 16}>
             구독중인 서비스를 선택해주세요.
           </Title>
           <Chip
             checked={selectedProviders?.length === providerArray.length}
             onChange={toggleAllSelectedProviders}
-            size={xsmallScreen ? 'xs' : 'sm'}
+            size="sm"
             p={0}>
             All
           </Chip>
@@ -75,7 +74,7 @@ const Editor = ({ providers, onClick }) => {
               key={provider.id}
               value={provider.provider_name}
               color={dark ? `${provider.provider_name}.4` : provider.provider_name}
-              size={xsmallScreen ? 'xs' : 'sm'}
+              size="sm"
               {...register(`${provider.provider_name}`)}>
               {provider.provider_name}
             </Chip>

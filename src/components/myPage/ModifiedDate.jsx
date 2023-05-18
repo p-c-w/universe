@@ -19,7 +19,6 @@ const offset = new Date().getTimezoneOffset() * 60000;
 const ModifiedDate = ({ id, date }) => {
   const middleScreen = useMediaQuery('(max-width: 64rem)');
   const smallScreen = useMediaQuery('(max-width: 44rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const isNavOpened = useRecoilValue(sideNavState);
   const email = useRecoilValue(userState);
@@ -62,7 +61,7 @@ const ModifiedDate = ({ id, date }) => {
         <DatePickerInput
           onClick={stopPropagation}
           size="xs"
-          w={xsmallScreen ? 150 : 180}
+          w={180}
           maw={400}
           locale="ko"
           valueFormat="YYYY. MM. DD"
@@ -71,7 +70,7 @@ const ModifiedDate = ({ id, date }) => {
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
-        <Text size={xsmallScreen ? 'xs' : 'sm'}>{formatDate(date)}에 추가함</Text>
+        <Text size="sm">{formatDate(date)}에 추가함</Text>
       )}
 
       {category === 'history' &&

@@ -5,7 +5,6 @@ import { Badges, Badge } from '../common';
 
 const AccordionLabel = ({ title, providers: providerIds }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   return (
     <Group noWrap>
@@ -14,7 +13,7 @@ const AccordionLabel = ({ title, providers: providerIds }) => {
       ) : (
         <Badge src={`./assets/logos/universeLogoWhite.svg`} size={35} />
       )}
-      <Text fz={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} fw={700} lineClamp={1}>
+      <Text fz={smallScreen ? 'md' : 'lg'} fw={700} lineClamp={1}>
         {title}
       </Text>
     </Group>
