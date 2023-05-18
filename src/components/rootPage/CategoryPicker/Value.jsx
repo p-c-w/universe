@@ -3,8 +3,8 @@ import { Box, CloseButton } from '@mantine/core';
 import { PROVIDERS } from '../../../constants';
 
 const Wrapper = styled(Box)`
-  display: 'flex';
-  cursor: 'default';
+  display: flex;
+  cursor: default;
   align-items: center;
   height: 1.875rem;
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white)};

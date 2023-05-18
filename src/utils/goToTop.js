@@ -1,5 +1,5 @@
 const goToTop = () => {
-  window.scrollTo({ top: 100, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 export default goToTop;

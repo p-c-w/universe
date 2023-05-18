@@ -1,14 +1,17 @@
 import { Carousel } from '@mantine/carousel';
 import { Card, Image, Container, Text } from '@mantine/core';
 import { useState } from 'react';
-import MoreButton from '../common/MoreButton';
+import { MoreButton } from '../../common';
 
 const Slide = ({ id, title, originalTitle, backdropPath, mediaType }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const openMoreButton = () => setIsHovered(true);
+  const closeMoreButton = () => setIsHovered(false);
+
   return (
     <>
-      <Carousel.Slide py="lg" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <Carousel.Slide py="lg" onMouseEnter={openMoreButton} onMouseLeave={closeMoreButton}>
         <Card mw={342} p={0} radius="md" shadow="sm">
           <Image
             src={
@@ -24,7 +27,7 @@ const Slide = ({ id, title, originalTitle, backdropPath, mediaType }) => {
             </Text>
           </Container>
         </Card>
-        {isHovered && <MoreButton id={id} type={mediaType} pos={'absolute'} right={'20px'} top={'20px'} />}
+        {isHovered && <MoreButton id={id} type={mediaType} pos={'absolute'} right={'1.875rem'} top={'1.5625rem'} />}
       </Carousel.Slide>
     </>
   );

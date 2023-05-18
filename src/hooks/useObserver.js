@@ -1,25 +1,33 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
-const useObserver = (callback, hasNextPage, option) => {
+const useObserver = (callback, options) => {
   const observerRef = useRef(null);
 
   const handleObserver = useCallback(
-    entries => {
-      const [target] = entries;
-      if (target.isIntersecting && hasNextPage) {
-        callback();
-      }
+    (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          callback(entry, observer);
+        }
+      });
     },
-    [callback, hasNextPage]
+    [callback]
   );
 
   useEffect(() => {
     const element = observerRef.current;
 
-    const observer = new IntersectionObserver(handleObserver, option);
-    observer.observe(element);
-    return () => observer.unobserve(element);
-  }, [handleObserver, option]);
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (element) {
+      observer.observe(element);
+    }
+
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
+  }, [handleObserver, options]);
 
   return observerRef;
 };
