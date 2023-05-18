@@ -1,7 +1,7 @@
-import { PRICE } from '../constants';
+import { PROVIDERS } from '../constants';
 
 const calculateLowestFee = movies => {
-  const domesticProviders = Object.keys(PRICE).map(id => +id);
+  const domesticProviders = Object.keys(PROVIDERS).map(id => +id);
   const movieProviders = {};
   const selectedProviders = new Set();
 
@@ -43,7 +43,7 @@ const calculateLowestFee = movies => {
     });
   }
 
-  const totalPrice = Array.from(selectedProviders).reduce((sum, provider) => sum + PRICE[provider].basic, 0);
+  const totalPrice = Array.from(selectedProviders).reduce((sum, provider) => sum + PROVIDERS[provider].fee.basic, 0);
 
   return {
     cheapestPrice: totalPrice,
