@@ -4,9 +4,9 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
-import { useUserQuery } from '../../hooks/queries';
-import { useUpdateUserNameMutation } from '../../hooks/mutations';
-import { userState } from '../../recoil/atom';
+import { useUserQuery } from '../../../hooks/queries';
+import { useUpdateUserNameMutation } from '../../../hooks/mutations';
+import { userState } from '../../../recoil/atom';
 
 const PageTitle = styled(Title)`
   display: flex;
