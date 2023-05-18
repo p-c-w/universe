@@ -1,4 +1,4 @@
-import { Container, Title, Text, Flex, useMantineColorScheme, useMantineTheme } from '@mantine/core';
+import { Container, Title, Text, Flex, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Badges } from '../../common';
 import { useProviderQueries, useUserQuery } from '../../../hooks/queries';
@@ -9,7 +9,6 @@ const SuggestedSubscription = () => {
 
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-  const theme = useMantineTheme();
 
   const { userInfo } = useUserQuery({
     select: userInfo => ({
@@ -38,10 +37,7 @@ const SuggestedSubscription = () => {
         </Title>
         <Badges providerIds={providerIds} size={32} />
       </Flex>
-      <Text
-        fz={smallScreen ? 53 : 56}
-        color={dark ? theme.colors[theme.primaryColor][2] : theme.colors[theme.primaryColor][9]}
-        fw={500}>
+      <Text fz={smallScreen ? 53 : 56} color={dark ? 'violet.2' : 'violet.9'} fw={500}>
         ₩{cheapestPrice.toLocaleString()}
       </Text>
       <Text fz={smallScreen ? 10 : 12} fw={100} m={10}>
