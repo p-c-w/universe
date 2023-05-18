@@ -24,7 +24,6 @@ const getCurrentFee = list => list?.map(id => PROVIDERS[id].fee.basic).reduce((a
 
 const Fee = ({ subscribeList }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const [editMode, setEditMode] = useState(false);
 
@@ -42,10 +41,10 @@ const Fee = ({ subscribeList }) => {
           onClick={() => {
             setEditMode(false);
           }}>
-          <Title order={4} size={xsmallScreen ? 16 : smallScreen ? 17 : 18}>
+          <Title order={4} size={smallScreen ? 17 : 18}>
             현재 나의 구독료
           </Title>
-          <Text size={xsmallScreen ? 28 : smallScreen ? 30 : 32}>₩{currentFee.toLocaleString()}</Text>
+          <Text size={smallScreen ? 30 : 32}>₩{currentFee.toLocaleString()}</Text>
         </Accordion.Control>
         <Accordion.Panel>
           {editMode ? (
