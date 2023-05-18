@@ -33,7 +33,7 @@ const Wrapper = () => {
 
   const { activePage, setActivePage, total, collection } = usePagination(data, category);
 
-  const chagneCategory = (e, button) => {
+  const changeCategory = (e, button) => {
     if (`${e.target.textContent.toLowerCase()}` === category) return;
     setCategory(`${button.label.toLowerCase()}`);
     setIsItemSelected(false);
@@ -45,7 +45,7 @@ const Wrapper = () => {
         {COLLECTION_BUTTON.map(button => (
           <CategoryButton
             key={button.label}
-            onClick={e => chagneCategory(e, button)}
+            onClick={e => changeCategory(e, button)}
             selected={category === `${button.label.toLowerCase()}`}
             {...button}>
             {button.label}
