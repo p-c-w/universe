@@ -2,7 +2,6 @@ import { Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { ProviderBadges } from './index';
 import { getProvidersIdsByList, getProvidersByIds } from '../../utils';
-import { PROVIDERS } from '../../constants';
 import { useProviderQueries } from '../../hooks/queries';
 
 const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
@@ -10,12 +9,6 @@ const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const queries = useProviderQueries(watchList, {
-    select: data => ({
-      id: data.id,
-      providers: data.results.KR?.flatrate
-        ?.map(provider => provider.provider_id)
-        ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
-    }),
     enabled: !!watchList.length,
   });
 

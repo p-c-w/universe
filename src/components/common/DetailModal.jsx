@@ -3,7 +3,6 @@ import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, 
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
-import { PROVIDERS } from '../../constants';
 import { useProviderQueries, useContentDetailQuery } from '../../hooks/queries';
 import { getProvidersByIds } from '../../utils';
 import { ActionIcons, Badges } from '.';
@@ -46,16 +45,7 @@ const DetailModal = ({ id, type }) => {
   const smallScreen = useMediaQuery('(min-width: 48rem)');
   const midScreen = useMediaQuery('(min-width: 60rem)');
 
-  const queries = useProviderQueries([{ id, type }], {
-    select: data => ({
-      id: data.id,
-      providers: data.results.KR
-        ? data.results.KR.flatrate
-            ?.map(provider => provider.provider_id)
-            ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
-        : undefined,
-    }),
-  });
+  const queries = useProviderQueries([{ id, type }]);
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
