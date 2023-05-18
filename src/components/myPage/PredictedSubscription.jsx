@@ -3,7 +3,6 @@ import { useMediaQuery } from '@mantine/hooks';
 import { Badges } from '../common';
 
 import { useProviderQueries } from '../../hooks/queries';
-import { PROVIDERS } from '../../constants';
 
 import calculateLowestFee from '../../utils/calculateLowestFee';
 
@@ -21,13 +20,7 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
-  const { cheapestCombo, cheapestPrice } = calculateLowestFee(providers);
-
-  const cheapestProviders = cheapestCombo.map(id => ({
-    id,
-    provider_name: PROVIDERS[id].provider_name,
-    providerImgPath: PROVIDERS[id].providerImgPath,
-  }));
+  const { cheapestCombo: providerIds, cheapestPrice } = calculateLowestFee(providers);
 
   return (
     <Container m={0} p={0}>
@@ -35,7 +28,7 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
         <Title order={2} size={xsmallScreen ? 25 : smallScreen ? 28 : 30} align="left">
           똑똑한 구독료
         </Title>
-        <Badges providers={cheapestProviders} size={xsmallScreen ? 30 : 32} />
+        <Badges providerIds={providerIds} size={xsmallScreen ? 30 : 32} />
       </Flex>
       <Text
         fz={xsmallScreen ? 48 : smallScreen ? 53 : 56}

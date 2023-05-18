@@ -4,7 +4,6 @@ import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
 import { useProviderQueries, useContentDetailQuery } from '../../hooks/queries';
-import { getProvidersByIds } from '../../utils';
 import { ActionIcons, Badges } from '.';
 import genres from '../../constants/genres';
 
@@ -49,7 +48,7 @@ const DetailModal = ({ id, type }) => {
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
-  const providerIds = getProvidersByIds(providers[0]?.providers);
+  const providerIds = providers[0]?.providers;
 
   return (
     <Container pos="relative" m={0} p={0}>
@@ -111,7 +110,7 @@ const DetailModal = ({ id, type }) => {
             )}
             <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
               <Container display="flex">
-                <Badges providers={providerIds} spacing="xs" size={45} />
+                <Badges providerIds={providerIds} spacing="xs" size={45} />
               </Container>
             </Container>
           </Flex>
