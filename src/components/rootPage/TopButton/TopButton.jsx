@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { IconChevronsUp } from '@tabler/icons-react';
 import { keyframes } from '@emotion/react';
 import { useMantineColorScheme } from '@mantine/core';
-import { useYScroll } from '../../hooks';
-import { goToTop } from '../../utils';
+import { useYScroll } from '../../../hooks';
+import { goToTop } from '../../../utils';
 
 const glow = keyframes`
   0% {
