@@ -1,4 +1,3 @@
-import React from 'react';
 import { Skeleton, Modal, Overlay } from '@mantine/core';
 
 const ModalSkeleton = () => (

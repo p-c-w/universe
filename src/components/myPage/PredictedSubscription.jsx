@@ -1,10 +1,8 @@
-import React from 'react';
 import { Container, Title, Text, Flex, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Badges } from '../common';
 
 import { useProviderQueries } from '../../hooks/queries';
-import { PROVIDERS } from '../../constants';
 
 import calculateLowestFee from '../../utils/calculateLowestFee';
 
@@ -17,20 +15,12 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
   const theme = useMantineTheme();
 
   const queries = useProviderQueries(userCollectionList, {
-    select: data => ({
-      id: data.id,
-      providers: data.results.KR
-        ? data.results.KR.flatrate
-            ?.map(provider => provider.provider_id)
-            ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
-        : [],
-    }),
     enabled: !!watchlist.length,
   });
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
-  const { cheapestCombo, cheapestPrice } = calculateLowestFee(providers);
+  const { cheapestCombo: providerIds, cheapestPrice } = calculateLowestFee(providers);
 
   return (
     <Container m={0} p={0}>
@@ -38,7 +28,7 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
         <Title order={2} size={xsmallScreen ? 25 : smallScreen ? 28 : 30} align="left">
           똑똑한 구독료
         </Title>
-        <Badges providers={cheapestCombo} size={xsmallScreen ? 30 : 32} />
+        <Badges providerIds={providerIds} size={xsmallScreen ? 30 : 32} />
       </Flex>
       <Text
         fz={xsmallScreen ? 48 : smallScreen ? 53 : 56}

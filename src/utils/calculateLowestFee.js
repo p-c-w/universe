@@ -1,36 +1,54 @@
-import { PRICE } from '../constants';
-
-const allCombos = ott => {
-  if (ott.length === 0) {
-    return [[]];
-  }
-
-  const combinationsWithoutFirst = allCombos(ott.slice(1));
-  const combinationsWithFirst = combinationsWithoutFirst.map(combination => [ott[0], ...combination]);
-
-  return [...combinationsWithoutFirst, ...combinationsWithFirst];
-};
+import { PROVIDERS } from '../constants';
 
 const calculateLowestFee = movies => {
-  const providers = Object.keys(PRICE).map(id => +id);
+  const domesticProviders = Object.keys(PROVIDERS).map(id => +id);
+  const movieProviders = {};
+  const selectedProviders = new Set();
 
-  const ottCombinations = allCombos(providers);
-
-  const validCombos = ottCombinations.filter(combo =>
-    movies.every(movie => movie.providers.some(provider => combo.includes(provider)))
-  );
-
-  const prices = validCombos.map(combo => combo.reduce((total, provider) => total + PRICE[provider].basic, 0));
-
-  const cheapestPrice = Math.min(...prices);
-
-  const cheapestCombo = validCombos[prices.indexOf(cheapestPrice)].map(id => ({
-    id: +id,
-    provider_name: PRICE[id].name,
-    providerImgPath: PRICE[id].path,
+  const updatedMovies = movies.map(movie => ({
+    ...movie,
+    providers: movie.providers.filter(providerId => domesticProviders.includes(providerId)),
   }));
 
-  return { cheapestCombo, cheapestPrice };
+  updatedMovies.forEach(movie => {
+    movie.providers.forEach(provider => {
+      movieProviders[provider] = (movieProviders[provider] || 0) + 1;
+    });
+  });
+
+  let remainingMovies = [...updatedMovies];
+
+  const getNewCount = provider => remainingMovies.filter(movie => movie.providers.includes(Number(provider))).length;
+
+  while (remainingMovies.length > 0) {
+    let maxCount = 0;
+    let selectedProvider = null;
+
+    Object.keys(movieProviders).forEach(provider => {
+      if (movieProviders[provider] > maxCount) {
+        maxCount = movieProviders[provider];
+        selectedProvider = provider;
+      }
+    });
+
+    selectedProviders.add(Number(selectedProvider));
+    remainingMovies = remainingMovies.filter(movie => !movie.providers.includes(Number(selectedProvider)));
+
+    Object.keys(movieProviders).forEach(provider => {
+      if (provider === selectedProvider) {
+        delete movieProviders[provider];
+      } else {
+        movieProviders[provider] = getNewCount(provider);
+      }
+    });
+  }
+
+  const totalPrice = Array.from(selectedProviders).reduce((sum, provider) => sum + PROVIDERS[provider].fee.basic, 0);
+
+  return {
+    cheapestPrice: totalPrice,
+    cheapestCombo: Array.from(selectedProviders),
+  };
 };
 
 export default calculateLowestFee;
