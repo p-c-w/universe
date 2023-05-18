@@ -65,17 +65,13 @@ const useStatisticsByProvider = () => {
   const historyList = data || [];
   const newTotal = historyList.length;
 
-  let newData = [];
-
   const queries = useProviderQueries(historyList, {
     enabled: !!newTotal,
   });
 
-  const providers = queries.map(({ isSuccess, data }) => isSuccess && data);
+  const providers = queries.map(({ data }) => data !== undefined && data);
 
-  if (providers[0]) {
-    newData = getNewData(providers, newTotal);
-  }
+  const newData = getNewData(providers, newTotal);
 
   const newStats = { total: newTotal, data: newData };
 

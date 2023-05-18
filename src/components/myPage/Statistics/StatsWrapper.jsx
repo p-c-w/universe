@@ -2,6 +2,7 @@ import { Paper, Title, Flex, Group } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
+import { Suspense } from 'react';
 
 const Icon = styled(IconDeviceAnalytics)`
   color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[4])};
@@ -19,7 +20,7 @@ const StatsWrapper = ({ stats }) => {
           </Title>
           <Icon size="1.4rem" stroke={1.5} />
         </Group>
-        {stats}
+        <Suspense>{stats}</Suspense>
       </Flex>
     </Paper>
   );

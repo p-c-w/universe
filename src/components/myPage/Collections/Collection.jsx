@@ -13,12 +13,13 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
 
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
-
-  const collectionList = collectionQueries.map(({ data }) => ({
-    ...data,
-    modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
-  }));
+  const collectionList = collectionQueries.map(
+    ({ data }) =>
+      data !== undefined && {
+        ...data,
+        modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
+      }
+  );
 
   const screenToClose = useSelectedItem(setSelectedItem, setIsItemSelected, selectedItem, page);
 
@@ -42,10 +43,9 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
   return (
     <>
       <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
-        {allQueriesSucceeded &&
-          collectionList?.map(item => (
-            <Item key={item.id} item={item} setSelectedItem={setSelectedItem} setIsItemSelected={setIsItemSelected} />
-          ))}
+        {collectionList?.map(item => (
+          <Item key={item.id} item={item} setSelectedItem={setSelectedItem} setIsItemSelected={setIsItemSelected} />
+        ))}
       </Accordion>
     </>
   );
