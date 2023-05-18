@@ -8,6 +8,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
 import { getNewSubscribeList, getProviderArray } from '../../utils';
+import { PROVIDERS } from '../../constants';
 
 const EditForm = styled.form`
   margin: 1rem -0.625rem;
@@ -24,7 +25,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const providersNames = providers?.map(provider => provider.provider_name);
+  const providersNames = providers?.map(id => PROVIDERS[id].provider_name);
 
   const { mutate: updateSubscribeList } = useUpdateSubscriptionMutation();
   const [selectedProviders, setSelectedProviders] = useState(providersNames);

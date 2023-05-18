@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { TextInput, Button, Container } from '@mantine/core';
 import { debounce } from 'lodash';
@@ -25,13 +25,12 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
     fieldState: { invalid, isDirty, error },
   } = useController({ name, control, defaultValue: {} });
 
-  const debouncedTrigger = useCallback(
+  const debouncedTrigger = useCallback(() => {
     debounce(() => {
       trigger(name);
       if (name === 'password') trigger('confirmPassword');
-    }, 100),
-    []
-  );
+    }, 100)();
+  }, [name, trigger]);
 
   const handleChange = e => {
     onChange(e);

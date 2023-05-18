@@ -17,7 +17,7 @@ const SubscriptionProviders = ({ providers, onClick }) => {
           <IconEdit />
         </ActionIcon>
       </Flex>
-      <ProviderBadges providers={providers} variant={'dot'} size={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} />
+      <ProviderBadges providerIds={providers} variant={'dot'} size={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} />
     </Container>
   );
 };

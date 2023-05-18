@@ -1,8 +1,7 @@
 import { Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { ProviderBadges } from './index';
-import { getProvidersIdsByList, getProvidersByIds } from '../../utils';
-import { PROVIDERS } from '../../constants';
+import { getProvidersIdsByList } from '../../utils';
 import { useProviderQueries } from '../../hooks/queries';
 
 const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
@@ -10,12 +9,6 @@ const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const queries = useProviderQueries(watchList, {
-    select: data => ({
-      id: data.id,
-      providers: data.results.KR?.flatrate
-        ?.map(provider => provider.provider_id)
-        ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id)),
-    }),
     enabled: !!watchList.length,
   });
 
@@ -24,23 +17,18 @@ const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
   const whatchProviderIds = queries.map(({ data }) => data).flatMap(content => content?.providers);
   const unWatchedProviderIds = subscribeProviderIds?.filter(id => !whatchProviderIds.includes(id));
 
-  const unWatchedProvidersInfoList = getProvidersByIds(unWatchedProviderIds);
-
   return (
     <Box mt={16}>
-      {!subscribeProviderIds.length ? (
+      {!unWatchedProviderIds.length ? (
         <Title order={5} mb={10} fz={xsmallScreen ? 12 : 16}>
           현재 구독 중인 서비스가 없어요
         </Title>
-      ) : unWatchedProvidersInfoList?.length ? (
+      ) : unWatchedProviderIds?.length ? (
         <>
           <Title order={5} mb={10} fz={xsmallScreen ? 12 : 16}>
             구독하고 있지만 보고 있지 않아요
           </Title>
-          <ProviderBadges
-            providers={unWatchedProvidersInfoList}
-            size={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'}
-          />
+          <ProviderBadges providerIds={unWatchedProviderIds} size={xsmallScreen ? 'sm' : smallScreen ? 'md' : 'lg'} />
         </>
       ) : (
         <Title order={5} mb={10} fz={xsmallScreen ? 12 : 16}>

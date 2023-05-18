@@ -1,10 +1,10 @@
-import React, { useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
-import { categoryState } from '../../recoil/atom';
+import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
+import { categoryState } from '../../recoil/atom';
 import { AccordionLabel, ModifiedDate, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../common';
 

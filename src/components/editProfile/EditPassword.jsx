@@ -1,15 +1,14 @@
 import axios from 'axios';
-import React from 'react';
 import { Container, Title, Flex, Button } from '@mantine/core';
-import { Password } from '.';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { ChangePwSchema } from '../../schema/schema';
 import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/atom';
 import { modals } from '@mantine/modals';
+import { userState } from '../../recoil/atom';
+import { ChangePwSchema } from '../../schema/schema';
+import { Password } from '.';
 
 const EditPassword = () => {
   const email = useRecoilValue(userState);

@@ -1,9 +1,8 @@
-import React from 'react';
-import { Modal, Button, Flex } from '@mantine/core';
+import { Button, Flex } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
+import { modals } from '@mantine/modals';
 import { useDeleteUserContentMutation } from '../../hooks/mutations';
 import { userState } from '../../recoil/atom';
-import { modals } from '@mantine/modals';
 
 const ConfirmModal = ({ id, listName }) => {
   const email = useRecoilValue(userState);
