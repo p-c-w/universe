@@ -1,10 +1,10 @@
 import { Container, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
-import genres from '../../constants/genres';
-import Slide from './Slide';
+import genres from '../../../constants/genres';
+import Slide from '../Slide';
 
-const CarouselWithTitle = ({ mediaType, providerIds, title, genreId, fetchFn }) => {
-  const { data: content } = fetchFn(mediaType, providerIds, genreId);
+const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) => {
+  const { data: content } = fetchFn(mediaType, selectedIds, genreId);
   const isMovie = mediaType === 'movie';
   const headerTitle = title || genres[mediaType][genreId].name;
 

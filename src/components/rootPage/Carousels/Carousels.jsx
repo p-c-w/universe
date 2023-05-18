@@ -1,14 +1,14 @@
 import { useState, useCallback, Suspense } from 'react';
-import { ScrollObserver } from '../common';
+import { ScrollObserver } from '../../common';
 import { CarouselSkeleton, CarouselWithTitle } from '.';
-import { useSortByPopularityQuery, useSortByReleaseDateQuery, useWithGenreQuery } from '../../hooks/queries';
-import useObserver from '../../hooks/useObserver';
-import genres from '../../constants/genres';
+import { useSortByPopularityQuery, useSortByReleaseDateQuery, useWithGenreQuery } from '../../../hooks/queries';
+import useObserver from '../../../hooks/useObserver';
+import { GENRES } from '../../../constants';
 
 const observeOption = { rootMargin: '30%' };
 
 const Carousels = ({ mediaType, providerIds }) => {
-  const genreKeys = Object.keys(genres[mediaType]);
+  const genreKeys = Object.keys(GENRES[mediaType]);
   const [step, setStep] = useState(0);
   const [genreIds, setGenreIds] = useState([]);
 
