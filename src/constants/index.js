@@ -1,6 +1,6 @@
 export { default as PROVIDERS } from './providers';
 export { default as colors } from './colors';
-export { default as genres } from './genres';
+export { default as GENRES } from './genres';
 export { default as PRICE } from './priceInfo';
 export { default as COLLECTION_BUTTON } from './collectionButtons';
 export { default as PAGE_LIMIT } from './pageLimit';
