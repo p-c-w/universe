@@ -17,13 +17,13 @@ const Posters = ({ mediaType }) => {
   const { content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
   const smallScreen = useMediaQuery('(max-width: 96rem)');
 
+  const movie = mediaType === 'movie';
+
   const getNextPage = useCallback(() => {
     if (hasNextPage) fetchNextPage();
   }, [hasNextPage, fetchNextPage]);
 
   const observerRef = useObserver(getNextPage);
-
-  const movie = mediaType === 'movie';
 
   return (
     <>
