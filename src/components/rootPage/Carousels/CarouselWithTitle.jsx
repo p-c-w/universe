@@ -1,7 +1,7 @@
 import { Container, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+import { Slide } from '.';
 import { GENRES } from '../../../constants';
-import Slide from '../Slide';
 
 const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) => {
   const { content } = fetchFn({ mediaType, selectedIds, genreId });
