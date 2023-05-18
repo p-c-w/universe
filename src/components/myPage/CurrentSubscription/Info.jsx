@@ -21,6 +21,7 @@ const defaultData = {
 const SubscriptionInfo = () => {
   const { data = [] } = useUserQuery({
     select: getUserInfo,
+    refetchOnWindowFocus: false,
   });
   const { subscribeList, watchList } = data || defaultData;
 

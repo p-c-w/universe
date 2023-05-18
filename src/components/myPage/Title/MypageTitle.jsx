@@ -27,7 +27,10 @@ const MypageTitle = () => {
 
   const email = useRecoilValue(userState);
 
-  const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name, refetchOnWindowFocus: false });
+  const { userInfo: name } = useUserQuery({
+    select: userInfo => userInfo.name,
+    refetchOnWindowFocus: false,
+  });
   const { mutate: updateUserName } = useUpdateUserNameMutation();
 
   const [userName, setUserName] = useState(name);

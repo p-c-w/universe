@@ -6,6 +6,7 @@ const PredictedFeeWrapper = () => {
   const { data, isSuccess } = useUserQuery({
     select: userInfo => ({
       watchlist: userInfo.watch_list,
+      refetchOnWindowFocus: false,
     }),
   });
 
