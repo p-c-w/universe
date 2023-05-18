@@ -1,13 +1,12 @@
-import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useUserQuery } from '../../hooks/queries';
-import { userState } from '../../recoil/atom';
 import { notifications } from '@mantine/notifications';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
 import { IconX, IconCheck } from '@tabler/icons-react';
+import { userState } from '../../recoil/atom';
+import { useUserQuery } from '../../hooks/queries';
 
 const DeleteUser = () => {
   const [user, setUser] = useRecoilState(userState);

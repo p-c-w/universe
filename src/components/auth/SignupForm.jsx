@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { IconX, IconCheck } from '@tabler/icons-react';

@@ -1,5 +1,5 @@
 import { useProviderQueries, useUserQuery } from '../queries';
-import { PROVIDERS, colors } from '../../constants';
+import { colors } from '../../constants';
 
 const defaultData = {
   total: '0',
@@ -68,14 +68,6 @@ const useStatisticsByProvider = () => {
   let newData = [];
 
   const queries = useProviderQueries(historyList, {
-    select: data => ({
-      id: data.id,
-      providers: data.results.KR
-        ? data.results.KR.flatrate
-            ?.map(provider => provider.provider_id)
-            ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
-        : [],
-    }),
     enabled: !!newTotal,
   });
 

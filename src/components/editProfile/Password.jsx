@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { PasswordInput } from '@mantine/core';
 import { useController } from 'react-hook-form';
 import { debounce } from 'lodash';
@@ -9,12 +9,11 @@ const Password = ({ name, control, trigger, label }) => {
     fieldState: { error },
   } = useController({ name, control, defaultValue: {} });
 
-  const debouncedTrigger = useCallback(
+  const debouncedTrigger = useCallback(() => {
     debounce(() => {
       trigger(name);
-    }, 100),
-    []
-  );
+    }, 100)();
+  }, [name, trigger]);
 
   const handleChange = e => {
     onChange(e);

@@ -2,13 +2,10 @@ import { Suspense } from 'react';
 import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import { PROVIDERS } from '../../constants';
 import styled from '@emotion/styled';
-import { useProviderQueries } from '../../hooks/queries';
-import { getProvidersByIds } from '../../utils';
+import { useProviderQueries, useContentDetailQuery } from '../../hooks/queries';
 import { ActionIcons, Badges } from '.';
 import genres from '../../constants/genres';
-import { useContentDetailQuery } from '../../hooks/queries';
 
 const convertRuntime = runtime => {
   const hours = Math.floor(runtime / 60);
@@ -47,20 +44,11 @@ const DetailModal = ({ id, type }) => {
   const smallScreen = useMediaQuery('(min-width: 48rem)');
   const midScreen = useMediaQuery('(min-width: 60rem)');
 
-  const queries = useProviderQueries([{ id, type }], {
-    select: data => ({
-      id: data.id,
-      providers: data.results.KR
-        ? data.results.KR.flatrate
-            ?.map(provider => provider.provider_id)
-            ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
-        : [],
-    }),
-  });
+  const queries = useProviderQueries([{ id, type }]);
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
-  const providerIds = getProvidersByIds(providers[0]?.providers);
+  const providerIds = providers[0]?.providers;
 
   return (
     <Container pos="relative" m={0} p={0}>
@@ -122,7 +110,7 @@ const DetailModal = ({ id, type }) => {
             )}
             <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
               <Container display="flex">
-                <Badges providers={providerIds} spacing="xs" size={45} />
+                <Badges providerIds={providerIds} spacing="xs" size={45} />
               </Container>
             </Container>
           </Flex>
