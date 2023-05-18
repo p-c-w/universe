@@ -5,7 +5,7 @@ import emptybox from '../../assets/images/empty-box.svg';
 
 const EmptyCollection = ({ category }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 48rem)');
+  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   return (
     <Flex h="100%" m={0} mt={10} p={5} justify="center" align="center">
