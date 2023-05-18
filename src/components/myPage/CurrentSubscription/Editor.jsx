@@ -27,12 +27,13 @@ const Editor = ({ providers, onClick }) => {
   const providersNames = providers?.map(id => PROVIDERS[id].provider_name);
 
   const { mutate: updateSubscribeList } = useUpdateSubscriptionMutation();
-  const [selectedProviders, setSelectedProviders] = useState(providersNames);
+
   const email = useRecoilValue(userState);
+  const [selectedProviders, setSelectedProviders] = useState(providersNames);
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data, e) => {
+  const submitSubscriptions = (_, e) => {
     e.preventDefault();
 
     updateSubscribeList({ email, newList: getNewSubscribeList(selectedProviders) });
@@ -49,7 +50,7 @@ const Editor = ({ providers, onClick }) => {
   };
 
   return (
-    <EditForm onSubmit={handleSubmit(onSubmit)}>
+    <EditForm onSubmit={handleSubmit(submitSubscriptions)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
           <Title order={5} fw={400} fz={smallScreen ? 14 : 16}>
