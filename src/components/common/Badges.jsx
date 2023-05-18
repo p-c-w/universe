@@ -6,7 +6,7 @@ const Badges = ({ providerIds, spacing = 'sm', size = '2.2rem' }) => (
     <Avatar.Group spacing={spacing}>
       {providerIds?.map(id => (
         <Tooltip
-          key={PROVIDERS[id].id}
+          key={PROVIDERS[id].provider_name}
           label={PROVIDERS[id].provider_name}
           color="gray"
           withArrow

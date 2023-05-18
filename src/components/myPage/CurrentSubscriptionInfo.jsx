@@ -4,7 +4,7 @@ import { Title, Text, Accordion, Container } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { SubscriptionProviders, SubscriptionEditor, CurrentUnsubscriptionInfo } from './index';
 import { useUserQuery } from '../../hooks/queries';
-import { getProvidersInfoListByList } from '../../utils';
+import { PROVIDERS } from '../../constants';
 
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2])};
@@ -36,7 +36,7 @@ const defaultData = {
   watchList: [],
 };
 
-const getCurrentFee = list => list?.map(item => item.fee).reduce((acc, current) => acc + current, 0);
+const getCurrentFee = list => list?.map(id => PROVIDERS[id].fee.basic).reduce((acc, current) => acc + current, 0);
 
 const CurrentSubscriptionInfo = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
@@ -49,7 +49,8 @@ const CurrentSubscriptionInfo = () => {
   });
   const { subscribeList, watchList } = data || defaultData;
 
-  const providers = getProvidersInfoListByList(subscribeList);
+  const providers = subscribeList.map(({ id }) => id);
+
   const currentFee = getCurrentFee(providers);
 
   const toggleEditMode = () => {
