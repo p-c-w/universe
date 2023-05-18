@@ -1,10 +1,10 @@
 import { Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { ProviderBadges } from './index';
-import { getProvidersIdsByList } from '../../utils';
-import { useProviderQueries } from '../../hooks/queries';
+import { ProviderBadges } from '.';
+import { getProvidersIdsByList } from '../../../utils';
+import { useProviderQueries } from '../../../hooks/queries';
 
-const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
+const Unsubscriptions = ({ subscribeList, watchList }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
@@ -39,4 +39,4 @@ const CurrentUnsubscriptionInfo = ({ subscribeList, watchList }) => {
   );
 };
 
-export default CurrentUnsubscriptionInfo;
+export default Unsubscriptions;

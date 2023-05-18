@@ -5,10 +5,10 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/atom';
-import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
-import { getNewSubscribeList, getProviderArray } from '../../utils';
-import { PROVIDERS } from '../../constants';
+import { userState } from '../../../recoil/atom';
+import { useUpdateSubscriptionMutation } from '../../../hooks/mutations';
+import { getNewSubscribeList, getProviderArray } from '../../../utils';
+import { PROVIDERS } from '../../../constants';
 
 const EditForm = styled.form`
   margin: 1rem -0.625rem;
