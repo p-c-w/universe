@@ -20,8 +20,8 @@ const Posters = ({ mediaType }) => {
   const movie = mediaType === 'movie';
 
   const getNextPage = useCallback(() => {
-    if (hasNextPage) fetchNextPage();
-  }, [hasNextPage, fetchNextPage]);
+    fetchNextPage();
+  }, [fetchNextPage]);
 
   const observerRef = useObserver(getNextPage);
 

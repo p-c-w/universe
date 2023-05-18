@@ -15,8 +15,8 @@ const Carousels = ({ mediaType, selectedIds }) => {
   const remainGenre = genreKeyIdx <= genreKeys.length - 1;
 
   const getNextStep = useCallback(() => {
-    if (remainGenre) setGenreIds(prevIds => [...prevIds, genreKeys[genreKeyIdx]]);
-  }, [remainGenre, genreKeyIdx, genreKeys]);
+    setGenreIds(prevIds => [...prevIds, genreKeys[genreKeyIdx]]);
+  }, [genreKeyIdx, genreKeys]);
 
   const observerRef = useObserver(getNextStep);
 
