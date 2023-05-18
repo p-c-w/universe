@@ -1,7 +1,7 @@
 import ReactApexChart from 'react-apexcharts';
 import { Text, Group, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useStatsByMonthly } from '../../hooks/statistics';
+import { useStatsByMonthly } from '../../../hooks/statistics';
 
 const getMaxMonth = datas => {
   let max = -1;
