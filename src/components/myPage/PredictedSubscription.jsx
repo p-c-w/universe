@@ -23,7 +23,7 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
         ? data.results.KR.flatrate
             ?.map(provider => provider.provider_id)
             ?.filter(id => Object.prototype.hasOwnProperty.call(PROVIDERS, id))
-        : [],
+        : undefined,
     }),
     enabled: !!watchlist.length,
   });
