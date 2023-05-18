@@ -24,7 +24,6 @@ const NameInput = styled(TextInput)`
 
 const MypageTitle = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const email = useRecoilValue(userState);
 
@@ -54,14 +53,14 @@ const MypageTitle = () => {
     <Container m={0} mb={16} p={0} spacing={5} miw={350} display="flex" gap={3.2} align="start">
       <PageTitle
         order={1}
-        size={xsmallScreen ? 30 : smallScreen ? 35 : 40}
+        size={smallScreen ? 35 : 40}
         display="flex"
         fw={900}
         variant="gradient"
         gradient={{ from: 'violet', to: 'cyan', deg: 145 }}>
         {editMode ? (
           <NameInput
-            w={xsmallScreen ? 150 : smallScreen ? 200 : 400}
+            w={smallScreen ? 200 : 400}
             variant="unstyled"
             value={userName}
             onChange={e => {
