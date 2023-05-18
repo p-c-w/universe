@@ -4,7 +4,7 @@ import { SimpleGrid } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useSortByPopularityInfinityQuery } from '../../../hooks/queries';
 import { Poster, PosterSkeleton } from '.';
-import useObserver from '../../../hooks/useObserver';
+import { useObserver } from '../../../hooks';
 import { ScrollObserver } from '../../common';
 
 const CardGrid = styled(SimpleGrid)`
