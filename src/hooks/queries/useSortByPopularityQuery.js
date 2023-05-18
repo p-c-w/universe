@@ -3,19 +3,19 @@ import { fetchSortByPopularity } from '../../api/tmdb';
 
 const staleTime = 1000 * 60 * 5;
 
-const useSortByPopularityQuery = (mediaType, providerIds) => {
-  const strProviderId = providerIds.sort((a, b) => a - b).join('|');
+const useSortByPopularityQuery = ({ mediaType, selectedIds }) => {
+  const strProviderId = selectedIds.sort((a, b) => a - b).join('|');
 
-  const { data, isSuccess } = useQuery({
-    queryKey: [`@${mediaType}`, strProviderId, 'sortByPopularity'],
+  const query = useQuery({
+    queryKey: [`@${mediaType}`, 'sortByPopularity', `providerIds: ${strProviderId}`],
     queryFn: ({ pageParam = 1 }) => fetchSortByPopularity(mediaType, pageParam, strProviderId),
-    suspense: true,
     staleTime,
+    suspense: true,
     refetchOnWindowFocus: false,
     select: datas => datas.results,
   });
 
-  return { data, isSuccess };
+  return { ...query, content: query.data };
 };
 
 export default useSortByPopularityQuery;
