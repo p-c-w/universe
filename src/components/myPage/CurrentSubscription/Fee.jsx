@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Title, Text, Accordion } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { PROVIDERS } from '../../../constants';
-import { SubscriptionProviders, SubscriptionEditor } from '.';
+import { ProvidersInfo, Editor } from '.';
 
 const PresentSubscriptionFee = styled(Accordion)`
   .mantine-Accordion-item {
@@ -48,9 +48,9 @@ const Fee = ({ subscribeList }) => {
         </Accordion.Control>
         <Accordion.Panel>
           {editMode ? (
-            <SubscriptionEditor providers={providers} onClick={toggleEditMode} />
+            <Editor providers={providers} onClick={toggleEditMode} />
           ) : (
-            <SubscriptionProviders providers={providers} onClick={toggleEditMode} />
+            <ProvidersInfo providers={providers} onClick={toggleEditMode} />
           )}
         </Accordion.Panel>
       </Accordion.Item>

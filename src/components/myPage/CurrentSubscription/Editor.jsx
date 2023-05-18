@@ -18,7 +18,7 @@ const EditForm = styled.form`
 
 const providerArray = getProviderArray();
 
-const SubscriptionEditor = ({ providers, onClick }) => {
+const Editor = ({ providers, onClick }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
@@ -86,4 +86,4 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   );
 };
 
-export default SubscriptionEditor;
+export default Editor;

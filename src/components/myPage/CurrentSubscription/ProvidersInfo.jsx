@@ -3,7 +3,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconEdit } from '@tabler/icons-react';
 import ProviderBadges from './ProviderBadges';
 
-const SubscriptionProviders = ({ providers, onClick }) => {
+const ProvidersInfo = ({ providers, onClick }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
   const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
@@ -22,4 +22,4 @@ const SubscriptionProviders = ({ providers, onClick }) => {
   );
 };
 
-export default SubscriptionProviders;
+export default ProvidersInfo;
