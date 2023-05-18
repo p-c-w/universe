@@ -1,8 +1,5 @@
 import { Suspense } from 'react';
-import { useRecoilValue } from 'recoil';
 import { Box, Container, SimpleGrid, Skeleton } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import { sideNavState } from '../recoil/atom';
 import { GlobalShell } from '../components/common';
 import { Collections, MypageTitle, Statistics, CurrentSubscription, SuggestedSubscription } from '../components/myPage';
 import { useAuthenticationQuery } from '../hooks/queries';
@@ -10,17 +7,13 @@ import { useAuthenticationQuery } from '../hooks/queries';
 const MyPage = () => {
   useAuthenticationQuery();
 
-  const middleScreen = useMediaQuery('(max-width: 75rem)');
-  const smallScreen = useMediaQuery('(max-width: 60rem)');
-  const isOpened = useRecoilValue(sideNavState);
-
   return (
     <GlobalShell>
       <Container mt="1rem" mx="auto" size={'100%'} w={1240} miw={375}>
         <Suspense fallback={<Skeleton w={500} h="100%" />}>
           <MypageTitle />
         </Suspense>
-        <SimpleGrid cols={(middleScreen && isOpened) || smallScreen ? 1 : 2} mt={32} spacing="xl">
+        <SimpleGrid cols={2} mt={32} spacing="xl" breakpoints={[{ maxWidth: '60rem', cols: 1 }]}>
           <Box>
             <Suspense fallback={<Skeleton w={500} h="100%" />}>
               <SuggestedSubscription />
