@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Title, Text, Flex, useMantineColorScheme, useMantineTheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Badges } from '../common';
@@ -32,13 +31,19 @@ const PredictedSubscription = ({ watchlist, userCollectionList }) => {
 
   const { cheapestCombo, cheapestPrice } = calculateLowestFee(providers);
 
+  const cheapestProviders = cheapestCombo.map(id => ({
+    id,
+    provider_name: PROVIDERS[id].provider_name,
+    providerImgPath: PROVIDERS[id].providerImgPath,
+  }));
+
   return (
     <Container m={0} p={0}>
       <Flex align="center" gap={20}>
         <Title order={2} size={xsmallScreen ? 25 : smallScreen ? 28 : 30} align="left">
           똑똑한 구독료
         </Title>
-        <Badges providers={cheapestCombo} size={xsmallScreen ? 30 : 32} />
+        <Badges providers={cheapestProviders} size={xsmallScreen ? 30 : 32} />
       </Flex>
       <Text
         fz={xsmallScreen ? 48 : smallScreen ? 53 : 56}
