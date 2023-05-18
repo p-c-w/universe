@@ -13,8 +13,6 @@ const CardGrid = styled(SimpleGrid)`
   margin: var(--mantine-spacing-md) auto;
 `;
 
-const observeOption = { rootMargin: '30%' };
-
 const Posters = ({ mediaType }) => {
   const { content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
   const smallScreen = useMediaQuery('(max-width: 96rem)');
@@ -23,7 +21,7 @@ const Posters = ({ mediaType }) => {
     if (hasNextPage) fetchNextPage();
   }, [hasNextPage, fetchNextPage]);
 
-  const observerRef = useObserver(getNextPage, hasNextPage, observeOption);
+  const observerRef = useObserver(getNextPage);
 
   const movie = mediaType === 'movie';
 
@@ -67,7 +65,7 @@ const Posters = ({ mediaType }) => {
           )
         )}
       </CardGrid>
-      <ScrollObserver loader={<PosterSkeleton />} hasNextPage={hasNextPage} observer={observerRef} />
+      {hasNextPage && <ScrollObserver loader={<PosterSkeleton />} observer={observerRef} />}
     </>
   );
 };
