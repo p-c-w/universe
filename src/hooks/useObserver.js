@@ -22,7 +22,11 @@ const useObserver = (callback, options) => {
       observer.observe(element);
     }
 
-    return () => observer.unobserve(element);
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+    };
   }, [handleObserver, options]);
 
   return observerRef;
