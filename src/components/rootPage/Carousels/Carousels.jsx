@@ -2,26 +2,23 @@ import { useState, useCallback, Suspense } from 'react';
 import { ScrollObserver } from '../../common';
 import { CarouselSkeleton, CarouselWithTitle } from '.';
 import { useSortByPopularityQuery, useSortByReleaseDateQuery, useWithGenreQuery } from '../../../hooks/queries';
-import useObserver from '../../../hooks/useObserver';
+import { useObserver } from '../../../hooks';
 import { GENRES } from '../../../constants';
 
-const observeOption = { rootMargin: '30%' };
+const topTitles = ['인기작', '최신작'];
 
-const Carousels = ({ mediaType, providerIds }) => {
+const Carousels = ({ mediaType, selectedIds }) => {
   const genreKeys = Object.keys(GENRES[mediaType]);
-  const [step, setStep] = useState(0);
   const [genreIds, setGenreIds] = useState([]);
 
-  const remainGenre = genreKeys.length !== genreIds.length;
+  const genreKeyIdx = genreIds.length;
+  const remainGenre = genreKeyIdx <= genreKeys.length - 1;
+
+  const observerRef = useObserver(getNextStep);
 
   const getNextStep = useCallback(() => {
-    setGenreIds(prevIds => [...prevIds, genreKeys[step]]);
-    setStep(step => step + 1);
-  }, [genreKeys, step]);
-
-  const observerRef = useObserver(getNextStep, remainGenre, observeOption);
-
-  const topTitles = ['인기작', '최신작'];
+    if (remainGenre) setGenreIds(prevIds => [...prevIds, genreKeys[genreKeyIdx]]);
+  }, [remainGenre, genreKeyIdx, genreKeys]);
 
   return (
     <>
@@ -29,24 +26,23 @@ const Carousels = ({ mediaType, providerIds }) => {
         <Suspense key={title} fallback={<CarouselSkeleton />}>
           <CarouselWithTitle
             mediaType={mediaType}
-            providerIds={providerIds}
+            selectedIds={selectedIds}
             title={title}
-            fetchFn={title === '최신작' ? useSortByPopularityQuery : useSortByReleaseDateQuery}
+            fetchFn={title === '인기작' ? useSortByPopularityQuery : useSortByReleaseDateQuery}
           />
         </Suspense>
       ))}
-      {genreIds.length !== 0 &&
-        genreIds.map(genreId => (
-          <Suspense key={genreId} fallback={<CarouselSkeleton />}>
-            <CarouselWithTitle
-              mediaType={mediaType}
-              providerIds={providerIds}
-              genreId={genreId}
-              fetchFn={useWithGenreQuery}
-            />
-          </Suspense>
-        ))}
-      <ScrollObserver loader={<CarouselSkeleton />} hasNextPage={remainGenre} observer={observerRef} />
+      {genreIds.map(genreId => (
+        <Suspense key={genreId} fallback={<CarouselSkeleton />}>
+          <CarouselWithTitle
+            mediaType={mediaType}
+            selectedIds={selectedIds}
+            genreId={genreId}
+            fetchFn={useWithGenreQuery}
+          />
+        </Suspense>
+      ))}
+      {remainGenre && <ScrollObserver loader={<CarouselSkeleton />} observer={observerRef} />}
     </>
   );
 };
