@@ -11,11 +11,11 @@ const allCombos = ott => {
   return [...combinationsWithoutFirst, ...combinationsWithFirst];
 };
 
+const providers = Object.keys(PRICE).map(id => +id);
+
+const ottCombinations = allCombos(providers);
+
 const calculateLowestFee = movies => {
-  const providers = Object.keys(PRICE).map(id => +id);
-
-  const ottCombinations = allCombos(providers);
-
   const validCombos = ottCombinations.filter(combo =>
     movies.every(movie => movie.providers.some(provider => combo.includes(provider)))
   );
