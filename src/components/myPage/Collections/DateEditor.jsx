@@ -7,14 +7,15 @@ import { Text, Flex, Badge } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCalendar } from '@tabler/icons-react';
 import { categoryState, sideNavState, userState } from '../../../recoil/atom';
-import { formatDate } from '../../../utils';
 import { useUpdateModifiedAtMutation } from '../../../hooks/mutations';
 
 const EditDate = styled(Badge)`
   cursor: pointer;
 `;
 
-const offset = new Date().getTimezoneOffset() * 60000;
+const formatDate = date => date?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
+
+const timeOffset = new Date().getTimezoneOffset() * 60000;
 
 const DateEditor = ({ id, date }) => {
   const middleScreen = useMediaQuery('(max-width: 64rem)');
@@ -43,7 +44,7 @@ const DateEditor = ({ id, date }) => {
   };
 
   const selectDate = e => {
-    const offsetDate = new Date(e - offset);
+    const offsetDate = new Date(e - timeOffset);
 
     setSelectedDate(offsetDate);
   };

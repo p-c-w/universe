@@ -1,8 +1,9 @@
 import { Box, Title } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { ProviderBadges } from '.';
-import { getProvidersIdsByList } from '../../../utils';
 import { useProviderQueries } from '../../../hooks/queries';
+
+const getProvidersIdsByList = list => list?.flatMap(item => item.id);
 
 const Unsubscriptions = ({ subscribeList, watchList }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');

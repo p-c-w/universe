@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { userState } from '../../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../../hooks/mutations';
-import { getNewSubscribeList, getProviderArray } from '../../../utils';
 import { PROVIDERS } from '../../../constants';
 
 const EditForm = styled.form`
@@ -15,6 +14,15 @@ const EditForm = styled.form`
   padding: 1rem;
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[8] : theme.colors.gray[3])};
 `;
+
+const getProviderArray = () => Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
+
+const getNewSubscribeList = selectedNames => {
+  const newProviderNames = selectedNames.map(name => getProviderArray().find(item => item.provider_name === name));
+  const newList = newProviderNames.map(provider => ({ id: provider.id, price: 'basic' }));
+
+  return newList;
+};
 
 const providerArray = getProviderArray();
 
