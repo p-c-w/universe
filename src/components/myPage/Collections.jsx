@@ -33,7 +33,7 @@ const Collections = () => {
 
   const { activePage, setActivePage, total, collection } = usePagination(data, category);
 
-  const handleClick = (e, button) => {
+  const chagneCategory = (e, button) => {
     if (`${e.target.textContent.toLowerCase()}` === category) return;
     setCategory(`${button.label.toLowerCase()}`);
     setIsItemSelected(false);
@@ -45,7 +45,7 @@ const Collections = () => {
         {COLLECTION_BUTTON.map(button => (
           <CollectionCategoryButton
             key={button.label}
-            onClick={e => handleClick(e, button)}
+            onClick={e => chagneCategory(e, button)}
             selected={category === `${button.label.toLowerCase()}`}
             {...button}>
             {button.label}

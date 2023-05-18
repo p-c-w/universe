@@ -29,7 +29,7 @@ const Statistics = () => {
 
   useAnimationOffsetEffect(embla, SIDE_NAV_DURATION);
 
-  const handleCurrentSlide = idx => {
+  const selectCurrentSlide = idx => {
     currentSlide.current = idx;
   };
 
@@ -43,7 +43,7 @@ const Statistics = () => {
       withIndicators
       controlsOffset="xs"
       controlSize={20}
-      onSlideChange={handleCurrentSlide}
+      onSlideChange={selectCurrentSlide}
       initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
       getEmblaApi={setEmbla}
       plugins={[autoplay.current]}

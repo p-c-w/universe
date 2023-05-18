@@ -24,7 +24,7 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
 
   const itemRef = useRef(null);
 
-  const handleChange = e => {
+  const selectItem = e => {
     setSelectedItem(e);
     itemRef.current = e;
     setImgSrc(
@@ -41,7 +41,7 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
 
   return (
     <>
-      <Accordion variant="separated" w="100%" onChange={handleChange} value={selectedItem}>
+      <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
         {allQueriesSucceeded &&
           collectionList?.map(item => (
             <CollectionItem

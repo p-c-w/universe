@@ -29,7 +29,7 @@ const ModifiedDate = ({ id, date }) => {
 
   const { mutate: updateModifiedAt } = useUpdateModifiedAtMutation();
 
-  const handleEdit = () => {
+  const editDate = () => {
     if (editMode) {
       const newDate = selectedDate.toISOString();
 
@@ -38,18 +38,18 @@ const ModifiedDate = ({ id, date }) => {
     setEditMode(!editMode);
   };
 
-  const handleCancel = () => {
+  const cancelEditDate = () => {
     setEditMode(false);
     setSelectedDate(new Date(date));
   };
 
-  const handleChange = e => {
+  const selectDate = e => {
     const offsetDate = new Date(e - offset);
 
     setSelectedDate(offsetDate);
   };
 
-  const handleDatePicker = e => {
+  const stopPropagation = e => {
     e.stopPropagation();
   };
 
@@ -60,14 +60,14 @@ const ModifiedDate = ({ id, date }) => {
       gap={smallScreen ? 7 : 10}>
       {editMode ? (
         <DatePickerInput
-          onClick={handleDatePicker}
+          onClick={stopPropagation}
           size="xs"
           w={xsmallScreen ? 150 : 180}
           maw={400}
           locale="ko"
           valueFormat="YYYY. MM. DD"
           value={selectedDate}
-          onChange={handleChange}
+          onChange={selectDate}
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
@@ -77,10 +77,10 @@ const ModifiedDate = ({ id, date }) => {
       {category === 'history' &&
         (editMode ? (
           <Flex gap={5}>
-            <EditDate size="sm" variant="filled" onClick={handleEdit}>
+            <EditDate size="sm" variant="filled" onClick={editDate}>
               수정 완료
             </EditDate>
-            <EditDate size="sm" variant="outline" onClick={handleCancel}>
+            <EditDate size="sm" variant="outline" onClick={cancelEditDate}>
               수정 취소
             </EditDate>
           </Flex>

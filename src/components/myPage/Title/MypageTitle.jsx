@@ -27,7 +27,7 @@ const MypageTitle = () => {
 
   const email = useRecoilValue(userState);
 
-  const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
+  const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name, refetchOnWindowFocus: false });
   const { mutate: updateUserName } = useUpdateUserNameMutation();
 
   const [userName, setUserName] = useState(name);
@@ -37,7 +37,7 @@ const MypageTitle = () => {
     setUserName(name);
   }, [name]);
 
-  const handleKeyUp = e => {
+  const changeUserName = e => {
     if (e.key === 'Escape') {
       setUserName(name);
       setEditMode(false);
@@ -66,7 +66,7 @@ const MypageTitle = () => {
             onChange={e => {
               setUserName(e.currentTarget.value);
             }}
-            onKeyUp={handleKeyUp}
+            onKeyUp={changeUserName}
             placeholder="Your Name"
             ref={node => node?.focus()}
           />
