@@ -1,5 +1,3 @@
-const ScrollObserver = ({ loader, hasNextPage = true, observer = null }) => (
-  <div ref={observer}>{hasNextPage && loader}</div>
-);
+const ScrollObserver = ({ loader, observer = null }) => <div ref={observer}>{loader}</div>;
 
 export default ScrollObserver;
