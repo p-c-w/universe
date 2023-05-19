@@ -2,9 +2,9 @@ import { useRecoilValue } from 'recoil';
 import { Group, ThemeIcon, Tooltip } from '@mantine/core';
 import { IconHistory, IconMovie, IconThumbUp } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import { userState } from '../../recoil/atom';
-import { useUserQuery } from '../../hooks/queries';
-import { useAddUserContentMutation, useDeleteUserContentMutation } from '../../hooks/mutations';
+import { userState } from '../../../recoil/atom';
+import { useUserQuery } from '../../../hooks/queries';
+import { useAddUserContentMutation, useDeleteUserContentMutation } from '../../../hooks/mutations';
 
 const CategoryIcon = styled(ThemeIcon)`
   cursor: pointer;

@@ -3,9 +3,9 @@ import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, 
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
-import { useProviderQueries, useContentDetailQuery } from '../../hooks/queries';
-import { ActionIcons, Badges } from '.';
-import genres from '../../constants/genres';
+import { useProviderQueries, useContentDetailQuery } from '../../../hooks/queries';
+import { ActionIcons, Badges } from '..';
+import genres from '../../../constants/genres';
 
 const convertRuntime = runtime => {
   const hours = Math.floor(runtime / 60);

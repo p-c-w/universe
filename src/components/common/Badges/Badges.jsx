@@ -1,5 +1,5 @@
 import { Avatar, Tooltip } from '@mantine/core';
-import { PROVIDERS } from '../../constants';
+import { PROVIDERS } from '../../../constants';
 
 const Badges = ({ providerIds, spacing = 'sm', size = '2.2rem' }) => (
   <Tooltip.Group openDelay={100} closeDelay={100}>
