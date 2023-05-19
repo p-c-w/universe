@@ -23,13 +23,15 @@ const SignupForm = ({ setUserInput }) => {
 
   const onSubmit = async data => {
     try {
-      const { data: email } = await axios.post('/api/auth/signup', data);
+      const {
+        data: { email, name },
+      } = await axios.post('/api/auth/signup', data);
 
       notifications.show({
         withCloseButton: true,
         autoClose: 2000,
-        title: 'Signup Failure',
-        message: '회원가입에 성공했습니다.',
+        title: '회원가입 성공',
+        message: `${name}님의 유니버스 가입을 축하드립니다.`,
         color: 'green',
         icon: <IconCheck />,
         loading: false,
