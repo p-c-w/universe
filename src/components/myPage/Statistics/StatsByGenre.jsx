@@ -3,8 +3,8 @@ import { useRecoilValue } from 'recoil';
 import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import ReactApexChart from 'react-apexcharts';
-import { sideNavState } from '../../recoil/atom';
-import { useStatsByGenre } from '../../hooks/statistics';
+import { sideNavState } from '../../../recoil/atom';
+import { useStatsByGenre } from '../../../hooks/statistics';
 
 const StatsByGenre = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
