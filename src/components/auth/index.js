@@ -1,4 +1,4 @@
-export { default as SigninForm } from './SigninForm';
+export { default as SigninForm } from './SignIn/SigninForm';
 
 export { SignupHeader } from './SignUp';
 export { SignupOption } from './SignUp';

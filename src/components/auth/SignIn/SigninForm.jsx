@@ -8,8 +8,8 @@ import { IconX } from '@tabler/icons-react';
 import { notifications } from '@mantine/notifications';
 
 import { useSetRecoilState } from 'recoil';
-import { signInSchema } from '../../schema/schema';
-import userState from '../../recoil/atom/userState';
+import { signInSchema } from '../../../schema/schema';
+import userState from '../../../recoil/atom/userState';
 
 const FormBody = styled.form`
   border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2])};

@@ -5,8 +5,8 @@ import { notifications } from '@mantine/notifications';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
 import { IconX, IconCheck } from '@tabler/icons-react';
-import { userState } from '../../recoil/atom';
-import { useUserQuery } from '../../hooks/queries';
+import { userState } from '../../../recoil/atom';
+import { useUserQuery } from '../../../hooks/queries';
 
 const DeleteUser = () => {
   const navigate = useNavigate();
