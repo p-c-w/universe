@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Flex, Title, Text } from '@mantine/core';
+import { useRecoilValue } from 'recoil';
 import { GlobalShell } from '../components/common';
 import { EditPassword, DeleteUser } from '../components/editProfile';
-import { useRecoilValue } from 'recoil';
 import { userState } from '../recoil/atom';
 import { useAuthenticationQuery } from '../hooks/queries';
 
