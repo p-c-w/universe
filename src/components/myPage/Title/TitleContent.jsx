@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Title, Button, Container, TextInput } from '@mantine/core';
+import { Title, Button, TextInput } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
@@ -9,7 +9,6 @@ import { useUpdateUserNameMutation } from '../../../hooks/mutations';
 import { userState } from '../../../recoil/atom';
 
 const PageTitle = styled(Title)`
-  display: flex;
   align-items: center;
 `;
 
@@ -22,7 +21,7 @@ const NameInput = styled(TextInput)`
   }
 `;
 
-const MypageTitle = () => {
+const TitleContent = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const email = useRecoilValue(userState);
@@ -53,7 +52,7 @@ const MypageTitle = () => {
   };
 
   return (
-    <Container m={0} mb={16} p={0} spacing={5} miw={350} display="flex" gap={3.2} align="start">
+    <>
       <PageTitle
         order={1}
         size={smallScreen ? 35 : 40}
@@ -86,8 +85,8 @@ const MypageTitle = () => {
         }}>
         <IconPencil size={15} />
       </Button>
-    </Container>
+    </>
   );
 };
 
-export default MypageTitle;
+export default TitleContent;
