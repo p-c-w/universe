@@ -39,9 +39,8 @@ const SigninForm = () => {
       setUser(user);
       navigate('/');
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        showNotification(false, '로그인', error.response.data);
-      }
+      const message = error.response && error.response.status === 401 ? error.response.data : undefined;
+      showNotification(false, '로그인', message);
     }
   };
 

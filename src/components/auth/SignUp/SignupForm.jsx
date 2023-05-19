@@ -35,7 +35,7 @@ const SignupForm = ({ setUserInput }) => {
       } = await axios.post('/api/auth/signup', data);
       return { email, name };
     } catch (error) {
-      const message = error.response && error.response.status === 409 && error.response.data;
+      const message = error.response && error.response.status === 409 ? error.response.data : undefined;
 
       showNotification(false, '회원가입', message);
 

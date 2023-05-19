@@ -24,7 +24,7 @@ const EditPassword = () => {
 
       modals.closeAll();
     } catch (error) {
-      const message = error.response && error.response.status === 401 && error.response.data;
+      const message = error.response && error.response.status === 401 ? error.response.data : undefined;
 
       showNotification(false, '비밀번호 변경', message);
     }
