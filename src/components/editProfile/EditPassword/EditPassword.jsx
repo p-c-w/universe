@@ -10,6 +10,8 @@ import { Password } from '.';
 
 import { showNotification } from '../../../utils';
 
+const PASSWORD_CHANGE = '비밀번호 변경';
+
 const EditPassword = () => {
   const email = useRecoilValue(userState);
 
@@ -20,19 +22,19 @@ const EditPassword = () => {
   const SubmitForm = async data => {
     try {
       const { data: message } = await axios.patch('/api/auth/changepw', { email, ...data });
-      showNotification(true, '비밀번호 변경', message);
+      showNotification(true, PASSWORD_CHANGE, message);
 
       modals.closeAll();
     } catch (error) {
       const message = error.response && error.response.status === 401 ? error.response.data : undefined;
 
-      showNotification(false, '비밀번호 변경', message);
+      showNotification(false, PASSWORD_CHANGE, message);
     }
   };
 
   const openModal = () => {
     modals.open({
-      title: '비밀번호 변경',
+      title: PASSWORD_CHANGE,
       centered: true,
       children: (
         <form

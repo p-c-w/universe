@@ -7,6 +7,8 @@ import { signUpSchema } from '../../../schema/schema';
 import { Typing, SignupInput } from '.';
 import { showNotification } from '../../../utils';
 
+const SIGN_UP = '회원가입';
+
 const SignupForm = ({ setUserInput }) => {
   const [step, setStep] = useState(0);
 
@@ -24,7 +26,7 @@ const SignupForm = ({ setUserInput }) => {
 
     const message = `${name}님의 유니버스 가입을 축하드립니다.`;
 
-    showNotification(true, '회원가입', message);
+    showNotification(true, SIGN_UP, message);
     setUserInput(email);
   };
 
@@ -37,7 +39,7 @@ const SignupForm = ({ setUserInput }) => {
     } catch (error) {
       const message = error.response && error.response.status === 409 ? error.response.data : undefined;
 
-      showNotification(false, '회원가입', message);
+      showNotification(false, SIGN_UP, message);
 
       throw error;
     }
