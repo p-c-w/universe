@@ -4,9 +4,9 @@ import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMa
 import { IconMovie, IconThumbUp, IconHistory, IconPlanet } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
-import { sideNavState, categoryState, isLoginState } from '../../recoil/atom';
-import Signout from '../auth/Signout';
-import { SIDE_NAV_DURATION } from '../../constants';
+import { sideNavState, categoryState, isLoginState } from '../../../recoil/atom';
+import Signout from '../../auth/Signout';
+import { SIDE_NAV_DURATION } from '../../../constants';
 
 const Nav = styled(Navbar)`
   justify-content: space-between;

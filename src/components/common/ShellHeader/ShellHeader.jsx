@@ -2,9 +2,10 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { isLoginState, sideNavState, userState } from '../../recoil/atom';
-import { MyMenu, SearchBar, ThemeButton } from '.';
-import { generateInitial } from '../../utils';
+import { isLoginState, sideNavState, userState } from '../../../recoil/atom';
+import { MyMenu, SearchBar } from '.';
+import { ThemeButton } from '..';
+import { generateInitial } from '../../../utils';
 
 const Logo = styled(Avatar)`
   cursor: pointer;
@@ -28,7 +29,7 @@ const ShellHeader = () => {
   const handleBurgerClick = () => setIsOpened(prev => !prev);
 
   return (
-    <Header height={{ base: 60 }} p="xl" zIndex="9999">
+    <Header height={{ base: 60 }} miw={768} p="xl" zIndex="9999">
       <Flex align="center" h="100%" justify="space-between">
         <Flex align="center">
           <Burger
@@ -47,9 +48,9 @@ const ShellHeader = () => {
               Beta
             </Title>
           </Flex>
-          <SearchBar />
         </Flex>
-        <Flex align="Center">
+        <SearchBar />
+        <Flex mx="0" align="Center" gap="xs">
           <ThemeButton />
           {isLogin ? (
             <MyMenu initial={user && generateInitial(user)} />
