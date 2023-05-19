@@ -1,9 +1,8 @@
 import { useCallback, useState } from 'react';
+import { debounce } from 'lodash';
 import { useController } from 'react-hook-form';
 import { TextInput, Button, Container } from '@mantine/core';
-import { debounce } from 'lodash';
 import { IconX } from '@tabler/icons-react';
-
 import styled from '@emotion/styled';
 
 const Input = styled(TextInput)`
@@ -13,12 +12,12 @@ const Input = styled(TextInput)`
   }
 `;
 
-const InputButton = styled(Button)`
+const ContinueBtn = styled(Button)`
   align-self: flex-end;
 `;
 
 const SignupInput = ({ name, control, trigger, step, setStep }) => {
-  const [continueBtn, setContinueBtn] = useState(false);
+  const [continueClicked, setContinueClicked] = useState(false);
 
   const {
     field: { onChange },
@@ -32,26 +31,28 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
     }, 100)();
   }, [name, trigger]);
 
-  const handleChange = e => {
+  const triggerWithChange = e => {
     onChange(e);
     debouncedTrigger();
   };
 
-  const handleClick = () => {
+  const preventEnter = e => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+    }
+  };
+
+  const ClickContinueBtn = () => {
     setStep(step + 1);
-    setContinueBtn(true);
+    setContinueClicked(true);
   };
 
   return (
     <>
       <Container display="flex" my={20} p={0}>
         <Input
-          onChange={handleChange}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              e.preventDefault();
-            }
-          }}
+          onChange={triggerWithChange}
+          onKeyDown={preventEnter}
           w="100%"
           label={`Enter your ${name}`}
           autoComplete="off"
@@ -62,15 +63,15 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
           icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
         />
         {isDirty && !invalid && (
-          <InputButton
+          <ContinueBtn
             type="button"
-            onClick={handleClick}
+            onClick={ClickContinueBtn}
             fw={300}
-            disabled={continueBtn}
+            disabled={continueClicked}
             variant="outline"
             color="gray">
             Continue
-          </InputButton>
+          </ContinueBtn>
         )}
       </Container>
     </>

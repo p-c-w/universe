@@ -1,6 +1,5 @@
-export { default as SigninForm } from './SigninForm';
-export { default as SignupHeader } from './SignupHeader';
-export { default as SignupForm } from './SignupForm';
-export { default as SignupOption } from './SignupOption';
-export { default as Typing } from './Typing';
-export { default as LogoBtn } from './LogoBtn';
+export { default as SigninForm } from './SignIn/SigninForm';
+
+export { SignupHeader } from './SignUp';
+export { SignupOption } from './SignUp';
+export { SignupForm } from './SignUp';

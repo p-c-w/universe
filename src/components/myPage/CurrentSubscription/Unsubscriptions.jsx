@@ -19,7 +19,7 @@ const Unsubscriptions = ({ subscribeList, watchList }) => {
 
   return (
     <Box mt={16}>
-      {!unWatchedProviderIds.length ? (
+      {!whatchProviderIds.length ? (
         <Title order={5} mb={10} fz={16}>
           현재 구독 중인 서비스가 없어요
         </Title>

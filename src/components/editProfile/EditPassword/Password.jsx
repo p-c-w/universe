@@ -15,7 +15,7 @@ const Password = ({ name, control, trigger, label }) => {
     }, 100)();
   }, [name, trigger]);
 
-  const handleChange = e => {
+  const triggerWithChange = e => {
     onChange(e);
     debouncedTrigger();
   };
@@ -23,7 +23,7 @@ const Password = ({ name, control, trigger, label }) => {
   return (
     <>
       <PasswordInput
-        onChange={handleChange}
+        onChange={triggerWithChange}
         placeholder="Password"
         error={error?.message !== 'Expected string, received object' && error?.message}
         label={label}
