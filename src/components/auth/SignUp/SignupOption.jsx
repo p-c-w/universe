@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 
-import { Typing, LogoBtn } from '../index';
+import { Typing, LogoBtn } from '.';
 
 const GridCol = styled(Grid.Col)`
   text-align: center;

@@ -7,9 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { notifications } from '@mantine/notifications';
 
 import { signUpSchema } from '../../../schema/schema';
-import Typing from './Typing';
-
-import SignupInput from './SignupInput';
+import { Typing, SignupInput } from '.';
 
 const SignupForm = ({ setUserInput }) => {
   const [step, setStep] = useState(0);

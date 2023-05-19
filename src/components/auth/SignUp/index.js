@@ -4,3 +4,4 @@ export { default as SignupForm } from './SignupForm';
 
 export { default as LogoBtn } from './LogoBtn';
 export { default as Typing } from './Typing';
+export { default as SignupInput } from './SignupInput';
