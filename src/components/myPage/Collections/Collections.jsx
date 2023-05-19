@@ -9,6 +9,7 @@ const MyListContainer = styled(Container)`
   flex-direction: column;
   gap: 0.8rem;
   margin-top: 1.6rem;
+  padding: 0;
 `;
 
 const PosterImage = styled(Image)`
@@ -22,7 +23,7 @@ const Collections = () => {
   const [imgSrc, setImgSrc] = useState('');
 
   return (
-    <MyListContainer fluid p={0}>
+    <MyListContainer fluid>
       <CategoryButtons setIsItemSelected={setIsItemSelected} />
       <Flex gap={smallScreen ? 8 : 16}>
         <ScrollArea w="100%" h={400} miw={250}>
