@@ -10,7 +10,7 @@ const Layout = styled(AppShell)`
 `;
 
 const GlobalShell = ({ children }) => (
-  <Layout navbar={<SideNavBar />} header={<ShellHeader />}>
+  <Layout miw={768} navbar={<SideNavBar />} header={<ShellHeader />}>
     {children}
   </Layout>
 );
