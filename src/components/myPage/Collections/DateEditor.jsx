@@ -9,7 +9,7 @@ import { IconCalendar } from '@tabler/icons-react';
 import { categoryState, sideNavState, userState } from '../../../recoil/atom';
 import { useUpdateModifiedAtMutation } from '../../../hooks/mutations';
 
-const EditDate = styled(Badge)`
+const EditButton = styled(Badge)`
   cursor: pointer;
 `;
 
@@ -77,22 +77,22 @@ const DateEditor = ({ id, date }) => {
       {category === 'history' &&
         (editMode ? (
           <Flex gap={5}>
-            <EditDate size="sm" variant="filled" onClick={editDate}>
+            <EditButton size="sm" variant="filled" onClick={editDate}>
               수정 완료
-            </EditDate>
-            <EditDate size="sm" variant="outline" onClick={cancelEditDate}>
+            </EditButton>
+            <EditButton size="sm" variant="outline" onClick={cancelEditDate}>
               수정 취소
-            </EditDate>
+            </EditButton>
           </Flex>
         ) : (
-          <EditDate
+          <EditButton
             size="sm"
             variant="outline"
             onClick={() => {
               setEditMode(true);
             }}>
             날짜 수정
-          </EditDate>
+          </EditButton>
         ))}
     </Flex>
   );
