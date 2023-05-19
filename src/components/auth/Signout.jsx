@@ -32,14 +32,19 @@ const Signout = () => {
 
   const dark = colorScheme === 'dark';
 
+  const clickSignout = () => {
+    signout();
+    window.location.reload();
+  };
+
   return (
-    <Tab role="button" aria-label="Sign out" onClick={signout}>
+    <Tab role="button" aria-label="Sign out" onClick={clickSignout}>
       <CustomLink to="/">
         <ThemeIcon variant={dark ? 'filled' : 'light'} color="gray">
           <IconLogout size="1.1rem" />
         </ThemeIcon>
         <Text color={dark ? 'gray.0' : 'gray.9'} ml={25} size="sm">
-          {'Sign out'}
+          Sign out
         </Text>
       </CustomLink>
     </Tab>

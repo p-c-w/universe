@@ -11,6 +11,11 @@ const IconBox = styled(Avatar)`
 const MyMenu = ({ initial }) => {
   const signout = useSignout();
 
+  const clickSignout = () => {
+    signout();
+    window.location.reload();
+  };
+
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
@@ -31,7 +36,7 @@ const MyMenu = ({ initial }) => {
         <Menu.Divider />
         <Menu.Label>Danger zone</Menu.Label>
         <Menu.Item icon={<IconArrowsLeftRight size={14} />}>Transfer my data</Menu.Item>
-        <Menu.Item component={Link} to={'/'} color="red" icon={<IconLogout size={14} />} onClick={signout}>
+        <Menu.Item component={Link} to={'/'} color="red" icon={<IconLogout size={14} />} onClick={clickSignout}>
           Sign out
         </Menu.Item>
       </Menu.Dropdown>
