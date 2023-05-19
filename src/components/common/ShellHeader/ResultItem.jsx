@@ -1,10 +1,9 @@
 import { Suspense } from 'react';
+import styled from '@emotion/styled';
 import parse from 'html-react-parser';
 import { Text } from '@mantine/core';
-
-import styled from '@emotion/styled';
 import { modals } from '@mantine/modals';
-import { DetailModal, ModalSkeleton } from '.';
+import { DetailModal, ModalSkeleton } from '..';
 
 const Container = styled(Text)`
   cursor: pointer;
