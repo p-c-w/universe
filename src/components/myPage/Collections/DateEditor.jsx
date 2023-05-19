@@ -6,20 +6,20 @@ import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCalendar } from '@tabler/icons-react';
-import { categoryState, sideNavState, userState } from '../../recoil/atom';
-import { formatDate } from '../../utils';
-import { useUpdateModifiedAtMutation } from '../../hooks/mutations';
+import { categoryState, sideNavState, userState } from '../../../recoil/atom';
+import { useUpdateModifiedAtMutation } from '../../../hooks/mutations';
 
 const EditDate = styled(Badge)`
   cursor: pointer;
 `;
 
-const offset = new Date().getTimezoneOffset() * 60000;
+const formatDate = date => date?.match(/^([a-zA-Z0-9_.+-]+)T/)[1].replace(/-/g, ' .');
 
-const ModifiedDate = ({ id, date }) => {
+const timeOffset = new Date().getTimezoneOffset() * 60000;
+
+const DateEditor = ({ id, date }) => {
   const middleScreen = useMediaQuery('(max-width: 64rem)');
   const smallScreen = useMediaQuery('(max-width: 44rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const isNavOpened = useRecoilValue(sideNavState);
   const email = useRecoilValue(userState);
@@ -29,7 +29,7 @@ const ModifiedDate = ({ id, date }) => {
 
   const { mutate: updateModifiedAt } = useUpdateModifiedAtMutation();
 
-  const handleEdit = () => {
+  const editDate = () => {
     if (editMode) {
       const newDate = selectedDate.toISOString();
 
@@ -38,18 +38,18 @@ const ModifiedDate = ({ id, date }) => {
     setEditMode(!editMode);
   };
 
-  const handleCancel = () => {
+  const cancelEditDate = () => {
     setEditMode(false);
     setSelectedDate(new Date(date));
   };
 
-  const handleChange = e => {
-    const offsetDate = new Date(e - offset);
+  const selectDate = e => {
+    const offsetDate = new Date(e - timeOffset);
 
     setSelectedDate(offsetDate);
   };
 
-  const handleDatePicker = e => {
+  const stopPropagation = e => {
     e.stopPropagation();
   };
 
@@ -60,27 +60,27 @@ const ModifiedDate = ({ id, date }) => {
       gap={smallScreen ? 7 : 10}>
       {editMode ? (
         <DatePickerInput
-          onClick={handleDatePicker}
+          onClick={stopPropagation}
           size="xs"
-          w={xsmallScreen ? 150 : 180}
+          w={180}
           maw={400}
           locale="ko"
           valueFormat="YYYY. MM. DD"
           value={selectedDate}
-          onChange={handleChange}
+          onChange={selectDate}
           icon={<IconCalendar size="1.1rem" stroke={1.5} />}
         />
       ) : (
-        <Text size={xsmallScreen ? 'xs' : 'sm'}>{formatDate(date)}에 추가함</Text>
+        <Text size="sm">{formatDate(date)}에 추가함</Text>
       )}
 
       {category === 'history' &&
         (editMode ? (
           <Flex gap={5}>
-            <EditDate size="sm" variant="filled" onClick={handleEdit}>
+            <EditDate size="sm" variant="filled" onClick={editDate}>
               수정 완료
             </EditDate>
-            <EditDate size="sm" variant="outline" onClick={handleCancel}>
+            <EditDate size="sm" variant="outline" onClick={cancelEditDate}>
               수정 취소
             </EditDate>
           </Flex>
@@ -98,4 +98,4 @@ const ModifiedDate = ({ id, date }) => {
   );
 };
 
-export default ModifiedDate;
+export default DateEditor;

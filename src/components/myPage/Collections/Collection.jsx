@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 import { Accordion } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
-import { useCollectionQueries } from '../../hooks/queries';
-import { useSelectedItem } from '../../hooks';
-import { CollectionItem } from '.';
-import { sideNavState } from '../../recoil/atom';
+import { useCollectionQueries } from '../../../hooks/queries';
+import { useSelectedItem } from '../../../hooks';
+import { sideNavState } from '../../../recoil/atom';
+import { Item } from '.';
 
 const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
   const isNavOpened = useRecoilValue(sideNavState);
@@ -13,18 +13,19 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
 
   const [selectedItem, setSelectedItem] = useState(null);
 
-  const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
-
-  const collectionList = collectionQueries.map(({ data }) => ({
-    ...data,
-    modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
-  }));
+  const collectionList = collectionQueries.map(
+    ({ data }) =>
+      data !== undefined && {
+        ...data,
+        modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
+      }
+  );
 
   const screenToClose = useSelectedItem(setSelectedItem, setIsItemSelected, selectedItem, page);
 
   const itemRef = useRef(null);
 
-  const handleChange = e => {
+  const selectItem = e => {
     setSelectedItem(e);
     itemRef.current = e;
     setImgSrc(
@@ -41,16 +42,10 @@ const Collection = ({ collection, setIsItemSelected, setImgSrc, page }) => {
 
   return (
     <>
-      <Accordion variant="separated" w="100%" onChange={handleChange} value={selectedItem}>
-        {allQueriesSucceeded &&
-          collectionList?.map(item => (
-            <CollectionItem
-              key={item.id}
-              item={item}
-              setSelectedItem={setSelectedItem}
-              setIsItemSelected={setIsItemSelected}
-            />
-          ))}
+      <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
+        {collectionList?.map(item => (
+          <Item key={item.id} item={item} setSelectedItem={setSelectedItem} setIsItemSelected={setIsItemSelected} />
+        ))}
       </Accordion>
     </>
   );

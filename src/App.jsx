@@ -8,7 +8,7 @@ import { ModalsProvider } from '@mantine/modals';
 import useColorScheme from './hooks/useColorScheme';
 import { Root, MyPage, SignIn, SignUp, EditProfile } from './pages';
 import AuthenticationGuard from './guard/AuthenticationGuard';
-import { colors } from './constants';
+import { COLORS } from './constants';
 
 const queryClient = new QueryClient({
   retry: 3,
@@ -43,7 +43,7 @@ const App = () => {
               fontFamily: 'Spoqa Han Sans Neo, sans-serif',
               colorScheme,
               primaryColor: 'violet',
-              colors,
+              colors: COLORS,
             }}
             withCSSVariables
             withGlobalStyles

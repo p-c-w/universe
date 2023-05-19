@@ -4,9 +4,9 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconPencil } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
-import { useUserQuery } from '../../hooks/queries';
-import { useUpdateUserNameMutation } from '../../hooks/mutations';
-import { userState } from '../../recoil/atom';
+import { useUserQuery } from '../../../hooks/queries';
+import { useUpdateUserNameMutation } from '../../../hooks/mutations';
+import { userState } from '../../../recoil/atom';
 
 const PageTitle = styled(Title)`
   display: flex;
@@ -24,11 +24,13 @@ const NameInput = styled(TextInput)`
 
 const MypageTitle = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const email = useRecoilValue(userState);
 
-  const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
+  const { userInfo: name } = useUserQuery({
+    select: userInfo => userInfo.name,
+    refetchOnWindowFocus: false,
+  });
   const { mutate: updateUserName } = useUpdateUserNameMutation();
 
   const [userName, setUserName] = useState(name);
@@ -38,7 +40,7 @@ const MypageTitle = () => {
     setUserName(name);
   }, [name]);
 
-  const handleKeyUp = e => {
+  const changeUserName = e => {
     if (e.key === 'Escape') {
       setUserName(name);
       setEditMode(false);
@@ -54,20 +56,20 @@ const MypageTitle = () => {
     <Container m={0} mb={16} p={0} spacing={5} miw={350} display="flex" gap={3.2} align="start">
       <PageTitle
         order={1}
-        size={xsmallScreen ? 30 : smallScreen ? 35 : 40}
+        size={smallScreen ? 35 : 40}
         display="flex"
         fw={900}
         variant="gradient"
         gradient={{ from: 'violet', to: 'cyan', deg: 145 }}>
         {editMode ? (
           <NameInput
-            w={xsmallScreen ? 150 : smallScreen ? 200 : 400}
+            w={smallScreen ? 200 : 400}
             variant="unstyled"
             value={userName}
             onChange={e => {
               setUserName(e.currentTarget.value);
             }}
-            onKeyUp={handleKeyUp}
+            onKeyUp={changeUserName}
             placeholder="Your Name"
             ref={node => node?.focus()}
           />

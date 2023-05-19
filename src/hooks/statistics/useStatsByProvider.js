@@ -1,5 +1,5 @@
 import { useProviderQueries, useUserQuery } from '../queries';
-import { colors } from '../../constants';
+import { COLORS } from '../../constants';
 
 const defaultData = {
   total: '0',
@@ -9,42 +9,42 @@ const defaultData = {
       label: 'Netflix',
       count: 0,
       part: 0,
-      color: colors.Netflix,
+      color: COLORS.Netflix,
     },
     {
       id: 97,
       label: 'Watcha',
       count: 0,
       part: 0,
-      color: colors.Watcha,
+      color: COLORS.Watcha,
     },
     {
       id: 119,
       label: 'Amazon Prime',
       count: 0,
       part: 0,
-      color: colors['Amazon Prime Video'],
+      color: COLORS['Amazon Prime Video'],
     },
     {
       id: 337,
       label: 'Disney+',
       count: 0,
       part: 0,
-      color: colors['Disney Plus'],
+      color: COLORS['Disney Plus'],
     },
     {
       id: 350,
       label: 'Apple TV+',
       count: 0,
       part: 0,
-      color: colors['Apple TV Plus'],
+      color: COLORS['Apple TV Plus'],
     },
     {
       id: 356,
       label: 'Wavve',
       count: 0,
       part: 0,
-      color: colors.Wavve,
+      color: COLORS.Wavve,
     },
   ],
 };
@@ -65,17 +65,13 @@ const useStatisticsByProvider = () => {
   const historyList = data || [];
   const newTotal = historyList.length;
 
-  let newData = [];
-
   const queries = useProviderQueries(historyList, {
     enabled: !!newTotal,
   });
 
-  const providers = queries.map(({ isSuccess, data }) => isSuccess && data);
+  const providers = queries.map(({ data }) => data !== undefined && data);
 
-  if (providers[0]) {
-    newData = getNewData(providers, newTotal);
-  }
+  const newData = getNewData(providers, newTotal);
 
   const newStats = { total: newTotal, data: newData };
 

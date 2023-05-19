@@ -1,5 +1,5 @@
 export { default as PROVIDERS } from './providers';
-export { default as colors } from './colors';
+export { default as COLORS } from './colors';
 export { default as GENRES } from './genres';
 
 export { default as COLLECTION_BUTTON } from './collectionButtons';

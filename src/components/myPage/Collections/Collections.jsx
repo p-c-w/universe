@@ -2,12 +2,11 @@ import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex, Pagination } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { useRecoilState } from 'recoil';
-import { CollectionCategoryButton, Collection, CollectionSkeleton, EmptyCollection } from './index';
-import { useUserQuery } from '../../hooks/queries';
-import { COLLECTION_BUTTON } from '../../constants';
-import { categoryState } from '../../recoil/atom';
-import { usePagination } from '../../hooks';
+import { useRecoilValue } from 'recoil';
+import { CategoryButtons, Collection, SkeletonWrapper, EmptyMessage } from '.';
+import { useUserQuery } from '../../../hooks/queries';
+import { categoryState } from '../../../recoil/atom';
+import { usePagination } from '../../../hooks';
 
 const MyListContainer = styled(Container)`
   display: flex;
@@ -23,40 +22,25 @@ const PosterImage = styled(Image)`
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
-  const [category, setCategory] = useRecoilState(categoryState);
+  const category = useRecoilValue(categoryState);
   const [isItemSelected, setIsItemSelected] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
 
   const { data = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
+    refetchOnWindowFocus: false,
   });
 
   const { activePage, setActivePage, total, collection } = usePagination(data, category);
 
-  const handleClick = (e, button) => {
-    if (`${e.target.textContent.toLowerCase()}` === category) return;
-    setCategory(`${button.label.toLowerCase()}`);
-    setIsItemSelected(false);
-  };
-
   return (
     <MyListContainer fluid p={0}>
-      <Flex gap={smallScreen ? 8 : 12}>
-        {COLLECTION_BUTTON.map(button => (
-          <CollectionCategoryButton
-            key={button.label}
-            onClick={e => handleClick(e, button)}
-            selected={category === `${button.label.toLowerCase()}`}
-            {...button}>
-            {button.label}
-          </CollectionCategoryButton>
-        ))}
-      </Flex>
+      <CategoryButtons setIsItemSelected={setIsItemSelected} />
       <Flex gap={smallScreen ? 8 : 16}>
         <ScrollArea w="100%" h={400} miw={250}>
-          <Suspense fallback={<CollectionSkeleton />}>
+          <Suspense fallback={<SkeletonWrapper />}>
             {data.length === 0 ? (
-              <EmptyCollection category={category} />
+              <EmptyMessage category={category} />
             ) : (
               <Collection
                 collection={collection}

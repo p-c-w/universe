@@ -1,5 +1,5 @@
 import { Flex, Badge } from '@mantine/core';
-import { PROVIDERS } from '../../constants';
+import { PROVIDERS } from '../../../constants';
 
 const ProviderBadges = ({ providerIds, variant, size = 'lg' }) => (
   <>
