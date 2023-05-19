@@ -1,4 +1,4 @@
-export { default as Collections } from './Wrapper';
+export { default as Collections } from './Collections';
 
 export { default as Collection } from './Collection';
 export { default as ItemTitle } from './ItemTitle';

@@ -19,7 +19,7 @@ const PosterImage = styled(Image)`
   display: ${props => (props.open ? 'block' : 'none')};
 `;
 
-const Wrapper = () => {
+const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const category = useRecoilValue(categoryState);
@@ -79,4 +79,4 @@ const Wrapper = () => {
   );
 };
 
-export default Wrapper;
+export default Collections;
