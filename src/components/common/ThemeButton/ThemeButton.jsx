@@ -20,7 +20,6 @@ const ThemeButton = () => {
   return (
     <IconBox
       size="md"
-      px="xs"
       color={dark ? 'yellow' : 'violet'}
       title="Toggle color scheme"
       cursor="pointer"
