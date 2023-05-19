@@ -1,4 +1,4 @@
-import React from 'react';
+import { Suspense } from 'react';
 import { Container, Flex, Title, Text } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { GlobalShell } from '../components/common';
@@ -23,7 +23,9 @@ const EditProfile = () => {
             <Text>{email}</Text>
           </Flex>
           <EditPassword />
-          <DeleteUser />
+          <Suspense>
+            <DeleteUser />
+          </Suspense>
         </Container>
       </Flex>
     </GlobalShell>
