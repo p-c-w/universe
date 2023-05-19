@@ -6,8 +6,8 @@ import { notifications } from '@mantine/notifications';
 import { IconX, IconCheck } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import { modals } from '@mantine/modals';
-import { userState } from '../../recoil/atom';
-import { ChangePwSchema } from '../../schema/schema';
+import { userState } from '../../../recoil/atom';
+import { ChangePwSchema } from '../../../schema/schema';
 import { Password } from '.';
 
 const EditPassword = () => {

@@ -9,10 +9,9 @@ import { userState } from '../../recoil/atom';
 import { useUserQuery } from '../../hooks/queries';
 
 const DeleteUser = () => {
-  const [user, setUser] = useRecoilState(userState);
-
   const navigate = useNavigate();
 
+  const [user, setUser] = useRecoilState(userState);
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
   const handleClick = async () => {
