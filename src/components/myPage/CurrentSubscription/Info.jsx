@@ -18,7 +18,7 @@ const defaultData = {
   watchList: [],
 };
 
-const SubscriptionInfo = () => {
+const Info = () => {
   const { data = [] } = useUserQuery({
     select: getUserInfo,
     refetchOnWindowFocus: false,
@@ -33,4 +33,4 @@ const SubscriptionInfo = () => {
   );
 };
 
-export default SubscriptionInfo;
+export default Info;
