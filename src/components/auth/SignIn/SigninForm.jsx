@@ -4,12 +4,12 @@ import styled from '@emotion/styled';
 import { Title, Flex, Input, PasswordInput, Button, TextInput, Text } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconX } from '@tabler/icons-react';
-import { notifications } from '@mantine/notifications';
 
 import { useSetRecoilState } from 'recoil';
 import { signInSchema } from '../../../schema/schema';
 import userState from '../../../recoil/atom/userState';
+
+import { showNotification } from '../../../utils';
 
 const Form = styled.form`
   border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2])};
@@ -40,15 +40,7 @@ const SigninForm = () => {
       navigate('/');
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        notifications.show({
-          withCloseButton: true,
-          autoClose: 2000,
-          title: '로그인 실패',
-          message: error.response.data,
-          color: 'red',
-          icon: <IconX />,
-          loading: false,
-        });
+        showNotification(false, '로그인', error.response.data);
       }
     }
   };

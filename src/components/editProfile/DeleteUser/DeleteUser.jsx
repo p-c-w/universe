@@ -1,12 +1,11 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { notifications } from '@mantine/notifications';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
-import { IconX, IconCheck } from '@tabler/icons-react';
 import { userState } from '../../../recoil/atom';
 import { useUserQuery } from '../../../hooks/queries';
+import { showNotification } from '../../../utils';
 
 const DeleteUser = () => {
   const navigate = useNavigate();
@@ -16,32 +15,16 @@ const DeleteUser = () => {
 
   const submitWithdrawal = async () => {
     try {
-      const { data: alarm } = await axios.delete(`/api/auth/withdrawal/${user}`);
+      const { data: message } = await axios.delete(`/api/auth/withdrawal/${user}`);
       setUser(null);
       localStorage.removeItem('user');
 
-      notifications.show({
-        withCloseButton: true,
-        autoClose: 3000,
-        title: '회원탈퇴 성공',
-        message: alarm,
-        color: 'green',
-        icon: <IconCheck />,
-        loading: false,
-      });
+      showNotification(true, '회원탈퇴', message);
 
       modals.closeAll();
       navigate('/');
     } catch (error) {
-      notifications.show({
-        withCloseButton: true,
-        autoClose: 3000,
-        title: '회원탈퇴 실패',
-        message: '알 수 없는 오류가 발생했습니다.',
-        color: 'red',
-        icon: <IconX />,
-        loading: false,
-      });
+      showNotification(false, '회원탈퇴');
     }
   };
 

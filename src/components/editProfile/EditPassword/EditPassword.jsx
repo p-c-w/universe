@@ -2,13 +2,13 @@ import axios from 'axios';
 import { Container, Title, Flex, Button } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { notifications } from '@mantine/notifications';
-import { IconX, IconCheck } from '@tabler/icons-react';
 import { useRecoilValue } from 'recoil';
 import { modals } from '@mantine/modals';
 import { userState } from '../../../recoil/atom';
 import { ChangePwSchema } from '../../../schema/schema';
 import { Password } from '.';
+
+import { showNotification } from '../../../utils';
 
 const EditPassword = () => {
   const email = useRecoilValue(userState);
@@ -17,42 +17,16 @@ const EditPassword = () => {
     resolver: zodResolver(ChangePwSchema),
   });
 
-  const onSubmit = async data => {
+  const SubmitForm = async data => {
     try {
-      const { data: alarm } = await axios.patch('/api/auth/changepw', { email, ...data });
+      const { data: message } = await axios.patch('/api/auth/changepw', { email, ...data });
+      showNotification(true, '비밀번호 변경', message);
 
-      notifications.show({
-        withCloseButton: true,
-        autoClose: 3000,
-        title: '비밀번호 변경 성공',
-        message: alarm,
-        color: 'green',
-        icon: <IconCheck />,
-        loading: false,
-      });
       modals.closeAll();
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        notifications.show({
-          withCloseButton: true,
-          autoClose: 3000,
-          title: '비밀번호 변경 실패',
-          message: error.response.data,
-          color: 'red',
-          icon: <IconX />,
-          loading: false,
-        });
-      } else {
-        notifications.show({
-          withCloseButton: true,
-          autoClose: 3000,
-          title: '비밀번호 변경 실패',
-          message: '알 수 없는 오류가 발생했습니다.',
-          color: 'red',
-          icon: <IconX />,
-          loading: false,
-        });
-      }
+      const message = error.response && error.response.status === 401 && error.response.data;
+
+      showNotification(false, '비밀번호 변경', message);
     }
   };
 
@@ -64,7 +38,7 @@ const EditPassword = () => {
         <form
           onSubmit={e => {
             e.preventDefault();
-            handleSubmit(onSubmit)();
+            handleSubmit(SubmitForm)();
           }}>
           <Flex direction="column" gap={10}>
             <Password label="현재 비밀번호" control={control} trigger={trigger} name="nowPassword" />
@@ -79,7 +53,7 @@ const EditPassword = () => {
 
   return (
     <Container my={10} p={0}>
-      <Flex gap={50} align={'center'} justify={'space-between'}>
+      <Flex gap={50} align="center" justify="space-between">
         <Title order={5}>비밀번호</Title>
         <Button onClick={openModal} variant="outline">
           수정
