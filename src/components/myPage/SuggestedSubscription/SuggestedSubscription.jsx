@@ -2,7 +2,7 @@ import { Container, Title, Text, Flex, useMantineColorScheme } from '@mantine/co
 import { useMediaQuery } from '@mantine/hooks';
 import { Badges } from '../../common';
 import { useProviderQueries, useUserQuery } from '../../../hooks/queries';
-import calculateLowestFee from '../../../utils/calculateLowestFee';
+import { calculateLowestFee } from '../../../utils';
 
 const SuggestedSubscription = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
