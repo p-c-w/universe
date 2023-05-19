@@ -5,8 +5,7 @@ import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
 import { categoryState } from '../../../recoil/atom';
-import { ItemTitle, DateEditor } from '.';
-import { ConfirmModal } from '../index';
+import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
 const Item = ({ item, setSelectedItem, setIsItemSelected }) => {
