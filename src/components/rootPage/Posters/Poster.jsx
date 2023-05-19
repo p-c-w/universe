@@ -14,9 +14,8 @@ import {
 } from '@mantine/core';
 import styled from '@emotion/styled';
 import { useState, Suspense } from 'react';
-import { ActionIcons } from '../../common';
+import { ActionIcons, MoreButton } from '../../common';
 import genres from '../../../constants/genres';
-import MoreButton from '../../common/MoreButton';
 
 const Img = styled(Image)`
   overflow: hidden;
@@ -59,20 +58,20 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
       />
       <Transition mounted={hovered} transition="fade" duration={400} timingFunction="ease">
         {styles => (
-          <Overlay style={styles} display="flex" color={dark ? 'dark.9' : 'gray.1'} p="xl" opacity="0.85">
+          <Overlay style={styles} display="flex" c={dark ? 'dark.9' : 'gray.1'} p="xl" opacity="0.85">
             <Flex direction={'column'} align="baseline" justify="space-between" opacity="none">
               <MoreButton id={id} type={mediaType} pos="absolute" right="0.9375rem" top="0.625rem" />
               <Container m="0" mt="xl" p="0" mb="md">
-                <Title fz="lg" fw="600" lineClamp="1" color={'gray.1'}>
+                <Title fz="lg" fw={600} lineClamp={1} c="gray.1">
                   {title}
                 </Title>
-                <Text fz="sm" lineClamp="1" color={'gray.1'}>
+                <Text fz="sm" lineClamp={1} c="gray.1">
                   {originalTitle}
                 </Text>
-                <Text fz="xs" fw="200" color={'gray.1'}>
+                <Text fz="xs" fw={200} c="gray.1">
                   {date}
                 </Text>
-                <Text w="100%" mt="md" fz="xs" color="dimmed" lineClamp="3">
+                <Text w="100%" mt="md" fz="xs" c="dimmed" lineClamp={3}>
                   {overview}
                 </Text>
                 <Flex wrap="wrap" mt="lg">

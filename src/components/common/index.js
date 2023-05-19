@@ -13,3 +13,4 @@ export { default as MyMenu } from './MyMenu';
 export { default as ModalSkeleton } from './ModalSkeleton';
 export { default as Badge } from './Badge';
 export { default as Badges } from './Badges';
+export { default as MoreButton } from './MoreButton';

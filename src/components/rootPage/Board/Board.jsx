@@ -1,8 +1,9 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
-import { CategoryPicker, Posters, Carousels } from '.';
-import { PosterSkeleton } from './Posters';
-import { goToTop } from '../../utils';
+import { PosterSkeleton } from '../Posters';
+import { Posters, Carousels, CategoryPicker } from '..';
+
+import { goToTop } from '../../../utils';
 
 const Board = () => {
   const [mediaType, setMediaType] = useState('movie');
@@ -33,7 +34,7 @@ const Board = () => {
             <Posters mediaType={mediaType} />
           </Suspense>
         ) : (
-          <Carousels mediaType={mediaType} providerIds={selectedIds} />
+          <Carousels mediaType={mediaType} selectedIds={selectedIds} />
         )}
       </Container>
     </Container>

@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 const Slide = ({ url, title, subtitle }) => (
   <Flex h={'100%'} m={0} p={50} justify="center" align="center">
     <Container m={0}>
-      <Title order={1} c={'black'}>
+      <Title order={1} c="black">
         {title}
       </Title>
       <Space h={10} />
-      <Title order={2} fw={400} c={'black'}>
+      <Title order={2} fw={400} c="black">
         {subtitle}
       </Title>
       <Space h={50} />

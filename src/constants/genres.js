@@ -1,4 +1,4 @@
-const genres = {
+const GENRES = {
   tv: {
     10759: {
       name: '액션&모험',
@@ -151,4 +151,4 @@ const genres = {
   },
 };
 
-export default genres;
+export default GENRES;

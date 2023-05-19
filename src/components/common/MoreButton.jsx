@@ -33,11 +33,11 @@ const MoreButton = ({ id, type, pos, right, top }) => {
       title="더보기"
       aria-label="more"
       onClick={DetailClick}>
-      <Text fz="xs" fw={200} color="gray.4">
-        {'더보기'}
+      <Text fz="sm" c="white">
+        더보기
       </Text>
-      <ThemeIcon variant="transparent" color="gray">
-        <IconLayersLinked size={16} color="gray" />
+      <ThemeIcon variant="varient" c="white">
+        <IconLayersLinked size={18} color="white" />
       </ThemeIcon>
     </Button>
   );
