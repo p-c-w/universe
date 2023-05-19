@@ -1,7 +1,7 @@
 import { Button, Tooltip } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
-const CollectionCategoryButton = ({ description, color, selected, children, onClick }) => {
+const CategoryButton = ({ description, color, selected, children, onClick }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   return (
@@ -18,4 +18,4 @@ const CollectionCategoryButton = ({ description, color, selected, children, onCl
   );
 };
 
-export default CollectionCategoryButton;
+export default CategoryButton;

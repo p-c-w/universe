@@ -3,9 +3,9 @@ import styled from '@emotion/styled';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
 import { useRecoilValue } from 'recoil';
-import { StatsByMonthly, StatsByProvider, StatcsByGenre, StatsWrapper } from '.';
-import { sideNavState } from '../../recoil/atom';
-import { SIDE_NAV_DURATION } from '../../constants';
+import { StatsByMonthly, StatsByProvider, StatsByGenre, StatsWrapper } from '.';
+import { sideNavState } from '../../../recoil/atom';
+import { SIDE_NAV_DURATION } from '../../../constants';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -29,11 +29,11 @@ const Statistics = () => {
 
   useAnimationOffsetEffect(embla, SIDE_NAV_DURATION);
 
-  const handleCurrentSlide = idx => {
+  const selectCurrentSlide = idx => {
     currentSlide.current = idx;
   };
 
-  const statsComponents = [<StatsByProvider key={0} />, <StatcsByGenre key={1} />, <StatsByMonthly key={2} />];
+  const statsComponents = [<StatsByProvider key={0} />, <StatsByGenre key={1} />, <StatsByMonthly key={2} />];
 
   return (
     <StatisticCarousel
@@ -43,7 +43,7 @@ const Statistics = () => {
       withIndicators
       controlsOffset="xs"
       controlSize={20}
-      onSlideChange={handleCurrentSlide}
+      onSlideChange={selectCurrentSlide}
       initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
       getEmblaApi={setEmbla}
       plugins={[autoplay.current]}

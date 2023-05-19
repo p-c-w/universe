@@ -5,10 +5,9 @@ import { useMediaQuery } from '@mantine/hooks';
 import { IconSquareCheck } from '@tabler/icons-react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { userState } from '../../recoil/atom';
-import { useUpdateSubscriptionMutation } from '../../hooks/mutations';
-import { getNewSubscribeList, getProviderArray } from '../../utils';
-import { PROVIDERS } from '../../constants';
+import { userState } from '../../../recoil/atom';
+import { useUpdateSubscriptionMutation } from '../../../hooks/mutations';
+import { PROVIDERS } from '../../../constants';
 
 const EditForm = styled.form`
   margin: 1rem -0.625rem;
@@ -16,11 +15,19 @@ const EditForm = styled.form`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[8] : theme.colors.gray[3])};
 `;
 
+const getProviderArray = () => Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
+
+const getNewSubscribeList = selectedNames => {
+  const newProviderNames = selectedNames.map(name => getProviderArray().find(item => item.provider_name === name));
+  const newList = newProviderNames.map(provider => ({ id: provider.id, price: 'basic' }));
+
+  return newList;
+};
+
 const providerArray = getProviderArray();
 
-const SubscriptionEditor = ({ providers, onClick }) => {
+const Editor = ({ providers, onClick }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-  const xsmallScreen = useMediaQuery('(max-width: 30rem)');
 
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
@@ -28,12 +35,13 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   const providersNames = providers?.map(id => PROVIDERS[id].provider_name);
 
   const { mutate: updateSubscribeList } = useUpdateSubscriptionMutation();
-  const [selectedProviders, setSelectedProviders] = useState(providersNames);
+
   const email = useRecoilValue(userState);
+  const [selectedProviders, setSelectedProviders] = useState(providersNames);
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data, e) => {
+  const submitSubscriptions = (_, e) => {
     e.preventDefault();
 
     updateSubscribeList({ email, newList: getNewSubscribeList(selectedProviders) });
@@ -50,16 +58,16 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   };
 
   return (
-    <EditForm onSubmit={handleSubmit(onSubmit)}>
+    <EditForm onSubmit={handleSubmit(submitSubscriptions)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
-          <Title order={5} fw={400} fz={xsmallScreen ? 12 : smallScreen ? 14 : 16}>
+          <Title order={5} fw={400} fz={smallScreen ? 14 : 16}>
             구독중인 서비스를 선택해주세요.
           </Title>
           <Chip
             checked={selectedProviders?.length === providerArray.length}
             onChange={toggleAllSelectedProviders}
-            size={xsmallScreen ? 'xs' : 'sm'}
+            size="sm"
             p={0}>
             All
           </Chip>
@@ -75,7 +83,7 @@ const SubscriptionEditor = ({ providers, onClick }) => {
               key={provider.id}
               value={provider.provider_name}
               color={dark ? `${provider.provider_name}.4` : provider.provider_name}
-              size={xsmallScreen ? 'xs' : 'sm'}
+              size="sm"
               {...register(`${provider.provider_name}`)}>
               {provider.provider_name}
             </Chip>
@@ -86,4 +94,4 @@ const SubscriptionEditor = ({ providers, onClick }) => {
   );
 };
 
-export default SubscriptionEditor;
+export default Editor;
