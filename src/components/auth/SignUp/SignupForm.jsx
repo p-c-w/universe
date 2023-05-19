@@ -21,7 +21,7 @@ const SignupForm = ({ setUserInput }) => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = async data => {
+  const submitForm = async data => {
     try {
       const {
         data: { email, name },
@@ -72,7 +72,7 @@ const SignupForm = ({ setUserInput }) => {
           setStep(step + 1);
         }}
       />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(submitForm)}>
         {step > 0 && <SignupInput name="email" control={control} trigger={trigger} step={step} setStep={setStep} />}
         {step > 1 && <SignupInput name="password" control={control} trigger={trigger} step={step} setStep={setStep} />}
         {step > 2 && (

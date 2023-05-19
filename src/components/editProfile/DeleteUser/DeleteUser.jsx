@@ -14,7 +14,7 @@ const DeleteUser = () => {
   const [user, setUser] = useRecoilState(userState);
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
-  const handleClick = async () => {
+  const submitWithdrawal = async () => {
     try {
       const { data: alarm } = await axios.delete(`/api/auth/withdrawal/${user}`);
       setUser(null);
@@ -67,7 +67,7 @@ const DeleteUser = () => {
           closeOnConfirm: false,
           children: <Text size="sm">그동안 유니버스를 이용해 주셔서 감사합니다.</Text>,
           onCancel: modals.closeAll,
-          onConfirm: handleClick,
+          onConfirm: submitWithdrawal,
         });
       },
     });
@@ -75,7 +75,7 @@ const DeleteUser = () => {
 
   return (
     <Container p={0}>
-      <Flex gap={50} align={'center'} justify={'space-between'}>
+      <Flex gap={50} align="center" justify="space-between">
         <Title order={5}>회원탈퇴</Title>
         <Button onClick={openModal} variant="outline">
           탈퇴

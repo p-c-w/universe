@@ -11,7 +11,7 @@ import { useSetRecoilState } from 'recoil';
 import { signInSchema } from '../../../schema/schema';
 import userState from '../../../recoil/atom/userState';
 
-const FormBody = styled.form`
+const Form = styled.form`
   border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2])};
   border-radius: 0.375rem;
 `;
@@ -32,7 +32,7 @@ const SigninForm = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(signInSchema) });
 
-  const handleonSubmit = async data => {
+  const submitForm = async data => {
     try {
       const { data: user } = await axios.post('/api/auth/signin', data);
 
@@ -58,7 +58,7 @@ const SigninForm = () => {
       <Title fz={24} fw={300} mb={20} align="center">
         Sign in to Universe
       </Title>
-      <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post">
+      <Form action="/" onSubmit={handleSubmit(submitForm)} method="post">
         <Flex p={25} justify="space-between" direction="column" gap={20}>
           <InputWrapper label="Email address">
             <TextInput {...register('email')} error={errors?.email?.message} autoComplete="off" />
@@ -73,7 +73,7 @@ const SigninForm = () => {
             Sign in
           </Button>
         </Flex>
-      </FormBody>
+      </Form>
     </>
   );
 };

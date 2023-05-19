@@ -30,7 +30,7 @@ const SignupOption = ({ userInput, setUserInput }) => {
   const [isLogo, setIsLogo] = useState(false);
   const [subscribedOtt, setSubscribedOtt] = useState([]);
 
-  const handleClick = async () => {
+  const submitOption = async () => {
     try {
       await axios.patch(`/api/users/${userInput}`, { subscribe_list: subscribedOtt });
 
@@ -51,18 +51,13 @@ const SignupOption = ({ userInput, setUserInput }) => {
     }
   };
 
+  const appearLogo = () => setIsLogo(true);
+
   return (
     <>
       <Typing str="Congratulation!🥳🎉" isLast={0} />
       <Typing str="What OTT Services are you subscribing to?" isLast={1} />
-      <Typing
-        str="(Optional)"
-        isLast={2}
-        fontSize={'small'}
-        onAnimationEnd={() => {
-          setIsLogo(true);
-        }}
-      />
+      <Typing str="(Optional)" isLast={2} fontSize="small" onAnimationEnd={appearLogo} />
       {isLogo && (
         <Container>
           <Grid columns={3} m={25} justify="center">
@@ -73,10 +68,10 @@ const SignupOption = ({ userInput, setUserInput }) => {
             ))}
           </Grid>
           <Flex justify="flex-end">
-            <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+            <Button component={Link} w={90} to="/signin" c="white" fw={300} variant="outline" onClick={submitOption}>
               Skip
             </Button>
-            <Button component={Link} w={90} to="/signin" c="#FFF" fw={300} variant="outline" onClick={handleClick}>
+            <Button component={Link} w={90} to="/signin" c="white" fw={300} variant="outline" onClick={submitOption}>
               Submit
             </Button>
           </Flex>
