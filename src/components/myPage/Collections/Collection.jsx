@@ -18,7 +18,7 @@ const Collection = ({ setIsItemSelected, setImgSrc, page }) => {
     refetchOnWindowFocus: false,
   });
 
-  const { activePage, setActivePage, total, collection } = usePagination(userInfo);
+  const { activePage, setActivePage, total, collection } = usePagination(userInfo.reverse());
 
   const collectionQueries = useCollectionQueries(collection, { enable: !!collection });
 
