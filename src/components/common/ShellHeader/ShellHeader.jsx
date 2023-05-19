@@ -1,69 +1,68 @@
-import { Suspense, useState } from 'react';
-import { useClickOutside, useDebouncedValue, useMediaQuery } from '@mantine/hooks';
-import { TextInput, ActionIcon, useMantineColorScheme, Loader, Container, Flex } from '@mantine/core';
-import { IconSearch, IconArrowRight } from '@tabler/icons-react';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { SearchResult } from '.';
+import { isLoginState, sideNavState, userState } from '../../../recoil/atom';
+import { MyMenu, SearchBar } from '.';
+import { ThemeButton } from '..';
+import { generateInitial } from '../../../utils';
 
-const ResultContiner = styled(Flex)`
-  border-radius: 0.9375rem;
+const Logo = styled(Avatar)`
+  cursor: pointer;
+  transition: 0.1s ease;
+  padding: 0.0625rem;
+
+  &:hover {
+    padding: 0;
+  }
 `;
 
-const SearchBar = () => {
-  const [searchInput, setSearchInput] = useState('');
-  const [debounced] = useDebouncedValue(searchInput, 300);
-  const smallScreen = useMediaQuery('(max-width: 60rem)');
-
-  const [opened, setOpened] = useState(false);
-  const ref = useClickOutside(() => setOpened(false));
-
+const ShellHeader = () => {
+  const [isOpened, setIsOpened] = useRecoilState(sideNavState);
   const { colorScheme } = useMantineColorScheme();
+  const isLogin = useRecoilValue(isLoginState);
+  const user = useRecoilValue(userState);
+
   const dark = colorScheme === 'dark';
+  const label = isOpened ? 'Close navigation' : 'Open navigation';
+
+  const handleBurgerClick = () => setIsOpened(prev => !prev);
 
   return (
-    <Container pos="relative" w={smallScreen ? 250 : 450} mx="md" p={0}>
-      <TextInput
-        icon={<IconSearch size="1.1rem" stroke={1.5} />}
-        p={0}
-        fz={smallScreen ? 10 : 12}
-        radius="xl"
-        color={dark ? 'violet' : 'dark'}
-        rightSection={
-          <ActionIcon size="sm" radius="xl" color={dark ? 'dark' : 'gray'} variant={dark ? 'filled' : 'light'}>
-            <IconArrowRight size="1.1rem" stroke={1.5} />
-          </ActionIcon>
-        }
-        placeholder="Search for a movie, tv show"
-        rightSectionWidth={42}
-        value={searchInput}
-        onClick={() => setOpened(opened => !opened)}
-        onChange={e => {
-          if (!opened) {
-            setOpened(true);
-          }
-          setSearchInput(e.currentTarget.value);
-        }}
-      />
-      {opened && debounced && (
-        <Suspense
-          fallback={
-            <ResultContiner
-              pos="absolute"
-              w={smallScreen ? 250 : 450}
-              left="0"
-              align="center"
-              justify="center"
-              py="xl"
-              c="gray.9"
-              bg="rgba(255, 255, 255, 0.95)">
-              <Loader size="md" color={dark ? 'violet' : 'dark'} />
-            </ResultContiner>
-          }>
-          <SearchResult input={debounced} ref={ref} />
-        </Suspense>
-      )}
-    </Container>
+    <Header height={{ base: 60 }} miw={768} p="xl" zIndex="9999">
+      <Flex align="center" h="100%" justify="space-between">
+        <Flex align="center">
+          <Burger
+            opened={isOpened}
+            onClick={handleBurgerClick}
+            size="md"
+            c={dark ? 'gray.0' : 'dark.8'}
+            mr="lg"
+            aria-label={label}
+          />
+          <Link to="/">
+            <Logo size={40} src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`} alt="home button" />
+          </Link>
+          <Flex h={40} align="end">
+            <Title size={14} fw="100" italic>
+              Beta
+            </Title>
+          </Flex>
+        </Flex>
+        <SearchBar />
+        <Flex mx="0" align="Center" gap="xs">
+          <ThemeButton />
+          {isLogin ? (
+            <MyMenu initial={user && generateInitial(user)} />
+          ) : (
+            <Button component={Link} to="/signin" variant="filled" color={dark ? 'violet' : 'dark'}>
+              Sign in
+            </Button>
+          )}
+        </Flex>
+      </Flex>
+    </Header>
   );
 };
 
-export default SearchBar;
+export default ShellHeader;
