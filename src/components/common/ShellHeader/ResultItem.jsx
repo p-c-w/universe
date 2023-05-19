@@ -7,6 +7,8 @@ import { DetailModal, ModalSkeleton } from '..';
 
 const Container = styled(Text)`
   cursor: pointer;
+  margin-bottom: var(--mantine-spacing-sm);
+  font-weight: 400;
 `;
 
 const ResultItem = ({ id, title, name, reg, type }) => {
@@ -26,7 +28,7 @@ const ResultItem = ({ id, title, name, reg, type }) => {
   };
 
   return (
-    <Container key={id} mb="sm" fw={400} onClick={DetailClick}>
+    <Container key={id} onClick={DetailClick}>
       {parse((title || name).replace(reg, match => `<b>${match}</b>`))}
     </Container>
   );

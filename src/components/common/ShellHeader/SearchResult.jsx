@@ -1,14 +1,24 @@
 import { forwardRef, useEffect, useRef } from 'react';
-import { Container, Flex, ScrollArea, Space, Text, Title } from '@mantine/core';
+import { Container, ScrollArea, Space, Text, Title } from '@mantine/core';
 import styled from '@emotion/styled';
-import { useMediaQuery } from '@mantine/hooks';
 import { useSearchResultQueries } from '../../../hooks/queries';
 import { ResultItem } from '.';
 
 const mediaType = ['movie', 'tv'];
 
 const ResultContiner = styled(Container)`
+  position: absolute;
+  left: 0;
+  width: 28.125rem;
+  padding: var(--mantine-spacing-lg) var(--mantine-spacing-xl);
+  color: var(--mantine-color-dark-5);
+  background-color: var(--mantine-color-white);
   border-radius: 0.9375rem;
+`;
+
+const UnderLineTitle = styled(Title)`
+  border-bottom: 0.0938rem solid var(--mantine-color-dark-5);
+  margin-bottom: var(--mantine-spacing-sm);
 `;
 
 const Scroll = styled(ScrollArea.Autosize)`
@@ -34,31 +44,18 @@ const Scroll = styled(ScrollArea.Autosize)`
 const SearchResult = forwardRef(({ input }, ref) => {
   const searchResults = useSearchResultQueries(mediaType, input);
   const userInputRegex = useRef(null);
-  const smallScreen = useMediaQuery('(max-width: 60rem)');
 
   useEffect(() => {
     userInputRegex.current = new RegExp(input, 'i');
   }, [input]);
 
   return (
-    <ResultContiner
-      ref={ref}
-      pos="absolute"
-      w={smallScreen ? 250 : 450}
-      px={smallScreen ? 'xs' : 'lg'}
-      pt="1.875rem"
-      pb="1.875rem"
-      left="0"
-      c="gray.7"
-      bg="white">
+    <ResultContiner ref={ref}>
       {searchResults.map((searchResult, idx) => (
-        <Container key={idx}>
-          <Flex align="center" justify="space-between">
-            <Title order={5} tt="uppercase">
-              {mediaType[idx]}
-            </Title>
-          </Flex>
-          <hr />
+        <Container key={idx} p="0">
+          <UnderLineTitle order={5} tt="uppercase">
+            {mediaType[idx]}
+          </UnderLineTitle>
           {searchResult.length === 0 ? (
             <Text mb="sm" fw={400}>
               {'검색결과가 없습니다.'}
