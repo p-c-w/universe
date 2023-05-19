@@ -24,7 +24,7 @@ const EditPassword = () => {
       notifications.show({
         withCloseButton: true,
         autoClose: 3000,
-        title: 'Password Change Success',
+        title: '비밀번호 변경 성공',
         message: alarm,
         color: 'green',
         icon: <IconCheck />,
@@ -36,7 +36,7 @@ const EditPassword = () => {
         notifications.show({
           withCloseButton: true,
           autoClose: 3000,
-          title: 'Password Change Failure',
+          title: '비밀번호 변경 실패',
           message: error.response.data,
           color: 'red',
           icon: <IconX />,
@@ -46,7 +46,7 @@ const EditPassword = () => {
         notifications.show({
           withCloseButton: true,
           autoClose: 3000,
-          title: 'Password Change Failure',
+          title: '비밀번호 변경 실패',
           message: '알 수 없는 오류가 발생했습니다.',
           color: 'red',
           icon: <IconX />,

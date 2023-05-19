@@ -43,7 +43,7 @@ const SigninForm = () => {
         notifications.show({
           withCloseButton: true,
           autoClose: 2000,
-          title: 'Login Failure',
+          title: '로그인 실패',
           message: error.response.data,
           color: 'red',
           icon: <IconX />,

@@ -24,7 +24,7 @@ const DeleteUser = () => {
       notifications.show({
         withCloseButton: true,
         autoClose: 3000,
-        title: 'Withdrawal Success',
+        title: '회원탈퇴 성공',
         message: alarm,
         color: 'green',
         icon: <IconCheck />,
@@ -37,7 +37,7 @@ const DeleteUser = () => {
       notifications.show({
         withCloseButton: true,
         autoClose: 3000,
-        title: 'Withdrawal Failure',
+        title: '회원탈퇴 실패',
         message: '알 수 없는 오류가 발생했습니다.',
         color: 'red',
         icon: <IconX />,

@@ -42,7 +42,7 @@ const SignupForm = ({ setUserInput }) => {
         notifications.show({
           withCloseButton: true,
           autoClose: 2000,
-          title: 'Signup Failure',
+          title: '회원가입 실패',
           message: error.response.data,
           color: 'red',
           icon: <IconX />,
@@ -52,7 +52,7 @@ const SignupForm = ({ setUserInput }) => {
         notifications.show({
           withCloseButton: true,
           autoClose: 2000,
-          title: 'Signup Failure',
+          title: '회원가입 실패',
           message: '알 수 없는 오류가 발생했습니다.',
           color: 'red',
           icon: <IconX />,
