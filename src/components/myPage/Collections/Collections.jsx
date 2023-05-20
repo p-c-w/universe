@@ -1,10 +1,10 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
 import { CategoryButtons, Collection, SkeletonWrapper } from '.';
-import { selectedItemImgState } from '../../../recoil/atom';
+import posterImgState from '../../../recoil/selector/posterImgState';
 
 const MyListContainer = styled(Container)`
   display: flex;
@@ -20,8 +20,10 @@ const PosterImage = styled(Image)`
 
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const middleScreen = useMediaQuery('(max-width: 51.25rem)');
 
-  const selectedItemImg = useRecoilValue(selectedItemImgState);
+  const isImgOpened = useRecoilValue(posterImgState(middleScreen));
+  const [imgSrc, setImgSrc] = useState(null);
 
   return (
     <MyListContainer fluid>
@@ -29,16 +31,16 @@ const Collections = () => {
       <Flex gap={smallScreen ? 8 : 16}>
         <ScrollArea w="100%" h={400} miw={250}>
           <Suspense fallback={<SkeletonWrapper />}>
-            <Collection />
+            <Collection setImgSrc={setImgSrc} />
           </Suspense>
         </ScrollArea>
-        <Transition mounted={selectedItemImg !== null} transition="pop-top-right" duration={400} timingFunction="ease">
+        <Transition mounted={isImgOpened} transition="pop-top-right" duration={400} timingFunction="ease">
           {styles => (
             <PosterImage
-              open={selectedItemImg !== null}
+              open={isImgOpened}
               maw={smallScreen ? 250 : 300}
               miw={50}
-              src={selectedItemImg}
+              src={imgSrc}
               alt="content image"
               style={styles}
             />

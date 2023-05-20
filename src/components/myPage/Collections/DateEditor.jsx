@@ -19,7 +19,6 @@ const timeOffset = new Date().getTimezoneOffset() * 60000;
 
 const DateEditor = ({ id, date }) => {
   const middleScreen = useMediaQuery('(max-width: 64rem)');
-  const smallScreen = useMediaQuery('(max-width: 44rem)');
 
   const isNavOpened = useRecoilValue(sideNavState);
   const email = useRecoilValue(userState);
@@ -55,9 +54,9 @@ const DateEditor = ({ id, date }) => {
 
   return (
     <Flex
-      direction={(smallScreen || (middleScreen && isNavOpened)) && 'column'}
-      align={smallScreen || (middleScreen && isNavOpened) ? 'start' : 'center'}
-      gap={smallScreen ? 7 : 10}>
+      direction={middleScreen && isNavOpened && 'column'}
+      align={middleScreen && isNavOpened ? 'start' : 'center'}
+      gap={10}>
       {editMode ? (
         <DatePickerInput
           onClick={stopPropagation}
