@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { Accordion, Pagination } from '@mantine/core';
 import { useRecoilValue } from 'recoil';
 import { useMediaQuery } from '@mantine/hooks';
@@ -6,8 +6,9 @@ import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
 import { useSelectedItem, usePagination } from '../../../hooks';
 import { sideNavState, categoryState } from '../../../recoil/atom';
 import { EmptyMessage, Item } from '.';
+import { TMDB_IMG_URL } from '../../../constants';
 
-const Collection = ({ setIsItemSelected, setImgSrc, page }) => {
+const Collection = ({ selectedItem, setSelectedItem, setImgSrc }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const category = useRecoilValue(categoryState);
@@ -18,11 +19,13 @@ const Collection = ({ setIsItemSelected, setImgSrc, page }) => {
     refetchOnWindowFocus: false,
   });
 
-  const { activePage, setActivePage, total, collection } = usePagination(userInfo.reverse());
+  const { activePage, setActivePage, total, collection } = usePagination(
+    userInfo.reverse(),
+    setSelectedItem,
+    setImgSrc
+  );
 
   const collectionQueries = useCollectionQueries(collection, { enable: !!collection });
-
-  const [selectedItem, setSelectedItem] = useState(null);
 
   const collectionList = collectionQueries.map(
     ({ data }) =>
@@ -32,23 +35,18 @@ const Collection = ({ setIsItemSelected, setImgSrc, page }) => {
       }
   );
 
-  const screenToClose = useSelectedItem(setSelectedItem, setIsItemSelected, selectedItem, page);
-
   const itemRef = useRef(null);
+
+  const screenToClose = useSelectedItem(selectedItem, setImgSrc, itemRef);
 
   const selectItem = e => {
     setSelectedItem(e);
-    itemRef.current = e;
-    setImgSrc(
-      itemRef.current && `https://image.tmdb.org/t/p/w300${collectionList.find(item => item.title === e)?.posterPath}`
-    );
+    itemRef.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e)?.posterPath}`;
+    setImgSrc(itemRef.current);
 
     if (isNavOpened && screenToClose) {
-      setIsItemSelected(null);
-      return;
+      setImgSrc(null);
     }
-
-    setIsItemSelected(itemRef.current !== null);
   };
 
   return (
@@ -59,7 +57,7 @@ const Collection = ({ setIsItemSelected, setImgSrc, page }) => {
         <>
           <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
             {collectionList?.map(item => (
-              <Item key={item.id} item={item} setSelectedItem={setSelectedItem} setIsItemSelected={setIsItemSelected} />
+              <Item key={item.id} item={item} setSelectedItem={setSelectedItem} setImgSrc={setImgSrc} />
             ))}
           </Accordion>
 

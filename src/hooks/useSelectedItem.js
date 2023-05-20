@@ -1,37 +1,28 @@
 import { useEffect } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
-import { sideNavState, categoryState } from '../recoil/atom';
+import { sideNavState } from '../recoil/atom';
 
-const useSelectedItem = (setSelectedItem, setIsItemSelected, selectedItem, page) => {
+const useSelectedItem = (selectedItem, setImgSrc, itemRef) => {
   const middleScreen = useMediaQuery('(max-width: 51.25rem)');
 
-  const category = useRecoilValue(categoryState);
   const isNavOpened = useRecoilValue(sideNavState);
 
   useEffect(() => {
-    setSelectedItem(null);
-  }, [category, page]);
-
-  useEffect(() => {
-    setIsItemSelected(false);
-  }, [page]);
-
-  useEffect(() => {
     if (middleScreen && isNavOpened) {
-      setIsItemSelected(false);
+      setImgSrc(null);
     }
   }, [middleScreen, isNavOpened]);
 
   useEffect(() => {
     if (!middleScreen && selectedItem && isNavOpened) {
-      setIsItemSelected(true);
+      setImgSrc(itemRef.current);
     }
   }, [middleScreen]);
 
   useEffect(() => {
     if (middleScreen && selectedItem && !isNavOpened) {
-      setIsItemSelected(true);
+      setImgSrc(itemRef.current);
     }
   }, [isNavOpened]);
 

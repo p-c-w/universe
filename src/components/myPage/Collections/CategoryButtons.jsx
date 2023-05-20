@@ -5,7 +5,7 @@ import { COLLECTION_BUTTON } from '../../../constants';
 import { CategoryButton } from '.';
 import { categoryState } from '../../../recoil/atom';
 
-const CategoryButtons = ({ setIsItemSelected }) => {
+const CategoryButtons = ({ setSelectedItem, setImgSrc }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const [category, setCategory] = useRecoilState(categoryState);
@@ -13,7 +13,8 @@ const CategoryButtons = ({ setIsItemSelected }) => {
   const changeCategory = (e, button) => {
     if (`${e.target.textContent.toLowerCase()}` === category) return;
     setCategory(`${button.label.toLowerCase()}`);
-    setIsItemSelected(false);
+    setSelectedItem(null);
+    setImgSrc(null);
   };
 
   return (

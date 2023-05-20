@@ -8,7 +8,7 @@ import { categoryState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
-const Item = ({ item, setSelectedItem, setIsItemSelected }) => {
+const Item = ({ item, setSelectedItem, setImgSrc }) => {
   const listName = useRecoilValue(categoryState);
   const [hovered, setHovered] = useState(false);
 
@@ -47,16 +47,12 @@ const Item = ({ item, setSelectedItem, setIsItemSelected }) => {
     handleDeleteClick(e, { id: item?.id, listName });
 
     setSelectedItem(null);
-    setIsItemSelected(false);
+    setImgSrc(null);
   };
 
   return (
     <>
-      <Accordion.Item
-        value={item?.title}
-        key={item?.id}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
+      <Accordion.Item value={item.title} key={item.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Accordion.Control px={8}>
           <Flex direction="row" justify="space-between" align="center">
             <ItemTitle {...item} />
