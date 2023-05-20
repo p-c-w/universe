@@ -1,12 +1,12 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from '@emotion/styled';
 import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMantineColorScheme } from '@mantine/core';
-import { IconMovie, IconThumbUp, IconHistory, IconPlanet } from '@tabler/icons-react';
+import { IconMovie, IconThumbUp, IconHistory, IconPlanet, IconLogout } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
-import { sideNavState, categoryState, isLoginState } from '../../recoil/atom';
-import Signout from '../auth/Signout';
-import { SIDE_NAV_DURATION } from '../../constants';
+import { sideNavState, categoryState, isLoginState } from '../../../recoil/atom';
+import { useSignout } from '../../../hooks';
+import { SIDE_NAV_DURATION } from '../../../constants';
 
 const Nav = styled(Navbar)`
   justify-content: space-between;
@@ -60,6 +60,8 @@ const SideNavBar = () => {
   const { colorScheme } = useMantineColorScheme();
   const setCategory = useSetRecoilState(categoryState);
 
+  const signout = useSignout();
+
   const dark = colorScheme === 'dark';
 
   return (
@@ -105,7 +107,16 @@ const SideNavBar = () => {
           <Stack>
             {isLogin && (
               <Navbar.Section>
-                <Signout />
+                <Tab role="button" aria-label="Sign out" onClick={signout}>
+                  <CustomLink to="/">
+                    <ThemeIcon variant={dark ? 'filled' : 'light'} color="gray">
+                      <IconLogout size="1.1rem" />
+                    </ThemeIcon>
+                    <Text color={dark ? 'gray.0' : 'gray.9'} ml={25} size="sm">
+                      Sign out
+                    </Text>
+                  </CustomLink>
+                </Tab>
               </Navbar.Section>
             )}
             <Section>

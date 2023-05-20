@@ -4,14 +4,14 @@ import styled from '@emotion/styled';
 import { Title, Flex, Input, PasswordInput, Button, TextInput, Text } from '@mantine/core';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { IconX } from '@tabler/icons-react';
-import { notifications } from '@mantine/notifications';
 
 import { useSetRecoilState } from 'recoil';
-import { signInSchema } from '../../schema/schema';
-import userState from '../../recoil/atom/userState';
+import { signInSchema } from '../../../schema/schema';
+import userState from '../../../recoil/atom/userState';
 
-const FormBody = styled.form`
+import { showNotification } from '../../../utils';
+
+const Form = styled.form`
   border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2])};
   border-radius: 0.375rem;
 `;
@@ -32,24 +32,15 @@ const SigninForm = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(signInSchema) });
 
-  const handleonSubmit = async data => {
+  const submitForm = async data => {
     try {
       const { data: user } = await axios.post('/api/auth/signin', data);
 
       setUser(user);
       navigate('/');
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        notifications.show({
-          withCloseButton: true,
-          autoClose: 2000,
-          title: 'Login Failure',
-          message: error.response.data,
-          color: 'red',
-          icon: <IconX />,
-          loading: false,
-        });
-      }
+      const message = error.response && error.response.status === 401 ? error.response.data : undefined;
+      showNotification(false, '로그인', message);
     }
   };
 
@@ -58,7 +49,7 @@ const SigninForm = () => {
       <Title fz={24} fw={300} mb={20} align="center">
         Sign in to Universe
       </Title>
-      <FormBody action="/" onSubmit={handleSubmit(handleonSubmit)} method="post">
+      <Form action="/" onSubmit={handleSubmit(submitForm)} method="post">
         <Flex p={25} justify="space-between" direction="column" gap={20}>
           <InputWrapper label="Email address">
             <TextInput {...register('email')} error={errors?.email?.message} autoComplete="off" />
@@ -73,7 +64,7 @@ const SigninForm = () => {
             Sign in
           </Button>
         </Flex>
-      </FormBody>
+      </Form>
     </>
   );
 };

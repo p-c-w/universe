@@ -10,20 +10,27 @@ const Logo = styled(Button)`
 const LogoBtn = ({ logo: { id, name }, idx, subscribedOtt, setSubscribedOtt }) => {
   const [selected, setSelected] = useState(false);
 
-  const handleLogoClick = () => {
-    if (selected) {
-      const newSubscribedOtt = subscribedOtt.filter(ott => ott.id !== id);
-      setSubscribedOtt(newSubscribedOtt);
-      setSelected(!selected);
-    } else {
-      const newSubscribedOtt = [...subscribedOtt, { id, price: 'basic' }];
-      setSubscribedOtt(newSubscribedOtt);
-      setSelected(!selected);
-    }
+  const removeLogo = () => {
+    const newSubscribedOtt = subscribedOtt.filter(ott => ott.id !== id);
+    setSubscribedOtt(newSubscribedOtt);
+    setSelected(!selected);
+  };
+
+  const selectLogo = () => {
+    const newSubscribedOtt = [...subscribedOtt, { id, price: 'basic' }];
+    setSubscribedOtt(newSubscribedOtt);
+    setSelected(!selected);
   };
 
   return (
-    <Logo onClick={handleLogoClick} selected={selected} p={0} h={70} variant="none" type="button" disabled={idx > 5}>
+    <Logo
+      onClick={selected ? removeLogo : selectLogo}
+      selected={selected}
+      p={0}
+      h={70}
+      variant="none"
+      type="button"
+      disabled={idx > 5}>
       <Image width={70} id={id} src={`./assets/badges/${name}.svg`} alt="button" />
     </Logo>
   );

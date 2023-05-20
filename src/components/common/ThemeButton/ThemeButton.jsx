@@ -1,7 +1,7 @@
 import { Avatar } from '@mantine/core';
 import { IconSun, IconMoonStars } from '@tabler/icons-react';
 import styled from '@emotion/styled';
-import useColorScheme from '../../hooks/useColorScheme';
+import useColorScheme from '../../../hooks/useColorScheme';
 
 const IconBox = styled(Avatar)`
   cursor: pointer;
@@ -20,7 +20,6 @@ const ThemeButton = () => {
   return (
     <IconBox
       size="md"
-      mx="xs"
       color={dark ? 'yellow' : 'violet'}
       title="Toggle color scheme"
       cursor="pointer"

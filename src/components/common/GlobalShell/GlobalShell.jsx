@@ -1,6 +1,6 @@
 import { AppShell } from '@mantine/core';
 import styled from '@emotion/styled';
-import { SideNavBar, ShellHeader } from '.';
+import { SideNavBar, ShellHeader } from '..';
 
 const Layout = styled(AppShell)`
   & .mantine-AppShell-main {
@@ -10,7 +10,7 @@ const Layout = styled(AppShell)`
 `;
 
 const GlobalShell = ({ children }) => (
-  <Layout navbar={<SideNavBar />} header={<ShellHeader />}>
+  <Layout miw={768} navbar={<SideNavBar />} header={<ShellHeader />}>
     {children}
   </Layout>
 );

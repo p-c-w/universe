@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Menu, Avatar } from '@mantine/core';
 import styled from '@emotion/styled';
 import { IconSettings, IconMessageCircle, IconArrowsLeftRight, IconPlanet, IconLogout } from '@tabler/icons-react';
-import { useSignout } from '../../hooks';
+import { useSignout } from '../../../hooks';
 
 const IconBox = styled(Avatar)`
   cursor: pointer;
