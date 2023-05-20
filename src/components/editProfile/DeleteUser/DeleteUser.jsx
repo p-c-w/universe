@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
-import { userState } from '../../../recoil/atom';
+import { userState, isLoginState } from '../../../recoil/atom';
 import { useUserQuery } from '../../../hooks/queries';
 import { showNotification } from '../../../utils';
 
@@ -13,17 +13,20 @@ const DeleteUser = () => {
   const navigate = useNavigate();
 
   const [user, setUser] = useRecoilState(userState);
+  const setIsLogin = useSetRecoilState(isLoginState);
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
 
   const submitWithdrawal = async () => {
     try {
-      const { data: message } = await axios.delete(`/api/auth/withdrawal/${user}`);
+      const {
+        data: { isLogin, message },
+      } = await axios.delete(`/api/auth/withdrawal/${user}`);
       setUser(null);
       localStorage.removeItem('user');
-
-      showNotification(true, DELETE_ACCOUNT, message);
+      setIsLogin(isLogin);
 
       modals.closeAll();
+      showNotification(true, DELETE_ACCOUNT, message);
       navigate('/');
     } catch (error) {
       showNotification(false, DELETE_ACCOUNT);
