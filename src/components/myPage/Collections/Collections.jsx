@@ -19,16 +19,15 @@ const PosterImage = styled(Image)`
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
-  const [selectedItem, setSelectedItem] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
 
   return (
     <MyListContainer fluid>
-      <CategoryButtons setSelectedItem={setSelectedItem} setImgSrc={setImgSrc} />
+      <CategoryButtons setImgSrc={setImgSrc} />
       <Flex gap={smallScreen ? 8 : 16}>
         <ScrollArea w="100%" h={400} miw={250}>
           <Suspense fallback={<SkeletonWrapper />}>
-            <Collection selectedItem={selectedItem} setSelectedItem={setSelectedItem} setImgSrc={setImgSrc} />
+            <Collection setImgSrc={setImgSrc} />
           </Suspense>
         </ScrollArea>
         <Transition mounted={imgSrc !== null} transition="pop-top-right" duration={400} timingFunction="ease">

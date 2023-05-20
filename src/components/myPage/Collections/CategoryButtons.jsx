@@ -1,14 +1,15 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useMediaQuery } from '@mantine/hooks';
 import { Flex } from '@mantine/core';
 import { COLLECTION_BUTTON } from '../../../constants';
 import { CategoryButton } from '.';
-import { categoryState } from '../../../recoil/atom';
+import { categoryState, selectedItemState } from '../../../recoil/atom';
 
-const CategoryButtons = ({ setSelectedItem, setImgSrc }) => {
+const CategoryButtons = ({ setImgSrc }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const [category, setCategory] = useRecoilState(categoryState);
+  const setSelectedItem = useSetRecoilState(selectedItemState);
 
   const changeCategory = (e, button) => {
     if (`${e.target.textContent.toLowerCase()}` === category) return;

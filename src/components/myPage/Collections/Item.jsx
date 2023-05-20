@@ -1,18 +1,20 @@
 import { useState, Suspense } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
-import { categoryState } from '../../../recoil/atom';
+import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
-const Item = ({ item, setSelectedItem, setImgSrc }) => {
-  const listName = useRecoilValue(categoryState);
-  const [hovered, setHovered] = useState(false);
-
+const Item = ({ item, setImgSrc }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
+
+  const listName = useRecoilValue(categoryState);
+  const setSelectedItem = useSetRecoilState(selectedItemState);
+
+  const [hovered, setHovered] = useState(false);
 
   const DetailClick = () => {
     modals.open({
