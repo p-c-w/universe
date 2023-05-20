@@ -12,6 +12,7 @@ const GridCol = styled(Grid.Col)`
   text-align: center;
   align-items: center;
   justify-content: center;
+  min-height: 7.5rem;
 `;
 
 const logos = [
@@ -46,18 +47,17 @@ const SignupOption = ({ userInput, setUserInput }) => {
   return (
     <>
       <Typing str="Congratulation!🥳🎉" isLast={0} />
-      <Typing str="What OTT Services are you subscribing to?" isLast={1} />
-      <Typing str="(Optional)" isLast={2} fontSize="small" onAnimationEnd={appearLogo} />
+      <Typing str="What OTT Services are you subscribing to?" isLast={1} onAnimationEnd={appearLogo} />
       {isLogo && (
         <Container>
           <Grid columns={3} m={25} justify="center">
             {logos.map((logo, idx) => (
-              <GridCol span={1} key={idx} mih={120} display="flex">
+              <GridCol span={1} key={idx} display="flex">
                 <LogoBtn logo={logo} idx={idx} subscribedOtt={subscribedOtt} setSubscribedOtt={setSubscribedOtt} />
               </GridCol>
             ))}
           </Grid>
-          <Flex justify="flex-end">
+          <Flex justify="flex-end" gap={5}>
             <Button component={Link} w={90} to="/signin" c="white" fw={300} variant="outline" onClick={submitOption}>
               Skip
             </Button>

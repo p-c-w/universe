@@ -15,10 +15,17 @@ const convertRuntime = runtime => {
 
 const CloseBtn = styled(Modal.CloseButton)`
   z-index: 999;
+  position: absolute;
+  top: 0.625rem;
+  right: 1.25rem;
 `;
 
 const Body = styled(Grid)`
   z-index: 2;
+  position: absolute;
+  top: 0;
+  margin: 2.5rem;
+  color: white;
 `;
 
 const DetailModal = ({ id, type }) => {
@@ -53,13 +60,13 @@ const DetailModal = ({ id, type }) => {
   return (
     <Container pos="relative" m={0} p={0}>
       <Overlay c="#000" opacity={0.75} zIndex="1" />
-      <CloseBtn pos="absolute" top={10} right={20} />
+      <CloseBtn />
       {backdropPath ? (
         <Image src={`https://image.tmdb.org/t/p/w780${backdropPath}`} />
       ) : (
         <Container w={950} h={535} bg="dark.5" />
       )}
-      <Body m={40} c="#fff" columns={3} pos="absolute" top={0}>
+      <Body columns={3}>
         <Grid.Col span={2}>
           <Container>
             <Title order={midScreen ? 1 : 2} mb="xs" mt="lg">
@@ -89,7 +96,7 @@ const DetailModal = ({ id, type }) => {
                   </Badge>
                 ))}
               </Flex>
-              <Suspense fallback={<div>...loading</div>}>
+              <Suspense>
                 <ActionIcons size={20} id={id} type={type} />
               </Suspense>
             </Flex>
@@ -102,7 +109,7 @@ const DetailModal = ({ id, type }) => {
           </Container>
         </Grid.Col>
         <Grid.Col span={1}>
-          <Flex direction="column" m={10} justify={'center'} align={'center'}>
+          <Flex direction="column" m={10} justify="center" align="center">
             {posterPath ? (
               <Image src={`https://image.tmdb.org/t/p/w${smallScreen ? 342 : 185}${posterPath}`} />
             ) : (
