@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
@@ -10,8 +9,6 @@ import { showNotification } from '../../../utils';
 const DELETE_ACCOUNT = '회원탈퇴';
 
 const DeleteUser = () => {
-  const navigate = useNavigate();
-
   const [user, setUser] = useRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
   const { userInfo: name } = useUserQuery({ select: userInfo => userInfo.name });
@@ -27,7 +24,6 @@ const DeleteUser = () => {
 
       modals.closeAll();
       showNotification(true, DELETE_ACCOUNT, message);
-      navigate('/');
     } catch (error) {
       showNotification(false, DELETE_ACCOUNT);
     }
