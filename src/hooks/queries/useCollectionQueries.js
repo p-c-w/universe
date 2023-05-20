@@ -2,7 +2,7 @@ import { useQueries } from '@tanstack/react-query';
 import { fetchProviderAndDetail } from '../../api';
 import { PROVIDERS } from '../../constants';
 
-const staleTime = 1000 * 5;
+const staleTime = 1000 * 5 * 60;
 
 const useCollectionQueries = (list, options) => {
   const collectionQueries = list.map(({ type, id }) => ({

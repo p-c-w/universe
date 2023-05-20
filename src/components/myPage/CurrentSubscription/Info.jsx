@@ -6,6 +6,7 @@ import { useUserQuery } from '../../../hooks/queries';
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2])};
   border-radius: 0.5rem;
+  padding: 1rem;
 `;
 
 const getUserInfo = userInfo => ({
@@ -18,7 +19,7 @@ const defaultData = {
   watchList: [],
 };
 
-const SubscriptionInfo = () => {
+const Info = () => {
   const { data = [] } = useUserQuery({
     select: getUserInfo,
     refetchOnWindowFocus: false,
@@ -26,11 +27,11 @@ const SubscriptionInfo = () => {
   const { subscribeList, watchList } = data || defaultData;
 
   return (
-    <StyledContainer p={16}>
+    <StyledContainer>
       <Fee subscribeList={subscribeList} />
       <Unsubscriptions subscribeList={subscribeList} watchList={watchList} />
     </StyledContainer>
   );
 };
 
-export default SubscriptionInfo;
+export default Info;

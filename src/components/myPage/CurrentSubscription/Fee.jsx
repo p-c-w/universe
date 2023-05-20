@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -58,4 +58,4 @@ const Fee = ({ subscribeList }) => {
   );
 };
 
-export default Fee;
+export default React.memo(Fee);

@@ -1,18 +1,21 @@
 import { useState, Suspense } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
-import { categoryState } from '../../../recoil/atom';
+import { categoryState, selectedItemState, selectedItemImgState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
-const Item = ({ item, setSelectedItem, setIsItemSelected }) => {
-  const listName = useRecoilValue(categoryState);
-  const [hovered, setHovered] = useState(false);
-
+const Item = ({ item }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
+
+  const listName = useRecoilValue(categoryState);
+  const setSelectedItem = useSetRecoilState(selectedItemState);
+  const setSelectedItemImg = useSetRecoilState(selectedItemImgState);
+
+  const [hovered, setHovered] = useState(false);
 
   const DetailClick = () => {
     modals.open({
@@ -47,16 +50,12 @@ const Item = ({ item, setSelectedItem, setIsItemSelected }) => {
     handleDeleteClick(e, { id: item?.id, listName });
 
     setSelectedItem(null);
-    setIsItemSelected(false);
+    setSelectedItemImg(null);
   };
 
   return (
     <>
-      <Accordion.Item
-        value={item?.title}
-        key={item?.id}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}>
+      <Accordion.Item value={item.title} key={item.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Accordion.Control px={8}>
           <Flex direction="row" justify="space-between" align="center">
             <ItemTitle {...item} />
