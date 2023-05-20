@@ -1,7 +1,6 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useMediaQuery } from '@mantine/hooks';
 import { Flex } from '@mantine/core';
-import { useEffect } from 'react';
 import { COLLECTION_BUTTON } from '../../../constants';
 import { CategoryButton } from '.';
 import { categoryState } from '../../../recoil/atom';

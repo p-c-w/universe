@@ -13,6 +13,7 @@ const Collection = ({ setImgSrc }) => {
 
   const category = useRecoilValue(categoryState);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
+  const imgUrl = useRef(null);
 
   const { userInfo = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
@@ -27,16 +28,14 @@ const Collection = ({ setImgSrc }) => {
     ({ data }) =>
       data !== undefined && {
         ...data,
-        modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
+        modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
       }
   );
 
-  const itemRef = useRef(null);
-
   const selectItem = e => {
     setSelectedItem(e);
-    itemRef.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e)?.posterPath}`;
-    setImgSrc(itemRef.current);
+    imgUrl.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e).posterPath}`;
+    setImgSrc(imgUrl.current);
   };
 
   return (
