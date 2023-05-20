@@ -10,19 +10,15 @@ const SuggestedSubscription = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const { userInfo } = useUserQuery({
-    select: userInfo => ({
-      watchlist: userInfo.watch_list,
-      refetchOnWindowFocus: false,
-    }),
+  const { userInfo: watchList = [] } = useUserQuery({
+    select: userInfo => userInfo.watch_list,
+    refetchOnWindowFocus: false,
   });
 
-  const { watchlist = [] } = userInfo;
-
-  const userCollectionList = watchlist?.map(list => ({ type: list.type, id: list.id }));
+  const userCollectionList = watchList.map(list => ({ type: list.type, id: list.id }));
 
   const queries = useProviderQueries(userCollectionList, {
-    enabled: !!watchlist.length,
+    enabled: !!watchList,
   });
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
