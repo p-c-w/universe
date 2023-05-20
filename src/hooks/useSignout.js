@@ -7,10 +7,10 @@ const useSignout = () => {
   const setIsLogin = useSetRecoilState(isLoginState);
 
   const signout = async () => {
-    await axios.get('/api/auth/signout');
+    const data = await axios.get('/api/auth/signout');
     setUser(null);
     localStorage.removeItem('user');
-    setIsLogin(false);
+    setIsLogin(data.isLogin);
   };
 
   return signout;
