@@ -4,7 +4,7 @@ import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
-import { categoryState, selectedItemState, selectedItemImgState } from '../../../recoil/atom';
+import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
@@ -13,7 +13,6 @@ const Item = ({ item }) => {
 
   const listName = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
-  const setSelectedItemImg = useSetRecoilState(selectedItemImgState);
 
   const [hovered, setHovered] = useState(false);
 
@@ -50,7 +49,6 @@ const Item = ({ item }) => {
     handleDeleteClick(e, { id: item?.id, listName });
 
     setSelectedItem(null);
-    setSelectedItemImg(null);
   };
 
   return (
