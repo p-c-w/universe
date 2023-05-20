@@ -3,8 +3,8 @@ import { Accordion, Pagination } from '@mantine/core';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMediaQuery } from '@mantine/hooks';
 import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
-import { useSelectedItem, usePagination } from '../../../hooks';
-import { sideNavState, categoryState, selectedItemState } from '../../../recoil/atom';
+import { usePagination } from '../../../hooks';
+import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { EmptyMessage, Item } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
 
@@ -12,7 +12,6 @@ const Collection = ({ setImgSrc }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const category = useRecoilValue(categoryState);
-  const isNavOpened = useRecoilValue(sideNavState);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
 
   const { userInfo = [] } = useUserQuery({
@@ -34,16 +33,10 @@ const Collection = ({ setImgSrc }) => {
 
   const itemRef = useRef(null);
 
-  const screenToClose = useSelectedItem(itemRef);
-
   const selectItem = e => {
     setSelectedItem(e);
     itemRef.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e)?.posterPath}`;
     setImgSrc(itemRef.current);
-
-    if (isNavOpened && screenToClose) {
-      setSelectedItem(null);
-    }
   };
 
   return (

@@ -20,8 +20,9 @@ const PosterImage = styled(Image)`
 
 const Collections = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const middleScreen = useMediaQuery('(max-width: 51.25rem)');
 
-  const isImgOpened = useRecoilValue(posterImgState);
+  const isImgOpened = useRecoilValue(posterImgState(middleScreen));
   const [imgSrc, setImgSrc] = useState(null);
 
   return (

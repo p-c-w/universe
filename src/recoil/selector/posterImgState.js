@@ -1,13 +1,20 @@
-import { selector } from 'recoil';
-import { selectedItemState } from '../atom';
+import { selectorFamily } from 'recoil';
+import { selectedItemState, sideNavState } from '../atom';
 
-const posterImgState = selector({
+const posterImgState = selectorFamily({
   key: 'posterImgState',
-  get: ({ get }) => {
-    const itemState = get(selectedItemState);
+  get:
+    mediaQuery =>
+    ({ get }) => {
+      const itemState = get(selectedItemState);
+      const isNavOpened = get(sideNavState);
 
-    return itemState;
-  },
+      if (isNavOpened && mediaQuery) {
+        return null;
+      }
+
+      return itemState;
+    },
   set: ({ set }, newValue) => set(selectedItemState, newValue),
 });
 

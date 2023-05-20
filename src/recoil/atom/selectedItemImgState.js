@@ -2,7 +2,7 @@ import { atom } from 'recoil';
 
 const selectedItemImgState = atom({
   key: 'selectedItemImg',
-  default: null,
+  default: false,
 });
 
 export default selectedItemImgState;
