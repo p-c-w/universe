@@ -1,9 +1,10 @@
 import { useState, useCallback, Suspense } from 'react';
 import { ScrollObserver } from '../../common';
-import { CarouselSkeleton, CarouselWithTitle } from '.';
 import { useSortByPopularityQuery, useSortByReleaseDateQuery, useWithGenreQuery } from '../../../hooks/queries';
+import { CarouselWithTitle } from '.';
 import { useObserver } from '../../../hooks';
 import { GENRES } from '../../../constants';
+import { CarouselSkeleton } from '../../../loaders';
 
 const topTitles = ['인기작', '최신작'];
 
