@@ -1,7 +1,7 @@
 import React from 'react';
-import { Group, Text } from '@mantine/core';
+import { Group, Text, Avatar } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Badges, Badge } from '../../common';
+import { ProviderAvatars } from '../../common';
 
 const ItemTitle = ({ title, providers: providerIds }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
@@ -9,9 +9,9 @@ const ItemTitle = ({ title, providers: providerIds }) => {
   return (
     <Group noWrap>
       {providerIds ? (
-        <Badges providerIds={providerIds} spacing={25} />
+        <ProviderAvatars providerIds={providerIds} spacing={25} />
       ) : (
-        <Badge src={`./assets/logos/universeLogoWhite.svg`} size={35} />
+        <Avatar src={`./assets/logos/universeLogoWhite.svg`} size={35.2} />
       )}
       <Text fz={smallScreen ? 'md' : 'lg'} fw={700} lineClamp={1}>
         {title}

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Container, Title, Text, Flex, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
-import { Badges } from '../../common';
+import { ProviderAvatars } from '../../common';
 import { useProviderQueries, useUserQuery } from '../../../hooks/queries';
 import { calculateLowestFee } from '../../../utils';
 
@@ -32,7 +32,7 @@ const SuggestedSubscription = () => {
         <Title order={2} size={smallScreen ? 28 : 30} align="left">
           똑똑한 구독료
         </Title>
-        <Badges providerIds={providerIds} size={32} />
+        <ProviderAvatars providerIds={providerIds} size={32} />
       </Flex>
       <Text fz={smallScreen ? 53 : 56} color={dark ? 'violet.2' : 'violet.9'} fw={500}>
         ₩{cheapestPrice.toLocaleString()}
