@@ -2,13 +2,10 @@ import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import Autoplay from 'embla-carousel-autoplay';
-
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
 import { Slide } from '.';
-
 import { SIDE_NAV_DURATION } from '../../../constants';
 import { sideNavState } from '../../../recoil/atom';
-
 import banner1 from '../../../assets/images/banner-1.svg';
 import banner2 from '../../../assets/images/banner-2.svg';
 import banner3 from '../../../assets/images/banner-3.svg';
