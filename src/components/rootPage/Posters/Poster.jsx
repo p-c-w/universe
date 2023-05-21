@@ -52,6 +52,7 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
       <Img
         radius="md"
         src={posterPath ? `${TMDB_IMG_URL}w342${posterPath}` : `${PLACEHOLDER_IMG_URL}252x378?text=TDB`}
+        alt={`${title} poster`}
       />
       <Transition mounted={hovered} transition="fade" duration={400} timingFunction="ease">
         {styles => (
