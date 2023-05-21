@@ -1,10 +1,9 @@
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { useForm } from 'react-hook-form';
 import styled from '@emotion/styled';
 import { Chip, Flex, Title, ActionIcon, useMantineColorScheme } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { IconSquareCheck } from '@tabler/icons-react';
-import { useForm } from 'react-hook-form';
-import { useRecoilValue } from 'recoil';
 import { userState } from '../../../recoil/atom';
 import { useUpdateSubscriptionMutation } from '../../../hooks/mutations';
 import { PROVIDERS } from '../../../constants';
@@ -15,20 +14,16 @@ const EditForm = styled.form`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[8] : theme.colors.gray[3])};
 `;
 
-const getProviderArray = () => Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
+const providerArray = Object.entries(PROVIDERS).map(entry => ({ id: +entry[0], ...entry[1] }));
 
 const getNewSubscribeList = selectedNames => {
-  const newProviderNames = selectedNames.map(name => getProviderArray().find(item => item.provider_name === name));
+  const newProviderNames = selectedNames.map(name => providerArray.find(item => item.provider_name === name));
   const newList = newProviderNames.map(provider => ({ id: provider.id, price: 'basic' }));
 
   return newList;
 };
 
-const providerArray = getProviderArray();
-
-const Editor = ({ providers, onClick }) => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
-
+const Editor = ({ providers, toggleEditMode }) => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -45,7 +40,7 @@ const Editor = ({ providers, onClick }) => {
     e.preventDefault();
 
     updateSubscribeList({ email, newList: getNewSubscribeList(selectedProviders) });
-    onClick();
+    toggleEditMode();
   };
 
   const toggleAllSelectedProviders = () => {
@@ -61,7 +56,7 @@ const Editor = ({ providers, onClick }) => {
     <EditForm onSubmit={handleSubmit(submitSubscriptions)}>
       <Flex justify="space-between" align="center" mb={10}>
         <Flex align="center" gap="xs">
-          <Title order={5} fw={400} fz={smallScreen ? 14 : 16}>
+          <Title order={5} fw={400} fz={16}>
             구독중인 서비스를 선택해주세요.
           </Title>
           <Chip
