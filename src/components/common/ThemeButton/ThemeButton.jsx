@@ -17,13 +17,15 @@ const ThemeButton = () => {
   const [colorScheme, toggleColorScheme] = useColorScheme();
   const dark = colorScheme === 'dark';
 
+  const changeTheme = () => toggleColorScheme();
+
   return (
     <IconBox
       size="md"
       color={dark ? 'yellow' : 'violet'}
       title="Toggle color scheme"
       cursor="pointer"
-      onClick={() => toggleColorScheme()}>
+      onClick={changeTheme}>
       {dark ? <IconSun size="1.2rem" /> : <IconMoonStars size="1.2rem" />}
     </IconBox>
   );
