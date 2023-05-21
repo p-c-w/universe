@@ -1,4 +1,4 @@
-const COLLECTION_BUTTON = [
+const collectionButton = [
   {
     label: 'Watch',
     description: '이번달에 보고있거나 볼 컨텐츠',
@@ -16,4 +16,4 @@ const COLLECTION_BUTTON = [
   },
 ];
 
-export default COLLECTION_BUTTON;
+export default collectionButton;

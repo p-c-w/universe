@@ -31,7 +31,7 @@ const Collection = ({ setImgSrc }) => {
 
   const selectItem = e => {
     setSelectedItem(e);
-    imgUrl.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e).posterPath}`;
+    imgUrl.current = e && `${TMDB_IMG_URL}w300${collectionList.find(item => item.title === e).posterPath}`;
     setImgSrc(imgUrl.current);
   };
 

@@ -1,4 +1,4 @@
-const COLORS = {
+const colors = {
   Netflix: [
     '#ffe2e6',
     '#ffb3b8',
@@ -74,4 +74,4 @@ const COLORS = {
   ],
 };
 
-export default COLORS;
+export default colors;

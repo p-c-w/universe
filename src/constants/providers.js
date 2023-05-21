@@ -1,4 +1,4 @@
-const PROVIDERS = {
+const providers = {
   8: {
     provider_name: 'Netflix',
     providerImgPath: 'assets/badges/netflix.svg',
@@ -49,4 +49,4 @@ const PROVIDERS = {
   },
 };
 
-export default PROVIDERS;
+export default providers;
