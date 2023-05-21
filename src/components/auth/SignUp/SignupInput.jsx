@@ -13,7 +13,7 @@ const Input = styled(TextInput)`
   }
 `;
 
-const ContinueBtn = styled(Button)`
+const ContinueButton = styled(Button)`
   font-weight: 300;
   align-self: flex-end;
 `;
@@ -21,7 +21,7 @@ const ContinueBtn = styled(Button)`
 const isPassword = name => name.toLowerCase().includes('password');
 
 const SignupInput = ({ name, control, trigger, step, setStep }) => {
-  const [continueClicked, setContinueClicked] = useState(false);
+  const [buttonActive, setButtonActive] = useState(false);
 
   const {
     field: { onChange },
@@ -46,9 +46,9 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
     }
   };
 
-  const ClickContinueBtn = () => {
+  const clickContinueBtn = () => {
     setStep(step + 1);
-    setContinueClicked(true);
+    setButtonActive(true);
   };
 
   return (
@@ -66,14 +66,14 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
           icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} />}
         />
         {isDirty && !invalid && (
-          <ContinueBtn
+          <ContinueButton
             type="button"
-            onClick={ClickContinueBtn}
-            disabled={continueClicked}
+            onClick={clickContinueBtn}
+            disabled={buttonActive}
             variant="outline"
             color="gray.5">
             Continue
-          </ContinueBtn>
+          </ContinueButton>
         )}
       </Container>
     </>

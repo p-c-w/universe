@@ -26,21 +26,21 @@ const CategoryContainer = styled(Container)`
   z-index: 999;
 `;
 
-const Category = ({ mediaType, handleMediaChange, handleCategoryChange }) => {
+const Category = ({ mediaType, changeMediaType, changeCategory }) => {
   const selectedCategory = useRef();
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const handleMultiSelectChange = values => {
+  const changeMultiSelect = values => {
     selectedCategory.current = values;
-    handleCategoryChange(selectedCategory.current);
+    changeCategory(selectedCategory.current);
   };
 
   return (
     <CategoryContainer
       pos="sticky"
       bg={dark ? 'dark.7' : 'white'}
-      top="3.75rem"
+      top={60}
       mx={-32}
       py="xs"
       px="xl"
@@ -50,7 +50,7 @@ const Category = ({ mediaType, handleMediaChange, handleCategoryChange }) => {
         <Group>
           <SegmentedControl
             value={mediaType}
-            onChange={handleMediaChange}
+            onChange={changeMediaType}
             data={[
               {
                 value: 'movie',
@@ -82,7 +82,7 @@ const Category = ({ mediaType, handleMediaChange, handleCategoryChange }) => {
           searchable
           defaultValue={[]}
           placeholder="Pick Stream Service"
-          onChange={handleMultiSelectChange}
+          onChange={changeMultiSelect}
         />
       </Flex>
     </CategoryContainer>
