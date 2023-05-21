@@ -31,7 +31,7 @@ const Collections = () => {
     <MyListContainer fluid>
       <CategoryButtons />
       <Flex gap={smallScreen ? 8 : 16}>
-        <ScrollArea w="100%" h={400} miw={250}>
+        <ScrollArea w="100%" h={460} miw={250}>
           <Suspense fallback={<SkeletonWrapper />}>
             <Collection setImgSrc={setImgSrc} />
           </Suspense>
