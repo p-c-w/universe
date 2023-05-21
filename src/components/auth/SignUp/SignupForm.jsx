@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { useState } from 'react';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Button } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -44,7 +44,7 @@ const SignupForm = ({ setUserInput }) => {
       <Typing
         str="Let's begin the adventure🚀👾"
         isLast={1}
-        onAnimationEnd={() => {
+        setAnimationCompleted={() => {
           setStep(step + 1);
         }}
       />

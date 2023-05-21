@@ -5,13 +5,12 @@ import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core
 import { modals } from '@mantine/modals';
 import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
-import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
+import { ActionIcons, DetailModal } from '../../common';
+import { ModalSkeleton } from '../../../loaders';
 
 const Item = ({ item }) => {
   const iconTrashRef = useRef(null);
-  // 선택된 카테고리 명시적으로 변경하기
-  // selectedCategory
-  const listName = useRecoilValue(categoryState);
+  const selectedCategory = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
   const DetailClick = () => {
@@ -29,39 +28,33 @@ const Item = ({ item }) => {
     });
   };
 
-  // 핸들러 함수 이름 변경하기
-
-  const handleMouseEnter = () => {
+  const showIconTrash = () => {
     iconTrashRef.current.style.opacity = 1;
   };
 
-  const handleMouseLeave = () => {
+  const hideIconTrash = () => {
     iconTrashRef.current.style.opacity = 0;
   };
 
-  const handleDeleteClick = e => {
+  const ClickTrashIcon = e => {
     e.stopPropagation();
 
     modals.open({
       title: ' 해당 컨텐츠를 삭제하시겠습니까?',
       centered: true,
-      children: <ConfirmModal id={item.id} listName={listName} />,
+      children: <ConfirmModal id={item.id} listName={selectedCategory} />,
     });
-  };
-
-  const trashClick = e => {
-    handleDeleteClick(e, { id: item?.id, listName });
 
     setSelectedItem(null);
   };
 
   return (
     <>
-      <Accordion.Item value={item.title} key={item.id} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <Accordion.Item value={item.title} key={item.id} onMouseEnter={showIconTrash} onMouseLeave={hideIconTrash}>
         <Accordion.Control px={8}>
           <Flex direction="row" justify="space-between" align="center">
             <ItemTitle {...item} />
-            <ThemeIcon variant="transparent" onClick={trashClick} ref={iconTrashRef} opacity={0}>
+            <ThemeIcon variant="transparent" onClick={ClickTrashIcon} ref={iconTrashRef} opacity={0}>
               <IconTrash size={16} />
             </ThemeIcon>
           </Flex>
@@ -79,7 +72,7 @@ const Item = ({ item }) => {
                 </Button>
               </Tooltip>
             </div>
-            <ActionIcons size={16} id={item.id} type={item.type} category={listName} />
+            <ActionIcons size={16} id={item.id} type={item.type} category={selectedCategory} />
           </Flex>
         </Accordion.Panel>
       </Accordion.Item>

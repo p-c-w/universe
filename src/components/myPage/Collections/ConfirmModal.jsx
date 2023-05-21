@@ -9,7 +9,7 @@ const ConfirmModal = ({ id, listName }) => {
 
   const { mutate: deleteUserContent } = useDeleteUserContentMutation();
 
-  const handleTrashClick = e => {
+  const clickDeleteButton = e => {
     e.stopPropagation();
     deleteUserContent({ email, list: `${listName}_list`, id });
 
@@ -19,7 +19,7 @@ const ConfirmModal = ({ id, listName }) => {
   return (
     <>
       <Flex justify="flex-end" gap={7} my={10}>
-        <Button onClick={handleTrashClick}>삭제하기</Button>
+        <Button onClick={clickDeleteButton}>삭제하기</Button>
         <Button onClick={modals.closeAll} color="gray">
           취소하기
         </Button>
