@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
 import { Slide } from '.';
-import { SIDE_NAV_DURATION } from '../../../constants';
+import { AUTO_PLAY_DELAY, SIDE_NAV_DURATION } from '../../../constants';
 import { sideNavState } from '../../../recoil/atom';
 import banner1 from '../../../assets/images/banner-1.svg';
 import banner2 from '../../../assets/images/banner-2.svg';
@@ -44,7 +44,7 @@ const data = [
 ];
 
 const Banner = () => {
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const autoplay = useRef(Autoplay({ delay: AUTO_PLAY_DELAY }));
   const currentSlide = useRef(0);
   const isOpened = useRecoilValue(sideNavState);
   const [embla, setEmbla] = useState(null);

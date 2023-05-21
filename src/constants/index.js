@@ -13,6 +13,7 @@ export {
   buttonStartY as BUTTON_START_Y,
   scrollDelay as SCROLL_DELAY,
   sideNavDuration as SIDE_NAV_DURATION,
+  autoPlayDelay as AUTO_PLAY_DELAY,
 } from './durations';
 
 export { default as COLLECTION_BUTTON } from './collectionButtons';
