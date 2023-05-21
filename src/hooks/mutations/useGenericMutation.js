@@ -20,9 +20,7 @@ const useGenericMutation = ({ queryKey, mutationFn, onMutate: expected }) => {
       queryClient.setQueryData(queryKey, context.previousUserInfo);
     },
 
-    onSettled() {
-      // queryClient.invalidateQueries({ queryKey });
-    },
+    onSettled() {},
   });
 };
 
