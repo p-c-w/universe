@@ -21,15 +21,13 @@ const Password = ({ name, control, trigger, label }) => {
   };
 
   return (
-    <>
-      <PasswordInput
-        onChange={triggerWithChange}
-        placeholder="Password"
-        error={error?.message !== 'Expected string, received object' && error?.message}
-        label={label}
-        withAsterisk
-      />
-    </>
+    <PasswordInput
+      onChange={triggerWithChange}
+      placeholder="Password"
+      error={error?.message !== 'Expected string, received object' && error?.message}
+      label={label}
+      withAsterisk
+    />
   );
 };
 

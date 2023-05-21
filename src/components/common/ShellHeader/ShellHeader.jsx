@@ -1,7 +1,7 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { Avatar, Burger, Button, Flex, Header, Title, useMantineColorScheme } from '@mantine/core';
 import { isLoginState, sideNavState, userState } from '../../../recoil/atom';
 import { MyMenu, SearchBar } from '.';
 import { ThemeButton } from '..';
@@ -50,7 +50,7 @@ const ShellHeader = () => {
           </Flex>
         </Flex>
         <SearchBar />
-        <Flex mx="0" align="Center" gap="xs">
+        <Flex mx={0} align="Center" gap="xs">
           <ThemeButton />
           {isLogin ? (
             <MyMenu initial={user && generateInitial(user)} />

@@ -89,10 +89,7 @@ const SignUp = () => {
         {[...Array(5)].map((_, i) => (
           <Star key={i} />
         ))}
-        <BackImg
-          src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg"
-          alt="Glowing universe"
-          className="js-warp-hide position-absolute overflow-hidden home-hero-glow events-none"></BackImg>
+        <BackImg src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg" alt="Glowing universe" />
       </Background>
       <SignupHeader />
       <Flex mih={600} justify="center" direction="column" wrap="wrap" align="center">

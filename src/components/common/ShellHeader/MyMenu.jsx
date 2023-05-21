@@ -18,7 +18,6 @@ const MyMenu = ({ initial }) => {
           {initial}
         </IconBox>
       </Menu.Target>
-
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
         <Menu.Item icon={<IconPlanet size={14} />} component={Link} to={'/mypage'}>

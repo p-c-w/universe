@@ -21,7 +21,7 @@ const CarouselSkeleton = () => (
       {Array.from({ length: 10 }, (_, i) => (
         <Carousel.Slide key={i}>
           <Card mw={342} p={0} radius="md" mih={200}>
-            <Skeleton h={240} p="0" />
+            <Skeleton h={240} p={0} />
           </Card>
         </Carousel.Slide>
       ))}

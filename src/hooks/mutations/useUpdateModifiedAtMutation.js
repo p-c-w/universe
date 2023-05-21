@@ -4,14 +4,6 @@ import { useUpdateModifiedAt } from '../../api';
 import { useGenericMutation } from '.';
 import { userState } from '../../recoil/atom';
 
-/**
- * useUpdateModifiedAtMutation - 사용자의 history list item 추가 날짜를 업데이트하는데 사용되는 커스텀 훅입니다.
- *
- * @param {string} list - userInfo 객체에서 수정할 배열의 이름
- * @param {number} id - 수정할 content의 id
- * @param {string} value - 수정할 값
- */
-
 const useUpdateModifiedAtMutation = () => {
   const email = useRecoilValue(userState);
 

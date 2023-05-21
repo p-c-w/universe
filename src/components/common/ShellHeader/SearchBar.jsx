@@ -19,6 +19,14 @@ const SearchBar = () => {
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
+  const openResultContainer = () => setOpened(opened => !opened);
+  const changeSearchInput = e => {
+    if (!opened) {
+      setOpened(true);
+    }
+    setSearchInput(e.currentTarget.value);
+  };
+
   return (
     <Container pos="relative" w={450} mx="md" p={0}>
       <TextInput
@@ -35,13 +43,8 @@ const SearchBar = () => {
         placeholder="Search for a movie, tv show"
         rightSectionWidth={42}
         value={searchInput}
-        onClick={() => setOpened(opened => !opened)}
-        onChange={e => {
-          if (!opened) {
-            setOpened(true);
-          }
-          setSearchInput(e.currentTarget.value);
-        }}
+        onClick={openResultContainer}
+        onChange={changeSearchInput}
       />
       {opened && debounced && (
         <Suspense
@@ -49,7 +52,7 @@ const SearchBar = () => {
             <ResultContiner
               pos="absolute"
               w={450}
-              left="0"
+              left={0}
               align="center"
               justify="center"
               py="xl"

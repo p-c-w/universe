@@ -14,6 +14,7 @@ const convertRuntime = runtime => {
   return `${hours}시간 ${minutes}분`;
 };
 
+// Btn Button으로 수정
 const CloseBtn = styled(Modal.CloseButton)`
   z-index: 999;
   position: absolute;
@@ -57,6 +58,8 @@ const DetailModal = ({ id, type }) => {
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
   const providerIds = providers[0]?.providers;
+
+  // css 수정 요망
 
   return (
     <Container pos="relative" m={0} p={0}>

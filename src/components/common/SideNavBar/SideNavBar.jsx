@@ -1,8 +1,8 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMantineColorScheme } from '@mantine/core';
 import { IconMovie, IconThumbUp, IconHistory, IconPlanet, IconLogout } from '@tabler/icons-react';
-import { Link } from 'react-router-dom';
 import parse from 'html-react-parser';
 import { sideNavState, categoryState, isLoginState } from '../../../recoil/atom';
 import { useSignout } from '../../../hooks';
@@ -63,6 +63,8 @@ const SideNavBar = () => {
   const signout = useSignout();
 
   const dark = colorScheme === 'dark';
+
+  // 상수로 뺄 것들 정리
 
   return (
     <Transition mounted={isOpened} transition="slide-right" duration={SIDE_NAV_DURATION} timingFunction="ease">

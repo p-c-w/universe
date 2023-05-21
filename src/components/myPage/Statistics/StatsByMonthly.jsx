@@ -1,6 +1,5 @@
 import ReactApexChart from 'react-apexcharts';
 import { Text, Group, useMantineColorScheme } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { useStatsByMonthly } from '../../../hooks/statistics';
 
 const getMaxMonth = datas => {
@@ -19,8 +18,6 @@ const getMaxMonth = datas => {
 };
 
 const StatsByMonthly = () => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
-
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -74,9 +71,9 @@ const StatsByMonthly = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Text fz={smallScreen ? 'md' : 'lg'} fw={700} align="left">
+        <Text fz="lg" fw={700} align="left">
           올해는 총{' '}
-          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
+          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz="inherit" span>
             {total}
           </Text>
           건의 컨텐츠를 감상했어요.

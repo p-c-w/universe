@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { PROVIDERS } from '../../../constants';
 import { ProvidersInfo, Editor } from '.';
 
@@ -23,8 +22,6 @@ const PresentSubscriptionFee = styled(Accordion)`
 const getCurrentFee = list => list?.map(id => PROVIDERS[id].fee.basic).reduce((acc, current) => acc + current, 0);
 
 const Fee = ({ subscribeList }) => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
-
   const [editMode, setEditMode] = useState(false);
 
   const providers = subscribeList.map(({ id }) => id);
@@ -34,6 +31,7 @@ const Fee = ({ subscribeList }) => {
     setEditMode(!editMode);
   };
 
+  // 핸들러 분리
   return (
     <PresentSubscriptionFee>
       <Accordion.Item value={`₩${currentFee}`}>
@@ -41,16 +39,16 @@ const Fee = ({ subscribeList }) => {
           onClick={() => {
             setEditMode(false);
           }}>
-          <Title order={4} size={smallScreen ? 17 : 18}>
+          <Title order={4} size={18}>
             현재 나의 구독료
           </Title>
-          <Text size={smallScreen ? 30 : 32}>₩{currentFee.toLocaleString()}</Text>
+          <Text size={32}>₩{currentFee.toLocaleString()}</Text>
         </Accordion.Control>
         <Accordion.Panel>
           {editMode ? (
-            <Editor providers={providers} onClick={toggleEditMode} />
+            <Editor providers={providers} toggleEditMode={toggleEditMode} />
           ) : (
-            <ProvidersInfo providers={providers} onClick={toggleEditMode} />
+            <ProvidersInfo providers={providers} toggleEditMode={toggleEditMode} />
           )}
         </Accordion.Panel>
       </Accordion.Item>

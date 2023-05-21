@@ -62,8 +62,7 @@ const getNewData = (providers, newTotal) => {
 };
 
 const useStatisticsByProvider = () => {
-  const { data } = useUserQuery({ select: userInfo => userInfo.history_list });
-  const historyList = data || [];
+  const { data: historyList } = useUserQuery({ select: userInfo => userInfo.history_list });
   const newTotal = historyList.length;
 
   const queries = useProviderQueries(historyList, {

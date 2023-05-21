@@ -18,11 +18,13 @@ const PosterImage = styled(Image)`
   display: ${props => (props.open ? 'block' : 'none')};
 `;
 
+// 미디어쿼리 이름 변경 바랍니다.
 const Collections = () => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const smallScreen = useMediaQuery('(max-width: 60rem)');
   const middleScreen = useMediaQuery('(max-width: 51.25rem)');
 
   const isImgOpened = useRecoilValue(posterImgState(middleScreen));
+
   const [imgSrc, setImgSrc] = useState(null);
 
   return (

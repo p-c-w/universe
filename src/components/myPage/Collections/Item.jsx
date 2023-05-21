@@ -3,15 +3,14 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
-import { useMediaQuery } from '@mantine/hooks';
 import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
 const Item = ({ item }) => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
   const iconTrashRef = useRef(null);
-
+  // 선택된 카테고리 명시적으로 변경하기
+  // selectedCategory
   const listName = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
@@ -29,6 +28,8 @@ const Item = ({ item }) => {
       ),
     });
   };
+
+  // 핸들러 함수 이름 변경하기
 
   const handleMouseEnter = () => {
     iconTrashRef.current.style.opacity = 1;
@@ -61,12 +62,11 @@ const Item = ({ item }) => {
           <Flex direction="row" justify="space-between" align="center">
             <ItemTitle {...item} />
             <ThemeIcon variant="transparent" onClick={trashClick} ref={iconTrashRef} opacity={0}>
-              <IconTrash size={smallScreen ? 14 : 16} />
+              <IconTrash size={16} />
             </ThemeIcon>
           </Flex>
         </Accordion.Control>
-
-        <Accordion.Panel w="90%" ml={smallScreen ? 51 : 55} mt={-15} mb={20}>
+        <Accordion.Panel w="90%" ml={55} mt={-15} mb={20}>
           <Flex direction="column" align="flex-start" gap={3}>
             <DateEditor id={item?.id} date={item?.modified_at} />
             <div>

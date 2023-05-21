@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { useMantineColorScheme, Button, Image, Container, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';

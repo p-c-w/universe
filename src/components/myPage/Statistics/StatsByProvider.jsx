@@ -1,5 +1,4 @@
 import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
 import { useStatsByProvider } from '../../../hooks/statistics';
 
@@ -27,8 +26,6 @@ const getMaxProvider = datas => {
 };
 
 const StatsByProvider = () => {
-  const smallScreen = useMediaQuery('(max-width: 30rem)');
-
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -48,7 +45,6 @@ const StatsByProvider = () => {
       <Text tt="uppercase" fz="xs" c="dimmed" fw={700}>
         {stat.label}
       </Text>
-
       <Group position="apart" align="flex-end" spacing={0}>
         <Text fw={700} size="xs">
           {stat.count}
@@ -63,9 +59,9 @@ const StatsByProvider = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Text fz={smallScreen ? 'md' : 'lg'} fw={700} align="left">
+        <Text fz="lg" fw={700} align="left">
           지금까지 전체{' '}
-          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
+          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz="inherit" span>
             {total}
           </Text>
           건의 컨텐츠를 감상했어요.
@@ -74,7 +70,6 @@ const StatsByProvider = () => {
       <Text c="teal" fz="sm" fw={700} align="start">
         {maxProvider}를 가장 많이 사용했어요.
       </Text>
-
       <ProgressLabel sections={segments} size={34} mt="md" />
       <SimpleGrid cols={3} breakpoints={[{ maxWidth: '40rem', cols: 2 }]} mt="md">
         {descriptions}

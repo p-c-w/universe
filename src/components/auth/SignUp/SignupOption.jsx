@@ -3,9 +3,7 @@ import { Grid, Button, Container, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import styled from '@emotion/styled';
-
 import { Typing, LogoBtn } from '.';
-
 import { showNotification } from '../../../utils';
 
 const GridCol = styled(Grid.Col)`
@@ -28,7 +26,7 @@ const logos = [
 ];
 
 const SignupOption = ({ userInput, setUserInput }) => {
-  const [isLogo, setIsLogo] = useState(false);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
   const [subscribedOtt, setSubscribedOtt] = useState([]);
 
   const submitOption = async () => {
@@ -42,13 +40,13 @@ const SignupOption = ({ userInput, setUserInput }) => {
     }
   };
 
-  const appearLogo = () => setIsLogo(true);
+  const activeLogoGrid = () => setAnimationCompleted(true);
 
   return (
     <>
       <Typing str="Congratulation!🥳🎉" isLast={0} />
-      <Typing str="What OTT Services are you subscribing to?" isLast={1} onAnimationEnd={appearLogo} />
-      {isLogo && (
+      <Typing str="What OTT Services are you subscribing to?" isLast={1} onAnimationEnd={activeLogoGrid} />
+      {animationCompleted && (
         <Container>
           <Grid columns={3} m={25} justify="center">
             {logos.map((logo, idx) => (

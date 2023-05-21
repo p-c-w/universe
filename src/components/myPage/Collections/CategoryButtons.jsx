@@ -1,13 +1,10 @@
 import { useRecoilState } from 'recoil';
-import { useMediaQuery } from '@mantine/hooks';
 import { Flex } from '@mantine/core';
 import { COLLECTION_BUTTON } from '../../../constants';
 import { CategoryButton } from '.';
 import { categoryState } from '../../../recoil/atom';
 
 const CategoryButtons = () => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
-
   const [category, setCategory] = useRecoilState(categoryState);
 
   const changeCategory = (e, button) => {
@@ -16,7 +13,7 @@ const CategoryButtons = () => {
   };
 
   return (
-    <Flex gap={smallScreen ? 8 : 12}>
+    <Flex gap={12}>
       {COLLECTION_BUTTON.map(button => (
         <CategoryButton
           key={button.label}
