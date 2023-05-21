@@ -8,7 +8,6 @@ const useProviderQueries = (list, options) => {
   const providerQueries = list?.map(({ type, id }) => ({
     queryKey: ['@provider', type, id],
     queryFn: () => fetchProvider(type, id),
-    suspense: true,
     staleTime,
     refetchOnWindowFocus: false,
     select: data => ({

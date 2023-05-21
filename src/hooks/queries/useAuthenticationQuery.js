@@ -18,6 +18,7 @@ const useAuthenticationQuery = () => {
       return res.data;
     },
     staleTime,
+    suspense: false,
     retry: false,
   });
 

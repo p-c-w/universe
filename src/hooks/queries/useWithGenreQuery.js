@@ -10,7 +10,6 @@ const useWithGenreQuery = ({ mediaType, selectedIds, genreId }) => {
     queryKey: [`@${mediaType}`, `genreId: ${genreId}`, `providerIds: ${strProviderId}`],
     queryFn: () => fetchWithGenre(mediaType, genreId, strProviderId),
     staleTime,
-    suspense: true,
     refetchOnWindowFocus: false,
     select: data => data.results,
   });
