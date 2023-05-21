@@ -1,14 +1,10 @@
 import React from 'react';
 import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import ReactApexChart from 'react-apexcharts';
 import { useStatsByGenre } from '../../../hooks/statistics';
 
 const StatsByGenre = () => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
-
   const { data } = useStatsByGenre();
-
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -38,7 +34,7 @@ const StatsByGenre = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Text fz={smallScreen ? 'md' : 'lg'} fw={700} align="left">
+        <Text fz="lg" fw={700} align="left">
           <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
             {top3Genres[0]?.label}{' '}
           </Text>
@@ -48,12 +44,10 @@ const StatsByGenre = () => {
       <Text c="teal" fz="sm" fw={700} align="start">
         많이 시청한 장르 TOP3는 {top3Genres.map(({ label }) => label).join(', ')} 입니다.
       </Text>
-
       <Flex justify="center" align="center" gap={0}>
         <Group position="center">
           <RingProgress
             thickness={16}
-            label={<Text size="xs" align="center" px="xs" sx={{ pointerEvents: 'none' }}></Text>}
             sections={genres.map(({ label, part, count, color }) => ({
               value: part,
               color,
@@ -61,7 +55,6 @@ const StatsByGenre = () => {
             }))}
           />
         </Group>
-
         <ReactApexChart options={chartData.options} series={chartData.series} type="bar" height={170} />
       </Flex>
     </>
