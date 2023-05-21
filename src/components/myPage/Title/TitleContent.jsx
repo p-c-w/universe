@@ -17,6 +17,9 @@ const NameInput = styled(TextInput)`
     color: gray;
     font-weight: 700;
     -webkit-text-fill-color: gray;
+    ::placeholder {
+      font-size: 0.8em;
+    }
   }
 `;
 
