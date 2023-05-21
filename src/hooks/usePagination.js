@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { categoryState, selectedItemState, selectedItemImgState } from '../recoil/atom';
+import { categoryState, selectedItemState } from '../recoil/atom';
 import { PAGE_LIMIT } from '../constants';
 
 const usePagination = data => {
   const category = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
-  const setSelectedItemImg = useSetRecoilState(selectedItemImgState);
 
   const [activePage, setActivePage] = useState(1);
   const offset = (activePage - 1) * PAGE_LIMIT;
@@ -19,8 +18,7 @@ const usePagination = data => {
 
   useEffect(() => {
     setSelectedItem(null);
-    setSelectedItemImg(null);
-  }, [activePage, setSelectedItem, setSelectedItemImg]);
+  }, [activePage, setSelectedItem]);
 
   return { activePage, setActivePage, total, collection };
 };

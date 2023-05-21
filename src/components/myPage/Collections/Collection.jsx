@@ -1,27 +1,26 @@
 import { useRef } from 'react';
 import { Accordion, Pagination } from '@mantine/core';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMediaQuery } from '@mantine/hooks';
 import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
-import { useSelectedItem, usePagination } from '../../../hooks';
-import { sideNavState, categoryState, selectedItemState, selectedItemImgState } from '../../../recoil/atom';
+import { usePagination } from '../../../hooks';
+import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { EmptyMessage, Item } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
 
-const Collection = () => {
+const Collection = ({ setImgSrc }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
   const category = useRecoilValue(categoryState);
-  const isNavOpened = useRecoilValue(sideNavState);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
-  const setSelectedItemImg = useSetRecoilState(selectedItemImgState);
+  const imgUrl = useRef(null);
 
   const { userInfo = [] } = useUserQuery({
     select: userInfo => userInfo[`${category}_list`],
     refetchOnWindowFocus: false,
   });
 
-  const { activePage, setActivePage, total, collection } = usePagination(userInfo.reverse(), setSelectedItemImg);
+  const { activePage, setActivePage, total, collection } = usePagination(userInfo.reverse());
 
   const collectionQueries = useCollectionQueries(collection, { enable: !!collection });
 
@@ -29,22 +28,14 @@ const Collection = () => {
     ({ data }) =>
       data !== undefined && {
         ...data,
-        modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
+        modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
       }
   );
 
-  const itemRef = useRef(null);
-
-  const screenToClose = useSelectedItem(selectedItem, setSelectedItemImg, itemRef);
-
   const selectItem = e => {
     setSelectedItem(e);
-    itemRef.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e)?.posterPath}`;
-    setSelectedItemImg(itemRef.current);
-
-    if (isNavOpened && screenToClose) {
-      setSelectedItemImg(null);
-    }
+    imgUrl.current = e && `${TMDB_IMG_URL}/w300${collectionList.find(item => item.title === e).posterPath}`;
+    setImgSrc(imgUrl.current);
   };
 
   return (
