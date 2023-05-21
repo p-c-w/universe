@@ -1,35 +1,32 @@
 import { Carousel } from '@mantine/carousel';
 import { Card, Image, Container, Text } from '@mantine/core';
 import { useState } from 'react';
+import styled from '@emotion/styled';
 import { MoreButton } from '../../common';
+import { PLACEHOLDER_IMG_URL, TMDB_IMG_URL } from '../../../constants';
+
+const StyledSlide = styled(Carousel.Slide)`
+  aspect-ratio: 4/3;
+`;
 
 const Slide = ({ id, title, originalTitle, backdropPath, mediaType }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const openMoreButton = () => setIsHovered(true);
-  const closeMoreButton = () => setIsHovered(false);
-
   return (
-    <>
-      <Carousel.Slide py="lg" onMouseEnter={openMoreButton} onMouseLeave={closeMoreButton}>
-        <Card mw={342} p={0} radius="md" shadow="sm">
-          <Image
-            src={
-              backdropPath ? `https://image.tmdb.org/t/p/w500${backdropPath}` : 'https://placehold.co/500x281?text=TBD'
-            }
-          />
-          <Container h={60} m="sm">
-            <Text fw={800} fz="lg" lineClamp={1}>
-              {title}
-            </Text>
-            <Text fz="xs" lineClamp={1}>
-              {originalTitle}
-            </Text>
-          </Container>
-        </Card>
-        {isHovered && <MoreButton id={id} type={mediaType} pos={'absolute'} right={'1.875rem'} top={'1.5625rem'} />}
-      </Carousel.Slide>
-    </>
+    <StyledSlide py="lg" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      <Card mw={342} p={0} radius="md" shadow="sm">
+        <Image src={backdropPath ? `${TMDB_IMG_URL}w500${backdropPath}` : `${PLACEHOLDER_IMG_URL}500x281?text=TBD`} />
+        <Container h={60} m="sm" pt={5} pb="sm" px="xs" fluid>
+          <Text fw={800} fz="lg" lineClamp={1}>
+            {title}
+          </Text>
+          <Text fz="xs" lineClamp={1}>
+            {originalTitle}
+          </Text>
+        </Container>
+      </Card>
+      {isHovered && <MoreButton id={id} type={mediaType} pos={'absolute'} right={'1.875rem'} top={'1.5625rem'} />}
+    </StyledSlide>
   );
 };
 
