@@ -14,7 +14,7 @@ const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) 
       <Carousel
         miw={320}
         slideSize="16.66666%"
-        slideGap="md"
+        slideGap="sm"
         loop
         align="start"
         slidesToScroll={2}
@@ -22,8 +22,8 @@ const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) 
         breakpoints={[
           { maxWidth: '110rem', slideSize: '20%' },
           { maxWidth: '80rem', slideSize: '25%' },
-          { maxWidth: '60rem', slideSize: '33.3333%' },
-          { maxWidth: '40rem', slideSize: '50%', slideGap: 'sm' },
+          { maxWidth: '60rem', slideSize: '33.3333%', slideGap: 'xs' },
+          { maxWidth: '48rem', slideSize: '50%', slideGap: 'xs' },
         ]}>
         {content?.map(
           ({

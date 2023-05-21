@@ -18,10 +18,10 @@ const CarouselSkeleton = () => (
       slidesToScroll={2}
       dragFree
       breakpoints={[
-        { maxWidth: '110rem', slideSize: '20%' },
-        { maxWidth: '80rem', slideSize: '25%' },
-        { maxWidth: '60rem', slideSize: '33.3333%' },
-        { maxWidth: '40rem', slideSize: '50%', slideGap: 'sm' },
+        { maxWidth: '115rem', slideSize: '20%' },
+        { maxWidth: '100rem', slideSize: '25%', slideGap: 'sm' },
+        { maxWidth: '60rem', slideSize: '33.3333%', slideGap: 'sm' },
+        { maxWidth: '48rem', slideSize: '50%', slideGap: 'xs' },
       ]}>
       {Array.from({ length: 10 }, (_, i) => (
         <Carousel.Slide key={i}>
