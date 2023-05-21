@@ -1,7 +1,6 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Container } from '@mantine/core';
-// Loader 폴더 만들었음 옮기기
-import { PosterSkeleton } from '../Posters';
+import { PosterSkeleton } from '../../../loaders';
 import { Posters, Carousels, CategoryPicker } from '..';
 import { goToTop } from '../../../utils';
 
