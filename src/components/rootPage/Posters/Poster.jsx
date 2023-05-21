@@ -47,11 +47,8 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
   const [hovered, setHovered] = useState(false);
   const dark = colorScheme === 'dark';
 
-  const openHoverCard = () => setHovered(true);
-  const closeHoverCard = () => setHovered(false);
-
   return (
-    <Card p={0} radius="md" onMouseEnter={openHoverCard} onMouseLeave={closeHoverCard}>
+    <Card p={0} radius="md" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <Img
         radius="md"
         src={posterPath ? `${TMDB_IMG_URL}w342${posterPath}` : `${PLACEHOLDER_IMG_URL}252x378?text=TDB`}
