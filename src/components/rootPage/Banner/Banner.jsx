@@ -2,13 +2,10 @@ import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from '@emotion/styled';
 import Autoplay from 'embla-carousel-autoplay';
-
 import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
 import { Slide } from '.';
-
-import { SIDE_NAV_DURATION } from '../../../constants';
+import { AUTO_PLAY_DELAY, SIDE_NAV_DURATION } from '../../../constants';
 import { sideNavState } from '../../../recoil/atom';
-
 import banner1 from '../../../assets/images/banner-1.svg';
 import banner2 from '../../../assets/images/banner-2.svg';
 import banner3 from '../../../assets/images/banner-3.svg';
@@ -47,7 +44,7 @@ const data = [
 ];
 
 const Banner = () => {
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const autoplay = useRef(Autoplay({ delay: AUTO_PLAY_DELAY }));
   const currentSlide = useRef(0);
   const isOpened = useRecoilValue(sideNavState);
   const [embla, setEmbla] = useState(null);
@@ -67,6 +64,8 @@ const Banner = () => {
       initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
       loop
       getEmblaApi={setEmbla}
+      previousControlLabel="previous banner button"
+      nextControlLabel="next banner button"
       onSlideChange={handleCurrentSlide}
       onMouseEnter={autoplay.current.stop}
       onMouseLeave={autoplay.current.reset}>

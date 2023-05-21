@@ -65,7 +65,7 @@ const DetailModal = ({ id, type }) => {
     <Container pos="relative" m={0} p={0}>
       <Overlay c="#000" opacity={0.75} zIndex="1" />
       <CloseBtn />
-      {backdropPath ? <Image src={`${TMDB_IMG_URL}/w780${backdropPath}`} /> : <Container w={950} h={535} bg="dark.5" />}
+      {backdropPath ? <Image src={`${TMDB_IMG_URL}w780${backdropPath}`} /> : <Container w={950} h={535} bg="dark.5" />}
       <Body columns={3}>
         <Grid.Col span={2}>
           <Container>
@@ -111,7 +111,7 @@ const DetailModal = ({ id, type }) => {
         <Grid.Col span={1}>
           <Flex direction="column" m={10} justify="center" align="center">
             {posterPath ? (
-              <Image src={`${TMDB_IMG_URL}/w${smallScreen ? 342 : 185}${posterPath}`} />
+              <Image src={`${TMDB_IMG_URL}w${smallScreen ? 342 : 185}${posterPath}`} />
             ) : (
               <Container bg="dark.7" w={smallScreen ? 230 : 185} h={smallScreen ? 354 : 280} p={0} />
             )}

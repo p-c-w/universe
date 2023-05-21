@@ -36,7 +36,12 @@ const SearchBar = () => {
         radius="xl"
         color={dark ? 'violet' : 'dark'}
         rightSection={
-          <ActionIcon size="sm" radius="xl" color={dark ? 'dark' : 'gray'} variant={dark ? 'filled' : 'light'}>
+          <ActionIcon
+            size="sm"
+            radius="xl"
+            color={dark ? 'dark' : 'gray'}
+            variant={dark ? 'filled' : 'light'}
+            aria-label="search button">
             <IconArrowRight size="1.1rem" stroke={1.5} />
           </ActionIcon>
         }

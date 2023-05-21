@@ -5,7 +5,7 @@ import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { StatsByMonthly, StatsByProvider, StatsByGenre, StatsWrapper } from '.';
 import { sideNavState } from '../../../recoil/atom';
-import { SIDE_NAV_DURATION } from '../../../constants';
+import { AUTO_PLAY_DELAY, SIDE_NAV_DURATION } from '../../../constants';
 
 const StatisticCarousel = styled(Carousel)`
   text-align: center;
@@ -22,7 +22,7 @@ const StatisticCarousel = styled(Carousel)`
 `;
 
 const Statistics = () => {
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
+  const autoplay = useRef(Autoplay({ delay: AUTO_PLAY_DELAY }));
   const currentSlide = useRef(0);
   const isOpened = useRecoilValue(sideNavState);
   const [embla, setEmbla] = useState(null);
