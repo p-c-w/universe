@@ -1,13 +1,12 @@
+import { useRecoilValue } from 'recoil';
 import axios from 'axios';
-import { Container, Title, Flex, Button } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useRecoilValue } from 'recoil';
+import { Container, Title, Flex, Button } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { userState } from '../../../recoil/atom';
 import { ChangePwSchema } from '../../../schema/schema';
 import { Password } from '.';
-
 import { showNotification } from '../../../utils';
 
 const PASSWORD_CHANGE = '비밀번호 변경';

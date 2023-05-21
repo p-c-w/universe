@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import styled from '@emotion/styled';
-import Autoplay from 'embla-carousel-autoplay';
-import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
 import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled';
+import { Carousel, useAnimationOffsetEffect } from '@mantine/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 import { StatsByMonthly, StatsByProvider, StatsByGenre, StatsWrapper } from '.';
 import { sideNavState } from '../../../recoil/atom';
 import { SIDE_NAV_DURATION } from '../../../constants';

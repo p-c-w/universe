@@ -1,7 +1,7 @@
 import { GlobalShell } from '../components/common';
 import { Banner, Board, TopButton } from '../components/rootPage';
-import { BUTTON_START_Y } from '../constants';
 import { useAuthenticationQuery } from '../hooks/queries';
+import { BUTTON_START_Y } from '../constants';
 
 const Root = () => {
   const { isLogin } = useAuthenticationQuery();

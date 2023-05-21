@@ -8,7 +8,7 @@ const MyPage = () => {
 
   return (
     <GlobalShell>
-      <Container mt="1rem" mx="auto" size={'100%'} w={1240} miw={375}>
+      <Container mt={16} mx="auto" size="100%" w={1240} miw={375}>
         <Title />
         <MyInfo />
         <Collections />

@@ -1,3 +1,5 @@
+import { useState, Suspense } from 'react';
+import styled from '@emotion/styled';
 import {
   Container,
   Card,
@@ -12,8 +14,6 @@ import {
   Transition,
   Skeleton,
 } from '@mantine/core';
-import styled from '@emotion/styled';
-import { useState, Suspense } from 'react';
 import { ActionIcons, MoreButton } from '../../common';
 import genres from '../../../constants/genres';
 
@@ -51,9 +51,10 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
   const closeHoverCard = () => setHovered(false);
 
   return (
-    <Card p="0" radius="md" onMouseEnter={openHoverCard} onMouseLeave={closeHoverCard}>
+    <Card p={0} radius="md" onMouseEnter={openHoverCard} onMouseLeave={closeHoverCard}>
       <Img
         radius="md"
+        // url 상수화
         src={posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : 'https://placehold.co/252x378?text=TDB'}
       />
       <Transition mounted={hovered} transition="fade" duration={400} timingFunction="ease">
@@ -61,7 +62,7 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
           <Overlay style={styles} display="flex" c={dark ? 'dark.9' : 'gray.1'} p="xl" opacity="0.85">
             <Flex direction={'column'} align="baseline" justify="space-between" opacity="none">
               <MoreButton id={id} type={mediaType} pos="absolute" right="0.9375rem" top="0.625rem" />
-              <Container m="0" mt="xl" p="0" mb="md">
+              <Container m={0} mt="xl" p={0} mb="md">
                 <Title fz="lg" fw={600} lineClamp={1} c="gray.1">
                   {title}
                 </Title>
