@@ -1,4 +1,4 @@
-export const TMDB_URL = 'https://www.themoviedb.org/';
-export const TMDB_IMG_URL = 'https://image.tmdb.org/t/p/';
-export const PLACEHOLDER_IMG_URL = 'https://placehold.co/';
-export const PCW_REPO_URL = 'https://github.com/p-c-w';
+export const tmdbUrl = 'https://www.themoviedb.org/';
+export const tmdbImgUrl = 'https://image.tmdb.org/t/p/';
+export const placeholderUrl = 'https://placehold.co/';
+export const pcwRepoUrl = 'https://github.com/p-c-w/';

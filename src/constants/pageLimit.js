@@ -1,3 +1,3 @@
-const PAGE_LIMIT = 5;
+const pageLimit = 5;
 
-export default PAGE_LIMIT;
+export default pageLimit;
