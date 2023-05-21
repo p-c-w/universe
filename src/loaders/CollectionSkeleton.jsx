@@ -1,6 +1,6 @@
 import { Flex, Skeleton } from '@mantine/core';
 
-const SkeletonContainer = () =>
+const CollectionSkeleton = () =>
   Array.from({ length: 5 }, (_, i) => (
     <Flex key={i} direction="row" justify="flex-start" gap="md" p={10} w="inherit">
       <Skeleton height={50} circle mb="xl" />
@@ -12,4 +12,4 @@ const SkeletonContainer = () =>
     </Flex>
   ));
 
-export default SkeletonContainer;
+export default CollectionSkeleton;

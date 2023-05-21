@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
-import { CategoryButtons, Collection, SkeletonWrapper } from '.';
+import { CategoryButtons, Collection } from '.';
+import { CollectionSkeleton } from '../../../loaders';
 import posterImgState from '../../../recoil/selector/posterImgState';
 
 const MyListContainer = styled(Container)`
@@ -31,7 +32,7 @@ const Collections = () => {
       <CategoryButtons />
       <Flex gap={middleScreen ? 8 : 16}>
         <ScrollArea w="100%" h={460} miw={250}>
-          <Suspense fallback={<SkeletonWrapper />}>
+          <Suspense fallback={<CollectionSkeleton />}>
             <Collection setImgSrc={setImgSrc} />
           </Suspense>
         </ScrollArea>
