@@ -8,8 +8,6 @@ import { EmptyMessage, Item } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
 
 const Collection = ({ setImgSrc }) => {
-  // 선택된 카테고리 명시적으로 변경하기
-  // selectedCategory
   const selectedCategory = useRecoilValue(categoryState);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
   const imgUrl = useRef(null);

@@ -71,7 +71,6 @@ const TitleContent = () => {
             w="auto"
             variant="unstyled"
             value={userName}
-            // 핸들러 분리, input안 요소 텍스트 잘림 처리 찾아보기
             onChange={e => {
               setUserName(e.currentTarget.value);
             }}
