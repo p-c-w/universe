@@ -8,21 +8,19 @@ const Board = () => {
   const [mediaType, setMediaType] = useState('movie');
   const [selectedIds, setSelectedIds] = useState([]);
 
-  const changeMediaType = () => {
-    setMediaType(media => (media === 'movie' ? 'tv' : 'movie'));
-  };
-
-  const changeCategory = newCategory => {
-    setSelectedIds(newCategory);
-  };
-
   useEffect(() => {
     goToTop();
   }, [mediaType, selectedIds]);
 
   return (
     <Container fluid>
-      <CategoryPicker mediaType={mediaType} changeMediaType={changeMediaType} changeCategory={changeCategory} />
+      <CategoryPicker
+        mediaType={mediaType}
+        changeMediaType={() => {
+          setMediaType(media => (media === 'movie' ? 'tv' : 'movie'));
+        }}
+        changeCategory={setSelectedIds}
+      />
       <Container p={0} fluid>
         {selectedIds.length === 0 ? (
           <Suspense fallback={<PosterSkeleton />}>
