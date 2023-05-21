@@ -6,6 +6,7 @@ import { IconX } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 
 const Input = styled(TextInput)`
+  width: 100%;
   .mantine-TextInput-label {
     font-weight: 300;
     color: var(--mantine-color-cyan-4);
@@ -13,8 +14,11 @@ const Input = styled(TextInput)`
 `;
 
 const ContinueBtn = styled(Button)`
+  font-weight: 300;
   align-self: flex-end;
 `;
+
+const isPassword = name => name.toLowerCase().includes('password');
 
 const SignupInput = ({ name, control, trigger, step, setStep }) => {
   const [continueClicked, setContinueClicked] = useState(false);
@@ -53,23 +57,21 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
         <Input
           onChange={triggerWithChange}
           onKeyDown={preventEnter}
-          w="100%"
           label={`Enter your ${name}`}
           autoComplete="off"
           withAsterisk
           error={error?.message !== 'Required' && error?.message}
           required={false}
-          type={name.toLowerCase().includes('password') ? 'password' : 'text'}
-          icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} color={'#862d2d'} />}
+          type={isPassword(name) ? 'password' : 'text'}
+          icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} />}
         />
         {isDirty && !invalid && (
           <ContinueBtn
             type="button"
             onClick={ClickContinueBtn}
-            fw={300}
             disabled={continueClicked}
             variant="outline"
-            color="gray">
+            color="gray.5">
             Continue
           </ContinueBtn>
         )}
