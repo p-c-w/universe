@@ -18,7 +18,7 @@ const ConfirmModal = ({ id, listName }) => {
 
   return (
     <>
-      <Flex justify={'flex-end'} gap={7} my={10}>
+      <Flex justify="flex-end" gap={7} my={10}>
         <Button onClick={handleTrashClick}>삭제하기</Button>
         <Button onClick={modals.closeAll} color="gray">
           취소하기

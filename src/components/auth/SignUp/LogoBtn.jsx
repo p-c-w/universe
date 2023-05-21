@@ -5,6 +5,8 @@ import { Button, Image } from '@mantine/core';
 const Logo = styled(Button)`
   box-shadow: ${({ selected }) => selected && '0px 0px 15px 10px rgba(79, 74, 216, 0.5)'};
   border-radius: 50%;
+  padding: 0;
+  height: 4.375rem;
 `;
 
 const LogoBtn = ({ logo: { id, name }, idx, subscribedOtt, setSubscribedOtt }) => {
@@ -26,8 +28,6 @@ const LogoBtn = ({ logo: { id, name }, idx, subscribedOtt, setSubscribedOtt }) =
     <Logo
       onClick={selected ? removeLogo : selectLogo}
       selected={selected}
-      p={0}
-      h={70}
       variant="none"
       type="button"
       disabled={idx > 5}>
