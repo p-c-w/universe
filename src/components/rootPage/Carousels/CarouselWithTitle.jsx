@@ -17,6 +17,8 @@ const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) 
         slideGap="sm"
         loop
         align="start"
+        previousControlLabel="previous slide button"
+        nextControlLabel="next slide button"
         slidesToScroll={2}
         dragFree
         breakpoints={[
