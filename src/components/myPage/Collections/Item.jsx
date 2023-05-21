@@ -9,9 +9,7 @@ import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
 const Item = ({ item }) => {
   const iconTrashRef = useRef(null);
-  // 선택된 카테고리 명시적으로 변경하기
-  // selectedCategory
-  const listName = useRecoilValue(categoryState);
+  const selectedCategory = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
   const DetailClick = () => {
@@ -45,12 +43,12 @@ const Item = ({ item }) => {
     modals.open({
       title: ' 해당 컨텐츠를 삭제하시겠습니까?',
       centered: true,
-      children: <ConfirmModal id={item.id} listName={listName} />,
+      children: <ConfirmModal id={item.id} listName={selectedCategory} />,
     });
   };
 
   const trashClick = e => {
-    handleDeleteClick(e, { id: item?.id, listName });
+    handleDeleteClick(e, { id: item?.id, selectedCategory });
 
     setSelectedItem(null);
   };
@@ -79,7 +77,7 @@ const Item = ({ item }) => {
                 </Button>
               </Tooltip>
             </div>
-            <ActionIcons size={16} id={item.id} type={item.type} category={listName} />
+            <ActionIcons size={16} id={item.id} type={item.type} category={selectedCategory} />
           </Flex>
         </Accordion.Panel>
       </Accordion.Item>

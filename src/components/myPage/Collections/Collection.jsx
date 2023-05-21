@@ -10,12 +10,12 @@ import { TMDB_IMG_URL } from '../../../constants';
 const Collection = ({ setImgSrc }) => {
   // 선택된 카테고리 명시적으로 변경하기
   // selectedCategory
-  const category = useRecoilValue(categoryState);
+  const selectedCategory = useRecoilValue(categoryState);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
   const imgUrl = useRef(null);
 
   const { userInfo } = useUserQuery({
-    select: userInfo => userInfo[`${category}_list`],
+    select: userInfo => userInfo[`${selectedCategory}_list`],
     refetchOnWindowFocus: false,
   });
 
@@ -41,7 +41,7 @@ const Collection = ({ setImgSrc }) => {
   return (
     <>
       {collectionList.length === 0 ? (
-        <EmptyMessage category={category} />
+        <EmptyMessage category={selectedCategory} />
       ) : (
         <>
           <Accordion

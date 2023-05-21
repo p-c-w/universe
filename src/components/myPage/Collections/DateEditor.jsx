@@ -22,7 +22,7 @@ const DateEditor = ({ id, date }) => {
 
   const isNavOpened = useRecoilValue(sideNavState);
   const email = useRecoilValue(userState);
-  const category = useRecoilValue(categoryState);
+  const selectedCategory = useRecoilValue(categoryState);
   const [editMode, setEditMode] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date(date));
 
@@ -73,7 +73,7 @@ const DateEditor = ({ id, date }) => {
         <Text size="sm">{formatDate(date)}에 추가함</Text>
       )}
 
-      {category === 'history' &&
+      {selectedCategory === 'history' &&
         (editMode ? (
           <Flex gap={5}>
             <EditButton size="sm" variant="filled" onClick={editDate}>
