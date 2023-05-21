@@ -14,8 +14,7 @@ const convertRuntime = runtime => {
   return `${hours}시간 ${minutes}분`;
 };
 
-// Btn Button으로 수정
-const CloseBtn = styled(Modal.CloseButton)`
+const CloseButton = styled(Modal.CloseButton)`
   z-index: 999;
   position: absolute;
   top: 0.625rem;
@@ -64,7 +63,7 @@ const DetailModal = ({ id, type }) => {
   return (
     <Container pos="relative" m={0} p={0}>
       <Overlay c="#000" opacity={0.75} zIndex="1" />
-      <CloseBtn />
+      <CloseButton />
       {backdropPath ? <Image src={`${TMDB_IMG_URL}/w780${backdropPath}`} /> : <Container w={950} h={535} bg="dark.5" />}
       <Body columns={3}>
         <Grid.Col span={2}>
