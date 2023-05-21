@@ -1,7 +1,7 @@
 export { default as PROVIDERS } from './providers';
 export { default as COLORS } from './colors';
 export { default as GENRES } from './genres';
-export { default as TMDB_IMG_URL } from './tmdbImgUrl';
+export { TMDB_IMG_URL, PLACEHOLDER_IMG_URL } from './urls';
 
 export { default as COLLECTION_BUTTON } from './collectionButtons';
 export { default as PAGE_LIMIT } from './pageLimit';
