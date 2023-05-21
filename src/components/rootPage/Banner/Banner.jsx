@@ -64,6 +64,8 @@ const Banner = () => {
       initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
       loop
       getEmblaApi={setEmbla}
+      previousControlLabel="previous banner button"
+      nextControlLabel="next banner button"
       onSlideChange={handleCurrentSlide}
       onMouseEnter={autoplay.current.stop}
       onMouseLeave={autoplay.current.reset}>

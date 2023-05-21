@@ -17,7 +17,7 @@ const Slide = ({ url, title, subtitle }) => (
       </Button>
     </Container>
     <Space w={100} />
-    <Image maw={500} h="100%" src={url} fit="contain" />
+    <Image maw={500} h="100%" src={url} fit="contain" alt="welcome banner" />
   </Flex>
 );
 
