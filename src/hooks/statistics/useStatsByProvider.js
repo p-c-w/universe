@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useProviderQueries, useUserQuery } from '../queries';
 import { COLORS } from '../../constants';
 
@@ -71,7 +72,7 @@ const useStatisticsByProvider = () => {
 
   const providers = queries.map(({ data }) => data !== undefined && data);
 
-  const newData = getNewData(providers, newTotal);
+  const newData = useMemo(() => getNewData(providers, newTotal), [providers, newTotal]);
 
   const newStats = { total: newTotal, data: newData };
 
