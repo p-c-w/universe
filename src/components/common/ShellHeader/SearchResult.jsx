@@ -52,7 +52,7 @@ const SearchResult = forwardRef(({ input }, ref) => {
   return (
     <ResultContiner ref={ref}>
       {searchResults.map((searchResult, idx) => (
-        <Container key={idx} p="0">
+        <Container key={idx} p={0}>
           <UnderLineTitle order={5} tt="uppercase">
             {mediaType[idx]}
           </UnderLineTitle>
