@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import parse from 'html-react-parser';
 import { Text } from '@mantine/core';
 import { modals } from '@mantine/modals';
-import { DetailModal, ModalSkeleton } from '..';
+import { DetailModal } from '..';
+import { ModalSkeleton } from '../../../loaders';
 
 const Container = styled(Text)`
   cursor: pointer;

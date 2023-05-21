@@ -3,7 +3,6 @@ export { default as Badge } from './Badge/Badge';
 export { default as Badges } from './Badges/Badges';
 export { default as DetailModal } from './DetailModal/DetailModal';
 export { default as GlobalShell } from './GlobalShell/GlobalShell';
-export { default as ModalSkeleton } from './ModalSkeleton/ModalSkeleton';
 export { default as MoreButton } from './MoreButton/MoreButton';
 export { default as ScrollObserver } from './ScrollObserver/ScrollObserver';
 export { ShellHeader } from './ShellHeader';

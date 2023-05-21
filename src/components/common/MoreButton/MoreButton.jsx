@@ -1,8 +1,9 @@
+import { Suspense } from 'react';
 import { Button, Text, ThemeIcon } from '@mantine/core';
 import { IconLayersLinked } from '@tabler/icons-react';
 import { modals } from '@mantine/modals';
-import { Suspense } from 'react';
-import { DetailModal, ModalSkeleton } from '..';
+import { DetailModal } from '..';
+import { ModalSkeleton } from '../../../loaders';
 
 const MoreButton = ({ id, type, pos, right, top }) => {
   const DetailClick = () => {
