@@ -7,11 +7,10 @@ import { calculateLowestFee } from '../../../utils';
 
 const SuggestedSubscription = () => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
-
   const { colorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
-  const { userInfo: watchList = [] } = useUserQuery({
+  const { userInfo: watchList } = useUserQuery({
     select: userInfo => userInfo.watch_list,
     refetchOnWindowFocus: false,
   });
@@ -26,6 +25,7 @@ const SuggestedSubscription = () => {
 
   const { cheapestCombo: providerIds, cheapestPrice } = useMemo(() => calculateLowestFee(providers), [providers]);
 
+  // 숫자 올라가는 기능 구현
   return (
     <Container m={0} p={0}>
       <Flex align="center" gap={20}>
@@ -38,7 +38,7 @@ const SuggestedSubscription = () => {
         ₩{cheapestPrice.toLocaleString()}
       </Text>
       <Text fz={smallScreen ? 10 : 12} fw={100} m={10}>
-        * universe에서 제공하지 않는 OTT 서비스의 구독료는 포함되지 않습니다.{' '}
+        * universe에서 제공하지 않는 OTT 서비스의 구독료는 포함되지 않습니다.
       </Text>
     </Container>
   );
