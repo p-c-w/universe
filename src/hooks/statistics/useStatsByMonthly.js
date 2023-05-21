@@ -4,7 +4,7 @@ import { useUserQuery } from '../queries';
 const thisYear = new Date().getFullYear();
 
 const useStatsByMonthly = () => {
-  const { data: historyDates = [] } = useUserQuery({
+  const { data: historyDates } = useUserQuery({
     select: userInfo => userInfo.history_list.map(item => new Date(item.modified_at)),
   });
 
