@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from '@emotion/styled';
 import { Title, Text, Accordion } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
@@ -28,7 +28,7 @@ const Fee = ({ subscribeList }) => {
   const [editMode, setEditMode] = useState(false);
 
   const providers = subscribeList.map(({ id }) => id);
-  const currentFee = getCurrentFee(providers);
+  const currentFee = useMemo(() => getCurrentFee(providers), [providers]);
 
   const toggleEditMode = () => {
     setEditMode(!editMode);
