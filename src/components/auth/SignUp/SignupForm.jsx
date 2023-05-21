@@ -22,26 +22,19 @@ const SignupForm = ({ setUserInput }) => {
   });
 
   const submitForm = async data => {
-    const { email, name } = await postSignUpData(data);
-
-    const message = `${name}님의 유니버스 가입을 축하드립니다.`;
-
-    showNotification(true, SIGN_UP, message);
-    setUserInput(email);
-  };
-
-  const postSignUpData = async data => {
     try {
       const {
         data: { email, name },
       } = await axios.post('/api/auth/signup', data);
-      return { email, name };
+
+      const message = `${name}님의 유니버스 가입을 축하드립니다.`;
+
+      showNotification(true, SIGN_UP, message);
+      setUserInput(email);
     } catch (error) {
       const message = error.response && error.response.status === 409 ? error.response.data : undefined;
 
       showNotification(false, SIGN_UP, message);
-
-      throw error;
     }
   };
 

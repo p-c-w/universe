@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Container, Title, Text, Flex, useMantineColorScheme } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { Badges } from '../../common';
@@ -23,7 +24,7 @@ const SuggestedSubscription = () => {
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
-  const { cheapestCombo: providerIds, cheapestPrice } = calculateLowestFee(providers);
+  const { cheapestCombo: providerIds, cheapestPrice } = useMemo(() => calculateLowestFee(providers), [providers]);
 
   return (
     <Container m={0} p={0}>

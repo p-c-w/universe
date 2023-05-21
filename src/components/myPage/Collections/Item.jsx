@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
@@ -10,11 +10,10 @@ import { ActionIcons, DetailModal, ModalSkeleton } from '../../common';
 
 const Item = ({ item }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
+  const iconTrashRef = useRef(null);
 
   const listName = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
-
-  const [hovered, setHovered] = useState(false);
 
   const DetailClick = () => {
     modals.open({
@@ -31,9 +30,13 @@ const Item = ({ item }) => {
     });
   };
 
-  const handleMouseEnter = () => setHovered(true);
+  const handleMouseEnter = () => {
+    iconTrashRef.current.style.opacity = 1;
+  };
 
-  const handleMouseLeave = () => setHovered(false);
+  const handleMouseLeave = () => {
+    iconTrashRef.current.style.opacity = 0;
+  };
 
   const handleDeleteClick = e => {
     e.stopPropagation();
@@ -57,11 +60,9 @@ const Item = ({ item }) => {
         <Accordion.Control px={8}>
           <Flex direction="row" justify="space-between" align="center">
             <ItemTitle {...item} />
-            {hovered && (
-              <ThemeIcon variant="transparent" onClick={trashClick}>
-                <IconTrash size={smallScreen ? 14 : 16} />
-              </ThemeIcon>
-            )}
+            <ThemeIcon variant="transparent" onClick={trashClick} ref={iconTrashRef} opacity={0}>
+              <IconTrash size={smallScreen ? 14 : 16} />
+            </ThemeIcon>
           </Flex>
         </Accordion.Control>
 
