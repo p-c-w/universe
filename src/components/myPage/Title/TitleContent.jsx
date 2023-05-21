@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Title, Button, TextInput } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
-import { IconPencil } from '@tabler/icons-react';
-import styled from '@emotion/styled';
 import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled';
+import { Title, Button, TextInput } from '@mantine/core';
+import { IconPencil } from '@tabler/icons-react';
 import { useUserQuery } from '../../../hooks/queries';
 import { useUpdateUserNameMutation } from '../../../hooks/mutations';
 import { userState } from '../../../recoil/atom';
@@ -22,8 +21,6 @@ const NameInput = styled(TextInput)`
 `;
 
 const TitleContent = () => {
-  const smallScreen = useMediaQuery('(max-width: 48rem)');
-
   const email = useRecoilValue(userState);
 
   const { userInfo: name } = useUserQuery({
@@ -40,42 +37,49 @@ const TitleContent = () => {
   }, [name]);
 
   const changeUserName = e => {
+    const content = userName.trim();
+
     if (e.key === 'Escape') {
       setUserName(name);
       setEditMode(false);
+      return;
     }
 
-    const content = userName.trim();
-    if (e.key !== 'Enter' || content === '') return;
-    updateUserName({ email, name: content });
-    setEditMode(false);
+    if (e.key === 'Enter') {
+      if (content) {
+        updateUserName({ email, name: content });
+      } else {
+        setUserName(name);
+      }
+      setEditMode(false);
+    }
   };
-
   return (
     <>
       <PageTitle
-        order={1}
-        size={smallScreen ? 35 : 40}
         display="flex"
+        order={1}
+        size={40}
         fw={900}
         variant="gradient"
         gradient={{ from: 'violet', to: 'cyan', deg: 145 }}>
         {editMode ? (
           <NameInput
-            w={smallScreen ? 200 : 400}
+            w="auto"
             variant="unstyled"
             value={userName}
+            // 핸들러 분리, input안 요소 텍스트 잘림 처리 찾아보기
             onChange={e => {
               setUserName(e.currentTarget.value);
             }}
             onKeyUp={changeUserName}
-            placeholder="Your Name"
+            placeholder="Enter your name"
             ref={node => node?.focus()}
           />
         ) : (
           userName
         )}
-        &apos;s Universe
+        {!editMode && "'s Universe"}
       </PageTitle>
       <Button
         variant="subtle"
