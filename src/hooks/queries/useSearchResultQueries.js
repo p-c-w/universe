@@ -10,7 +10,6 @@ const useSearchResultQueries = (mediaType, query) => {
     enabled: !!query,
     queryKey: [SEARCH_RESULT_QUERY_KEY, type, query],
     queryFn: () => fetchSearchResult(type, query),
-    suspense: true,
     staleTime,
     cacheTime,
     select: data => data.results,

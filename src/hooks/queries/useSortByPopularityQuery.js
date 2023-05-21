@@ -10,7 +10,6 @@ const useSortByPopularityQuery = ({ mediaType, selectedIds }) => {
     queryKey: [`@${mediaType}`, 'sortByPopularity', `providerIds: ${strProviderId}`],
     queryFn: ({ pageParam = 1 }) => fetchSortByPopularity(mediaType, pageParam, strProviderId),
     staleTime,
-    suspense: true,
     refetchOnWindowFocus: false,
     select: datas => datas.results,
   });

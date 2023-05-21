@@ -11,7 +11,11 @@ import { Root, MyPage, SignIn, SignUp, EditProfile } from './pages';
 import { COLORS } from './constants';
 
 const queryClient = new QueryClient({
-  retry: 3,
+  defaultOptions: {
+    queries: {
+      suspense: true,
+    },
+  },
 });
 
 const router = createBrowserRouter([

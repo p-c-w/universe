@@ -9,7 +9,6 @@ const useCollectionQueries = (list, options) => {
   const collectionQueries = list.map(({ type, id }) => ({
     queryKey: ['@collection', type, id],
     queryFn: () => fetchProviderAndDetail(type, id),
-    suspense: true,
     staleTime,
     refetchOnWindowFocus: false,
     select: data => ({

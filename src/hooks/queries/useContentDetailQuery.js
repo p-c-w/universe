@@ -7,7 +7,6 @@ const useContentDetailQuery = (item, options) => {
   const { data, isSuccess } = useQuery({
     queryKey: ['@detail', item],
     queryFn: () => fetchMediaContentDetails(item.type, item.id),
-    suspense: true,
     staleTime,
     ...options,
   });
