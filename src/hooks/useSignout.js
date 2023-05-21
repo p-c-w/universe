@@ -1,17 +1,17 @@
 import { useSetRecoilState } from 'recoil';
-import axios from 'axios';
 import { userState, isLoginState } from '../recoil/atom';
+import { signOut } from '../api';
 
 const useSignout = () => {
   const setUser = useSetRecoilState(userState);
   const setIsLogin = useSetRecoilState(isLoginState);
 
   const signout = async () => {
-    const { data } = await axios.get('/api/auth/signout');
+    const isLogin = await signOut();
 
     setUser(null);
     localStorage.removeItem('user');
-    setIsLogin(data.isLogin);
+    setIsLogin(isLogin);
   };
 
   return signout;

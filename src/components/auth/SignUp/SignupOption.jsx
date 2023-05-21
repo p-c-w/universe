@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Grid, Button, Container, Flex } from '@mantine/core';
 import styled from '@emotion/styled';
 import { Typing, Logo } from '.';
 import { showNotification } from '../../../utils';
+import { submitSubscribedOtt } from '../../../api';
 
 const GridCol = styled(Grid.Col)`
   text-align: center;
@@ -31,7 +31,7 @@ const SignupOption = ({ userInput, setUserInput }) => {
 
   const submitOption = async () => {
     try {
-      await axios.patch(`/api/users/${userInput}`, { subscribe_list: subscribedOtt });
+      submitSubscribedOtt(userInput, subscribedOtt);
 
       localStorage.removeItem('user');
       setUserInput(null);

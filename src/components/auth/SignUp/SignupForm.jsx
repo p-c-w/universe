@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Button } from '@mantine/core';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema } from '../../../schema/schema';
 import { Typing, SignupInput } from '.';
 import { showNotification } from '../../../utils';
+import { signUp } from '../../../api';
 
 const SIGN_UP = '회원가입';
 
@@ -23,9 +23,7 @@ const SignupForm = ({ setUserInput }) => {
 
   const submitForm = async data => {
     try {
-      const {
-        data: { email, name },
-      } = await axios.post('/api/auth/signup', data);
+      const { email, name } = await signUp(data);
 
       const message = `${name}님의 유니버스 가입을 축하드립니다.`;
 
