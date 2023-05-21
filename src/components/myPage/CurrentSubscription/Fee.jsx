@@ -27,11 +27,6 @@ const Fee = ({ subscribeList }) => {
   const providers = subscribeList.map(({ id }) => id);
   const currentFee = useMemo(() => getCurrentFee(providers), [providers]);
 
-  const toggleEditMode = () => {
-    setEditMode(!editMode);
-  };
-
-  // 핸들러 분리
   return (
     <PresentSubscriptionFee>
       <Accordion.Item value={`₩${currentFee}`}>
@@ -46,9 +41,19 @@ const Fee = ({ subscribeList }) => {
         </Accordion.Control>
         <Accordion.Panel>
           {editMode ? (
-            <Editor providers={providers} toggleEditMode={toggleEditMode} />
+            <Editor
+              providers={providers}
+              toggleEditMode={() => {
+                setEditMode(false);
+              }}
+            />
           ) : (
-            <ProvidersInfo providers={providers} toggleEditMode={toggleEditMode} />
+            <ProvidersInfo
+              providers={providers}
+              toggleEditMode={() => {
+                setEditMode(true);
+              }}
+            />
           )}
         </Accordion.Panel>
       </Accordion.Item>
