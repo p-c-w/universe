@@ -1,25 +1,44 @@
-import { Suspense } from 'react';
-import { useUserQuery } from '../../../hooks/queries';
-import { Content } from '.';
+import { useMemo } from 'react';
+import { Container, Title, Text, Flex, useMantineColorScheme } from '@mantine/core';
+import { ProviderAvatars } from '../../common';
+import { useProviderQueries, useUserQuery } from '../../../hooks/queries';
+import { calculateLowestFee } from '../../../utils';
 
 const SuggestedSubscription = () => {
-  const { data, isSuccess } = useUserQuery({
-    select: userInfo => ({
-      watchlist: userInfo.watch_list,
-      refetchOnWindowFocus: false,
-    }),
+  const { colorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
+
+  const { userInfo: watchList } = useUserQuery({
+    select: userInfo => userInfo.watch_list,
+    refetchOnWindowFocus: false,
   });
 
-  const { watchlist } = data || {
-    watchlist: [],
-  };
+  const userCollectionList = watchList.map(list => ({ type: list.type, id: list.id }));
 
-  const userCollectionList = watchlist.map(list => ({ type: list.type, id: list.id }));
+  const queries = useProviderQueries(userCollectionList, {
+    enabled: !!watchList,
+  });
 
+  const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
+
+  const { cheapestCombo: providerIds, cheapestPrice } = useMemo(() => calculateLowestFee(providers), [providers]);
+
+  // 숫자 올라가는 기능 구현
   return (
-    <Suspense fallback={<div>isLoading..</div>}>
-      {isSuccess && <Content watchlist={watchlist} userCollectionList={userCollectionList} />}
-    </Suspense>
+    <Container m={0} p={0}>
+      <Flex align="center" gap={20}>
+        <Title order={2} size={30} align="left">
+          똑똑한 구독료
+        </Title>
+        <ProviderAvatars providerIds={providerIds} size={32} />
+      </Flex>
+      <Text fz={56} color={dark ? 'violet.2' : 'violet.9'} fw={500}>
+        ₩{cheapestPrice.toLocaleString()}
+      </Text>
+      <Text fz={12} fw={100} m={10}>
+        * universe에서 제공하지 않는 OTT 서비스의 구독료는 포함되지 않습니다.
+      </Text>
+    </Container>
   );
 };
 
