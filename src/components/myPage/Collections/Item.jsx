@@ -14,7 +14,7 @@ const Item = ({ item }) => {
   const selectedCategory = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
-  const bigScreen = useMediaQuery('(max-width: 2000px )');
+  const bigScreen = useMediaQuery('(max-width: 125rem )');
 
   const showIconTrash = () => {
     iconTrashRef.current.style.opacity = 1;

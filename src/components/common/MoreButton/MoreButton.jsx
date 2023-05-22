@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { showDetailModal } from '../../../utils';
 
 const MoreButton = ({ id, type, pos, right, top }) => {
-  const bigScreen = useMediaQuery('(max-width: 2000px )');
+  const bigScreen = useMediaQuery('(max-width: 125rem )');
 
   return (
     <Button

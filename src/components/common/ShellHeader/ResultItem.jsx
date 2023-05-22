@@ -11,7 +11,7 @@ const Container = styled(Text)`
 `;
 
 const ResultItem = ({ id, title, name, reg, type }) => {
-  const bigScreen = useMediaQuery('(max-width: 2000px )');
+  const bigScreen = useMediaQuery('(max-width: 125rem )');
 
   return (
     <Container
