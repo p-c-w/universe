@@ -1,10 +1,10 @@
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Accordion, Pagination, Group } from '@mantine/core';
+import { Accordion } from '@mantine/core';
 import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
 import { usePagination } from '../../../hooks';
-import { EmptyMessage, Item } from '.';
+import { EmptyMessage, Item, PaginationGoup } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
 
 const Collection = ({ setImgSrc }) => {
@@ -46,24 +46,7 @@ const Collection = ({ setImgSrc }) => {
               <Item key={item.id} item={item} />
             ))}
           </Accordion>
-          <Pagination.Root
-            total={total}
-            value={activePage}
-            onChange={setActivePage}
-            siblings={2}
-            withEdges
-            align="center"
-            position="center"
-            size="sm"
-            m="sm">
-            <Group spacing={5} position="center">
-              <Pagination.First aria-label="first page button" />
-              <Pagination.Previous aria-label="previous page button" />
-              <Pagination.Items />
-              <Pagination.Next aria-label="next page button" />
-              <Pagination.Last aria-label="last page button" />
-            </Group>
-          </Pagination.Root>
+          <PaginationGoup total={total} activePage={activePage} setActivePage={setActivePage} />
         </>
       )}
     </>
