@@ -1,6 +1,5 @@
 export { default as ActionIcons } from './ActionIcons/ActionIcons';
-export { default as Badge } from './Badge/Badge';
-export { default as Badges } from './Badges/Badges';
+export { default as ProviderAvatars } from './ProviderAvatars/ProviderAvatars';
 export { default as DetailModal } from './DetailModal/DetailModal';
 export { default as GlobalShell } from './GlobalShell/GlobalShell';
 export { default as MoreButton } from './MoreButton/MoreButton';

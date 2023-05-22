@@ -1,5 +1,10 @@
+import styled from '@emotion/styled';
 import { Skeleton, Container, Card, Space } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+
+const StyledSkeleton = styled(Skeleton)`
+  aspect-ratio: 4/3;
+`;
 
 const CarouselSkeleton = () => (
   <Container maw={'100%'} p={0} py={'md'}>
@@ -13,15 +18,15 @@ const CarouselSkeleton = () => (
       slidesToScroll={2}
       dragFree
       breakpoints={[
-        { maxWidth: '110rem', slideSize: '20%' },
-        { maxWidth: '80rem', slideSize: '25%' },
-        { maxWidth: '60rem', slideSize: '33.3333%' },
-        { maxWidth: '40rem', slideSize: '50%', slideGap: 'sm' },
+        { maxWidth: '115rem', slideSize: '20%' },
+        { maxWidth: '100rem', slideSize: '25%', slideGap: 'sm' },
+        { maxWidth: '60rem', slideSize: '33.3333%', slideGap: 'sm' },
+        { maxWidth: '48rem', slideSize: '50%', slideGap: 'xs' },
       ]}>
       {Array.from({ length: 10 }, (_, i) => (
         <Carousel.Slide key={i}>
           <Card mw={342} p={0} radius="md" mih={200}>
-            <Skeleton h={240} p={0} />
+            <StyledSkeleton p={0} />
           </Card>
         </Carousel.Slide>
       ))}

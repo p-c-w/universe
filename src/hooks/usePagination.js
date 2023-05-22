@@ -4,7 +4,7 @@ import { categoryState, selectedItemState } from '../recoil/atom';
 import { PAGE_LIMIT } from '../constants';
 
 const usePagination = data => {
-  const category = useRecoilValue(categoryState);
+  const selectedCategory = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
   const [activePage, setActivePage] = useState(1);
@@ -14,7 +14,7 @@ const usePagination = data => {
 
   useEffect(() => {
     setActivePage(1);
-  }, [category]);
+  }, [selectedCategory]);
 
   useEffect(() => {
     setSelectedItem(null);

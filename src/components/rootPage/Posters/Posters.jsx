@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { SimpleGrid } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useSortByPopularityInfinityQuery } from '../../../hooks/queries';
-import { Poster, PosterSkeleton } from '.';
+import { Poster } from '.';
+import { PosterSkeleton } from '../../../loaders';
 import { useObserver } from '../../../hooks';
 import { ScrollObserver } from '../../common';
 
@@ -34,7 +35,6 @@ const Posters = ({ mediaType }) => {
         breakpoints={[
           { maxWidth: '80rem', cols: 4 },
           { maxWidth: '60rem', cols: 3 },
-          { maxWidth: '40rem', cols: 2 },
         ]}>
         {content.map(
           ({

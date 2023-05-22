@@ -17,6 +17,9 @@ const NameInput = styled(TextInput)`
     color: gray;
     font-weight: 700;
     -webkit-text-fill-color: gray;
+    ::placeholder {
+      font-size: 0.8em;
+    }
   }
 `;
 
@@ -68,7 +71,6 @@ const TitleContent = () => {
             w="auto"
             variant="unstyled"
             value={userName}
-            // 핸들러 분리, input안 요소 텍스트 잘림 처리 찾아보기
             onChange={e => {
               setUserName(e.currentTarget.value);
             }}
@@ -84,6 +86,7 @@ const TitleContent = () => {
       <Button
         variant="subtle"
         compact
+        aria-label="edit button"
         onClick={() => {
           setEditMode(!editMode);
         }}>

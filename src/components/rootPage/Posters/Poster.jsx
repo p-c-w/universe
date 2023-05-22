@@ -15,7 +15,7 @@ import {
   Skeleton,
 } from '@mantine/core';
 import { ActionIcons, MoreButton } from '../../common';
-import genres from '../../../constants/genres';
+import { GENRES, TMDB_IMG_URL, PLACEHOLDER_IMG_URL } from '../../../constants';
 
 const Img = styled(Image)`
   overflow: hidden;
@@ -47,15 +47,12 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
   const [hovered, setHovered] = useState(false);
   const dark = colorScheme === 'dark';
 
-  const openHoverCard = () => setHovered(true);
-  const closeHoverCard = () => setHovered(false);
-
   return (
-    <Card p={0} radius="md" onMouseEnter={openHoverCard} onMouseLeave={closeHoverCard}>
+    <Card p={0} radius="md" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <Img
         radius="md"
-        // url 상수화
-        src={posterPath ? `https://image.tmdb.org/t/p/w342${posterPath}` : 'https://placehold.co/252x378?text=TDB'}
+        src={posterPath ? `${TMDB_IMG_URL}w342${posterPath}` : `${PLACEHOLDER_IMG_URL}252x378?text=TDB`}
+        alt={`${title} poster`}
       />
       <Transition mounted={hovered} transition="fade" duration={400} timingFunction="ease">
         {styles => (
@@ -77,8 +74,8 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
                 </Text>
                 <Flex wrap="wrap" mt="lg">
                   {genreIds.map(id => (
-                    <Badge color={genres[mediaType][id].color} key={id}>
-                      {genres[mediaType][id].name}
+                    <Badge color={GENRES[mediaType][id].color} key={id}>
+                      {GENRES[mediaType][id].name}
                     </Badge>
                   ))}
                 </Flex>

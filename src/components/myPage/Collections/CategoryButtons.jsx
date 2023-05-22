@@ -5,11 +5,11 @@ import { CategoryButton } from '.';
 import { categoryState } from '../../../recoil/atom';
 
 const CategoryButtons = () => {
-  const [category, setCategory] = useRecoilState(categoryState);
+  const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
 
   const changeCategory = (e, button) => {
-    if (`${e.target.textContent.toLowerCase()}` === category) return;
-    setCategory(`${button.label.toLowerCase()}`);
+    if (`${e.target.textContent.toLowerCase()}` === selectedCategory) return;
+    setSelectedCategory(`${button.label.toLowerCase()}`);
   };
 
   return (
@@ -18,7 +18,7 @@ const CategoryButtons = () => {
         <CategoryButton
           key={button.label}
           onClick={e => changeCategory(e, button)}
-          selected={category === `${button.label.toLowerCase()}`}
+          selected={selectedCategory === `${button.label.toLowerCase()}`}
           {...button}>
           {button.label}
         </CategoryButton>

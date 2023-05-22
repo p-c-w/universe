@@ -9,5 +9,4 @@ export { default as DateEditor } from './DateEditor';
 export { default as CategoryButton } from './CategoryButton';
 export { default as CategoryButtons } from './CategoryButtons';
 export { default as EmptyMessage } from './EmptyMessage';
-
-export { default as SkeletonWrapper } from './SkeletonWrapper';
+export { default as PaginationGoup } from './PaginationGoup';

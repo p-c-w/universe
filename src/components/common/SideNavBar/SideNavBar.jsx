@@ -6,7 +6,7 @@ import { IconMovie, IconThumbUp, IconHistory, IconPlanet, IconLogout } from '@ta
 import parse from 'html-react-parser';
 import { sideNavState, categoryState, isLoginState } from '../../../recoil/atom';
 import { useSignout } from '../../../hooks';
-import { SIDE_NAV_DURATION } from '../../../constants';
+import { PCW_REPO_URL, SIDE_NAV_DURATION, TMDB_URL } from '../../../constants';
 
 const Nav = styled(Navbar)`
   justify-content: space-between;
@@ -58,13 +58,11 @@ const SideNavBar = () => {
   const isLogin = useRecoilValue(isLoginState);
   const isOpened = useRecoilValue(sideNavState);
   const { colorScheme } = useMantineColorScheme();
-  const setCategory = useSetRecoilState(categoryState);
+  const setSelectedCategory = useSetRecoilState(categoryState);
 
   const signout = useSignout();
 
   const dark = colorScheme === 'dark';
-
-  // 상수로 뺄 것들 정리
 
   return (
     <Transition mounted={isOpened} transition="slide-right" duration={SIDE_NAV_DURATION} timingFunction="ease">
@@ -74,7 +72,11 @@ const SideNavBar = () => {
             {isLogin ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
-                  <Tab key={label} role="button" aria-label={label} onClick={() => category && setCategory(category)}>
+                  <Tab
+                    key={label}
+                    role="button"
+                    aria-label={label}
+                    onClick={() => category && setSelectedCategory(category)}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}
@@ -89,7 +91,7 @@ const SideNavBar = () => {
             ) : (
               <>
                 <Text size="sm" color={dark ? 'gray.0' : 'gray.9'}>
-                  {'아직 나의'}
+                  아직 나의
                 </Text>
                 <Text size="sm" color={dark ? 'gray.0' : 'gray.9'}>
                   {parse('<b>유니버스</b>가 없나요?')}
@@ -124,7 +126,7 @@ const SideNavBar = () => {
             <Section>
               <Stack spacing="sm" p="xs" align="center">
                 <Group>
-                  <Link to="https://github.com/p-c-w">
+                  <Link to={PCW_REPO_URL}>
                     <Image
                       maw={40}
                       src={`/assets/logos/github-mark${dark ? '-white' : ''}.svg`}
@@ -132,14 +134,14 @@ const SideNavBar = () => {
                       alt="github logo"
                     />
                   </Link>
-                  <Link to="https://www.themoviedb.org/">
+                  <Link to={TMDB_URL}>
                     <Image maw={45} src="/assets/logos/tmdb_1x1.svg" w={20} alt="tmdb logo" />
                   </Link>
                 </Group>
                 <Text size={12} align="center">
-                  {'Copyright © 2023'}
+                  Copyright © 2023
                   <br />
-                  {'Universe All rights reserved'}
+                  Universe All rights reserved
                 </Text>
               </Stack>
             </Section>
