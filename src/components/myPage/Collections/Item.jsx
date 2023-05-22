@@ -1,32 +1,20 @@
-import { Suspense, useRef } from 'react';
+import { useRef } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
+import { useMediaQuery } from '@mantine/hooks';
 import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
-import { ActionIcons, DetailModal } from '../../common';
-import { ModalSkeleton } from '../../../loaders';
+import { ActionIcons } from '../../common';
+import { showDetailModal } from '../../../utils';
 
 const Item = ({ item }) => {
   const iconTrashRef = useRef(null);
   const selectedCategory = useRecoilValue(categoryState);
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
-  const DetailClick = () => {
-    modals.open({
-      centered: true,
-      withCloseButton: false,
-      size: 950,
-      padding: 0,
-      m: 0,
-      children: (
-        <Suspense fallback={<ModalSkeleton />}>
-          <DetailModal type={item.type} id={item.id} />
-        </Suspense>
-      ),
-    });
-  };
+  const bigScreen = useMediaQuery('(max-width: 2000px )');
 
   const showIconTrash = () => {
     iconTrashRef.current.style.opacity = 1;
@@ -64,7 +52,16 @@ const Item = ({ item }) => {
             <DateEditor id={item?.id} date={item?.modified_at} />
             <div>
               <Tooltip label="더보기" position="bottom-end" withArrow withinPortal>
-                <Button m={0} pl={0} pb={3} variant="transparent" onClick={DetailClick} fz={12} aria-label="more">
+                <Button
+                  m={0}
+                  pl={0}
+                  pb={3}
+                  variant="transparent"
+                  onClick={() => {
+                    showDetailModal(item.id, item.type, bigScreen);
+                  }}
+                  fz={12}
+                  aria-label="more">
                   <Text fz="sm">상세페이지로</Text>
                   <ThemeIcon variant="transparent">
                     <IconLayersLinked size={16} />

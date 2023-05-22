@@ -1,10 +1,8 @@
-import { Suspense } from 'react';
-import styled from '@emotion/styled';
 import parse from 'html-react-parser';
+import styled from '@emotion/styled';
 import { Text } from '@mantine/core';
-import { modals } from '@mantine/modals';
-import { DetailModal } from '..';
-import { ModalSkeleton } from '../../../loaders';
+import { useMediaQuery } from '@mantine/hooks';
+import { showDetailModal } from '../../../utils';
 
 const Container = styled(Text)`
   cursor: pointer;
@@ -13,23 +11,14 @@ const Container = styled(Text)`
 `;
 
 const ResultItem = ({ id, title, name, reg, type }) => {
-  const DetailClick = () => {
-    modals.open({
-      centered: true,
-      withCloseButton: false,
-      size: 950,
-      padding: 0,
-      m: 0,
-      children: (
-        <Suspense fallback={<ModalSkeleton />}>
-          <DetailModal id={id} type={type} />
-        </Suspense>
-      ),
-    });
-  };
+  const bigScreen = useMediaQuery('(max-width: 2000px )');
 
   return (
-    <Container key={id} onClick={DetailClick}>
+    <Container
+      key={id}
+      onClick={() => {
+        showDetailModal(id, type, bigScreen);
+      }}>
       {parse((title || name).replace(reg, match => `<b>${match}</b>`))}
     </Container>
   );
