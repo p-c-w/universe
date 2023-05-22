@@ -92,7 +92,7 @@ const DetailModal = ({ id, type }) => {
               <Text>{seasons > 1 ? `시즌 ${seasons}개` : episodes ? `에피소드 ${episodes}개` : ''}</Text>
             )}
           </Flex>
-          <Flex justify="space-between" ml="lg">
+          <Flex justify="space-between">
             <Flex maw={smallScreen ? '15vw' : '200px'} wrap="wrap" gap={5}>
               {genreIds.map(({ id, name }) => (
                 <Badge color={genres[type][id].color} key={id}>
