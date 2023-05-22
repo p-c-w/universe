@@ -92,7 +92,7 @@ const SignUp = () => {
         <BackImg src="https://github.githubassets.com/images/modules/site/home/hero-glow.svg" alt="Glowing universe" />
       </Background>
       <SignupHeader />
-      <Flex mih={600} justify="center" direction="column" wrap="wrap" align="center">
+      <Flex mih={600} h="80vh" m="auto" justify="center" direction="column" wrap="wrap" align="center">
         <FormContainer c="gray.1" w={550} p={20}>
           {!userInput ? (
             <SignupForm setUserInput={setUserInput} />
