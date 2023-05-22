@@ -13,7 +13,7 @@ const Collection = ({ setImgSrc }) => {
   const imgUrl = useRef(null);
 
   const { userInfo } = useUserQuery({
-    select: userInfo => userInfo[`${selectedCategory}_list`],
+    select: userInfo => [...userInfo[`${selectedCategory}_list`]].reverse(),
     refetchOnWindowFocus: false,
   });
 
@@ -21,10 +21,13 @@ const Collection = ({ setImgSrc }) => {
 
   const collectionQueries = useCollectionQueries(collection, { enabled: !!collection });
 
-  const collectionList = collectionQueries.map(({ data }) => ({
-    ...data,
-    modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
-  }));
+  const collectionList = collectionQueries.map(
+    ({ data }) =>
+      data !== undefined && {
+        ...data,
+        modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
+      }
+  );
 
   const selectItem = e => {
     setSelectedItem(e);
@@ -38,7 +41,7 @@ const Collection = ({ setImgSrc }) => {
         <EmptyMessage category={selectedCategory} />
       ) : (
         <>
-          <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
+          <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem} mb={10}>
             {collectionList?.map(item => (
               <Item key={item.id} item={item} />
             ))}
