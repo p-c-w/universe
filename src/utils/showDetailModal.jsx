@@ -12,7 +12,7 @@ const showDetailModal = (id, type, bigScreen) => {
     padding: 0,
     m: 0,
     children: (
-      <Suspense fallback={<ModalSkeleton />}>
+      <Suspense fallback={<ModalSkeleton size={bigScreen ? 1000 : 1500} />}>
         <DetailModal type={type} id={id} />
       </Suspense>
     ),
