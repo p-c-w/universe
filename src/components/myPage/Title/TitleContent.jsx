@@ -86,6 +86,7 @@ const TitleContent = () => {
       <Button
         variant="subtle"
         compact
+        aria-label="edit button"
         onClick={() => {
           setEditMode(!editMode);
         }}>
