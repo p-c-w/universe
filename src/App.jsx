@@ -1,14 +1,14 @@
-import { lazy, Suspense } from 'react';
 import { RecoilRoot } from 'recoil';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MantineProvider, ColorSchemeProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import useColorScheme from './hooks/useColorScheme';
-import AuthenticationGuard from './guard/AuthenticationGuard';
 import { COLORS } from './constants';
+import routerConfig from './router/routerConfig';
+import GlobalFonts from './styles/GlobalFonts';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,33 +17,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-const lazyLoadRoutes = componentName => {
-  const LazyElement = lazy(() => import(`./pages/${componentName}.jsx`));
-
-  return (
-    <Suspense fallback="Loading...">
-      <LazyElement />
-    </Suspense>
-  );
-};
-
-const router = createBrowserRouter([
-  {
-    path: '/mypage',
-    element: <AuthenticationGuard redirectTo="/signin" element={lazyLoadRoutes('MyPage')} />,
-  },
-  {
-    path: '/',
-    element: lazyLoadRoutes('Root'),
-  },
-  {
-    path: '/editprofile',
-    element: <AuthenticationGuard redirectTo="/signin" element={lazyLoadRoutes('EditProfile')} />,
-  },
-  { path: '/signin', element: lazyLoadRoutes('SignIn') },
-  { path: '/signup', element: lazyLoadRoutes('SignUp') },
-]);
 
 const App = () => {
   const [colorScheme, toggleColorScheme] = useColorScheme();
@@ -54,7 +27,18 @@ const App = () => {
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
           <MantineProvider
             theme={{
-              fontFamily: "'Spoqa Han Sans Neo', sans-serif",
+              globalStyles: theme => ({
+                '*, *::before, *::after': {
+                  boxSizing: 'border-box',
+                },
+                title: {
+                  color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+                },
+                text: {
+                  color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+                },
+              }),
+              fontFamily: 'Spoqa Han Sans Neo, sans-serif',
               colorScheme,
               primaryColor: 'violet',
               colors: COLORS,
@@ -62,9 +46,10 @@ const App = () => {
             withCSSVariables
             withGlobalStyles
             withNormalizeCSS>
+            <GlobalFonts />
             <ModalsProvider />
             <Notifications position="bottom-right" />
-            <RouterProvider router={router} />
+            <RouterProvider router={routerConfig} />
           </MantineProvider>
         </ColorSchemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
