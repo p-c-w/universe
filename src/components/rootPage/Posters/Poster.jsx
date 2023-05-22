@@ -60,7 +60,7 @@ const Poster = ({ id, title, originalTitle, posterPath, overview, date, genreIds
             <Flex direction={'column'} align="baseline" justify="space-between" opacity="none">
               <MoreButton id={id} type={mediaType} pos="absolute" right="0.9375rem" top="0.625rem" />
               <Container m={0} mt="xl" p={0} mb="md">
-                <Title fz="lg" fw={600} lineClamp={1} c="gray.1">
+                <Title fz="lg" fw={700} lineClamp={1} c="gray.1">
                   {title}
                 </Title>
                 <Text fz="sm" lineClamp={1} c="gray.1">
