@@ -15,7 +15,10 @@ const Slide = ({ id, title, originalTitle, backdropPath, mediaType }) => {
   return (
     <StyledSlide py="lg" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       <Card mw={342} p={0} radius="md" shadow="sm">
-        <Image src={backdropPath ? `${TMDB_IMG_URL}w500${backdropPath}` : `${PLACEHOLDER_IMG_URL}500x281?text=TBD`} />
+        <Image
+          src={backdropPath ? `${TMDB_IMG_URL}w500${backdropPath}` : `${PLACEHOLDER_IMG_URL}500x281?text=TBD`}
+          alt={`${title} poster`}
+        />
         <Container h={60} m="sm" pt={5} pb="sm" px="xs" fluid>
           <Text fw={700} fz="lg" lineClamp={1}>
             {title}
