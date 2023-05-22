@@ -65,7 +65,7 @@ const useStatisticsByProvider = () => {
   const { data: historyList } = useUserQuery({ select: userInfo => userInfo.history_list });
   const newTotal = historyList.length;
 
-  const queries = useProviderQueries(historyList, {
+  const { queries } = useProviderQueries(historyList, {
     enabled: !!newTotal,
   });
 

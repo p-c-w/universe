@@ -6,6 +6,7 @@ import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
 import { usePagination } from '../../../hooks';
 import { EmptyMessage, Item, PaginationGoup } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
+import { CollectionSkeleton } from '../../../loaders';
 
 const Collection = ({ setImgSrc }) => {
   const selectedCategory = useRecoilValue(categoryState);
@@ -19,9 +20,11 @@ const Collection = ({ setImgSrc }) => {
 
   const { activePage, setActivePage, total, collection } = usePagination(userInfo);
 
-  const collectionQueries = useCollectionQueries(collection, { enabled: !!collection });
+  const { queries, isAllSuccess } = useCollectionQueries(collection, { enabled: !!collection });
 
-  const collectionList = collectionQueries.map(
+  if (!isAllSuccess) return <CollectionSkeleton />;
+
+  const collectionList = queries.map(
     ({ data }) =>
       data !== undefined && {
         ...data,
