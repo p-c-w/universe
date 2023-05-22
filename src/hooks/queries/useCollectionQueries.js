@@ -29,7 +29,9 @@ const useCollectionQueries = (list, options) => {
     queries: collectionQueries,
   });
 
-  return queries;
+  const isAllSuccess = !queries.some(({ isSuccess }) => !isSuccess);
+
+  return { queries, isAllSuccess };
 };
 
 export default useCollectionQueries;

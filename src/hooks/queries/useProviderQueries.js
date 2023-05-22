@@ -25,7 +25,9 @@ const useProviderQueries = (list, options) => {
     queries: providerQueries,
   });
 
-  return queries;
+  const isAllSuccess = !queries.some(({ isSuccess }) => !isSuccess);
+
+  return { queries, isAllSuccess };
 };
 
 export default useProviderQueries;
