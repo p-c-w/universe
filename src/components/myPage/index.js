@@ -1,7 +1,7 @@
 export { Title } from './Title';
 
 export { default as MyInfo } from './MyInfo/MyInfo';
-export { default as SuggestedSubscription } from './SuggestedSubscription/SuggestedSubscription';
+export { SuggestedSubscription } from './SuggestedSubscription';
 export { CurrentSubscription } from './CurrentSubscription';
 export { Statistics } from './Statistics';
 
