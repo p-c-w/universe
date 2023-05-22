@@ -7,6 +7,7 @@ import { useProviderQueries, useContentDetailQuery } from '../../../hooks/querie
 import { ActionIcons, ProviderAvatars } from '..';
 import genres from '../../../constants/genres';
 import { TMDB_IMG_URL } from '../../../constants';
+import { ModalSkeleton } from '../../../loaders';
 
 const convertRuntime = runtime => {
   const hours = Math.floor(runtime / 60);
@@ -56,7 +57,9 @@ const DetailModal = ({ id, type }) => {
   const bigScreen = useMediaQuery('(max-width: 125rem )');
   const smallScreen = useMediaQuery('(min-width: 100rem )');
 
-  const queries = useProviderQueries([{ id, type }]);
+  const { queries, isAllSuccess } = useProviderQueries([{ id, type }]);
+
+  if (!isAllSuccess) return <ModalSkeleton />;
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 

@@ -186,7 +186,7 @@ const useStatsByGenre = () => {
 
   let newData = [];
 
-  const collectionQueries = useCollectionQueries(historyList);
+  const { queries: collectionQueries } = useCollectionQueries(historyList);
 
   const genres = collectionQueries.map(({ isSuccess, data }) => isSuccess && data.genres[0]);
 

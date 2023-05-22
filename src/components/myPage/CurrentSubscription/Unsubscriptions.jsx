@@ -8,9 +8,11 @@ const getProvidersIdsByList = list => list.flatMap(item => item.id);
 const Unsubscriptions = ({ subscribeList, watchList }) => {
   const smallScreen = useMediaQuery('(max-width: 48rem)');
 
-  const queries = useProviderQueries(watchList, {
+  const { queries, isAllSuccess } = useProviderQueries(watchList, {
     enabled: !!watchList.length,
   });
+
+  if (!isAllSuccess) return <div>...isLoading</div>;
 
   const subscribeProviderIds = getProvidersIdsByList(subscribeList);
   const watchProviderIds = queries.map(({ data }) => data).flatMap(content => content?.providers);
