@@ -2,11 +2,13 @@ import { useCallback } from 'react';
 import styled from '@emotion/styled';
 import { SimpleGrid } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
+import { useRecoilValue } from 'recoil';
 import { useSortByPopularityInfinityQuery } from '../../../hooks/queries';
 import { Poster } from '.';
 import { PosterSkeleton } from '../../../loaders';
 import { useObserver } from '../../../hooks';
 import { ScrollObserver } from '../../common';
+import { sideNavState } from '../../../recoil/atom';
 
 const CardGrid = styled(SimpleGrid)`
   position: relative;
@@ -16,7 +18,8 @@ const CardGrid = styled(SimpleGrid)`
 
 const Posters = ({ mediaType }) => {
   const { content, hasNextPage, fetchNextPage } = useSortByPopularityInfinityQuery(mediaType);
-  const smallScreen = useMediaQuery('(max-width: 96rem)');
+  const isSideNavOpened = useRecoilValue(sideNavState);
+  const smallScreen = useMediaQuery(`(max-width: ${isSideNavOpened ? '100rem' : '90rem'})`);
 
   const movie = mediaType === 'movie';
 
@@ -32,10 +35,18 @@ const Posters = ({ mediaType }) => {
         cols={5}
         maw={smallScreen ? '100%' : '80%'}
         verticalSpacing="sm"
-        breakpoints={[
-          { maxWidth: '80rem', cols: 4 },
-          { maxWidth: '60rem', cols: 3 },
-        ]}>
+        breakpoints={
+          isSideNavOpened
+            ? [
+                { maxWidth: '110rem', cols: 4 },
+                { maxWidth: '80rem', cols: 3 },
+                { maxWidth: '60rem', cols: 2 },
+              ]
+            : [
+                { maxWidth: '80rem', cols: 4 },
+                { maxWidth: '60rem', cols: 3 },
+              ]
+        }>
         {content.map(
           ({
             id,
