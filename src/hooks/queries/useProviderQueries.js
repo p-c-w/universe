@@ -9,7 +9,6 @@ const useProviderQueries = (list, options) => {
     queryKey: [PROVIDER_QUERY_KEY, type, id],
     queryFn: () => fetchProvider(type, id),
     staleTime,
-    suspense: true,
     refetchOnWindowFocus: false,
     select: data => ({
       id: data.id,

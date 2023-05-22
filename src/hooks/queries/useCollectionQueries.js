@@ -9,7 +9,6 @@ const useCollectionQueries = (list, options) => {
     queryKey: [COLLECTION_QUERY_KEY, type, id],
     queryFn: () => fetchProviderAndDetail(type, id),
     staleTime,
-    suspense: true,
     refetchOnWindowFocus: false,
     select: data => ({
       id,
