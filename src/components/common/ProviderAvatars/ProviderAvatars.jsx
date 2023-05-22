@@ -11,7 +11,7 @@ const ProviderAvatars = ({ providerIds, spacing = 'sm', size = '2.2rem' }) => (
           color="gray"
           withArrow
           transitionProps={{ transition: 'fade', duration: 300 }}>
-          <Avatar src={PROVIDERS[id].providerImgPath} radius="xl" size={size} />
+          <Avatar src={PROVIDERS[id].providerImgPath} radius="xl" size={size} alt="logo of service provider" />
         </Tooltip>
       ))}
     </Avatar.Group>

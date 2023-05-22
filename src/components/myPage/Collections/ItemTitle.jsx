@@ -11,7 +11,7 @@ const ItemTitle = ({ title, providers: providerIds }) => {
       {providerIds ? (
         <ProviderAvatars providerIds={providerIds} spacing={25} />
       ) : (
-        <Avatar src={`./assets/logos/universeLogoWhite.svg`} size={35.2} />
+        <Avatar src={`./assets/logos/universeLogoWhite.svg`} size={35.2} alt="logo of universe" />
       )}
       <Text fz={smallScreen ? 'md' : 'lg'} fw={700} lineClamp={1}>
         {title}
