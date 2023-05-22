@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { Image, Transition, ScrollArea, Container, Flex } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useRecoilValue } from 'recoil';
-import { CategoryButtons, Collection, SkeletonWrapper } from '.';
+import { CategoryButtons, Collection } from '.';
+import { CollectionSkeleton } from '../../../loaders';
 import posterImgState from '../../../recoil/selector/posterImgState';
 
 const MyListContainer = styled(Container)`
@@ -18,21 +19,20 @@ const PosterImage = styled(Image)`
   display: ${props => (props.open ? 'block' : 'none')};
 `;
 
-// 미디어쿼리 이름 변경 바랍니다.
 const Collections = () => {
-  const smallScreen = useMediaQuery('(max-width: 60rem)');
-  const middleScreen = useMediaQuery('(max-width: 51.25rem)');
+  const middleScreen = useMediaQuery('(max-width: 60rem)');
+  const screenToClose = useMediaQuery('(max-width: 51.25rem)');
 
-  const isImgOpened = useRecoilValue(posterImgState(middleScreen));
+  const isImgOpened = useRecoilValue(posterImgState(screenToClose));
 
   const [imgSrc, setImgSrc] = useState(null);
 
   return (
     <MyListContainer fluid>
       <CategoryButtons />
-      <Flex gap={smallScreen ? 8 : 16}>
-        <ScrollArea w="100%" h={400} miw={250}>
-          <Suspense fallback={<SkeletonWrapper />}>
+      <Flex gap={middleScreen ? 8 : 16}>
+        <ScrollArea w="100%" h={460} miw={250}>
+          <Suspense fallback={<CollectionSkeleton />}>
             <Collection setImgSrc={setImgSrc} />
           </Suspense>
         </ScrollArea>
@@ -40,7 +40,7 @@ const Collections = () => {
           {styles => (
             <PosterImage
               open={isImgOpened}
-              maw={smallScreen ? 250 : 300}
+              maw={middleScreen ? 250 : 300}
               miw={50}
               src={imgSrc}
               alt="content image"

@@ -1,35 +1,30 @@
 import { useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Accordion, Pagination } from '@mantine/core';
+import { Accordion } from '@mantine/core';
 import { categoryState, selectedItemState } from '../../../recoil/atom';
 import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
 import { usePagination } from '../../../hooks';
-import { EmptyMessage, Item } from '.';
+import { EmptyMessage, Item, PaginationGoup } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
 
 const Collection = ({ setImgSrc }) => {
-  // 선택된 카테고리 명시적으로 변경하기
-  // selectedCategory
-  const category = useRecoilValue(categoryState);
+  const selectedCategory = useRecoilValue(categoryState);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
   const imgUrl = useRef(null);
 
   const { userInfo } = useUserQuery({
-    select: userInfo => userInfo[`${category}_list`],
+    select: userInfo => userInfo[`${selectedCategory}_list`],
     refetchOnWindowFocus: false,
   });
 
-  const { activePage, setActivePage, total, collection } = usePagination(userInfo.reverse());
+  const { activePage, setActivePage, total, collection } = usePagination(userInfo);
 
-  const collectionQueries = useCollectionQueries(collection, { enable: !!collection });
+  const collectionQueries = useCollectionQueries(collection, { enabled: !!collection });
 
-  const collectionList = collectionQueries.map(
-    ({ data }) =>
-      data !== undefined && {
-        ...data,
-        modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
-      }
-  );
+  const collectionList = collectionQueries.map(({ data }) => ({
+    ...data,
+    modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
+  }));
 
   const selectItem = e => {
     setSelectedItem(e);
@@ -37,34 +32,18 @@ const Collection = ({ setImgSrc }) => {
     setImgSrc(imgUrl.current);
   };
 
-  // 새로운 파생상태나 전역상태 말고 key로도 해결할 수 있을거 같아요.
   return (
     <>
       {collectionList.length === 0 ? (
-        <EmptyMessage category={category} />
+        <EmptyMessage category={selectedCategory} />
       ) : (
         <>
-          <Accordion
-            // key={category + activePage}
-            variant="separated"
-            w="100%"
-            onChange={selectItem}
-            value={selectedItem}>
+          <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem}>
             {collectionList?.map(item => (
               <Item key={item.id} item={item} />
             ))}
           </Accordion>
-          <Pagination
-            value={activePage}
-            onChange={setActivePage}
-            total={total}
-            siblings={2}
-            withEdges
-            align="center"
-            position="center"
-            size="sm"
-            m="sm"
-          />
+          <PaginationGoup total={total} activePage={activePage} setActivePage={setActivePage} />
         </>
       )}
     </>

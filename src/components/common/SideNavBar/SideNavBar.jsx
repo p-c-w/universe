@@ -58,7 +58,8 @@ const SideNavBar = () => {
   const isLogin = useRecoilValue(isLoginState);
   const isOpened = useRecoilValue(sideNavState);
   const { colorScheme } = useMantineColorScheme();
-  const setCategory = useSetRecoilState(categoryState);
+  const setSelectedCategory = useSetRecoilState(categoryState);
+
   const signout = useSignout();
 
   const dark = colorScheme === 'dark';
@@ -71,7 +72,11 @@ const SideNavBar = () => {
             {isLogin ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
-                  <Tab key={label} role="button" aria-label={label} onClick={() => category && setCategory(category)}>
+                  <Tab
+                    key={label}
+                    role="button"
+                    aria-label={label}
+                    onClick={() => category && setSelectedCategory(category)}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}

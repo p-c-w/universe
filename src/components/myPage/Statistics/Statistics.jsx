@@ -43,6 +43,8 @@ const Statistics = () => {
       withIndicators
       controlsOffset="xs"
       controlSize={20}
+      previousControlLabel="previous slide button"
+      nextControlLabel="next slide button"
       onSlideChange={selectCurrentSlide}
       initialSlide={currentSlide.current === 0 ? 0 : currentSlide.current === 1 ? 1 : 2}
       getEmblaApi={setEmbla}

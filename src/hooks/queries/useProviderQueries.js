@@ -1,12 +1,12 @@
 import { useQueries } from '@tanstack/react-query';
 import { fetchProvider } from '../../api';
-import { PROVIDERS } from '../../constants';
+import { PROVIDERS, PROVIDER_QUERY_KEY } from '../../constants';
 
 const staleTime = 1000 * 60 * 5;
 
 const useProviderQueries = (list, options) => {
   const providerQueries = list?.map(({ type, id }) => ({
-    queryKey: ['@provider', type, id],
+    queryKey: [PROVIDER_QUERY_KEY, type, id],
     queryFn: () => fetchProvider(type, id),
     staleTime,
     refetchOnWindowFocus: false,

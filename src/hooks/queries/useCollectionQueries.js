@@ -1,13 +1,12 @@
 import { useQueries } from '@tanstack/react-query';
 import { fetchProviderAndDetail } from '../../api';
-import { PROVIDERS } from '../../constants';
+import { PROVIDERS, COLLECTION_QUERY_KEY } from '../../constants';
 
 const staleTime = 1000 * 5 * 60;
 
-// 상수 키 빼주세요
 const useCollectionQueries = (list, options) => {
   const collectionQueries = list.map(({ type, id }) => ({
-    queryKey: ['@collection', type, id],
+    queryKey: [COLLECTION_QUERY_KEY, type, id],
     queryFn: () => fetchProviderAndDetail(type, id),
     staleTime,
     refetchOnWindowFocus: false,

@@ -4,7 +4,7 @@ import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
 import { useProviderQueries, useContentDetailQuery } from '../../../hooks/queries';
-import { ActionIcons, Badges } from '..';
+import { ActionIcons, ProviderAvatars } from '..';
 import genres from '../../../constants/genres';
 import { TMDB_IMG_URL } from '../../../constants';
 
@@ -117,7 +117,7 @@ const DetailModal = ({ id, type }) => {
             )}
             <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
               <Container display="flex">
-                <Badges providerIds={providerIds} spacing="xs" size={45} />
+                <ProviderAvatars providerIds={providerIds} spacing="xs" size={45} />
               </Container>
             </Container>
           </Flex>
