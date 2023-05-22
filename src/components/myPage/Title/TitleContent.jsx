@@ -57,6 +57,15 @@ const TitleContent = () => {
       setEditMode(false);
     }
   };
+
+  const clickEditIcon = () => {
+    const content = userName.trim();
+    if (editMode) {
+      updateUserName({ email, name: content });
+    }
+    setEditMode(!editMode);
+  };
+
   return (
     <>
       <PageTitle
@@ -83,13 +92,7 @@ const TitleContent = () => {
         )}
         {!editMode && "'s Universe"}
       </PageTitle>
-      <Button
-        variant="subtle"
-        compact
-        aria-label="edit button"
-        onClick={() => {
-          setEditMode(!editMode);
-        }}>
+      <Button variant="subtle" compact aria-label="edit button" onClick={clickEditIcon}>
         <IconPencil size={15} />
       </Button>
     </>
