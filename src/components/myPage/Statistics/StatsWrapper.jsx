@@ -1,4 +1,4 @@
-import { Paper, Title, Flex, Group } from '@mantine/core';
+import { Paper, Title, Flex, Group, Skeleton } from '@mantine/core';
 import { IconDeviceAnalytics } from '@tabler/icons-react';
 import styled from '@emotion/styled';
 import { Suspense } from 'react';
@@ -16,7 +16,7 @@ const StatsWrapper = ({ stats }) => (
         </Title>
         <Icon size="1.4rem" stroke={1.5} />
       </Group>
-      <Suspense>{stats}</Suspense>
+      <Suspense fallback={<Skeleton w="100%" h="100%" color="transparent" />}>{stats}</Suspense>
     </Flex>
   </Paper>
 );
