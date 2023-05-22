@@ -1,10 +1,10 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import axios from 'axios';
 import { modals } from '@mantine/modals';
 import { Title, Container, Flex, Button, Text } from '@mantine/core';
 import { userState, isLoginState } from '../../../recoil/atom';
 import { useUserQuery } from '../../../hooks/queries';
 import { showNotification } from '../../../utils';
+import { deleteUser } from '../../../api';
 
 const DELETE_ACCOUNT = '회원탈퇴';
 
@@ -15,9 +15,8 @@ const DeleteUser = () => {
 
   const submitWithdrawal = async () => {
     try {
-      const {
-        data: { isLogin, message },
-      } = await axios.delete(`/api/auth/withdrawal/${user}`);
+      const { isLogin, message } = await deleteUser(user);
+
       setUser(null);
       localStorage.removeItem('user');
       setIsLogin(isLogin);

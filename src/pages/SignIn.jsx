@@ -18,7 +18,7 @@ const SignIn = () => {
   const dark = colorScheme === 'dark';
 
   return (
-    <Flex justify="center" align="center" direction="column" mt={60}>
+    <Flex justify="center" align="center" direction="column" h="80vh" m="auto">
       <Button component={Link} to="/" w={90} h={90} variant="none">
         <Image src={`./assets/logos/universe${dark ? 'LogoWhite' : 'LogoBlack'}.svg`} alt="home button" />
       </Button>

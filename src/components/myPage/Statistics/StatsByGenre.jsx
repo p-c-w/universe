@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
 import ReactApexChart from 'react-apexcharts';
+import { Text, Group, useMantineColorScheme, RingProgress, Flex } from '@mantine/core';
 import { useStatsByGenre } from '../../../hooks/statistics';
 
 const StatsByGenre = () => {
@@ -35,7 +35,7 @@ const StatsByGenre = () => {
     <>
       <Group position="apart" mt={7}>
         <Text fz="lg" fw={700} align="left">
-          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz={'inherit'} span>
+          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz="inherit" span>
             {top3Genres[0]?.label}{' '}
           </Text>
           장르를 가장 많이 감상했어요.

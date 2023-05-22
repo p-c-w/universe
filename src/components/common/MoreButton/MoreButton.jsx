@@ -1,24 +1,10 @@
 import { Button, Text, ThemeIcon } from '@mantine/core';
 import { IconLayersLinked } from '@tabler/icons-react';
-import { modals } from '@mantine/modals';
-import { Suspense } from 'react';
-import { DetailModal, ModalSkeleton } from '..';
+import { useMediaQuery } from '@mantine/hooks';
+import { showDetailModal } from '../../../utils';
 
 const MoreButton = ({ id, type, pos, right, top }) => {
-  const DetailClick = () => {
-    modals.open({
-      centered: true,
-      withCloseButton: false,
-      size: 950,
-      padding: 0,
-      m: 0,
-      children: (
-        <Suspense fallback={<ModalSkeleton />}>
-          <DetailModal type={type} id={id} />
-        </Suspense>
-      ),
-    });
-  };
+  const bigScreen = useMediaQuery('(max-width: 125rem )');
 
   return (
     <Button
@@ -32,7 +18,9 @@ const MoreButton = ({ id, type, pos, right, top }) => {
       fw={400}
       title="더보기"
       aria-label="more"
-      onClick={DetailClick}>
+      onClick={() => {
+        showDetailModal(id, type, bigScreen);
+      }}>
       <Text fz="sm" c="white">
         더보기
       </Text>

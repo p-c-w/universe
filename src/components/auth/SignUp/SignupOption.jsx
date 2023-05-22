@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Grid, Button, Container, Flex } from '@mantine/core';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Grid, Button, Container, Flex } from '@mantine/core';
 import styled from '@emotion/styled';
-import { Typing, LogoBtn } from '.';
+import { Typing, Logo } from '.';
 import { showNotification } from '../../../utils';
+import { submitSubscribedOtt } from '../../../api';
 
 const GridCol = styled(Grid.Col)`
   text-align: center;
@@ -31,7 +31,7 @@ const SignupOption = ({ userInput, setUserInput }) => {
 
   const submitOption = async () => {
     try {
-      await axios.patch(`/api/users/${userInput}`, { subscribe_list: subscribedOtt });
+      submitSubscribedOtt(userInput, subscribedOtt);
 
       localStorage.removeItem('user');
       setUserInput(null);
@@ -40,18 +40,22 @@ const SignupOption = ({ userInput, setUserInput }) => {
     }
   };
 
-  const activeLogoGrid = () => setAnimationCompleted(true);
-
   return (
     <>
       <Typing str="Congratulation!🥳🎉" isLast={0} />
-      <Typing str="What OTT Services are you subscribing to?" isLast={1} onAnimationEnd={activeLogoGrid} />
+      <Typing
+        str="What OTT Services are you subscribing to?"
+        isLast={1}
+        setAnimationCompleted={() => {
+          setAnimationCompleted(true);
+        }}
+      />
       {animationCompleted && (
         <Container>
           <Grid columns={3} m={25} justify="center">
             {logos.map((logo, idx) => (
               <GridCol span={1} key={idx} display="flex">
-                <LogoBtn logo={logo} idx={idx} subscribedOtt={subscribedOtt} setSubscribedOtt={setSubscribedOtt} />
+                <Logo logo={logo} idx={idx} subscribedOtt={subscribedOtt} setSubscribedOtt={setSubscribedOtt} />
               </GridCol>
             ))}
           </Grid>

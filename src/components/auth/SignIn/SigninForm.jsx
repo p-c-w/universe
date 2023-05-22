@@ -1,14 +1,13 @@
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import styled from '@emotion/styled';
 import { Title, Flex, Input, PasswordInput, Button, TextInput, Text } from '@mantine/core';
 import { signInSchema } from '../../../schema/schema';
 import userState from '../../../recoil/atom/userState';
-
 import { showNotification } from '../../../utils';
+import { signIn } from '../../../api';
 
 const Form = styled.form`
   border: 1px solid ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.gray[7] : theme.colors.gray[2])};
@@ -33,7 +32,7 @@ const SigninForm = () => {
 
   const submitForm = async data => {
     try {
-      const { data: user } = await axios.post('/api/auth/signin', data);
+      const user = await signIn(data);
 
       setUser(user);
       navigate('/');
