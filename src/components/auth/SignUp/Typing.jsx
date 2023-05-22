@@ -27,8 +27,8 @@ const FirstTypeOut = styled.div`
   animation-delay: ${({ last }) => last && `calc(${last} * 1.5s);`};
 `;
 
-const Typing = ({ str, isLast, fontSize, onAnimationEnd }) => (
-  <FirstTypeOut last={isLast} fontSize={fontSize} onAnimationEnd={onAnimationEnd}>
+const Typing = ({ str, isLast, fontSize, setAnimationCompleted }) => (
+  <FirstTypeOut last={isLast} fontSize={fontSize} onAnimationEnd={setAnimationCompleted}>
     {str}
   </FirstTypeOut>
 );

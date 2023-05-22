@@ -1,5 +1,4 @@
 import { useRecoilValue } from 'recoil';
-import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Container, Title, Flex, Button } from '@mantine/core';
@@ -8,6 +7,7 @@ import { userState } from '../../../recoil/atom';
 import { ChangePwSchema } from '../../../schema/schema';
 import { Password } from '.';
 import { showNotification } from '../../../utils';
+import { changePassword } from '../../../api';
 
 const PASSWORD_CHANGE = '비밀번호 변경';
 
@@ -20,7 +20,7 @@ const EditPassword = () => {
 
   const SubmitForm = async data => {
     try {
-      const { data: message } = await axios.patch('/api/auth/changepw', { email, ...data });
+      const message = await changePassword(email, data);
       showNotification(true, PASSWORD_CHANGE, message);
 
       modals.closeAll();

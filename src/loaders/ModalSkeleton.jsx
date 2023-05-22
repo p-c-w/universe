@@ -13,5 +13,3 @@ const ModalSkeleton = () => (
 );
 
 export default ModalSkeleton;
-
-// loader로 이동

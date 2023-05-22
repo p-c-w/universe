@@ -46,7 +46,7 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
     }
   };
 
-  const clickContinueBtn = () => {
+  const clickContinueButton = () => {
     setStep(step + 1);
     setButtonActive(true);
   };
@@ -63,12 +63,12 @@ const SignupInput = ({ name, control, trigger, step, setStep }) => {
           error={error?.message !== 'Required' && error?.message}
           required={false}
           type={isPassword(name) ? 'password' : 'text'}
-          icon={isDirty && invalid && <IconX size="1rem" strokeWidth={2} />}
+          icon={isDirty && invalid && <IconX size={16} strokeWidth={2} />}
         />
         {isDirty && !invalid && (
           <ContinueButton
             type="button"
-            onClick={clickContinueBtn}
+            onClick={clickContinueButton}
             disabled={buttonActive}
             variant="outline"
             color="gray.5">
