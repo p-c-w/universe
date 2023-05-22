@@ -17,17 +17,14 @@ const Collection = ({ setImgSrc }) => {
     refetchOnWindowFocus: false,
   });
 
-  const { activePage, setActivePage, total, collection } = usePagination(userInfo.reverse());
+  const { activePage, setActivePage, total, collection } = usePagination(userInfo);
 
-  const collectionQueries = useCollectionQueries(collection, { enable: !!collection });
+  const collectionQueries = useCollectionQueries(collection, { enabled: !!collection });
 
-  const collectionList = collectionQueries.map(
-    ({ data }) =>
-      data !== undefined && {
-        ...data,
-        modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
-      }
-  );
+  const collectionList = collectionQueries.map(({ data }) => ({
+    ...data,
+    modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
+  }));
 
   const selectItem = e => {
     setSelectedItem(e);
