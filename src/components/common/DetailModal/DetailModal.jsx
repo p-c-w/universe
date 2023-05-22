@@ -72,7 +72,7 @@ const DetailModal = ({ id, type }) => {
         <Container w="100%" h={535} bg="dark.8" />
       )}
       <Body>
-        <Container m={bigScreen ? '2em' : '3em'} w="80%">
+        <Container m={bigScreen ? '2em' : '3em'} mr={0} w="80%">
           <Title order={smallScreen ? 1 : 2} mb="xs" mt="lg" fz="1.5em">
             {title || tvName}
           </Title>
@@ -81,7 +81,7 @@ const DetailModal = ({ id, type }) => {
               {originTitle || originName}
             </Title>
           )}
-          <Flex my="sm" direction="row" gap="xs" align="center" fz="1em">
+          <Flex my="sm" direction="row" gap="xs" align="center" fz="0.8em">
             <Text mr="xs">{relaseDate || firstAirDate}</Text>
             {runtime ? (
               <>
