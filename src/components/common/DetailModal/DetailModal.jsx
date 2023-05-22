@@ -63,7 +63,7 @@ const DetailModal = ({ id, type }) => {
   const providerIds = providers[0]?.providers;
 
   return (
-    <Container pos="relative" m={0} p={0} fluid fz={smallScreen ? '25px' : '17px'}>
+    <Container pos="relative" m={0} p={0} fluid fz={smallScreen ? '23px' : '20px'}>
       <Overlay c="balck" opacity={0.75} zIndex="1" w="100%" />
       <CloseButton />
       {backdropPath ? (
@@ -104,7 +104,7 @@ const DetailModal = ({ id, type }) => {
               <ActionIcons size={20} id={id} type={type} />
             </Suspense>
           </Flex>
-          <ScrollArea fw={300} w="100%" h={smallScreen ? '20vh' : '150px'} m={10}>
+          <ScrollArea fw={300} w="100%" h={smallScreen ? '20vh' : '200px'} m={10}>
             <Title my="xs" order={smallScreen ? 3 : 4} color="grey" italic fz="0.9em">
               {tagline}
             </Title>
