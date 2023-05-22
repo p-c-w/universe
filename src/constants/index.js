@@ -16,8 +16,7 @@ export {
   autoPlayDelay as AUTO_PLAY_DELAY,
 } from './durations';
 
-export { default as COLLECTION_BUTTON } from './collectionButtons';
-export { default as PAGE_LIMIT } from './collectionPageLimit';
+export { collectionButton as COLLECTION_BUTTON, collectionPageLimit as PAGE_LIMIT } from './collectionItems';
 
 export {
   userInfoQueryKey as USER_INFO_QUERY_KEY,

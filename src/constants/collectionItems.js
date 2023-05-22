@@ -1,4 +1,6 @@
-const collectionButton = [
+export const collectionPageLimit = 5;
+
+export const collectionButton = [
   {
     label: 'Watch',
     description: '이번달에 보고있거나 볼 컨텐츠',
@@ -15,5 +17,3 @@ const collectionButton = [
     color: 'blue',
   },
 ];
-
-export default collectionButton;
