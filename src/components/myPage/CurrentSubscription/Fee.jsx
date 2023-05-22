@@ -5,6 +5,7 @@ import { PROVIDERS } from '../../../constants';
 import { ProvidersInfo, Editor } from '.';
 
 const PresentSubscriptionFee = styled(Accordion)`
+  width: 100%;
   .mantine-Accordion-item {
     border-bottom: none;
   }

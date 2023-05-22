@@ -17,7 +17,7 @@ const Unsubscriptions = ({ subscribeList, watchList }) => {
   const unWatchedProviderIds = subscribeProviderIds?.filter(id => !watchProviderIds.includes(id));
 
   return (
-    <Box mt={16}>
+    <Box mt={16} w="100%">
       {subscribeProviderIds.length === 0 ? (
         <Title order={4} mb={10} fz={16}>
           현재 구독 중인 서비스가 없어요

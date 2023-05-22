@@ -6,7 +6,9 @@ import { Fee, Unsubscriptions } from '.';
 const StyledContainer = styled(Container)`
   background-color: ${({ theme }) => (theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[2])};
   border-radius: 0.5rem;
+  margin: 0;
   padding: 1rem;
+  width: 100%;
 `;
 
 const getUserInfo = userInfo => ({
