@@ -21,13 +21,12 @@ const Collection = ({ setImgSrc }) => {
 
   const collectionQueries = useCollectionQueries(collection, { enabled: !!collection });
 
-  const collectionList = collectionQueries.map(
-    ({ data }) =>
-      data !== undefined && {
-        ...data,
-        modified_at: collection.filter(item => item.id === data.id)[0].modified_at,
-      }
-  );
+  const allQueriesSucceeded = collectionQueries.every(result => result.isSuccess);
+
+  const collectionList = collectionQueries.map(({ data }) => ({
+    ...data,
+    modified_at: collection?.filter(item => item.id === data?.id)[0]?.modified_at,
+  }));
 
   const selectItem = e => {
     setSelectedItem(e);
@@ -42,9 +41,7 @@ const Collection = ({ setImgSrc }) => {
       ) : (
         <>
           <Accordion variant="separated" w="100%" onChange={selectItem} value={selectedItem} mb={10}>
-            {collectionList?.map(item => (
-              <Item key={item.id} item={item} />
-            ))}
+            {allQueriesSucceeded && collectionList?.map(item => <Item key={item.id} item={item} />)}
           </Accordion>
           <PaginationGoup total={total} activePage={activePage} setActivePage={setActivePage} />
         </>
