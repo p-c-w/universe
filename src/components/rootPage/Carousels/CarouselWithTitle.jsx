@@ -1,10 +1,14 @@
 import { Container, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
+import { useRecoilValue } from 'recoil';
 import { Slide } from '.';
 import { GENRES } from '../../../constants';
+import { sideNavState } from '../../../recoil/atom';
 
 const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) => {
   const { content } = fetchFn({ mediaType, selectedIds, genreId });
+  const isSideNavOpened = useRecoilValue(sideNavState);
+
   const isMovie = mediaType === 'movie';
   const headerTitle = title || GENRES[mediaType][genreId]?.name;
 
@@ -21,12 +25,20 @@ const CarouselWithTitle = ({ mediaType, selectedIds, title, genreId, fetchFn }) 
         nextControlLabel="next slide button"
         slidesToScroll={2}
         dragFree
-        breakpoints={[
-          { maxWidth: '110rem', slideSize: '20%' },
-          { maxWidth: '80rem', slideSize: '25%' },
-          { maxWidth: '60rem', slideSize: '33.3333%', slideGap: 'xs' },
-          { maxWidth: '48rem', slideSize: '50%', slideGap: 'xs' },
-        ]}>
+        breakpoints={
+          isSideNavOpened
+            ? [
+                { maxWidth: '120rem', slideSize: '20%' },
+                { maxWidth: '100rem', slideSize: '25%' },
+                { maxWidth: '80rem', slideSize: '33.3333%', slideGap: 'xs' },
+                { maxWidth: '60rem', slideSize: '50%', slideGap: 'xs' },
+              ]
+            : [
+                { maxWidth: '110rem', slideSize: '20%' },
+                { maxWidth: '80rem', slideSize: '25%' },
+                { maxWidth: '60rem', slideSize: '33.3333%', slideGap: 'xs' },
+              ]
+        }>
         {content?.map(
           ({
             id,
