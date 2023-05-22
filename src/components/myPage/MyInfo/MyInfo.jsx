@@ -4,6 +4,7 @@ import { Box, SimpleGrid, Skeleton } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { sideNavState } from '../../../recoil/atom';
 import { Statistics, CurrentSubscription, SuggestedSubscription } from '..';
+import { SuggestedSubscriptionSkeleton } from '../../../loaders';
 
 const MyInfo = () => {
   const largeScreen = useMediaQuery('(max-width: 75rem)');
@@ -17,16 +18,14 @@ const MyInfo = () => {
       spacing="xl"
       breakpoints={[{ maxWidth: '60rem', cols: 1 }]}>
       <Box>
-        <Suspense fallback={<Skeleton w={500} h="100%" />}>
+        <Suspense fallback={<SuggestedSubscriptionSkeleton />}>
           <SuggestedSubscription />
         </Suspense>
-        <Suspense fallback={<Skeleton w={500} h="100%" />}>
+        <Suspense fallback={<Skeleton w="100%" h={183} />}>
           <CurrentSubscription />
         </Suspense>
       </Box>
-      <Suspense fallback={<Skeleton w={500} h="100%" />}>
-        <Statistics />
-      </Suspense>
+      <Statistics />
     </SimpleGrid>
   );
 };
