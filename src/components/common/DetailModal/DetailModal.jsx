@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
+import { Modal, Image, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
 import { IconClockPlay } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
 import styled from '@emotion/styled';
@@ -21,12 +21,16 @@ const CloseButton = styled(Modal.CloseButton)`
   right: 1.25rem;
 `;
 
-const Body = styled(Grid)`
+const Body = styled(Flex)`
   z-index: 2;
   position: absolute;
   top: 0;
-  margin: 2.5rem;
   color: white;
+  padding: '2em';
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 `;
 
 const DetailModal = ({ id, type }) => {
@@ -49,8 +53,8 @@ const DetailModal = ({ id, type }) => {
     number_of_episodes: episodes,
   } = data;
 
-  const smallScreen = useMediaQuery('(min-width: 48rem)');
-  const midScreen = useMediaQuery('(min-width: 60rem)');
+  const bigScreen = useMediaQuery('(max-width: 125rem )');
+  const smallScreen = useMediaQuery('(min-width: 100rem )');
 
   const queries = useProviderQueries([{ id, type }]);
 
@@ -58,72 +62,200 @@ const DetailModal = ({ id, type }) => {
 
   const providerIds = providers[0]?.providers;
 
-  // css 수정 요망
-
   return (
-    <Container pos="relative" m={0} p={0}>
-      <Overlay c="#000" opacity={0.75} zIndex="1" />
+    <Container pos="relative" m={0} p={0} fluid fz={smallScreen ? '25px' : '17px'}>
+      <Overlay c="balck" opacity={0.75} zIndex="1" w="100%" />
       <CloseButton />
-      {backdropPath ? <Image src={`${TMDB_IMG_URL}/w780${backdropPath}`} /> : <Container w={950} h={535} bg="dark.5" />}
-      <Body columns={3}>
-        <Grid.Col span={2}>
-          <Container>
-            <Title order={midScreen ? 1 : 2} mb="xs" mt="lg">
-              {title || tvName}
+      {backdropPath ? (
+        <Image src={`${TMDB_IMG_URL}/w1280${backdropPath}`} />
+      ) : (
+        <Container w="100%" h={535} bg="dark.8" />
+      )}
+      <Body>
+        <Container m={bigScreen ? '2em' : '3em'} w="80%">
+          <Title order={smallScreen ? 1 : 2} mb="xs" mt="lg" fz="1.5em">
+            {title || tvName}
+          </Title>
+          {smallScreen && (
+            <Title order={2} mb="xs" fz="0.9em" mt="xs">
+              {originTitle || originName}
             </Title>
-            {midScreen && (
-              <Title order={3} mb="xs" mt="xs">
-                {originTitle || originName}
-              </Title>
+          )}
+          <Flex my="sm" direction="row" gap="xs" align="center" fz="1em">
+            <Text mr="xs">{relaseDate || firstAirDate}</Text>
+            {runtime ? (
+              <>
+                <IconClockPlay size={17} />
+                <Text>{convertRuntime(runtime)}</Text>
+              </>
+            ) : (
+              <Text>{seasons > 1 ? `시즌 ${seasons}개` : episodes ? `에피소드 ${episodes}개` : ''}</Text>
             )}
-            <Flex my="sm" direction="row" gap="xs" align="center">
-              <Text mr="xs">{relaseDate || firstAirDate}</Text>
-              {runtime ? (
-                <>
-                  <IconClockPlay size={17} />
-                  <Text>{convertRuntime(runtime)}</Text>
-                </>
-              ) : (
-                <Text>{seasons > 1 ? `시즌 ${seasons}개` : `에피소드 ${episodes}개`}</Text>
-              )}
+          </Flex>
+          <Flex justify="space-between" ml="lg">
+            <Flex maw={smallScreen ? '15vw' : '200px'} wrap="wrap" gap={5}>
+              {genreIds.map(({ id, name }) => (
+                <Badge color={genres[type][id].color} key={id}>
+                  {name}
+                </Badge>
+              ))}
             </Flex>
-            <Flex justify="space-between" ml="lg">
-              <Flex maw={200} wrap="wrap" gap={5}>
-                {genreIds.map(({ id, name }) => (
-                  <Badge color={genres[type][id].color} key={id}>
-                    {name}
-                  </Badge>
-                ))}
-              </Flex>
-              <Suspense>
-                <ActionIcons size={20} id={id} type={type} />
-              </Suspense>
-            </Flex>
-            <ScrollArea fw={300} fz="sm" w={midScreen ? 450 : 350} h={midScreen ? 240 : 150} m={10}>
-              <Title my="xs" w={450} order={midScreen ? 3 : 4} color="grey" italic>
-                {tagline}
-              </Title>
-              {overview}
-            </ScrollArea>
-          </Container>
-        </Grid.Col>
-        <Grid.Col span={1}>
-          <Flex direction="column" m={10} justify="center" align="center">
+            <Suspense>
+              <ActionIcons size={20} id={id} type={type} />
+            </Suspense>
+          </Flex>
+          <ScrollArea fw={300} w="100%" h={smallScreen ? '20vh' : '150px'} m={10}>
+            <Title my="xs" order={smallScreen ? 3 : 4} color="grey" italic fz="0.9em">
+              {tagline}
+            </Title>
+            <Text fz="0.7em"> {overview}</Text>
+          </ScrollArea>
+        </Container>
+        <Container m="2em">
+          <Flex direction="column" w="100%" justify="center" align="center">
             {posterPath ? (
-              <Image src={`${TMDB_IMG_URL}/w${smallScreen ? 342 : 185}${posterPath}`} />
+              <Image src={`${TMDB_IMG_URL}/w342${posterPath}`} />
             ) : (
               <Container bg="dark.7" w={smallScreen ? 230 : 185} h={smallScreen ? 354 : 280} p={0} />
             )}
-            <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
-              <Container display="flex">
-                <Badges providerIds={providerIds} spacing="xs" size={45} />
-              </Container>
+            <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10} display="flex">
+              <Badges providerIds={providerIds} spacing="xs" size={smallScreen ? 45 : 35} />
             </Container>
           </Flex>
-        </Grid.Col>
+        </Container>
       </Body>
     </Container>
   );
 };
 
 export default DetailModal;
+
+// import { Suspense } from 'react';
+// import { Modal, Image, Grid, Container, Title, Flex, Text, Overlay, ScrollArea, Badge } from '@mantine/core';
+// import { IconClockPlay } from '@tabler/icons-react';
+// import { useMediaQuery } from '@mantine/hooks';
+// import styled from '@emotion/styled';
+// import { useProviderQueries, useContentDetailQuery } from '../../../hooks/queries';
+// import { ActionIcons, Badges } from '..';
+// import genres from '../../../constants/genres';
+// import { TMDB_IMG_URL } from '../../../constants';
+
+// const convertRuntime = runtime => {
+//   const hours = Math.floor(runtime / 60);
+//   const minutes = runtime % 60;
+//   return `${hours}시간 ${minutes}분`;
+// };
+
+// const CloseButton = styled(Modal.CloseButton)`
+//   z-index: 999;
+//   position: absolute;
+//   top: 0.625rem;
+//   right: 1.25rem;
+// `;
+
+// const Body = styled(Grid)`
+//   z-index: 2;
+//   position: absolute;
+//   top: 0;
+//   margin: 2.5rem;
+//   color: white;
+// `;
+
+// const DetailModal = ({ id, type }) => {
+//   const { data } = useContentDetailQuery({ type, id });
+
+//   const {
+//     title,
+//     name: tvName,
+//     original_title: originTitle,
+//     original_name: originName,
+//     backdrop_path: backdropPath,
+//     poster_path: posterPath,
+//     overview,
+//     genres: genreIds,
+//     release_date: relaseDate,
+//     runtime,
+//     tagline,
+//     first_air_date: firstAirDate,
+//     number_of_seasons: seasons,
+//     number_of_episodes: episodes,
+//   } = data;
+
+//   const smallScreen = useMediaQuery('(min-width: 48rem)');
+//   const midScreen = useMediaQuery('(min-width: 60rem)');
+
+//   const queries = useProviderQueries([{ id, type }]);
+
+//   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
+
+//   const providerIds = providers[0]?.providers;
+
+//   // css 수정 요망
+
+//   return (
+//     <Container pos="relative" m={0} p={0}>
+//       <Overlay c="#000" opacity={0.75} zIndex="1" />
+//       <CloseButton />
+//       {backdropPath ? <Image src={`${TMDB_IMG_URL}/w780${backdropPath}`} /> : <Container w={950} h={535} bg="dark.5" />}
+//       <Body columns={3}>
+//         <Grid.Col span={2}>
+//           <Container>
+//             <Title order={midScreen ? 1 : 2} mb="xs" mt="lg">
+//               {title || tvName}
+//             </Title>
+//             {midScreen && (
+//               <Title order={3} mb="xs" mt="xs">
+//                 {originTitle || originName}
+//               </Title>
+//             )}
+//             <Flex my="sm" direction="row" gap="xs" align="center">
+//               <Text mr="xs">{relaseDate || firstAirDate}</Text>
+//               {runtime ? (
+//                 <>
+//                   <IconClockPlay size={17} />
+//                   <Text>{convertRuntime(runtime)}</Text>
+//                 </>
+//               ) : (
+//                 <Text>{seasons > 1 ? `시즌 ${seasons}개` : `에피소드 ${episodes}개`}</Text>
+//               )}
+//             </Flex>
+//             <Flex justify="space-between" ml="lg">
+//               <Flex maw={200} wrap="wrap" gap={5}>
+//                 {genreIds.map(({ id, name }) => (
+//                   <Badge color={genres[type][id].color} key={id}>
+//                     {name}
+//                   </Badge>
+//                 ))}
+//               </Flex>
+//               <Suspense>
+//                 <ActionIcons size={20} id={id} type={type} />
+//               </Suspense>
+//             </Flex>
+//             <ScrollArea fw={300} fz="sm" w={midScreen ? 450 : 350} h={midScreen ? 240 : 150} m={10}>
+//               <Title my="xs" w={450} order={midScreen ? 3 : 4} color="grey" italic>
+//                 {tagline}
+//               </Title>
+//               {overview}
+//             </ScrollArea>
+//           </Container>
+//         </Grid.Col>
+//         <Grid.Col span={1}>
+//           <Flex direction="column" m={10} justify="center" align="center">
+//             {posterPath ? (
+//               <Image src={`${TMDB_IMG_URL}/w${smallScreen ? 342 : 185}${posterPath}`} />
+//             ) : (
+//               <Container bg="dark.7" w={smallScreen ? 230 : 185} h={smallScreen ? 354 : 280} p={0} />
+//             )}
+//             <Container bg="rgba(71, 68, 68, 0.211)" w="100%" p={10}>
+//               <Container display="flex">
+//                 <Badges providerIds={providerIds} spacing="xs" size={45} />
+//               </Container>
+//             </Container>
+//           </Flex>
+//         </Grid.Col>
+//       </Body>
+//     </Container>
+//   );
+// };
+
+// export default DetailModal;
