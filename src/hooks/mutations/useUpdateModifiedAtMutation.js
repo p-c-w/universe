@@ -13,7 +13,12 @@ const useUpdateModifiedAtMutation = () => {
     onMutate({ list, id, value }) {
       return userInfo => ({
         ...userInfo,
-        [list]: userInfo[list].map(item => (item.id === id ? { ...item, modified_at: value } : item)),
+        [list]: userInfo[list]
+          .map(item => (item.id === id ? { ...item, modified_at: value } : item))
+          .sort(
+            (firstItem, secondItem) =>
+              new Date(firstItem.modified_at).getTime() - new Date(secondItem.modified_at).getTime()
+          ),
       });
     },
   });
