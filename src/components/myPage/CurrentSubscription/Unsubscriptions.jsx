@@ -19,12 +19,12 @@ const Unsubscriptions = ({ subscribeList, watchList }) => {
   return (
     <Box mt={16}>
       {subscribeProviderIds.length === 0 ? (
-        <Title order={5} mb={10} fz={16}>
+        <Title order={4} mb={10} fz={16}>
           현재 구독 중인 서비스가 없어요
         </Title>
       ) : unWatchedProviderIds.length !== 0 ? (
         <>
-          <Title order={5} mb={10} fz={16}>
+          <Title order={4} mb={10} fz={16}>
             구독하고 있지만 보고 있지 않아요
           </Title>
           {unWatchedProviderIds.length !== 0 && (
@@ -32,7 +32,7 @@ const Unsubscriptions = ({ subscribeList, watchList }) => {
           )}
         </>
       ) : (
-        <Title order={5} mb={10} fz={16}>
+        <Title order={4} mb={10} fz={16}>
           구독중인 모든 서비스를 사용하고 있어요
         </Title>
       )}

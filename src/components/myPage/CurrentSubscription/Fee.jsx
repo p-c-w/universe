@@ -34,7 +34,7 @@ const Fee = ({ subscribeList }) => {
           onClick={() => {
             setEditMode(false);
           }}>
-          <Title order={4} size={18}>
+          <Title order={3} size={18}>
             현재 나의 구독료
           </Title>
           <Text size={32}>₩{currentFee.toLocaleString()}</Text>

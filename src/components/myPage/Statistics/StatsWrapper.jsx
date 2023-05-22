@@ -11,7 +11,7 @@ const StatsWrapper = ({ stats }) => (
   <Paper withBorder p={40} pt="sm" radius="md" h="100%">
     <Flex direction="column" justify="center" h="100%">
       <Group align="center" position="apart">
-        <Title order={3} align="left" fz={20}>
+        <Title order={2} align="left" fz={20}>
           Universe 분석
         </Title>
         <Icon size="1.4rem" stroke={1.5} />
