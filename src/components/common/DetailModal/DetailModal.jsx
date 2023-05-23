@@ -57,9 +57,7 @@ const DetailModal = ({ id, type }) => {
   const bigScreen = useMediaQuery('(max-width: 125rem )');
   const smallScreen = useMediaQuery('(min-width: 100rem )');
 
-  const { queries, isAllSuccess } = useProviderQueries([{ id, type }]);
-
-  if (!isAllSuccess) return <ModalSkeleton />;
+  const { queries } = useProviderQueries([{ id, type }]);
 
   const providers = queries.map(({ data }) => data).filter(({ providers }) => providers !== undefined);
 
