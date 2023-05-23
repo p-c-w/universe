@@ -32,6 +32,7 @@ const GlobalFonts = styled(Global)`
     font-weight: 700;
     src: local('Spoqa Han Sans Neo Bold'), url(${boldEot}) format('embedded-opentype'),
       url(${boldWoff2}) format('woff2'), url(${boldWoff}) format('woff'), url(${boldOft}) format('truetype');
+    font-display: swap;
   }
 
   @font-face {
@@ -39,6 +40,7 @@ const GlobalFonts = styled(Global)`
     font-weight: 500;
     src: local('Spoqa Han Sans Neo Regular'), url(${mediumEot}) format('embedded-opentype'),
       url(${mediumWoff2}) format('woff2'), url(${mediumWoff}) format('woff'), url(${mediumOtf}) format('truetype');
+    font-display: swap;
   }
 
   @font-face {
@@ -46,6 +48,7 @@ const GlobalFonts = styled(Global)`
     font-weight: 400;
     src: local('Spoqa Han Sans Neo Light'), url(${lightEot}) format('embedded-opentype'),
       url(${regularWoff2}) format('woff2'), url(${regularWoff}) format('woff'), url(${regularOtf}) format('truetype');
+    font-display: swap;
   }
 
   @font-face {
@@ -53,6 +56,7 @@ const GlobalFonts = styled(Global)`
     font-weight: 300;
     src: local('Spoqa Han Sans Neo Light'), url(${regularEot}) format('embedded-opentype'),
       url(${lightWoff2}) format('woff2'), url(${lightWoff}) format('woff'), url(${lightOtf}) format('truetype');
+    font-display: swap;
   }
 
   @font-face {
@@ -60,6 +64,7 @@ const GlobalFonts = styled(Global)`
     font-weight: 100;
     src: local('Spoqa Han Sans Neo Thin'), url(${thinEot}) format('embedded-opentype'),
       url(${thinWoff2}) format('woff2'), url(${thinWoff}) format('woff'), url(${thinOtf}) format('truetype');
+    font-display: swap;
   }
 `;
 
