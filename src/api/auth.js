@@ -10,7 +10,7 @@ const checkVerify = async () => {
 };
 
 const signIn = async data => {
-  const { data: user } = await axios.post(`${VITE_CORS_SERVER_URL}${url}/signin`, data);
+  const { data: user } = await axios.post(`${VITE_CORS_SERVER_URL}${url}/signin`, data, { withCredentials: true });
   return user;
 };
 
@@ -23,7 +23,7 @@ const signUp = async data => {
 };
 
 const signOut = async () => {
-  const { data } = await axios.get(`${VITE_CORS_SERVER_URL}${url}/signout`);
+  const { data } = await axios.get(`${VITE_CORS_SERVER_URL}${url}/signout`, { withCredentials: true });
 
   return data.isLogin;
 };
