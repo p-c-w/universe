@@ -69,7 +69,7 @@ export const fetchSearchResult = async (mediaType, query) => {
 };
 
 export const fetchProvider = async (mediaType, id) => {
-  const res = await axios.get(`${API_URL + mediaType}/${id}/watch/providers`, {
+  const res = await axios.get(`${TMDB_API_URL + mediaType}/${id}/watch/providers`, {
     params: {
       api_key: VITE_TMDB_API_KEY,
     },
@@ -78,13 +78,13 @@ export const fetchProvider = async (mediaType, id) => {
 };
 
 export const fetchProviderAndDetail = async (mediaType, id) => {
-  const providerRes = await axios.get(`${API_URL + mediaType}/${id}/watch/providers`, {
+  const providerRes = await axios.get(`${TMDB_API_URL + mediaType}/${id}/watch/providers`, {
     params: {
       api_key: VITE_TMDB_API_KEY,
     },
   });
 
-  const DetailRes = await axios.get(`${API_URL + mediaType}/${id}`, {
+  const DetailRes = await axios.get(`${TMDB_API_URL + mediaType}/${id}`, {
     params: {
       api_key: VITE_TMDB_API_KEY,
       language,
