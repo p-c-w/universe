@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { IS_AUTHENTICATED_QUERY_KEY } from '../../constants';
 import { isLoginState, userState } from '../../recoil/atom';
+import { checkVerify } from '../../api';
 
 const staleTime = 1000;
 
@@ -12,11 +12,7 @@ const useAuthenticationQuery = () => {
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
   const { isSuccess, isFetched, data } = useQuery({
     queryKey: [IS_AUTHENTICATED_QUERY_KEY],
-    // api 파일 분리
-    queryFn: async () => {
-      const res = await axios('/api/auth/verify');
-      return res.data;
-    },
+    queryFn: checkVerify,
     staleTime,
     suspense: false,
     retry: false,
