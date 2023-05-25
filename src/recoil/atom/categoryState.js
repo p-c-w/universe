@@ -1,5 +1,6 @@
 import { atom, useSetRecoilState } from 'recoil';
 import selectedItemState from './selectedItemState';
+import { CATEGORY_STATE_KEY } from '../../constants';
 
 const useCloseItem = ({ onSet }) => {
   const setSelectedItem = useSetRecoilState(selectedItemState);
@@ -10,7 +11,7 @@ const useCloseItem = ({ onSet }) => {
 };
 
 const categoryState = atom({
-  key: 'categoryState',
+  key: CATEGORY_STATE_KEY,
   default: 'watch',
   effects: [useCloseItem],
 });

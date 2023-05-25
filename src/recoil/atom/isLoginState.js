@@ -1,16 +1,15 @@
 import { atom } from 'recoil';
-
-const key = 'isLoginState';
+import { IS_LOGIN_STATE_KEY } from '../../constants';
 
 const localStorageEffect = ({ onSet }) => {
   onSet(isLogin => {
-    localStorage.setItem(key, JSON.stringify(isLogin));
+    localStorage.setItem(IS_LOGIN_STATE_KEY, JSON.stringify(isLogin));
   });
 };
 
 const isLoginState = atom({
-  key,
-  default: JSON.parse(localStorage.getItem(key)) ?? false,
+  key: IS_LOGIN_STATE_KEY,
+  default: JSON.parse(localStorage.getItem(IS_LOGIN_STATE_KEY)) ?? false,
   effects: [localStorageEffect],
 });
 

@@ -1,16 +1,15 @@
 import { atom } from 'recoil';
-
-const key = 'sideNavState';
+import { SIDE_NAV_STATE_KEY } from '../../constants';
 
 const localStorageEffect = ({ onSet }) => {
   onSet(newState => {
-    localStorage.setItem(key, newState);
+    localStorage.setItem(SIDE_NAV_STATE_KEY, newState);
   });
 };
 
 const sideNavState = atom({
-  key,
-  default: JSON.parse(localStorage.getItem(key)) ?? false,
+  key: SIDE_NAV_STATE_KEY,
+  default: JSON.parse(localStorage.getItem(SIDE_NAV_STATE_KEY)) ?? false,
   effects: [localStorageEffect],
 });
 

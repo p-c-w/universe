@@ -1,7 +1,8 @@
 import { atom } from 'recoil';
+import { SELECTED_ITEM_STATE_KEY } from '../../constants';
 
 const selectedItemState = atom({
-  key: 'selectedItemState',
+  key: SELECTED_ITEM_STATE_KEY,
   default: null,
 });
 
