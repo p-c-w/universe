@@ -9,7 +9,7 @@ const localStorageEffect = ({ onSet }) => {
 
 const sideNavState = atom({
   key: SIDE_NAV_STATE_KEY,
-  default: JSON.parse(localStorage.getItem(SIDE_NAV_STATE_KEY)) ?? false,
+  default: JSON.parse(localStorage.getItem(SIDE_NAV_STATE_KEY) || 'false'),
   effects: [localStorageEffect],
 });
 

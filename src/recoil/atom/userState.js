@@ -9,7 +9,7 @@ const localStorageEffect = ({ onSet }) => {
 
 const userState = atom({
   key: USER_STATE_KEY,
-  default: JSON.parse(localStorage.getItem(USER_STATE_KEY)),
+  default: JSON.parse(localStorage.getItem(USER_STATE_KEY) || '{}'),
   effects: [localStorageEffect],
 });
 
