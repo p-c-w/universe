@@ -4,7 +4,7 @@ import { Grid, Button, Container, Flex } from '@mantine/core';
 import styled from '@emotion/styled';
 import { Typing, Logo } from '.';
 import { showNotification } from '../../../utils';
-import { submitSubscribedOtt } from '../../../api';
+import { updateSubscribeList } from '../../../api';
 
 const GridCol = styled(Grid.Col)`
   text-align: center;
@@ -25,13 +25,13 @@ const logos = [
   { name: 'universeLogoBlack' },
 ];
 
-const SignupOption = ({ userInput, setUserInput }) => {
+const SignupOption = ({ email, setUserInput }) => {
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [subscribedOtt, setSubscribedOtt] = useState([]);
 
   const submitOption = async () => {
     try {
-      submitSubscribedOtt(userInput, subscribedOtt);
+      updateSubscribeList({ email, newList: subscribedOtt });
 
       localStorage.removeItem('user');
       setUserInput(null);

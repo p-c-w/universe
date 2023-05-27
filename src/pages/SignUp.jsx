@@ -97,7 +97,7 @@ const SignUp = () => {
           {!userInput ? (
             <SignupForm setUserInput={setUserInput} />
           ) : (
-            <SignupOption userInput={userInput} setUserInput={setUserInput} />
+            <SignupOption email={userInput} setUserInput={setUserInput} />
           )}
         </FormContainer>
       </Flex>

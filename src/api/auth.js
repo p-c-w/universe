@@ -28,9 +28,6 @@ const signOut = async () => {
   return data.isLogin;
 };
 
-const submitSubscribedOtt = async (email, subscribedOtt) =>
-  axios.patch(`${VITE_CORS_SERVER_URL + url}/${email}`, { subscribe_list: subscribedOtt });
-
 const deleteUser = async user => {
   const {
     data: { isLogin, message },
@@ -48,4 +45,4 @@ const changePassword = async (email, data) => {
   return message;
 };
 
-export { checkVerify, signIn, signUp, signOut, submitSubscribedOtt, deleteUser, changePassword };
+export { checkVerify, signIn, signUp, signOut, deleteUser, changePassword };
