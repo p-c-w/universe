@@ -76,7 +76,7 @@ const SideNavBar = () => {
                     key={label}
                     role="button"
                     aria-label={label}
-                    onClick={() => category && setSelectedCategory(category)}>
+                    onClick={category ? () => setSelectedCategory(category) : undefined}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}

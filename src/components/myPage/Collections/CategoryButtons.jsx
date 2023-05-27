@@ -7,8 +7,10 @@ import { categoryState } from '../../../recoil/atom';
 const CategoryButtons = () => {
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
 
-  const changeCategory = (e, button) => {
-    if (`${e.target.textContent.toLowerCase()}` === selectedCategory) return;
+  const isSelected = ({ label }) => selectedCategory === `${label.toLowerCase()}`;
+
+  const changeCategory = button => {
+    if (isSelected(button)) return;
     setSelectedCategory(`${button.label.toLowerCase()}`);
   };
 
@@ -17,8 +19,8 @@ const CategoryButtons = () => {
       {COLLECTION_BUTTON.map(button => (
         <CategoryButton
           key={button.label}
-          onClick={e => changeCategory(e, button)}
-          selected={selectedCategory === `${button.label.toLowerCase()}`}
+          onClick={() => changeCategory(button)}
+          selected={isSelected(button)}
           {...button}>
           {button.label}
         </CategoryButton>
