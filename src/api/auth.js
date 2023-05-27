@@ -10,7 +10,7 @@ const checkVerify = async () => {
 };
 
 const signIn = async data => {
-  const { data: user } = await axios.post(`${VITE_CORS_SERVER_URL}${url}/signin`, data);
+  const { data: user } = await axios.post(`${VITE_CORS_SERVER_URL}${url}/signin`, data, { withCredentials: true });
   return user;
 };
 
@@ -23,7 +23,7 @@ const signUp = async data => {
 };
 
 const signOut = async () => {
-  const { data } = await axios.get(`${VITE_CORS_SERVER_URL}${url}/signout`);
+  const { data } = await axios.get(`${VITE_CORS_SERVER_URL}${url}/signout`, { withCredentials: true });
 
   return data.isLogin;
 };
@@ -34,13 +34,17 @@ const submitSubscribedOtt = async (email, subscribedOtt) =>
 const deleteUser = async user => {
   const {
     data: { isLogin, message },
-  } = await axios.delete(`${VITE_CORS_SERVER_URL}${url}/withdrawal/${user}`);
+  } = await axios.delete(`${VITE_CORS_SERVER_URL}${url}/withdrawal/${user}`, { withCredentials: true });
 
   return { isLogin, message };
 };
 
 const changePassword = async (email, data) => {
-  const { data: message } = await axios.patch(`${VITE_CORS_SERVER_URL}${url}/changepw`, { email, ...data });
+  const { data: message } = await axios.patch(
+    `${VITE_CORS_SERVER_URL}${url}/changepw`,
+    { email, ...data },
+    { withCredentials: true }
+  );
   return message;
 };
 
