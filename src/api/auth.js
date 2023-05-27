@@ -5,12 +5,12 @@ const url = `/api/auth`;
 const { VITE_CORS_SERVER_URL = '' } = import.meta.env;
 
 const checkVerify = async () => {
-  const res = await axios(`${VITE_CORS_SERVER_URL}${url}/verify`);
+  const res = await axios(`${VITE_CORS_SERVER_URL}${url}/verify`, { withCredentials: true });
   return res.data;
 };
 
 const signIn = async data => {
-  const { data: user } = await axios.post(`${VITE_CORS_SERVER_URL}${url}/signin`, data, { withCredentials: true });
+  const { data: user } = await axios.post(`${VITE_CORS_SERVER_URL}${url}/signin`, data);
   return user;
 };
 
@@ -23,7 +23,7 @@ const signUp = async data => {
 };
 
 const signOut = async () => {
-  const { data } = await axios.get(`${VITE_CORS_SERVER_URL}${url}/signout`, { withCredentials: true });
+  const { data } = await axios.get(`${VITE_CORS_SERVER_URL}${url}/signout`);
 
   return data.isLogin;
 };
