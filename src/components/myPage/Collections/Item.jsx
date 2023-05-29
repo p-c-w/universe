@@ -33,7 +33,7 @@ const Item = ({ item }) => {
       children: <ConfirmModal id={item.id} listName={selectedCategory} />,
     });
 
-    setSelectedItem(null);
+    setSelectedItem('');
   };
 
   return (

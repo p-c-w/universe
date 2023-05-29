@@ -6,7 +6,7 @@ const useCloseItem = ({ onSet }) => {
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
   onSet(() => {
-    setSelectedItem(null);
+    setSelectedItem('');
   });
 };
 

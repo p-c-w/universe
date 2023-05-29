@@ -17,7 +17,7 @@ const usePagination = data => {
   }, [selectedCategory]);
 
   useEffect(() => {
-    setSelectedItem(null);
+    setSelectedItem('');
   }, [activePage, setSelectedItem]);
 
   return { activePage, setActivePage, total, collection };
