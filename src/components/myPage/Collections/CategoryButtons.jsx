@@ -13,20 +13,21 @@ const CategoryButtons = () => {
 
   return (
     <Flex gap={12}>
-      {COLLECTION_BUTTON.map(({ label, description, color }) => (
-        <Tooltip key={label} label={description}>
-          <Button
-            radius="xl"
-            color={color}
-            variant={isSelected(label) ? 'filled' : 'light'}
-            onClick={() => {
-              setSelectedCategory(`${label.toLowerCase()}`);
-            }}
-            size={smallScreen ? 'xs' : 'sm'}>
-            {label}
-          </Button>
-        </Tooltip>
-      ))}
+      {selectedCategory &&
+        COLLECTION_BUTTON.map(({ label, description, color }) => (
+          <Tooltip key={label} label={description}>
+            <Button
+              radius="xl"
+              color={color}
+              variant={isSelected(label) ? 'filled' : 'light'}
+              onClick={() => {
+                setSelectedCategory(`${label.toLowerCase()}`);
+              }}
+              size={smallScreen ? 'xs' : 'sm'}>
+              {label}
+            </Button>
+          </Tooltip>
+        ))}
     </Flex>
   );
 };
