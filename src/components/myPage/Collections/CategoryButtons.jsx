@@ -9,19 +9,19 @@ const CategoryButtons = () => {
 
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
 
-  const isSelected = label => selectedCategory === `${label.toLowerCase()}`;
+  const isSelected = category => selectedCategory === category;
 
   return (
     <Flex gap={12}>
       {selectedCategory &&
-        COLLECTION_BUTTON.map(({ label, description, color }) => (
+        COLLECTION_BUTTON.map(({ label, category, description, color }) => (
           <Tooltip key={label} label={description}>
             <Button
               radius="xl"
               color={color}
-              variant={isSelected(label) ? 'filled' : 'light'}
+              variant={isSelected(category) ? 'filled' : 'light'}
               onClick={() => {
-                setSelectedCategory(`${label.toLowerCase()}`);
+                setSelectedCategory(category);
               }}
               size={smallScreen ? 'xs' : 'sm'}>
               {label}
