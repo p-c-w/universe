@@ -1,14 +1,14 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useEffect } from 'react';
 import { categoryState, selectedItemState } from '../recoil/atom';
 
 const useCategory = () => {
   const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
-  const setSelectedItem = useSetRecoilState(selectedItemState);
+  const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
 
   useEffect(() => {
-    setSelectedItem('');
-  }, [selectedCategory, setSelectedItem]);
+    if (selectedItem !== '') setSelectedItem('');
+  }, [selectedItem, selectedCategory, setSelectedItem]);
 
   return [selectedCategory, setSelectedCategory];
 };
