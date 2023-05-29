@@ -1,11 +1,11 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMantineColorScheme } from '@mantine/core';
 import { IconMovie, IconThumbUp, IconHistory, IconPlanet, IconLogout } from '@tabler/icons-react';
 import parse from 'html-react-parser';
-import { sideNavState, categoryState, isLoginState } from '../../../recoil/atom';
-import { useSignout } from '../../../hooks';
+import { sideNavState, isLoginState } from '../../../recoil/atom';
+import { useCategory, useSignout } from '../../../hooks';
 import { PCW_REPO_URL, SIDE_NAV_DURATION, TMDB_URL } from '../../../constants';
 
 const Nav = styled(Navbar)`
@@ -48,6 +48,7 @@ const tabs = [
     link: '/mypage',
     label: 'My Universe',
     icon: <IconPlanet size={16} />,
+    category: 'watch',
   },
   { link: '/mypage', label: 'Watch now', icon: <IconMovie size={16} />, category: 'watch', color: 'yellow' },
   { link: '/mypage', label: 'Like', icon: <IconThumbUp size={16} />, category: 'like', color: 'red' },
@@ -58,7 +59,7 @@ const SideNavBar = () => {
   const isLogin = useRecoilValue(isLoginState);
   const isOpened = useRecoilValue(sideNavState);
   const { colorScheme } = useMantineColorScheme();
-  const setSelectedCategory = useSetRecoilState(categoryState);
+  const [, setSelectedCategory] = useCategory();
 
   const signout = useSignout();
 
@@ -72,11 +73,7 @@ const SideNavBar = () => {
             {isLogin ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
-                  <Tab
-                    key={label}
-                    role="button"
-                    aria-label={label}
-                    onClick={category ? () => setSelectedCategory(category) : undefined}>
+                  <Tab key={label} role="button" aria-label={label} onClick={() => setSelectedCategory(category)}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}

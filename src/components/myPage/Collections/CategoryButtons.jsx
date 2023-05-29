@@ -1,30 +1,32 @@
-import { useRecoilState } from 'recoil';
-import { Flex } from '@mantine/core';
+import { Flex, Button, Tooltip } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { COLLECTION_BUTTON } from '../../../constants';
-import { CategoryButton } from '.';
-import { categoryState } from '../../../recoil/atom';
+import { useCategory } from '../../../hooks';
 
 const CategoryButtons = () => {
-  const [selectedCategory, setSelectedCategory] = useRecoilState(categoryState);
+  const smallScreen = useMediaQuery('(max-width: 48rem)');
 
-  const isSelected = ({ label }) => selectedCategory === `${label.toLowerCase()}`;
+  const [selectedCategory, setSelectedCategory] = useCategory();
 
-  const changeCategory = button => {
-    if (isSelected(button)) return;
-    setSelectedCategory(`${button.label.toLowerCase()}`);
-  };
+  const isSelected = category => selectedCategory === category;
 
   return (
     <Flex gap={12}>
-      {COLLECTION_BUTTON.map(button => (
-        <CategoryButton
-          key={button.label}
-          onClick={() => changeCategory(button)}
-          selected={isSelected(button)}
-          {...button}>
-          {button.label}
-        </CategoryButton>
-      ))}
+      {selectedCategory &&
+        COLLECTION_BUTTON.map(({ label, category, description, color }) => (
+          <Tooltip key={label} label={description}>
+            <Button
+              radius="xl"
+              color={color}
+              variant={isSelected(category) ? 'filled' : 'light'}
+              onClick={() => {
+                setSelectedCategory(category);
+              }}
+              size={smallScreen ? 'xs' : 'sm'}>
+              {label}
+            </Button>
+          </Tooltip>
+        ))}
     </Flex>
   );
 };

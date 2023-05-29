@@ -1,17 +1,18 @@
 import { useRef } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { IconLayersLinked, IconTrash } from '@tabler/icons-react';
 import { Text, Accordion, Tooltip, Button, ThemeIcon, Flex } from '@mantine/core';
 import { modals } from '@mantine/modals';
 import { useMediaQuery } from '@mantine/hooks';
-import { categoryState, selectedItemState } from '../../../recoil/atom';
+import { selectedItemState } from '../../../recoil/atom';
 import { ItemTitle, DateEditor, ConfirmModal } from '.';
 import { ActionIcons } from '../../common';
 import { showDetailModal } from '../../../utils';
+import { useCategory } from '../../../hooks';
 
 const Item = ({ item }) => {
   const iconTrashRef = useRef(null);
-  const selectedCategory = useRecoilValue(categoryState);
+  const [selectedCategory] = useCategory();
   const setSelectedItem = useSetRecoilState(selectedItemState);
 
   const bigScreen = useMediaQuery('(max-width: 125rem )');
@@ -33,7 +34,7 @@ const Item = ({ item }) => {
       children: <ConfirmModal id={item.id} listName={selectedCategory} />,
     });
 
-    setSelectedItem(null);
+    setSelectedItem('');
   };
 
   return (

@@ -6,8 +6,9 @@ import { DatePickerInput } from '@mantine/dates';
 import { Text, Flex, Badge } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconCalendar } from '@tabler/icons-react';
-import { categoryState, sideNavState, userState } from '../../../recoil/atom';
+import { sideNavState, userState } from '../../../recoil/atom';
 import { useUpdateModifiedAtMutation } from '../../../hooks/mutations';
+import { useCategory } from '../../../hooks';
 
 const EditButton = styled(Badge)`
   cursor: pointer;
@@ -22,7 +23,7 @@ const DateEditor = ({ id, date }) => {
 
   const isNavOpened = useRecoilValue(sideNavState);
   const email = useRecoilValue(userState);
-  const selectedCategory = useRecoilValue(categoryState);
+  const [selectedCategory] = useCategory();
   const [editMode, setEditMode] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date(date));
 
