@@ -1,15 +1,15 @@
 import { useRef } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { Accordion } from '@mantine/core';
-import { categoryState, selectedItemState } from '../../../recoil/atom';
+import { selectedItemState } from '../../../recoil/atom';
 import { useCollectionQueries, useUserQuery } from '../../../hooks/queries';
-import { usePagination } from '../../../hooks';
+import { useCategory, usePagination } from '../../../hooks';
 import { EmptyMessage, Item, PaginationGoup } from '.';
 import { TMDB_IMG_URL } from '../../../constants';
 import { CollectionSkeleton } from '../../../loaders';
 
 const Collection = ({ setImgSrc }) => {
-  const selectedCategory = useRecoilValue(categoryState);
+  const [selectedCategory] = useCategory();
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
   const imgUrl = useRef(null);
 

@@ -1,11 +1,11 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { Button, Group, Image, Navbar, Stack, Text, ThemeIcon, Transition, useMantineColorScheme } from '@mantine/core';
 import { IconMovie, IconThumbUp, IconHistory, IconPlanet, IconLogout } from '@tabler/icons-react';
 import parse from 'html-react-parser';
-import { sideNavState, categoryState, isLoginState } from '../../../recoil/atom';
-import { useSignout } from '../../../hooks';
+import { sideNavState, isLoginState } from '../../../recoil/atom';
+import { useCategory, useSignout } from '../../../hooks';
 import { PCW_REPO_URL, SIDE_NAV_DURATION, TMDB_URL } from '../../../constants';
 
 const Nav = styled(Navbar)`
@@ -59,7 +59,7 @@ const SideNavBar = () => {
   const isLogin = useRecoilValue(isLoginState);
   const isOpened = useRecoilValue(sideNavState);
   const { colorScheme } = useMantineColorScheme();
-  const setSelectedCategory = useSetRecoilState(categoryState);
+  const [, setSelectedCategory] = useCategory();
 
   const signout = useSignout();
 
