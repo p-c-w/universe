@@ -48,6 +48,7 @@ const tabs = [
     link: '/mypage',
     label: 'My Universe',
     icon: <IconPlanet size={16} />,
+    category: 'watch',
   },
   { link: '/mypage', label: 'Watch now', icon: <IconMovie size={16} />, category: 'watch', color: 'yellow' },
   { link: '/mypage', label: 'Like', icon: <IconThumbUp size={16} />, category: 'like', color: 'red' },
@@ -72,11 +73,7 @@ const SideNavBar = () => {
             {isLogin ? (
               <Stack spacing={0}>
                 {tabs.map(({ link, label, icon, color, category }) => (
-                  <Tab
-                    key={label}
-                    role="button"
-                    aria-label={label}
-                    onClick={category ? () => setSelectedCategory(category) : undefined}>
+                  <Tab key={label} role="button" aria-label={label} onClick={() => setSelectedCategory(category)}>
                     <CustomLink to={link}>
                       <ThemeIcon variant={dark ? 'filled' : 'light'} color={color}>
                         {icon}
