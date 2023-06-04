@@ -2,21 +2,20 @@
 
 <br>
 
-<p align="center">
+<div align="center">
   <picture>
     <source source media="(prefers-color-scheme: dark)" srcset="https://github.com/p-c-w/universe/assets/86090355/4774aab3-1ee3-4c4f-bde6-165beaeda980#gh-dark-mode-only" width="300" height="300" >
     <source media="(prefers-color-scheme: light)" srcset="https://github.com/p-c-w/universe/assets/86090355/1bbe3cef-dfa1-44d7-b444-799269d429c3#gh-light-mode-only" width="300" height="300" >
     <img src="https://github.com/p-c-w/universe/assets/86090355/1bbe3cef-dfa1-44d7-b444-799269d429c3#gh-light-mode-only" width="300" height="300" >
   </picture>
-</p>
 
 ### **Universe**
 
 ### 똑똑한 OTT 구독관리 서비스
 
 ### [💁‍♂️배포페이지✨](https://web-universe-lhe2bli2mj6vq.sel4.cloudtype.app/)
+</div>
 
-</p>
 
 <br>
 
@@ -33,14 +32,14 @@
 
 ### **팀원 소개**
 
-<center>
+<div align="center">
 
 |                                                       김동규(FE)                                                        |                                                        차윤슬(FE)                                                        |                                                        최인애(FE)                                                        |
 | :---------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://github.com/p-c-w/universe/assets/86090355/29941c7f-ac9b-4569-afd3-b87c7b04cbcf" style="width: 200px"> | <img src="https://github.com/p-c-w/universe/assets/117149045/3a2a9b1c-0095-4663-9975-759e11555504" style="width: 200px"> | <img src="https://github.com/p-c-w/universe/assets/112180368/dcb66d39-b41f-4a61-9fce-7a35a192ea35" style="width: 200px"> |
 |                                    **[🐕 김동규's github](https://github.com/5kdk)**                                    |                                 **[🐇 차윤슬's github](https://github.com/yunseul-dev)**                                 |                                   **[🐤 최인애's github](https://github.com/dev-CIA)**                                   |
 
-</center>
+</div>
 
 <br>
 
