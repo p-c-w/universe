@@ -25,7 +25,7 @@
 
 - **Universe**(유니버스) - 똑똑한 OTT 구독관리 서비스
 - **개발기간** : 2023.04.17 ~ 2023.05.04 (리팩토링 기한 제외)
-- [**데모 영상**]()
+- [**데모 영상**](https://youtu.be/mwvm2W9byCg)
 - [**협업 노션 페이지**](https://www.notion.so/Universe-bca3fa05d0444285a3a6dc42c93ac009)
 
 <br>
