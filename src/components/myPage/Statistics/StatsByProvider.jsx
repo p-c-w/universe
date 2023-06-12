@@ -68,7 +68,7 @@ const StatsByProvider = () => {
         </Text>
       </Group>
       <Text c="teal" fz="sm" fw={700} align="start">
-        {maxProvider}를 가장 많이 사용했어요.
+        {total === 0 ? '지금부터 컨텐츠를 감상해보세요!' : `${maxProvider}를 가장 많이 사용했어요.`}
       </Text>
       <ProgressLabel sections={segments} size={34} mt="md" />
       <SimpleGrid cols={3} breakpoints={[{ maxWidth: '40rem', cols: 2 }]} mt="md">
