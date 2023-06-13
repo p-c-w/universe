@@ -70,6 +70,9 @@ const StatsByProvider = () => {
       <Text c="teal" fz="sm" fw={700} align="start">
         {total === 0 ? '지금부터 컨텐츠를 감상해보세요!' : `${maxProvider}를 가장 많이 사용했어요.`}
       </Text>
+      <Text fz="xs" fw={300} align="left">
+        *여러곳에서 제공되는 경우, 가장 먼저 있는 업체 정보로 계산됩니다.
+      </Text>
       <ProgressBar sections={segments} size={34} mt="md" />
       <SimpleGrid cols={3} breakpoints={[{ maxWidth: '40rem', cols: 2 }]} mt="md">
         {descriptions}
