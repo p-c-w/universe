@@ -34,15 +34,23 @@ const StatsByGenre = () => {
   return (
     <>
       <Group position="apart" mt={7}>
-        <Text fz="lg" fw={700} align="left">
-          <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz="inherit" span>
-            {top3Genres[0]?.label}{' '}
+        {top3Genres.length === 0 ? (
+          <Text fz="lg" fw={700} align="left">
+            무슨 장르를 좋아하시는지 분석해드려요
           </Text>
-          장르를 가장 많이 감상했어요.
-        </Text>
+        ) : (
+          <Text fz="lg" fw={700} align="left">
+            <Text fw={900} c={dark ? 'violet.2' : 'violet.9'} fz="inherit" span>
+              {top3Genres[0]?.label}{' '}
+            </Text>
+            장르를 가장 많이 감상했어요.
+          </Text>
+        )}
       </Group>
       <Text c="teal" fz="sm" fw={700} align="start">
-        많이 시청한 장르 TOP3는 {top3Genres.map(({ label }) => label).join(', ')} 입니다.
+        {top3Genres.length === 0
+          ? '지금부터 컨텐츠를 감상해보세요!'
+          : `많이 시청한 장르 TOP3는 ${top3Genres.map(({ label }) => label).join(', ')} 입니다.`}
       </Text>
       <Flex justify="center" align="center" gap={0}>
         <Group position="center">
