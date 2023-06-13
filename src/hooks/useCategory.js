@@ -7,7 +7,7 @@ const useCategory = () => {
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
 
   useEffect(() => {
-    if (selectedItem !== '') setSelectedItem('');
+    if (selectedItem === '') setSelectedItem('');
   }, [selectedItem, selectedCategory, setSelectedItem]);
 
   return [selectedCategory, setSelectedCategory];
