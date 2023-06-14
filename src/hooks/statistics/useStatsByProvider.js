@@ -53,11 +53,9 @@ const defaultData = {
 const getCountByProvider = (providerId, providerIds) => providerIds?.filter(Id => Id === providerId).length;
 
 const getNewData = (providers, newTotal) => {
-  const providerIds = providers.flatMap(Ids => Ids.providers);
-
   const newData = defaultData.data
-    .map(item => ({ ...item, count: getCountByProvider(item.id, providerIds) }))
-    .map(item => ({ ...item, part: +((item.count / newTotal) * 100).toFixed() }));
+    .map(item => ({ ...item, count: getCountByProvider(item.id, providers) }))
+    .map(item => ({ ...item, part: item.count === 0 ? 0 : +((item.count / newTotal) * 100).toFixed() }));
   return newData;
 };
 
@@ -69,7 +67,7 @@ const useStatisticsByProvider = () => {
     enabled: !!newTotal,
   });
 
-  const providers = queries.map(({ data }) => data !== undefined && data);
+  const providers = queries.map(({ data }) => (data?.providers !== undefined ? data.providers[0] : []));
 
   const newData = useMemo(() => getNewData(providers, newTotal), [providers, newTotal]);
 

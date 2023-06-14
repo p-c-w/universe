@@ -2,7 +2,7 @@ import { Progress, Box, Text, Group, SimpleGrid, useMantineColorScheme } from '@
 import styled from '@emotion/styled';
 import { useStatsByProvider } from '../../../hooks/statistics';
 
-const ProgressLabel = styled(Progress)`
+const ProgressBar = styled(Progress)`
   .mantine-Progress-label {
     line-height: 1;
     font-size: ${({ theme }) => theme.fontSizes.sm};
@@ -68,9 +68,12 @@ const StatsByProvider = () => {
         </Text>
       </Group>
       <Text c="teal" fz="sm" fw={700} align="start">
-        {maxProvider}를 가장 많이 사용했어요.
+        {total === 0 ? '지금부터 컨텐츠를 감상해보세요!' : `${maxProvider}를 가장 많이 사용했어요.`}
       </Text>
-      <ProgressLabel sections={segments} size={34} mt="md" />
+      <Text fz="xs" fw={300} align="left">
+        *여러곳에서 제공되는 경우, 가장 먼저 있는 업체 정보로 계산됩니다.
+      </Text>
+      <ProgressBar sections={segments} size={34} mt="md" />
       <SimpleGrid cols={3} breakpoints={[{ maxWidth: '40rem', cols: 2 }]} mt="md">
         {descriptions}
       </SimpleGrid>
